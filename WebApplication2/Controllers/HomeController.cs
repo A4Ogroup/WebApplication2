@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using first.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebApplication2.Models;
 
-namespace WebApplication2.Controllers
+namespace first.Controllers
 {
     public class HomeController : Controller
     {
@@ -19,6 +19,19 @@ namespace WebApplication2.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        public IActionResult Category()
+        {
+            return View();
+        }
+        public IActionResult Course()
         {
             return View();
         }
