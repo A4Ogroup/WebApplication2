@@ -202,6 +202,12 @@
 ::-webkit-scrollbar {
     width: 8px;
 }
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
 /* Track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
@@ -216,96 +222,76 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
-
-* {
-    margin: 0;
-    padding: 0
-}
+   
 
 body {
-    background-color: #000
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+
+}
+
+.container {
+    height: 100vh;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    background-color: #fff;
+    position: relative;
+    height: 370px;
 }
 
 .card {
-    width: 350px;
-    background-color: #efefef;
+    width: 380px;
     border: none;
-    cursor: pointer;
-    transition: all 0.5s;
+    border-radius: 15px;
+    padding: 8px;
+    background-color: #fff;
+    position: relative;
+    height: 370px;
 }
 
-.image img {
-    transition: all 0.5s
+.upper {
+    height: 100px;
 }
 
-.card:hover .image img {
-    transform: scale(1.5)
+    .upper img {
+        width: 100%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+.user {
+    position: relative;
 }
 
-.btn {
-    height: 140px;
-    width: 140px;
-    border-radius: 50%
+.profile img {
+    height: 80px;
+    width: 80px;
+    margin-top: 2px;
 }
 
-.name {
-    font-size: 22px;
-    font-weight: bold
-}
-
-.idd {
-    font-size: 14px;
-    font-weight: 600
-}
-
-.idd1 {
-    font-size: 12px
-}
-
-.number {
-    font-size: 22px;
-    font-weight: bold
+.profile {
+    position: absolute;
+    top: -50px;
+    left: 38%;
+    height: 90px;
+    width: 90px;
+    border: 3px solid #fff;
+    border-radius: 50%;
 }
 
 .follow {
-    font-size: 12px;
-    font-weight: 500;
-    color: #444444
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 35px;
 }
 
-.btn1 {
-    height: 40px;
-    width: 150px;
-    border: none;
-    background-color: #000;
-    color: #aeaeae;
-    font-size: 15px
+.stats  {
+    font-size: 29px;
+    margin :20px;
 }
-
-.text span {
-    font-size: 13px;
-    color: #545454;
-    font-weight: 500
-}
-
-.icons i {
-    font-size: 19px
-}
-
-hr .new1 {
-    border: 1px solid
-}
-
-.join {
-    font-size: 14px;
-    color: #a0a0a0;
-    font-weight: bold
-}
-
-.date {
-    background-color: #ccc
-}
-
 
 
 
