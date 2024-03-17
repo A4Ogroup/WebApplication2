@@ -293,5 +293,62 @@ body {
     margin :20px;
 }
 
+header[role="banner"] {
+ 
 
 
+    display: block;
+    margin: 20px auto;
+}
+
+
+#navbar-primary.navbar-default {
+    background: transparent;
+    border: none;
+}
+.navbar-nav {
+    width: 100%;
+    text-align: center;
+}
+
+.li {
+    display: inline-block;
+    float: none;
+}
+
+.a{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+
+
+
+
+.how-section1 {
+    margin-top: -15%;
+    padding: 10%;
+}
+
+.how-section1 h4 {
+    color: #000000;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.how-section1 .subheading {
+    color: #3931af;
+    font-size: 20px;
+}
+
+.how-section1 .row {
+    margin-top: 10%;
+}
+
+.how-img {
+    text-align: center;
+}
+
+    .how-img img {
+        width: 80%;
+    }
