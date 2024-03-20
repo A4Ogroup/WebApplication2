@@ -352,3 +352,68 @@ header[role="banner"] {
     .how-img img {
         width: 80%;
     }
+
+
+
+
+.checkbox_collapse .panel.panel-default {
+    padding: 0px !important;
+    margin-bottom: 10px;
+    border-radius: 0px
+}
+
+    .checkbox_collapse .panel.panel-default span.circle {
+        width: 18px;
+        height: 18px;
+        position: relative;
+        border: 1px solid #ccc;
+        margin-right: 10px;
+        border-radius: 2px;
+        background-color: #fff;
+        display: inline-flex;
+        vertical-align: middle
+    }
+
+        .checkbox_collapse .panel.panel-default span.circle:after {
+            width: 25px;
+            content: "";
+            background: url(https://image.flaticon.com/icons/svg/64/64484.svg);
+            position: absolute;
+            left: 3px;
+            right: 0;
+            margin: 0 auto;
+            top: 4px;
+            z-index: 99999;
+            background-size: 10px;
+            height: 25px;
+            opacity: 0;
+            background-repeat: no-repeat
+        }
+
+    .checkbox_collapse .panel.panel-default a {
+        padding: 15px;
+        background-color: #009688;
+        color: #fff;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 14px;
+        text-transform: capitalize;
+        display: block;
+        border-radius: 5px
+    }
+
+        .checkbox_collapse .panel.panel-default a[aria-expanded="false"]:after {
+            display: none !important
+        }
+
+        .checkbox_collapse .panel.panel-default a[aria-expanded="false"] span:after {
+            opacity: 0
+        }
+
+        .checkbox_collapse .panel.panel-default a[aria-expanded="true"]:after {
+            display: none !important
+        }
+
+        .checkbox_collapse .panel.panel-default a[aria-expanded="true"] span:after {
+            opacity: 1
+        }
