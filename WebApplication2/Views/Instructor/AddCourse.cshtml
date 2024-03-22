@@ -1,0 +1,521 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Learn consult</title>
+
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+
+
+    <link href="~/css/site.css" rel="stylesheet">
+    <link href="~/css/site1.css" rel="stylesheet">
+    <link href="~/css/site2.css" rel="stylesheet">
+    <link href="~/css/site3.css" rel="stylesheet">
+    <link href="~/css/site4.css" rel="stylesheet">
+    <link href="~/css/StyleSheet.css" rel="stylesheet">
+
+
+</head>
+
+
+<body>
+
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <header class="">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    <h2><em>L</em>earn Consult</h2>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="nav-item" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Category
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="text-end pe-4 me-4 border-dark search-btn">
+                            <div class="search-form">
+                                <form method="post" action="index.html">
+                                    <div class="form-group">
+                                        <div class="d-flex">
+                                            <input type="search" class="form-control border-0 rounded-pill" name="search-input" value="" placeholder="Search Here" required="" />
+                                            <button><i class="fa fa-search btn"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../Views/Instructor/MyCourses.cshtml">
+                                My Courses
+                            </a>
+                        </li>
+
+
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="index.html">
+                                Add Course
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="../Laern consult project/login.html" class="nav-link" role="button" data-bs-toggle="button">Signout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../Laern consult project/signup.html" class="nav-link" role="button" data-bs-toggle="button">Profile</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <div class="banner header-text">
+        <div class="owl-banner owl-carousel">
+        </div>
+    </div>
+
+    <!-- <section id="contact" class="contact">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="contact_contant ">
+                    <div class="main_contact_text_area ">
+                        <div class="col-sm-8  no-padding">
+                            <div class="single_contant_left wow fadeInRight">
+                                <form action="#" id="formid"  >
+                                    <div class="row" style=" margin: 20px;">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="name" placeholder="course name" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="email" placeholder="course description" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style=" margin: 20px;">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="name" placeholder="topics covered" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <ul class=" dropdown">
+                                                    <a class="nav-item dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        SubCategory
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                    </ul>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style=" margin: 20px;">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <ul class=" dropdown">
+                                                    <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Language
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                    </ul>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <ul class=" dropdown">
+                                                    <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Level
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                    </ul>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style=" margin: 20px;">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="datetime" class="form-control" name="email" placeholder="last update" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <ul class=" dropdown">
+                                                    <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Platform
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                    </ul>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" style=" margin: 20px;">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="url" class="form-control" name="name" placeholder="link" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="time" class="form-control" name="email" placeholder="course duration" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style=" margin: 20px;">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="time" class="form-control" name="name" placeholder="average of video length" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <ul class=" dropdown">
+                                                        <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Price Status
+                                                        </a>
+                                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                            <li><a class="dropdown-item" href="#">Free</a></li>
+                                                            <li><a class="dropdown-item" href="#">Paid</a></li>
+
+                                                        </ul>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style=" margin: 20px;">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="file" class="form-control" name="name" placeholder="course profile" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" name="email" placeholder="instructor name" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="text-right">
+                                        <button value="send">
+                                        <input type="submit" value="SEND" class="btn btn-sm">
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> 
+    </div>
+    </div>
+    </section>-->
+
+
+    <div class="send-message">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Course Info</h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-form">
+                        <form id="contact" action="" method="post">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="course name" type="text" class="form-control" id="course name" placeholder="course name" required="">
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                <ul class=" dropdown">
+                                    <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        SubCategory
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </ul>
+                                </fieldset>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                <ul class=" dropdown">
+                                    <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Language
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </ul>
+                                </fieldset>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset >
+                                        
+                                        <input name="last update" type="date" class="form-control" id="last update" placeholder="last update" required="">
+                                        
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                <ul class=" dropdown">
+                                    <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Platform
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </ul>
+                                </fieldset>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="link " type="url" class="form-control" id="link " placeholder="link " required="">
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="instructor name" type="text" class="form-control" id="instructor name" placeholder="instructor name" required="">
+                                    </fieldset>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-form">
+                        <form id="contact" action="" method="post">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <fieldset>
+                                            <input name="course description" type="text" class="form-control" id="course description" placeholder="course description" required="">
+                                        </fieldset>
+                                    </div>
+
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <fieldset>
+                                            <input name="topics covered" type="text" class="form-control" id="topics covered" placeholder="topics covered" required="">
+                                        </fieldset>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+
+                                        <ul class=" dropdown">
+                                            <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Level
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            </ul>
+                                        </ul>
+
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                   <fieldset>
+
+                                        <ul class=" dropdown">
+                                            <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Price Status
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            </ul>
+                                        </ul>
+
+                                   </fieldset>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="course duration" type="time" class="form-control" id="course duration " placeholder="course duration" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="video length average" type="time" class="form-control" id="video length average" placeholder="video length average" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="course profile" type="file" class="form-control" id="course profile" placeholder="course profile" required="">
+                                    </fieldset>
+                                </div>
+                            
+                            </div>
+                        </form>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <button type="submit" id="contact" class="filled-button">Submit </button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer_area section_gap_top">
+                <div class="container">
+                    <div class="row single-footer-widget">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="copy_right_text">
+                                <p>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    All Copyrights &copy reserved
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="left-content">
+                                <ul class="social-icons">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+<!-- Additional Scripts -->
+<script src="~/js/site.js"></script>
+<script src="~/js/site1.js"></script>
+<script src="~/js/site2.js"></script>
+<script src="~/js/site3.js"></script>
+<script src="~/js/site4.js"></script>
+
+
+<script language="text/Javascript">
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+    function clearField(t) {                   //declaring the array outside of the
+        if (!cleared[t.id]) {                      // function makes it static and global
+            cleared[t.id] = 1;  // you could use true and false, but that's more typing
+            t.value = '';         // with more chance of typos
+            t.style.color = '#fff';
+        }
+    }
+</script>
+
+
+  </body>
+
+</html>
