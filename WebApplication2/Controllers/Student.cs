@@ -14,6 +14,10 @@ namespace first.Controllers
             //itsme
             return View();
         }
+        public IActionResult Review()
+        {
+            return View();
+        }
 
 
 
