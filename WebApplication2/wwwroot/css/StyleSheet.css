@@ -466,6 +466,32 @@ header[role="banner"] {
 
 
 
+.choices ul.choice {
+    text-align: center;
+}
 
+    .choices ul.choice li {
+        display: inline-block;
+        margin: 0px 2px;
+    }
+
+        .choices ul.choice li a {
+            width: 44px;
+            height: 44px;
+            display: inline-block;
+            line-height: 42px;
+            border: 1px solid #eee;
+            font-size: 15px;
+            font-weight: 700;
+            color: #121212;
+            transition: all .3s;
+        }
+
+            .choices ul.choice li a:hover,
+            .choices ul.choice li.active a {
+                background-color: #f33f3f;
+                border-color: #f33f3f;
+                color: #fff;
+            }
 
 
