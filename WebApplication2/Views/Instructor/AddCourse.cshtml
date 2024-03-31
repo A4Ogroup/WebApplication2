@@ -52,16 +52,16 @@
                 <div class="nav-item" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Category
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
+                        <!--   <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                   Category
+                               </a>
+                               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                   <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Action</a></li>
+                                   <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                                   <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li>
+                               </ul>
+                           </li>-->
 
                         <li class="text-end pe-4 me-4 border-dark search-btn">
                             <div class="search-form">
@@ -77,7 +77,7 @@
                         </li>
 
                         <li class="nav-item ">
-                            <a class="nav-link" href="../Views/Instructor/MyCourses.cshtml">
+                            <a class="nav-link" asp-controller="Instructor" asp-action="MyCourses">
                                 My Courses
                             </a>
                         </li>
@@ -85,16 +85,16 @@
 
 
                         <li class="nav-item ">
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" asp-controller="Instructor" asp-action="AddCourse">
                                 Add Course
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="../Laern consult project/login.html" class="nav-link" role="button" data-bs-toggle="button">Signout</a>
+                            <a asp-controller="Instructor" asp-action="Signout" class="nav-link" >Signout</a>
                         </li>
                         <li class="nav-item">
-                            <a href="../Laern consult project/signup.html" class="nav-link" role="button" data-bs-toggle="button">Profile</a>
+                            <a asp-controller="Instructor" asp-action="Profile" class="nav-link" >Profile</a>
                         </li>
                     </ul>
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace first.Controllers
+namespace WebApplication2.Controllers
 {
     public class Student : Controller
     {

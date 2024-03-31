@@ -57,12 +57,12 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Action</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li>
                             </ul>
                         </li>
 
@@ -82,10 +82,10 @@
 
 
                         <li class="nav-item">
-                            <a href="../Laern consult project/login.html" class="nav-link" role="button" data-bs-toggle="button">Signout</a>
+                            <a class="nav-link" asp-controller="Student" asp-action="Signout">Signout</a>
                         </li>
                         <li class="nav-item">
-                            <a href="../Laern consult project/signup.html" class="nav-link" role="button" data-bs-toggle="button">Profile</a>
+                            <a class="nav-link" asp-controller="student" asp-action="Profile">Profile</a>
                         </li>
                     </ul>
 

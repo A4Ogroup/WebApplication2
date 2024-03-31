@@ -1,8 +1,8 @@
-﻿using first.Models;
+﻿using WebApplication2.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace first.Controllers
+namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {

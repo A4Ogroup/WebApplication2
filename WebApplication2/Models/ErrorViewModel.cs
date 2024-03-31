@@ -1,4 +1,4 @@
-namespace first.Models
+namespace WebApplication2.Models
 {
     public class ErrorViewModel
     {

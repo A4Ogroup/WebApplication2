@@ -58,12 +58,12 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Action</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li>
                             </ul>
                         </li>
 
@@ -79,10 +79,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="../templatemo_546_sixteen_clothing/login.html" class="nav-link" role="button" data-bs-toggle="button">Login</a>
+                            <a asp-controller="home" asp-action="Login" class="nav-link" role="button" data-bs-toggle="button">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a href="../templatemo_546_sixteen_clothing/signup.html" class="nav-link" role="button" data-bs-toggle="button">Sign Up</a>
+                            <a asp-controller="home" asp-action="Sign up" class="nav-link" role="button" data-bs-toggle="button">Sign Up</a>
                         </li>
                     </ul>
 
@@ -139,7 +139,7 @@
                                     <h6>Last update</h6>
                                      <h6>Platform</h6>
                                     <h6><a href="http://www.youtube.com">link</a></h6>
-                                    <button class="btn btn-light " style="margin-top:20px;"> Review </button>
+                                    <a class="btn btn-light " asp-controller="Student" asp-action="Review" style="margin-top:20px;"> Review </a>
                                 </div>
 
                        

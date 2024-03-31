@@ -63,35 +63,35 @@
                           Category
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="#">Action</a></li>
-                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                          <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Action</a></li>
+                          <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                          <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li>
                         </ul>
                       </li>
 
-                       <li class="text-end pe-4 me-4 border-dark search-btn">
+                        <li class="text-end pe-4 me-4 border-dark search-btn">
                             <div class="search-form">
                                 <form method="post" action="index.html">
                                     <div class="form-group">
                                         <div class="d-flex">
-                                            <input type="search" class="form-control border-0 rounded-pill" name="search-input" value="" placeholder="Search Here" required=""/>
-                                            <button type="submit" value="Search Now!" class="btn"><i class="fa fa-search text-dark"></i></button>
+                                            <input type="search" class="form-control border-0 rounded-pill" name="search-input" value="" placeholder="Search Here" required="" />
+                                            <button><i class="fa fa-search btn"></i></button>
                                         </div>
                                     </div>
-                                </form> 
-                            </div> 
-                      </li> 
+                                </form>
+                            </div>
+                        </li>
 
-                      <li class="nav-item ">
+                        <li class="nav-item ">
                         <a class="nav-link" href="index.html">For Instructors
                         </a>
                       </li> 
               
                       <li class="nav-item">
-                        <a href="../templatemo_546_sixteen_clothing/login.html" class="nav-link" role="button" data-bs-toggle="button">Login</a>
+                            <a asp-controller="home" asp-action="Login" class="nav-link" role="button" data-bs-toggle="button">Login</a>
                       </li>
                       <li class="nav-item">
-                        <a href="../templatemo_546_sixteen_clothing/signup.html" class="nav-link" role="button" data-bs-toggle="button">Sign Up</a>
+                            <a asp-controller="home" asp-action="Sign up" class="nav-link" role="button" data-bs-toggle="button">Sign Up</a>
                       </li>
                     </ul>
          
@@ -120,16 +120,16 @@
 
 
                    <div class="container-fluid" >
-                        <a class="newlink" href="index.html">Subcategory  </a>
+                                <a class="newlink" asp-controller="home" asp-action="Category">Subcategory  </a>
                    </div>
                    <div class="container-fluid" >
-                        <a class="newlink" href="index.html">Subcategory  </a>
+                                <a class="newlink" asp-controller="home" asp-action="Category">Subcategory  </a>
                    </div>
                    <div class="container-fluid" >
-                        <a class="newlink" href="index.html">Subcategory  </a>
+                                <a class="newlink" asp-controller="home" asp-action="Category">Subcategory  </a>
                    </div>
                      <div class="container-fluid" >
-                        <a class="newlink" href="index.html">Subcategory  </a>
+                                <a class="newlink" asp-controller="home" asp-action="Category">Subcategory  </a>
                    </div>
 
                     </div>
@@ -151,7 +151,7 @@
                                     <br>This is the course description
                                     <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
                                     <br>
-                                    <br><button class="btn btn-light "> Review </button>
+                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>
                                   </td>
                                   <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
                                   <td class="price text-right">Free</td>
@@ -164,7 +164,7 @@
                                     <br>This is the course description
                                     <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
                                     <br>
-                                    <br><a  class="btn btn-light " > Review </a>
+                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>
                                   </td>
                                   <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
                                   <td class="price text-right">Free</td>
@@ -177,7 +177,7 @@
                                     <br>This is the course description
                                     <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
                                     <br>
-                                    <br><button class="btn btn-light "> Review </button>
+                                   <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>
                                   </td>
                                   <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
                                   <td class="price text-right">Free</td>
@@ -190,7 +190,7 @@
                                     <br>This is the course description
                                     <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
                                     <br>
-                                    <br><button class="btn btn-light "> Review </button>
+                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>
                                   </td>
                                   <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
                                   <td class="price text-right">Free</td>
@@ -203,7 +203,7 @@
                                     <br>This is the course description
                                     <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
                                     <br>
-                                    <br><button class="btn btn-light "> Review </button>
+                                  <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>
                                   </td>
                                   <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
                                   <td class="price text-right">Free</td>
@@ -216,7 +216,7 @@
                                     <br>This is the course description
                                     <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
                                     <br>
-                                    <br><button class="btn btn-light " > Review </button>
+                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>
                                   </td>
                                   <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
                                   <td class="price text-right">Free</td>
@@ -229,7 +229,7 @@
                                     <br>This is the course description
                                     <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
                                     <br>
-                                    <br><button class="btn btn-light "> Review </button>
+                                     <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>
                                   </td>
                                   <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
                                   <td class="price text-right">Free</td>
@@ -242,7 +242,7 @@
                                     <br>This is the course description
                                     <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
                                     <br>
-                                    <br><button class="btn btn-light "> Review </button>
+                                  <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>
                                   </td>
                                   <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
                                   <td class="price text-right">Free</td>
