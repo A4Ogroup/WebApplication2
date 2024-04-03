@@ -12,7 +12,7 @@ namespace WebApplication2.Models
             Reviews = new HashSet<Review>();
         }
 
-        public string AddedByUserId { get; set; }
+        public string AddedByUserId { get; set; }= Guid.NewGuid().ToString();
         public int CourseId { get; set; }
         public string CourseDescription { get; set; }
         public string TopicsCovered { get; set; }
@@ -23,7 +23,7 @@ namespace WebApplication2.Models
         public byte? Level { get; set; }
         public bool? PriceStatus { get; set; }
         public DateTime? LastUpdate { get; set; }
-        public DateTime? AddingDate { get; set; }
+        public DateTime? AddingDate { get; set; }= DateTime.Now;
         public string Picture { get; set; }
         public int? AverageRating { get; set; }
         public bool? Claimed { get; set; }
