@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication2.Models;
 
@@ -11,9 +12,10 @@ using WebApplication2.Models;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(LconsultDBContext))]
-    partial class LconsultDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240405001259_enums")]
+    partial class enums
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,8 +89,8 @@ namespace WebApplication2.Migrations
                         .HasColumnType("tinyint")
                         .HasColumnName("categoryID");
 
-                    b.Property<bool?>("Claimed")
-                        .HasColumnType("bit")
+                    b.Property<int?>("Claimed")
+                        .HasColumnType("int")
                         .HasColumnName("claimed");
 
                     b.Property<string>("CourseDescription")
@@ -136,8 +138,8 @@ namespace WebApplication2.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasColumnName("platform");
 
-                    b.Property<bool?>("PriceStatus")
-                        .HasColumnType("bit")
+                    b.Property<int?>("PriceStatus")
+                        .HasColumnType("int")
                         .HasColumnName("priceStatus");
 
                     b.Property<bool?>("Status")

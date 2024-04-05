@@ -2,6 +2,8 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using WebApplication2.Helpers;
+using WebApplication2.Helpers.Enums;
 
 namespace WebApplication2.Models
 {
@@ -12,6 +14,7 @@ namespace WebApplication2.Models
             Reviews = new HashSet<Review>();
         }
 
+        public string? Name;
         public string AddedByUserId { get; set; }= Guid.NewGuid().ToString();
         public int CourseId { get; set; }
         public string CourseDescription { get; set; }
@@ -20,7 +23,7 @@ namespace WebApplication2.Models
         public int? SubcategoryId { get; set; }
         public string Platform { get; set; }
         public int? LanguageId { get; set; }
-        public byte? Level { get; set; }
+        public Level Level { get; set; }
         public bool? PriceStatus { get; set; }
         public DateTime? LastUpdate { get; set; }
         public DateTime? AddingDate { get; set; }= DateTime.Now;
