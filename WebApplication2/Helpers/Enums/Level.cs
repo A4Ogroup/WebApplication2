@@ -3,7 +3,7 @@
 
     public enum Level
     {
-
+        All,
         Begginer,
         Intermediate,
         Advance,

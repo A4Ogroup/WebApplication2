@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using WebApplication2.Helpers;
 using WebApplication2.Helpers.Enums;
 
@@ -14,28 +15,30 @@ namespace WebApplication2.Models
             Reviews = new HashSet<Review>();
         }
 
-        public string? Name;
-        public string AddedByUserId { get; set; }= Guid.NewGuid().ToString();
+        public string? Title { get; set; }
+        public string AddedByUserId { get; set; }//= Guid.NewGuid().ToString();
         public int CourseId { get; set; }
-        public string CourseDescription { get; set; }
-        public string TopicsCovered { get; set; }
+        public string? CourseDescription { get; set; }
+        public string? TopicsCovered { get; set; }
         public byte? CategoryId { get; set; }
         public int? SubcategoryId { get; set; }
-        public string Platform { get; set; }
+        public string? Platform { get; set; }
         public int? LanguageId { get; set; }
-        public Level Level { get; set; }
+
+        [Required]
+        public Level? Level { get; set; }
         public bool? PriceStatus { get; set; }
         public DateTime? LastUpdate { get; set; }
         public DateTime? AddingDate { get; set; }= DateTime.Now;
-        public string Picture { get; set; }
+        public string? Picture { get; set; }
         public int? AverageRating { get; set; }
         public bool? Claimed { get; set; }
         public bool? Status { get; set; }
-        public string InstructorId { get; set; }
-        public string InstructorFullName { get; set; }
-        public string VedioLenght { get; set; }
-        public string CourseDuration { get; set; }
-        public string Link { get; set; }
+        public string? InstructorId { get; set; }
+        public string? InstructorFullName { get; set; }
+        public int? VedioLenght { get; set; }
+        public int? CourseDuration { get; set; }
+        public string? Link { get; set; }
 
         public virtual User AddedByUser { get; set; }
         public virtual Instructor Instructor { get; set; }

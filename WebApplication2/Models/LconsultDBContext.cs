@@ -301,7 +301,7 @@ namespace WebApplication2.Models
                 entity.Property(e => e.CategoryId).HasColumnName("categoryID");
 
                 entity.Property(e => e.SubName)
-                    .HasMaxLength(30)
+                    .HasMaxLength(60)
                     .HasColumnName("subName");
 
                 entity.HasOne(d => d.Category)

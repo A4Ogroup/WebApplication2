@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@model AddCourseViewModel
+
+
+@{
+    SelectList CategoriesList = new SelectList(ViewBag.Categories, "CategoryId", "CategoryName");
+}
+
+<!DOCTYPE 
+
+html>
 <html lang="en">
 
 <head>
@@ -14,6 +23,11 @@
 
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+   <link href="~/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet">
+   <link href="~/lib/" rel="stylesheet">
+   
+
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" rel="stylesheet">-->
 
 
 
@@ -131,20 +145,31 @@
                                     </fieldset>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12 col-sm-12">
+                               @*  <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
-                                <ul class=" dropdown">
-                                    <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        SubCategory
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </ul>
-                                </fieldset>
-                                </div>
+                                        <select asp-for="SubcategoryId"class="form-control selectpicker" id="subcategorySelect">
+                                            <option value="">Select a Subcategory</option>
+                                            <option value="">Select a Subcategory</option>
+                                            <option value="">Select a Subcategory</option>
+                                             @foreach (var subcategory in Model.Subcategories)
+                                            {
+                                                <option value="@subcategory.Id">@subcategory.Name</option>
+                                            } 
+                                        </select>
+                                    </fieldset>
+
+                                </div> *@
+                               <fieldset>
+                                    <div class="form-group mb-4">
+                                        @* <label class="mr-sm-2" asp-for="CategoryId"></label> *@
+                                        <select asp-for="CategoryId" asp-items="CategoriesList" class="form-select mr-sm-2" id="">
+                                            <option value="-1">Category &#9660;</option>
+                                            @* <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option> *@
+                                        </select>
+                                    </div>
+                                    </fieldset>
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
@@ -338,7 +363,7 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
+  <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
 
 <!-- Additional Scripts -->
 <script src="~/js/site.js"></script>
@@ -348,6 +373,11 @@
 <script src="~/js/site4.js"></script>
 
 
+    <script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
 <script language="text/Javascript">
     cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
     function clearField(t) {                   //declaring the array outside of the

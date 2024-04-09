@@ -31,6 +31,7 @@ namespace WebApplication2.Controllers
         }
         public IActionResult AddCourse()
         {
+            ViewBag.Categories= _context.Categories;
             return View();
         }
     }
