@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication2.Models;
 
@@ -11,9 +12,10 @@ using WebApplication2.Models;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(LconsultDBContext))]
-    partial class LconsultDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240408204109_modifying course level to allow nulls")]
+    partial class modifyingcourseleveltoallownulls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,7 +121,7 @@ namespace WebApplication2.Migrations
                         .HasColumnType("date")
                         .HasColumnName("lastUpdate");
 
-                    b.Property<int>("Level")
+                    b.Property<int?>("Level")
                         .HasColumnType("int")
                         .HasColumnName("level");
 
@@ -363,8 +365,8 @@ namespace WebApplication2.Migrations
                         .HasColumnName("categoryID");
 
                     b.Property<string>("SubName")
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
                         .HasColumnName("subName");
 
                     b.HasKey("SubId");
