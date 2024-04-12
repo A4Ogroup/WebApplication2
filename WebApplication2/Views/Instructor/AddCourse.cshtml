@@ -38,6 +38,36 @@ html>
     <link href="~/css/site4.css" rel="stylesheet">
     <link href="~/css/StyleSheet.css" rel="stylesheet">
 
+        #subcategoriesList .dropdown-item {
+            padding: 10px;
+            cursor: pointer; /* make it clear items are clickable */
+        }
+
+            #subcategoriesList .dropdown-item:hover {
+                background-color: #f0f0f0; /* hover effect for better user experience */
+            }
+
+
+
+        option {
+            background: white; /* Option background */
+            color: black;
+        }
+        .custom-select {
+            appearance: none; /* this is important to remove default select arrow */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+            font-size: 1rem;
+            border: 1px solid gray;
+            border-radius: 0.25rem;
+            line-height: 1.5;
+            background-color: #fff;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h12L6 12z" fill="%23FF0000"/></svg>'), linear-gradient(to bottom, #ffffff 0%,#e9ecef 100%);
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 12px 12px;
+        }
 
 </head>
 
@@ -159,30 +189,49 @@ html>
                                     </fieldset>
 
                                 </div> *@
+
+
+
+
+
+
+
+
+                                <!-- category dropdown region -->
                                <fieldset>
                                     <div class="form-group mb-4">
-                                        @* <label class="mr-sm-2" asp-for="CategoryId"></label> *@
-                                        <select asp-for="CategoryId" asp-items="CategoriesList" class="form-select mr-sm-2" id="">
-                                            <option value="-1">Category &#9660;</option>
-                                            @* <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option> *@
+        <select id="categoriesDropdown" asp-for="CategoryId" asp-items="CategoriesList" onchange="updateSubcategories(this.value)" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+            <option value="-1">Select a Category &#9660;</option>
                                         </select>
                                     </div>
                                     </fieldset>
-
+                                <!-- subcategory dropdown region -->
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
-                                <ul class=" dropdown">
-                                    <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Language
+                                        <div class="dropdown  form-group mb-4 "style=" border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+            <a class="dropdown-toggle form-control" id="dropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Select a Subcategory
                                     </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <ul id="subcategoriesList" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <!-- Dynamic subcategory items will be added here -->
                                     </ul>
-                                </ul>
+        </div>
+                                        <input type="hidden" asp-for="SubcategoryId" id="selectedSubcategoryId"  />
+        
+    </fieldset>
+ </div>
+
+
+
+
+                                <!-- language dropdown region -->
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <div class="form-group mb-4">
+                                        <select id="languageDropdown" asp-for="LanguageId" asp-items="LanguageList"  style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                            <option value="-1">Select Course Language &#9660;</option>
+                                        </select>
+                                    </div>
                                 </fieldset>
                                 </div>
 
@@ -371,9 +420,67 @@ html>
 <script src="~/js/site2.js"></script>
 <script src="~/js/site3.js"></script>
 <script src="~/js/site4.js"></script>
-
-
     <script>
+        $(document).ready(function () {
+            // Handle subcategory selection and update the display and hidden input
+            $(document).on('click', '#subcategoriesList .dropdown-item', function () {
+                var selectedText = $(this).text();
+                var selectedValue = $(this).data('value');
+
+                $('#dropdownMenuLink').text(selectedText); // Update dropdown link text
+                $('#selectedSubcategoryId').val(selectedValue); // Update hidden input value
+            });
+        });
+
+        function updateSubcategories(categoryId) {
+            // Always clear the current subcategories and the selected subcategory display and value
+            $('#subcategoriesList').empty();
+            $('#dropdownMenuLink').text('Select a Subcategory'); // Reset the button text
+            $('#selectedSubcategoryId').val(''); // Clear the hidden input value
+
+            if (categoryId && categoryId != "-1") { // Check if a valid category is selected
+                $.ajax({
+                    url: '@Url.Action("GetSubcategories", "Instructor")', // Ensure this matches your MVC routing setup
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { categoryId: categoryId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $.each(data, function (i, item) {
+                                $('<li>')
+                                    .addClass('dropdown-item')
+                                    .data('value', item.subId)
+                                    .text(item.subName)
+                                    .appendTo('#subcategoriesList');
+                            });
+                        } else {
+                            // Optionally, handle when there are no subcategories
+                            $('<li>')
+                                .addClass('dropdown-item')
+                                .text('No subcategories available')
+                                .appendTo('#subcategoriesList');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("An error occurred: " + error);
+                        // Optionally, update UI to reflect the error state
+                        $('#dropdownMenuLink').text('Error loading subcategories');
+                    }
+                });
+            } else {
+                // If the selected category ID is the default or invalid, clear and show default message
+                $('<li>')
+                    .addClass('dropdown-item')
+                    .text('Select a category first')
+                    .appendTo('#subcategoriesList');
+            }
+        }
+    </script>
+   
+
+
+
+   @*  <script>
         $(document).ready(function () {
             $('.selectpicker').selectpicker();
         });

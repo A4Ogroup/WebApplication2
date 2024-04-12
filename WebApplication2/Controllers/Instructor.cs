@@ -9,8 +9,15 @@ namespace WebApplication2.Controllers
         public Instructor(LconsultDBContext context) {
             _context = context;
 
-        }
+        public async Task<IActionResult> GetSubcategories(int categoryId)
+        {
+            var subcategories = await _context.SubCategories
+                .Where(s => s.CategoryId == categoryId)
+                .Select(s => new { s.SubId, s.SubName })
+                .ToListAsync();
 
+            return Json(subcategories);
+        }
         public IActionResult test()
         {
            string provider= _context.Courses.FirstOrDefault().Platform?.ToString()??"NA";
