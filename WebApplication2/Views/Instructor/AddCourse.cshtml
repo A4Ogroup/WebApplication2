@@ -52,7 +52,12 @@ html>
         option {
             background: white; /* Option background */
             color: black;
+            cursor: pointer;
         }
+
+            option:after {
+                background-color: #f0f0f0; /* hover effect for better user experience */
+            }
         .custom-select {
             appearance: none; /* this is important to remove default select arrow */
             -webkit-appearance: none;
@@ -188,15 +193,17 @@ html>
 
     <div class="send-message">
         <div class="container">
+            <form asp-controller="Instructor" id="contact" asp-action="Addcourse" method="post">
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
                         <h2>Course Info</h2>
                     </div>
                 </div>
+
                 <div class="col-md-6">
                     <div class="contact-form">
-                        <form asp-controller="Instructor"id="contact" asp-action="Addcourse" method="post">
+                       
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
@@ -259,7 +266,7 @@ html>
                                 <fieldset>
                                     <div class="form-group mb-4">
                                         <select id="languageDropdown" asp-for="LanguageId" asp-items="LanguageList"  style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
-                                            <option value="-1">Select Course Language &#9660;</option>
+                                            <option  value="-1">Select Course Language &#9660;</option>
                                         </select>
                                     </div>
                                 </fieldset>
@@ -269,15 +276,20 @@ html>
 
 
 
-
+                                <!-- Last Update   region -->
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset >
                                         
-                                        <input name="last update" type="date" class="form-control" id="last update" placeholder="last update" >
+                                        <input asp-for="LastUpdate" type="date" class="form-control" id="lastupdate" placeholder="Course last update" >
                                         
                                     </fieldset>
                                 </div>
+
+
+
+
+
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
@@ -294,108 +306,143 @@ html>
                                 </fieldset>
                                 </div>
 
+
+
+                                <!-- Coourse link    region -->
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
                                         <input name="link " type="url" class="form-control" id="link " placeholder="link " >
                                     </fieldset>
                                 </div>
 
+
+
+
+
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
-                                        <input name="instructor name" type="text" class="form-control" id="instructor name" placeholder="instructor name" >
+                                        <input  name="instructor name" type="text" class="form-control" id="instructorname" placeholder="Instructor Full Name" >
                                     </fieldset>
                                 </div>
                                 
                             </div>
-                            <fieldset>
-                                <button type="submit" id="contact" class="filled-button">Submit </button>
-                            </fieldset>
-                        </form>
+                           
+                       @*  </form> *@
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="contact-form">
-                        <form id="contact" action="" method="post">
+                       @*  <form id="contact" action="" method="post"> *@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
 
 
+
+
+
+
+
+                                    <!-- course Description   region -->
+
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <fieldset>
-                                            <input name="course description" type="" class="form-control" id="course description" placeholder="course description" required="">
+                                            <div class="form-group">
+                                                <textarea asp-for="CourseDescription" class="form-control" rows="3" placeholder="Course Description..."></textarea>
+                                            </div>
                                         </fieldset>
                                     </div>
 
 
+
+
+
+                                    <!-- course topics covered   region -->
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <fieldset>
-                                            <input name="topics covered" type="text" class="form-control" id="topics covered" placeholder="topics covered" required="">
+                                            <input asp-for="TopicsCovered" type="text" class="form-control" id="topicsCovered" placeholder="topics covered" >
                                         </fieldset>
                                     </div>
 
 
                                 </div>
+
+
+
+
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                                                 
                                 </div>
+
+
+
+
+
+
+
+
+                                <!-- course Level   region -->
+
+
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
+                                        <div class="form-group mb-4">
+                                            <select id="leveldropdown" asp-for="Level" asp-items="Html.GetEnumSelectList<Level>()" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                                <option value="-1"> Level &#9660;</option>
+                                            </select>
+                                        </div>
+                                    </fieldset>
+                                </div>
 
-                                        <ul class=" dropdown">
-                                            <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Level
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                            </ul>
-                                        </ul>
 
+
+
+
+
+
+                                <!-- course price status   region -->
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <div class="form-group mb-4">
+                                            <select id="pricestatusdropdown" asp-for="PriceStatus"  style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                                <option value="-1"> Price Status &#9660;</option>
+                                                <option value="0"> Paid</option>
+                                                <option value="1"> Free</option>
+                                            </select>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+
+
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="course duration" type="time" class="form-control" id="course duration " placeholder="course duration" >
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                   <fieldset>
-
-                                        <ul class=" dropdown">
-                                            <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Price Status
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                            </ul>
-                                        </ul>
-
-                                   </fieldset>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
-                                        <input name="course duration" type="time" class="form-control" id="course duration " placeholder="course duration" required="">
+                                        <input name="video length average" type="time" class="form-control" id="video length average" placeholder="video length average">
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
-                                        <input name="video length average" type="time" class="form-control" id="video length average" placeholder="video length average" required="">
-                                    </fieldset>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-                                        <input name="course profile" type="file" class="form-control" id="course profile" placeholder="course profile" required="">
+                                        <input name="course profile" type="file" class="form-control" id="course profile" placeholder="course profile" >
                                     </fieldset>
                                 </div>
                             
                             </div>
-                        </form>
-                        <div class="col-lg-12">
-                            <fieldset>
-                                <button type="submit" id="contact" class="filled-button">Submit </button>
-                            </fieldset>
-                        </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <button type="submit" id="contact" class="filled-button">Submit </button>
+                                </fieldset>
+
+                            </div>
+                         </form> 
+                       
                     </div>
+                    @* </form> *@
                 </div>
             </div>
             <footer class="footer_area section_gap_top">
