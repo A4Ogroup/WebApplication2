@@ -9,7 +9,7 @@
            _context = context;
         }
         public Course GetById(int id)
-        {
+        { 
             return _context.Courses.FirstOrDefault(C=>C.CourseId==id);
         }
         public IEnumerable<Course> GetAll()

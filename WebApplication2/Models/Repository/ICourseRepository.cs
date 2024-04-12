@@ -1,4 +1,6 @@
-﻿namespace WebApplication2.Models.Repository
+﻿using WebApplication2.ViewModels;
+
+namespace WebApplication2.Models.Repository
 {
     public interface ICourseRepository
     {
