@@ -3,9 +3,9 @@
 
     public enum Level
     {
-        All,
-        Begginer,
-        Intermediate,
-        Advance,
+        All=1,
+        Begginer=2,
+        Intermediate=3,
+        Advance=4,
     }
 }

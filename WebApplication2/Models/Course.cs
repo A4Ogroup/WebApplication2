@@ -36,7 +36,7 @@ namespace WebApplication2.Models
         public bool? Status { get; set; }
         public string? InstructorId { get; set; }
         public string? InstructorFullName { get; set; }
-        public int? VedioLenght { get; set; }
+        public VideoLengthCategory? VedioLenght { get; set; }
         public int? CourseDuration { get; set; }
         public string? Link { get; set; }
 

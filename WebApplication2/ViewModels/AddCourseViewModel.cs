@@ -32,7 +32,7 @@ namespace WebApplication2.ViewModels
         //public string InstructorId { get; set; }
         //public string InstructorFullName { get; set; }
         [DisplayName("Average Video Length")]
-        public int? VedioLength { get; set; }
+        public VideoLengthCategory? VedioLength { get; set; }
         [DisplayName("Course Total Hours")]
         public int? CourseDuration { get; set; }
         public string? Link { get; set; }
