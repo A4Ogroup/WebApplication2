@@ -29,6 +29,18 @@ namespace WebApplication2.Controllers
 
             return Json(subcategories);
         }
+
+        
+        //[HttpGet]
+        //public async Task<JsonResult> GetProviders(string search)
+        //{
+        //    var providers =await _context.Courses
+        //        .Where(p => p.Platform.Contains(search))  // Implement more complex search logic if necessary
+        //        .Select(p => p.Platform).Distinct()
+        //        .ToListAsync();
+
+        //    return  Json(providers);
+        //}
         public IActionResult test()
         {
            string provider= _context.Courses.FirstOrDefault().Platform?.ToString()??"NA";
@@ -103,6 +115,10 @@ namespace WebApplication2.Controllers
             }
 
             return uniqeFileName;
+        }
+        public IActionResult InputPartial()
+        {
+            return PartialView("_topicsInputPartialView");
         }
     }
 }

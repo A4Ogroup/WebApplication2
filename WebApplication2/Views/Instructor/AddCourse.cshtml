@@ -21,6 +21,7 @@ html>
 
     <title>Learn consult</title>
 
+   
 
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
@@ -37,7 +38,7 @@ html>
     <link href="~/css/StyleSheet.css" rel="stylesheet">
     <style>
 
-       
+
         #subcategoriesList .dropdown-item {
             padding: 5px;
             cursor: pointer; /* make it clear items are clickable */
@@ -193,7 +194,7 @@ html>
 
     <div class="send-message">
         <div class="container">
-            <form enctype="multipart/form-data" asp-controller="Instructor" id="contact" asp-action="Addcourse" method="post">
+            <form enctype="multipart/form-data" asp-controller="Instructor" id="addCourseDynamicForm" asp-action="Addcourse" method="post">
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
@@ -286,12 +287,28 @@ html>
                                     </fieldset>
                                 </div>
 
+                                
 
 
-
-
+                                @* <div class="form-group dropdown">
+                                    <label for="providerInput" class="control-label">Provider</label>
+                                    <input type="text" id="providerInput" name="Provider" class="form-control" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div id="providerList" class="dropdown-menu" aria-labelledby="providerInput" style="width: 100%;"></div>
+                                </div> *@
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
+                                    
+                                    <fieldset>
+
+                                            <input asp-for="Platform" type="text" class="form-control" id="providerInput"  placeholder="Platform" >
+                                        
+                                      
+                                    </fieldset>
+                                   
+                                </div>
+
+
+                               @*  <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
                                 <ul class=" dropdown">
                                     <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -304,7 +321,7 @@ html>
                                     </ul>
                                 </ul>
                                 </fieldset>
-                                </div>
+                                </div> *@
 
 
 
@@ -352,16 +369,22 @@ html>
                                         </fieldset>
                                     </div>
 
-
+                                    <div id="inputContainer" class="col-lg-12 col-md-12 col-sm-12">
+                                        <!-- Render initial input field via partial view -->
+                                        @Html.Partial("_topicsInputPartialView")
+                                       
+                                    </div>
+                                    <button type="button" onclick="addInput()" class="btn btn-default">+</button>
+                                    <textarea asp-for="TopicsCovered" hidden></textarea>
 
 
 
                                     <!-- course topics covered   region -->
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @* <div class="col-lg-12 col-md-12 col-sm-12">
                                         <fieldset>
                                             <input asp-for="TopicsCovered" type="text" class="form-control" id="topicsCovered" placeholder="topics covered" >
                                         </fieldset>
-                                    </div>
+                                    </div> *@
 
 
                                 </div>
@@ -582,7 +605,68 @@ html>
             }
         }
     </script>
-   
+
+   @*  <script>
+        $(document).ready(function () {
+            $("#providerInput").on("input", function () {
+                var input = $(this).val();
+                var dropdownMenu = $("#providerList");
+                if (input.length > 1) {  // Trigger AJAX call when user has typed two or more characters
+                    $.ajax({
+                        url: '@Url.Action("GetProviders", "Instructor")',  // Adjust controller and action names
+                        data: { search: input },
+                        success: function (data) {
+                            dropdownMenu.empty();
+                            if (data.length > 0) {
+                                data.forEach(function (item) {
+                                    dropdownMenu.append(`<button class="dropdown-item" type="button" onclick="setProvider('${item}')">${item}</button>`);
+                                });
+                                dropdownMenu.dropdown('show');
+
+                            } else {
+                                dropdownMenu.append('<button class="dropdown-item" type="button">No results found</button>');
+                                dropdownMenu.dropdown('show');
+                               // $("#providerList").append('<a href="#" class="list-group-item">No results found</a>');
+                            }
+                        }
+                    });
+                } else {
+                    dropdownMenu.empty();
+                    dropdownMenu.dropdown('hide');
+                }
+            });
+        });
+
+        function setProvider(name) {
+            $("#providerInput").val(name);
+            $("#providerList").dropdown('hide');
+        }
+    </script> *@
+
+   <script>
+
+
+        function addInput() {
+            fetch('@Url.Action("InputPartial", "Instructor")')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('inputContainer').insertAdjacentHTML('beforeend', html);
+                });
+
+
+
+
+
+        }
+
+
+        document.getElementById('addCourseDynamicForm').addEventListener('submit', function (event) {
+            var inputs = document.querySelectorAll('input[name="dynamicInput"]');
+            var concatenatedInputs = Array.from(inputs).map(input => input.value).join(';');
+            document.getElementById('@Html.IdFor(m => m.TopicsCovered)').value = concatenatedInputs;
+        });
+   </script>
+
 
 
 
