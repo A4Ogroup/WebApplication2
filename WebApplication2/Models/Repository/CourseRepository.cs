@@ -1,6 +1,6 @@
 ﻿namespace WebApplication2.Models.Repository
 {
-    
+   
     public class CourseRepository : ICourseRepository
     {
         LconsultDBContext _context;

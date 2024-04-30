@@ -1,20 +1,30 @@
 ﻿using WebApplication2.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly LconsultDBContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,LconsultDBContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
+            var categoryList = _context.Categories.Select(C => new
+            {
+                C.CategoryId,
+                C.CategoryName
+            }).ToList();
+            ViewBag.Categories = categoryList;
             return View();
         }
 
