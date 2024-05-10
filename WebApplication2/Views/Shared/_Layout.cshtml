@@ -56,9 +56,12 @@
                                 Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Action</a></li>
-                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
-                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li>
+                                @foreach (var category in ViewBag.Categories)
+                                {
+                                    <li><a class="dropdown-item" asp-controller="home" asp-action="Category">@category.CategoryName</a></li>
+                                }
+                @*                 <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li> *@
                             </ul>
                         </li>
 
