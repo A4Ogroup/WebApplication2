@@ -1,18 +1,4 @@
-﻿@inject LconsultDBContext _context
-
-@{
-    var CategoriesList = _context.Categories.Select(C => new
-    {
-        C.CategoryId,
-        C.CategoryName
-    }).ToList();
-    //var CategoriesList = new SelectList(, "CategoryId", "CategoryName");
-
-
-}
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -70,12 +56,9 @@
                                 Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @* @foreach (var category in CategoriesList)
-                                {
-                                    <li><a class="dropdown-item" asp-controller="home" asp-action="Category">@category.CategoryName</a></li>
-                                } *@
-                                <li><a class="dropdown-item" asp-controller="home" asp-action="category">another action</a></li>
-                                <li><a class="dropdown-item" asp-controller="home" asp-action="category">something else here</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Action</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li>
                             </ul>
                         </li>
 
@@ -113,11 +96,11 @@
     </header>
 
 
-  
+    <div>
             @RenderBody()
 
 
-
+</div>
     <footer class="footer_area section_gap_top">
         <div class="container">
             <div class="row single-footer-widget">
