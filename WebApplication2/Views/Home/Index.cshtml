@@ -1,7 +1,105 @@
-﻿
-@{
-    Layout = "_Layout";
-}
+﻿@* <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Learn consult</title>
+
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" >
+
+
+
+    <link href="~/css/site.css" rel="stylesheet">
+    <link href="~/css/site1.css" rel="stylesheet">
+    <link href="~/css/site2.css" rel="stylesheet">
+    <link href="~/css/site3.css" rel="stylesheet">
+    <link href="~/css/site4.css" rel="stylesheet">
+
+
+  </head> 
+
+  <body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+         
+          <a class="navbar-brand" href="index.html">
+            <h2 ><em>L</em>earn Consult</h2>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="nav-item" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Category
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     @foreach (var category in ViewBag.Categories)
+                                {
+                                    <li><a class="dropdown-item" asp-controller="home" asp-action="Category">@category.CategoryName</a></li>
+                                }
+                   <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                  <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li> 
+                </ul>
+              </li>
+
+                     <li class="text-end pe-4 me-4 border-dark search-btn">
+                            <div class="search-form">
+                                <form method="post" action="index.html">
+                                    <div class="form-group">
+                                        <div class="d-flex">
+                                            <input type="search" class="form-control border-0 rounded-pill" name="search-input" value="" placeholder="Search Here" required=""/>
+                                            <button><i class="fa fa-search btn"></i></button>
+                                        </div>
+                                    </div>
+                                </form> 
+                            </div> 
+              </li> 
+
+              <li class="nav-item ">
+                <a class="nav-link" asp-controller="home" asp-action="ForInstructor">
+                                For Instructors
+                </a>
+              </li> 
+              
+              <li class="nav-item">
+                            <a asp-controller="home" asp-action="Login" class="nav-link" >Login</a>
+              </li>
+              <li class="nav-item">
+                            <a asp-controller="home" asp-action="SignUp" class="nav-link" >Sign Up</a>
+              </li>
+            </ul>
+         
+            </div>
+          </div>
+        
+      </nav>
+    </header> *@
+
     <!-- Page Content -->
     <!-- Banner Starts Here -->
     <div class="banner header-text">
@@ -24,16 +122,16 @@
           <div class="col-md-12">
             <div class="section-heading">
               <h2>Top Courses</h2>
-              <a asp-controller="home" asp-action="course">view all courses <i class="fa fa-angle-right"></i></a>
+              <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
           <div class="col-md-4">
             <div class="product-item">
               <a href="#"><img src="~/images/product_01.jpg" alt=""></a>
               <div class="down-content">
-                <a href="#"><h4>Title</h4></a>
-               @*  <h6>@Model.PriceStatus</h6>
-                <p>@Model.CourseDescription</p> *@
+                <a href="#"><h4>Tittle goes here</h4></a>
+                <h6>Free</h6>
+                <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
                 <ul class="stars">
                   <li><i class="fa fa-star"></i></li>
                   <li><i class="fa fa-star"></i></li>
