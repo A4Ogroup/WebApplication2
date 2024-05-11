@@ -19,12 +19,12 @@ namespace WebApplication2.Controllers
 
         public IActionResult Index()
         {
-            var categoryList = _context.Categories.Select(C => new
-            {
-                C.CategoryId,
-                C.CategoryName
-            }).ToList();
-            ViewBag.Categories = categoryList;
+            //var categoryList = _context.Categories.Select(C => new
+            //{
+            //    C.CategoryId,
+            //    C.CategoryName
+            //}).ToList();
+            //ViewBag.Categories = categoryList;
             return View();
         }
 
