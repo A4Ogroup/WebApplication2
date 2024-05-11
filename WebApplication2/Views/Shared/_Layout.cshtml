@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿
+@inject LconsultDBContext _context
+@{
+
+    var categories = _context.Categories.Select(C => new
+    {
+        C.CategoryId,
+        C.CategoryName
+    }).ToList();
+
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -56,7 +67,7 @@
                                 Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach (var category in ViewBag.Categories)
+                                @foreach (var category in categories)
                                 {
                                     <li><a class="dropdown-item" asp-controller="home" asp-action="Category">@category.CategoryName</a></li>
                                 }
