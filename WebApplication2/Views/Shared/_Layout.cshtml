@@ -59,7 +59,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
 
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" asp-controller="home" asp-action="index">
                     <h2><em>L</em>earn Consult</h2>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,11 +117,12 @@
     </header>
 
 
-    <div>
+<div>
             @RenderBody()
 
 
 </div>
+
     <footer class="footer_area section_gap_top">
         <div class="container">
             <div class="row single-footer-widget">
