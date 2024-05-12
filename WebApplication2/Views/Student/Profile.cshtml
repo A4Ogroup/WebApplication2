@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿@* <!DOCTYPE html>
 <html>
 <head>
 
@@ -51,7 +51,11 @@
             </div>
 
         </nav>
-    </header>
+    </header> *@
+
+@{
+    Layout = "_StudentLayout";
+}
 
     <div class="banner header-text">
         <div class="owl-banner owl-carousel">
@@ -185,7 +189,7 @@
 
     </div>
 
-
+@* 
     <!-- Bootstrap core JavaScript -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -198,7 +202,7 @@
     <script src="~/js/site1.js"></script>
     <script src="~/js/site2.js"></script>
     <script src="~/js/site3.js"></script>
-    <script src="~/js/site4.js"></script>
+    <script src="~/js/site4.js"></script> *@
 
     <script type='text/javascript'>
         var myLink = document.querySelector('a[href="#"]');
@@ -206,5 +210,5 @@
             e.preventDefault();
         });</script>
 
-</body>
-</html>
+@* </body>
+</html> *@

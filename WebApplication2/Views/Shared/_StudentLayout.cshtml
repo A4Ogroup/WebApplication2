@@ -32,6 +32,7 @@
     <link href="~/css/site2.css" rel="stylesheet">
     <link href="~/css/site3.css" rel="stylesheet">
     <link href="~/css/site4.css" rel="stylesheet">
+    <link href="~/css/StyleSheet.css" rel="stylesheet">
 
     <style>
         .dropdown:hover .dropdown-menu {
@@ -78,7 +79,7 @@
                                 {
                                     <li><a class="dropdown-item" asp-controller="home" asp-action="Category">@category.CategoryName</a></li>
                                 }
-                @*                 <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                                @*                 <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
                                 <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li> *@
                             </ul>
                         </li>
@@ -97,16 +98,16 @@
                         </li>
 
                         <li class="nav-item ">
-                            <a class="nav-link" asp-controller="home" asp-action="ForInstructor">
-                                For Instructors
+                            <a class="nav-link" asp-controller="student" asp-action="review">
+                                Add Review
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a asp-controller="home" asp-action="Login" class="nav-link">Login</a>
+                            <a asp-controller="Home" asp-action="Index" class="nav-link">Signout</a>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="home" asp-action="SignUp" class="nav-link">Sign Up</a>
+                            <a class="nav-link" asp-controller="student" asp-action="Profile">Profile</a>
                         </li>
                     </ul>
 
@@ -118,10 +119,10 @@
 
 
     <div>
-            @RenderBody()
+        @RenderBody()
 
 
-</div>
+    </div>
     <footer class="footer_area section_gap_top">
         <div class="container">
             <div class="row single-footer-widget">
@@ -150,8 +151,8 @@
 
     <!-- Bootstrap core JavaScript -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 
