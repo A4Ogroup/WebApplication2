@@ -1,14 +1,4 @@
-﻿@inject LconsultDBContext _context
-@{
-
-    var categories = _context.Categories.Select(C => new
-    {
-        C.CategoryId,
-        C.CategoryName
-    }).ToList();
-
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -21,7 +11,6 @@
 
     <title>Learn consult</title>
 
-
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 
@@ -32,20 +21,11 @@
     <link href="~/css/site2.css" rel="stylesheet">
     <link href="~/css/site3.css" rel="stylesheet">
     <link href="~/css/site4.css" rel="stylesheet">
-
-    <style>
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
-            margin-top: 0;
-        }
-    </style>
 </head>
 
 <body>
 
+    <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
             <div></div>
@@ -53,13 +33,13 @@
             <div></div>
         </div>
     </div>
-
+    <!-- ***** Preloader End ***** -->
     <!-- Header -->
     <header class="">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
 
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" asp-controller="instructor" asp-action="index">
                     <h2><em>L</em>earn Consult</h2>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,19 +49,16 @@
                 <div class="nav-item" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Category
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach (var category in categories)
-                                {
-                                    <li><a class="dropdown-item" asp-controller="home" asp-action="Category">@category.CategoryName</a></li>
-                                }
-                @*                 <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
-                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li> *@
-                            </ul>
-                        </li>
+                        <!--   <li class="nav-item dropdown">
+                                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                              Category
+                                          </a>
+                                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                              <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Action</a></li>
+                                              <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                                              <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li>
+                                          </ul>
+                                      </li>-->
 
                         <li class="text-end pe-4 me-4 border-dark search-btn">
                             <div class="search-form">
@@ -97,16 +74,24 @@
                         </li>
 
                         <li class="nav-item ">
-                            <a class="nav-link" asp-controller="home" asp-action="ForInstructor">
-                                For Instructors
+                            <a class="nav-link" asp-controller="Instructor" asp-action="MyCourses">
+                                My Courses
+                            </a>
+                        </li>
+
+
+
+                        <li class="nav-item ">
+                            <a class="nav-link" asp-controller="Instructor" asp-action="AddCourse">
+                                Add Course
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a asp-controller="home" asp-action="Login" class="nav-link">Login</a>
+                            <a asp-controller="Home" asp-action="Index" class="nav-link">Signout</a>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="home" asp-action="SignUp" class="nav-link">Sign Up</a>
+                            <a class="nav-link" asp-controller="Instructor" asp-action="Profile">Profile</a>
                         </li>
                     </ul>
 
@@ -117,18 +102,23 @@
     </header>
 
 
+
     <div>
-            @RenderBody()
+        @RenderBody()
 
 
-</div>
+    </div>
+
+
     <footer class="footer_area section_gap_top">
         <div class="container">
             <div class="row single-footer-widget">
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="copy_right_text">
                         <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             All Copyrights &copy reserved
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
                 </div>
@@ -147,11 +137,10 @@
     </footer>
 
 
-
     <!-- Bootstrap core JavaScript -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 
@@ -175,4 +164,5 @@
     </script>
 
 </body>
+
 </html>
