@@ -94,7 +94,42 @@
 
         </nav>
     </header> *@
+    <head>
 
+        <style>
+        .choices ul.choice {
+            
+            text-align: left;
+        }
+
+            .choices ul.choice li {
+                display: inline-block;
+                margin: 5px 3px;
+            }
+
+                .choices ul.choice li a {
+                    text-align: center;
+                    width: 44px;
+                    height: 44px;
+                    display: inline-block;
+                    line-height: 42px;
+                    border: 1px solid #eee;
+                    font-size: 15px;
+                    font-weight: 700;
+                    color: #121212;
+                    transition: all .3s;
+                }
+
+                    .choices ul.choice li a:hover,
+                    .choices ul.choice li.active a {
+                        background-color: #f33f3f;
+                        border-color: #f33f3f;
+                        color: #fff;
+                    }
+
+        </style>
+
+    </head>
 @{
     Layout = "_StudentLayout";
 }
@@ -107,257 +142,257 @@
 
 
 
-    <div class="send-message">
+    
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
                         <h2>Review course</h2>
                     </div>
+                     
                 </div>
-                <div class="col-md-8">
-                    <div class="contact-form">
-                        <form id="contact" method="post" asp-action="review">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <fieldset>
-                                        <textarea name="review" rows="6" class="form-control" id="review" placeholder="Your Review" required=""></textarea>
-                                    </fieldset>
-                                </div>
 
-
-                                <!-- <div class="col-12">
-                                  
-
-                                  
-                                        <ul class="pagination " style="border-radius:50%; border:none;">
-                                            <li class="page-item justify-content-start"><h5>Ease of language</h5></li>
-                                            <li class="page-item "><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item "><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item "><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item "><a class="page-link" href="#">4</a></li>
-                                            <li class="page-item "><a class="page-link" href="#">5</a></li>
-                                            <li class="page-item "><a class="page-link" href="#">6</a></li>
-                                            <li class="page-item "><a class="page-link" href="#">7</a></li>
-                                            <li class="page-item "><a class="page-link" href="#">8</a></li>
-                                            <li class="page-item "><a class="page-link" href="#">9</a></li>
-                                            <li class="page-item "><a class="page-link" href="#">10</a></li>
-
-                                        </ul>
-
-
-                                    <div class="col-md-12">
-                                        <h5>Ease of language</h5>
-                                        <ul class="pages">
-                                            <li><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                                        </ul>
-                                    </div>
-                                  
-
-                                </div>
-                                <div class="col-12">
-                                    <div lass="col-4">
-                                        <h5>Ease of explaination</h5>
-                                    </div>
-
-
-                                    <ul class="pagination justify-content-end" style="border:none">
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-
-                                    </ul>
-
-
-                                </div>
-                                <div class="col-12">
-                                    <div lass="col-4">
-                                        <h5>Quality of sound</h5>
-                                    </div>
-
-
-                                    <ul class="pagination justify-content-end" style="border:none">
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-
-                                    </ul>
-
-
-                                </div>
-                                <div class="col-12">
-                                    <div lass="col-4">
-                                        <h5>Practical example</h5>
-                                    </div>
-
-
-                                    <ul class="pagination justify-content-end" style="border:none">
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-
-                                    </ul>
-
-
-                                </div>
-                                 
-                                  <ul class="pagination justify-content-right">
-                                    <h5>Ease of explaination</h5>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">9</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">10</a></li>
-                                </ul>
-                                <ul class="pagination justify-content-right">
-                                    <h5>Quality of sound</h5>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">9</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">10</a></li>
-                                </ul>
-                                <ul class="pagination justify-content-right">
-                                    <h5>Practical example </h5>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">9</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">10</a></li>
-                                </ul>-->
-                               
-
-                            
-
-                                <div class="section-heading">
-                                    <h2>Standard Questions</h2>
-                                </div>
-
-
-                                <div class="choices">
-
-                                    <ul class="choice" style="border:none">
-                                        <li> <h5>Ease of language</h5> </li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6</a></li>
-                                        <li><a href="#">7</a></li>
-                                        <li><a href="#">8</a></li>
-                                        <li><a href="#">9</a></li>
-                                        <li><a href="#">10</a></li>
-
-                                    </ul>
-
-
-                                    <ul class="choice" style="border:none">
-                                        <li> <h5>Ease of explaination</h5> </li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6</a></li>
-                                        <li><a href="#">7</a></li>
-                                        <li><a href="#">8</a></li>
-                                        <li><a href="#">9</a></li>
-                                        <li><a href="#">10</a></li>
-
-                                    </ul>
-
-
-
-                                    <ul class="choice" style="border:none">
-                                        <li> <h5>Quality of sound</h5> </li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6</a></li>
-                                        <li><a href="#">7</a></li>
-                                        <li><a href="#">8</a></li>
-                                        <li><a href="#">9</a></li>
-                                        <li><a href="#">10</a></li>
-
-                                    </ul>
-
-
-                                    <ul class="choice" style="border:none">
-                                        <li>  <h5>Practical example</h5> </li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">6</a></li>
-                                        <li><a href="#">7</a></li>
-                                        <li><a href="#">8</a></li>
-                                        <li><a href="#">9</a></li>
-                                        <li><a href="#">10</a></li>
-
-                                    </ul>
-
-
-                                </div>
+                <div class="col-md-12">
+            <div class="contact-form">
+                <form id="contact" method="post" asp-action="review">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <textarea name="review" rows="6" class="form-control" id="review" placeholder="Your Review" required=""></textarea>
+                            </fieldset>
                         </div>
+                    </div>
+
+                    <!-- <div class="col-12">
+
+
+
+                            <ul class="pagination " style="border-radius:50%; border:none;">
+                                <li class="page-item justify-content-start"><h5>Ease of language</h5></li>
+                                <li class="page-item "><a class="page-link" href="#">1</a></li>
+                                <li class="page-item "><a class="page-link" href="#">2</a></li>
+                                <li class="page-item "><a class="page-link" href="#">3</a></li>
+                                <li class="page-item "><a class="page-link" href="#">4</a></li>
+                                <li class="page-item "><a class="page-link" href="#">5</a></li>
+                                <li class="page-item "><a class="page-link" href="#">6</a></li>
+                                <li class="page-item "><a class="page-link" href="#">7</a></li>
+                                <li class="page-item "><a class="page-link" href="#">8</a></li>
+                                <li class="page-item "><a class="page-link" href="#">9</a></li>
+                                <li class="page-item "><a class="page-link" href="#">10</a></li>
+
+                            </ul>
+
+
+                        <div class="col-md-12">
+                            <h5>Ease of language</h5>
+                            <ul class="pages">
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                    <div class="col-12">
+                        <div lass="col-4">
+                            <h5>Ease of explaination</h5>
+                        </div>
+
+
+                        <ul class="pagination justify-content-end" style="border:none">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item"><a class="page-link" href="#">7</a></li>
+                            <li class="page-item"><a class="page-link" href="#">8</a></li>
+                            <li class="page-item"><a class="page-link" href="#">9</a></li>
+                            <li class="page-item"><a class="page-link" href="#">10</a></li>
+
+                        </ul>
+
+
+                    </div>
+                    <div class="col-12">
+                        <div lass="col-4">
+                            <h5>Quality of sound</h5>
+                        </div>
+
+
+                        <ul class="pagination justify-content-end" style="border:none">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item"><a class="page-link" href="#">7</a></li>
+                            <li class="page-item"><a class="page-link" href="#">8</a></li>
+                            <li class="page-item"><a class="page-link" href="#">9</a></li>
+                            <li class="page-item"><a class="page-link" href="#">10</a></li>
+
+                        </ul>
+
+
+                    </div>
+                    <div class="col-12">
+                        <div lass="col-4">
+                            <h5>Practical example</h5>
+                        </div>
+
+
+                        <ul class="pagination justify-content-end" style="border:none">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item"><a class="page-link" href="#">7</a></li>
+                            <li class="page-item"><a class="page-link" href="#">8</a></li>
+                            <li class="page-item"><a class="page-link" href="#">9</a></li>
+                            <li class="page-item"><a class="page-link" href="#">10</a></li>
+
+                        </ul>
+
+
+                    </div>
+
+                      <ul class="pagination justify-content-right">
+                        <h5>Ease of explaination</h5>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                        <li class="page-item"><a class="page-link" href="#">7</a></li>
+                        <li class="page-item"><a class="page-link" href="#">8</a></li>
+                        <li class="page-item"><a class="page-link" href="#">9</a></li>
+                        <li class="page-item"><a class="page-link" href="#">10</a></li>
+                    </ul>
+                    <ul class="pagination justify-content-right">
+                        <h5>Quality of sound</h5>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                        <li class="page-item"><a class="page-link" href="#">7</a></li>
+                        <li class="page-item"><a class="page-link" href="#">8</a></li>
+                        <li class="page-item"><a class="page-link" href="#">9</a></li>
+                        <li class="page-item"><a class="page-link" href="#">10</a></li>
+                    </ul>
+                    <ul class="pagination justify-content-right">
+                        <h5>Practical example </h5>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                        <li class="page-item"><a class="page-link" href="#">7</a></li>
+                        <li class="page-item"><a class="page-link" href="#">8</a></li>
+                        <li class="page-item"><a class="page-link" href="#">9</a></li>
+                        <li class="page-item"><a class="page-link" href="#">10</a></li>
+                    </ul>-->
+                    <div class="col-md-12">
+
+                        <div class="section-heading">
+                            <h2>Standard Questions</h2>
+                        </div>
+
+
+                        <div class="choices container">
+
+                            <ul class="choice" style="border:none">
+                                <li> <h5>Ease of language</h5> </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+                                <li><a href="#">7</a></li>
+                                <li><a href="#">8</a></li>
+                                <li><a href="#">9</a></li>
+                                <li><a href="#">10</a></li>
+
+                            </ul>
+
+
+                            <ul class="choice" style="border:none">
+                                <li> <h5>Ease of explaination</h5> </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+                                <li><a href="#">7</a></li>
+                                <li><a href="#">8</a></li>
+                                <li><a href="#">9</a></li>
+                                <li><a href="#">10</a></li>
+
+                            </ul>
+
+
+
+                            <ul class="choice" style="border:none">
+                                <li> <h5>Quality of sound</h5> </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+                                <li><a href="#">7</a></li>
+                                <li><a href="#">8</a></li>
+                                <li><a href="#">9</a></li>
+                                <li><a href="#">10</a></li>
+
+                            </ul>
+
+
+                            <ul class="choice" style="border:none">
+                                <li>  <h5>Practical example</h5> </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+                                <li><a href="#">7</a></li>
+                                <li><a href="#">8</a></li>
+                                <li><a href="#">9</a></li>
+                                <li><a href="#">10</a></li>
+
+                            </ul>
+
+
                             <div class="col-lg-12">
                                 <fieldset>
                                     <button type="submit" id="form-submit" class="filled-button">Send </button>
                                 </fieldset>
                             </div>
-                        </form>
+                        </div>
+
                     </div>
 
-
-                </div>
-
-
-
-
+                </form>
             </div>
+
+
+        </div>
+                
+    </div>
+    </div>
 @*             <footer class="footer_area section_gap_top">
                 <div class="container-fluid">
                     <div class="row single-footer-widget">
@@ -383,9 +418,9 @@
                     </div>
                 </div>
     </footer> *@
-        </div>
+       
 
-    </div>
+ 
 
 
 
