@@ -26,7 +26,7 @@ namespace WebApplication2.Controllers
         // POST: CourseController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+         public ActionResult Create(IFormCollection collection)
         {
             try
             {
@@ -39,9 +39,10 @@ namespace WebApplication2.Controllers
         }
 
         // GET: CourseController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
-            return View();
+
+            return RedirectToAction("AddCourse","Instructor");
         }
 
         // POST: CourseController/Edit/5
