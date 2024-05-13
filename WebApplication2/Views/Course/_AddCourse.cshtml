@@ -23,8 +23,7 @@
 
    
 
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    
   
 
 
@@ -36,9 +35,31 @@
     <link href="~/css/site3.css" rel="stylesheet">
     <link href="~/css/site4.css" rel="stylesheet">
     <link href="~/css/StyleSheet.css" rel="stylesheet"> *@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
+
+
+    <script src="~/js/site.js"></script>
+    <script src="~/js/site1.js"></script>
+    <script src="~/js/site2.js"></script>
+    <script src="~/js/site3.js"></script>
+    <script src="~/js/site4.js"></script>
     <style>
 
+       
+        /* .dropdown:hover .dropdown-menu {
+            display: block;
+        }
 
+        .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
+            margin-top: 0;
+        } */
+   
         #subcategoriesList .dropdown-item {
             padding: 5px;
             cursor: pointer; /* make it clear items are clickable */
@@ -243,27 +264,33 @@
                                 <!-- category dropdown region -->
                               <fieldset>
 
-    <div class="form-group mb-4">
-        <select id="categoriesDropdown" asp-for="CategoryId" asp-items="CategoriesList" onchange="updateSubcategories(this.value)" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
-            <option value="-1">Select a Category &#9660;</option>
-        </select>
-    </div>
-</fieldset>
+                                  <div class="form-group mb-4">
+                                         <select id="categoriesDropdown" asp-for="CategoryId" asp-items="CategoriesList" onchange="updateSubcategories(this.value)" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                                  <option value="-1">Select a Category &#9660;</option>
+                                          </select>
+                                   </div>
+                              </fieldset>
+
+
+
+
+
+
                                 <!-- subcategory dropdown region -->
-<div class="col-lg-12 col-md-12 col-sm-12">
-    <fieldset>
+                     <div class="col-lg-12 col-md-12 col-sm-12">
+                           <fieldset>
                                         <div class="dropdown  form-group mb-4 "style=" border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
-            <a class="dropdown-toggle form-control" id="dropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="dropdown-toggle form-control" id="dropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Select a Subcategory
-            </a>
-            <ul id="subcategoriesList" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <!-- Dynamic subcategory items will be added here -->
-            </ul>
-        </div>
+                  </a>
+                           <ul id="subcategoriesList" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                               <!-- Dynamic subcategory items will be added here -->
+                        </ul>
+                                         </div>
                                         <input type="hidden" asp-for="SubcategoryId" id="selectedSubcategoryId"  />
         
-    </fieldset>
- </div>
+                           </fieldset>
+                       </div>
 
 
 
@@ -555,7 +582,15 @@
 <script src="~/js/site2.js"></script>
 <script src="~/js/site3.js"></script>
 <script src="~/js/site4.js"></script>
+
+
+
+
+
     <script>
+
+
+
          $(document).ready(function () { 
             // Handle subcategory selection and update the display and hidden input
             $(document).on('click', '#subcategoriesList .dropdown-item', function () {
@@ -566,6 +601,12 @@
                 $('#selectedSubcategoryId').val(selectedValue); // Update hidden input value
             });
         });
+
+
+
+
+
+
 
         function updateSubcategories(categoryId) {
             // Always clear the current subcategories and the selected subcategory display and value
@@ -582,7 +623,7 @@
                     success: function (data) {
                         if (data.length > 0) {
                             $.each(data, function (i, item) {
-                                console.log(tem.subName);
+                                console.log(item.subName);
                                 $('<li>')
                                     .addClass('dropdown-item')
                                     .data('value', item.subId)
@@ -590,6 +631,7 @@
                                     .appendTo('#subcategoriesList');
                             });
                         } else {
+
                             // Optionally, handle when there are no subcategories
                             $('<li>')
                                 .addClass('dropdown-item')
@@ -654,7 +696,7 @@
 
 
         function addInput() {
-            fetch('@Url.Action("InputPartial", "Instructor")')
+            fetch('@Url.Action("InputPartial", "Course")')
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById('inputContainer').insertAdjacentHTML('beforeend', html);
@@ -677,12 +719,12 @@
 
 
 
-   @*  <script>
+    @* <script>
         $(document).ready(function () {
             $('.selectpicker').selectpicker();
         });
-    </script> *@
-@* <script language="text/Javascript">
+    </script>  *@
+<script language="text/Javascript">
     cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
     function clearField(t) {                   //declaring the array outside of the
         if (!cleared[t.id]) {                      // function makes it static and global
@@ -692,6 +734,10 @@
         }
     }
 </script>
+
+
+
+@*
    
 
   </body> *@
