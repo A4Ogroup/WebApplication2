@@ -186,9 +186,9 @@
         </nav>
     </header> *@
 
-@{
+@* @{
     Layout = "_InstructorLayout";
-}
+} *@
 
     <div class="banner header-text">
         <div class="owl-banner owl-carousel">
@@ -542,21 +542,19 @@
 
 
 
-<!-- bootstrap core javascript -->
+<!-- Bootstrap core JavaScript -->
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
   <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
 
-<!-- additional scripts -->
+<!-- Additional Scripts -->
 <script src="~/js/site.js"></script>
 <script src="~/js/site1.js"></script>
 <script src="~/js/site2.js"></script>
 <script src="~/js/site3.js"></script>
 <script src="~/js/site4.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
-
     <script>
          $(document).ready(function () { 
             // Handle subcategory selection and update the display and hidden input
@@ -577,14 +575,14 @@
 
             if (categoryId && categoryId != "-1") { // Check if a valid category is selected
                 $.ajax({
-                    url: '@Url.Action("GetSubcategories", "Instructor")', // Ensure this matches your MVC routing setup
+                    url: '@Url.Action("GetSubcategories", "Course")', // Ensure this matches your MVC routing setup
                     type: 'GET',
                     dataType: 'json',
                     data: { categoryId: categoryId },
                     success: function (data) {
                         if (data.length > 0) {
                             $.each(data, function (i, item) {
-                                console.log(item.subName);
+                                console.log(tem.subName);
                                 $('<li>')
                                     .addClass('dropdown-item')
                                     .data('value', item.subId)
