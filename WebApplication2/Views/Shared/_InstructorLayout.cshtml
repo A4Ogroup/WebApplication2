@@ -12,8 +12,8 @@
     <title>Learn consult</title>
 
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-
+@*     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+ *@
 
 
     <link href="~/css/site.css" rel="stylesheet">
@@ -138,10 +138,13 @@
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+    @*     <script src="~/lib/jquery/dist/jquery.js"></script>
+    *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    *@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
     <!-- Additional Scripts -->
@@ -162,6 +165,8 @@
             }
         }
     </script>
+    @RenderSection("Scripts", required: false)
+
 
 </body>
 

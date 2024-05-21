@@ -1,0 +1,695 @@
+﻿@model AddCourseViewModel
+
+@{
+    Layout = "_InstructorLayout";
+}
+@{
+    var CategoriesList = new SelectList(ViewBag.Categories, "CategoryId", "CategoryName");
+    var LanguageList = new SelectList(ViewBag.Languages, "LanguageId", "Name");
+}
+
+
+
+
+
+
+<head>
+
+    @*     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Learn consult</title>
+
+
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+
+
+
+
+    <link href="~/css/site.css" rel="stylesheet">
+    <link href="~/css/site1.css" rel="stylesheet">
+    <link href="~/css/site2.css" rel="stylesheet">
+    <link href="~/css/site3.css" rel="stylesheet">
+    <link href="~/css/site4.css" rel="stylesheet">
+    <link href="~/css/StyleSheet.css" rel="stylesheet"> *@
+    <style>
+
+
+        #subcategoriesList .dropdown-item {
+            padding: 5px;
+            cursor: pointer; /* make it clear items are clickable */
+        }
+
+            #subcategoriesList .dropdown-item:hover {
+                background-color: #f0f0f0; /* hover effect for better user experience */
+            }
+
+
+
+        option {
+            background: white; /* Option background */
+            color: black;
+            cursor: pointer;
+        }
+
+            option:after {
+                background-color: #f0f0f0; /* hover effect for better user experience */
+            }
+
+        .custom-select {
+            appearance: none; /* this is important to remove default select arrow */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+            font-size: 1rem;
+            border: 1px solid gray;
+            border-radius: 0.25rem;
+            line-height: 1.5;
+            background-color: #fff;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h12L6 12z" fill="%23FF0000"/></svg>'), linear-gradient(to bottom, #ffffff 0%,#e9ecef 100%);
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 12px 12px;
+        }
+
+            .custom-select:focus {
+                border-color: red;
+                outline: none;
+                box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.5);
+            }
+        /* Custom styling for the select element */
+        /*   .custom-select {
+                    appearance: none; /* Removes default browser styling */
+
+
+        /* Adjust padding for the select wrapper to position the arrow correctly */
+        /* .select-wrapper {
+                    position: relative;
+                } */
+    </style>
+
+</head>
+
+
+
+
+@*
+        <body>
+
+        <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div> *@
+
+@*     <header class="">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="index.html">
+                    <h2><em>L</em>earn Consult</h2>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="nav-item" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <!--   <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                   Category
+                               </a>
+                               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                   <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Action</a></li>
+                                   <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
+                                   <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li>
+                               </ul>
+                           </li>-->
+
+                        <li class="text-end pe-4 me-4 border-dark search-btn">
+                            <div class="search-form">
+                                <form method="post" action="index.html">
+                                    <div class="form-group">
+                                        <div class="d-flex">
+                                            <input type="search" class="form-control border-0 rounded-pill" name="search-input" value="" placeholder="Search Here" required="" />
+                                            <button><i class="fa fa-search btn"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" asp-controller="Instructor" asp-action="MyCourses">
+                                My Courses
+                            </a>
+                        </li>
+
+
+
+                        <li class="nav-item ">
+                            <a class="nav-link" asp-controller="Instructor" asp-action="AddCourse">
+                                Add Course
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link" >Signout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Instructor" asp-action="Profile" class="nav-link" >Profile</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </nav>
+    </header> *@
+
+@* @{
+    Layout = "_InstructorLayout";
+} *@
+
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
+    </div>
+</div>
+
+
+
+
+<div class="send-message">
+    <div class="container">
+        <form enctype="multipart/form-data" asp-controller="Course" id="addCourseDynamicForm" asp-action="Addcourse" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Course Info</h2>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="contact-form">
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input asp-for="Title" class="form-control" id="course name" placeholder="course name">
+                                </fieldset>
+                            </div>
+
+                            @*  <div class="col-lg-12 col-md-12 col-sm-12">
+                            <fieldset>
+                            <select asp-for="SubcategoryId"class="form-control selectpicker" id="subcategorySelect">
+                            <option value="">Select a Subcategory</option>
+                            <option value="">Select a Subcategory</option>
+                            <option value="">Select a Subcategory</option>
+                            @foreach (var subcategory in Model.Subcategories)
+                            {
+                            <option value="@subcategory.Id">@subcategory.Name</option>
+                            }
+                            </select>
+                            </fieldset>
+
+                            </div> *@
+
+
+
+
+
+
+
+
+                            <!-- category dropdown region -->
+                            <!-- Category dropdown region -->
+                            <fieldset>
+                                <div class="form-group mb-4">
+                                    <select id="categoriesDropdown" asp-for="CategoryId" asp-items="CategoriesList" onchange="updateSubcategories(this.value)" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                        <option value="-1">Select a Category &#9660;</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+
+                            <!-- Subcategory dropdown region -->
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <div class="dropdown form-group mb-4" style="border: 1px solid #e9ecef; border-radius: 0.25rem;">
+                                        <a class="dropdown-toggle form-control" id="dropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Select a Subcategory
+                                        </a>
+                                        <ul id="subcategoriesList" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <!-- Dynamic subcategory items will be added here -->
+                                        </ul>
+                                    </div>
+                                    <input type="hidden" asp-for="SubcategoryId" id="selectedSubcategoryId" />
+                                </fieldset>
+                            </div>
+
+
+
+
+
+                            <!-- language dropdown region -->
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <div class="form-group mb-4">
+                                        <select id="languageDropdown" asp-for="LanguageId" asp-items="LanguageList" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                            <option value="-1">Select Course Language &#9660;</option>
+                                        </select>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+
+
+
+
+                            <!-- Last Update   region -->
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+
+                                    <input asp-for="LastUpdate" type="date" class="form-control" id="lastupdate" placeholder="Course last update">
+
+                                </fieldset>
+                            </div>
+
+
+
+
+                            @* <div class="form-group dropdown">
+                            <label for="providerInput" class="control-label">Provider</label>
+                            <input type="text" id="providerInput" name="Provider" class="form-control" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div id="providerList" class="dropdown-menu" aria-labelledby="providerInput" style="width: 100%;"></div>
+                            </div> *@
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                <fieldset>
+
+                                    <input asp-for="Platform" type="text" class="form-control" id="providerInput" placeholder="Platform">
+
+
+                                </fieldset>
+
+                            </div>
+
+
+                            @*  <div class="col-lg-12 col-md-12 col-sm-12">
+                            <fieldset>
+                            <ul class=" dropdown">
+                            <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Platform
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                            </ul>
+                            </fieldset>
+                            </div> *@
+
+
+
+                            <!-- Coourse link    region -->
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input asp-for="Link" type="url" class="form-control" id="link " placeholder="Course link ">
+                                </fieldset>
+                            </div>
+
+
+
+
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input name="instructor name" type="text" class="form-control" id="instructorname" placeholder="Instructor Full Name">
+                                </fieldset>
+                            </div>
+
+                        </div>
+
+                        @*  </form> *@
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-form">
+                        @*  <form id="contact" action="" method="post"> *@
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+
+
+
+
+
+
+
+                                <!-- course Description   region -->
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <textarea asp-for="CourseDescription" class="form-control" rows="3" placeholder="Course Description..."></textarea>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div id="inputContainer" class="col-lg-12 col-md-12 col-sm-12">
+                                    <!-- Render initial input field via partial view -->
+                                    @Html.Partial("_topicsInputPartialView")
+
+                                </div>
+                                <button type="button" onclick="addInput()" class="btn btn-default">+</button>
+                                <textarea asp-for="TopicsCovered" hidden></textarea>
+
+
+
+                                <!-- course topics covered   region -->
+                                @* <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                <input asp-for="TopicsCovered" type="text" class="form-control" id="topicsCovered" placeholder="topics covered" >
+                                </fieldset>
+                                </div> *@
+
+
+                            </div>
+
+
+
+
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                            </div>
+
+
+
+
+
+
+
+
+                            <!-- course Level   region -->
+
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <div class="form-group mb-4">
+                                        <select id="leveldropdown" asp-for="Level" asp-items="Html.GetEnumSelectList<Level>()" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                            <option value="-1"> Level &#9660;</option>
+                                        </select>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+
+
+
+
+
+
+                            <!-- course price status   region -->
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <div class="form-group mb-4">
+                                        <select id="pricestatusdropdown" asp-for="PriceStatus" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                            <option value=""> Price Status &#9660;</option>
+                                            <option value="false"> Paid</option>
+                                            <option value="true"> Free</option>
+                                        </select>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+
+
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input asp-for="CourseDuration" type="number" class="form-control" id="courseduration " placeholder="Course Total Hours">
+                                </fieldset>
+                            </div>
+
+
+
+                            <!-- course price status   region -->
+
+
+
+
+
+
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    @*                                         <label asp-for="VedioLength"></label>
+                                    *@
+                                    <div class="form-group mb-4">
+                                        <select id="videolengthaverage" asp-for="VedioLength" asp-items="Html.GetEnumSelectList<VideoLengthCategory>()" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                            <option value="0"> Average Videio Length &#9660;</option>
+                                        </select>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+
+                            <!-- course picture   region -->
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input asp-for="Picture" class="form-control" id="course picture" placeholder="Course Poster Image">
+                                </fieldset>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <button type="submit" id="contact" class="filled-button">Submit </button>
+                            </fieldset>
+
+                        </div>
+        </form>
+
+    </div>
+    @* </form> *@
+</div>
+            </div>
+@*     <footer class="footer_area section_gap_top">
+        <div class="container">
+            <div class="row single-footer-widget">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="copy_right_text">
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            All Copyrights &copy reserved
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="left-content">
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> *@
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- bootstrap core javascript -->
+@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
+
+<!-- additional scripts -->
+<script src="~/js/site.js"></script>
+<script src="~/js/site1.js"></script>
+<script src="~/js/site2.js"></script>
+<script src="~/js/site3.js"></script>
+<script src="~/js/site4.js"></script>*@
+@* <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
+ *@
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            console.log("Document is ready"); // Debugging
+
+            // Handle subcategory selection and update the display and hidden input
+            $(document).on('click', '#subcategoriesList .dropdown-item', function () {
+                console.log("Document is ready"); // Debugging
+
+                var selectedText = $(this).text();
+                var selectedValue = $(this).data('value');
+                console.log(selectedText);
+                $('#dropdownMenuLink').html(selectedText + ' <span class="caret"></span>'); // Update dropdown link text
+                $('#selectedSubcategoryId').val(selectedValue); // Update hidden input value
+            });
+        });
+
+        function updateSubcategories(categoryId) {
+            // Always clear the current subcategories and the selected subcategory display and value
+            $('#subcategoriesList').empty();
+            $('#dropdownMenuLink').text('Select a Subcategory'); // Reset the button text
+            $('#selectedSubcategoryId').val(''); // Clear the hidden input value
+
+            if (categoryId && categoryId != "-1") { // Check if a valid category is selected
+                $.ajax({
+                    url: '@Url.Action("GetSubcategories", "Instructor")', // Ensure this matches your MVC routing setup
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { categoryId: categoryId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $.each(data, function (i, item) {
+                                console.log(item.subName); // Debugging
+                                $('<li>')
+                                    .append('<a class="dropdown-item" data-value="' + item.subId + '">' + item.subName + '</a>')
+                                    .appendTo('#subcategoriesList');
+                            });
+                        } else {
+                            // Optionally, handle when there are no subcategories
+                            $('<li>')
+                                .append('<a class="dropdown-item" href="#">No subcategories available</a>')
+                                .appendTo('#subcategoriesList');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("An error occurred: " + error);
+                        // Optionally, update UI to reflect the error state
+                        $('#dropdownMenuLink').text('Error loading subcategories');
+                    }
+                });
+            } else {
+                // If the selected category ID is the default or invalid, clear and show default message
+                $('<li>')
+                    .append('<a class="dropdown-item" href="#">Select a category first</a>')
+                    .appendTo('#subcategoriesList');
+            }
+        }
+
+    </script>
+
+    @*  <script>
+        $(document).ready(function () {
+            $("#providerInput").on("input", function () {
+                var input = $(this).val();
+                var dropdownMenu = $("#providerList");
+                if (input.length > 1) {  // Trigger AJAX call when user has typed two or more characters
+                    $.ajax({
+                        url: '@Url.Action("GetProviders", "Instructor")',  // Adjust controller and action names
+                        data: { search: input },
+                        success: function (data) {
+                            dropdownMenu.empty();
+                            if (data.length > 0) {
+                                data.forEach(function (item) {
+                                    dropdownMenu.append(`<button class="dropdown-item" type="button" onclick="setProvider('${item}')">${item}</button>`);
+                                });
+                                dropdownMenu.dropdown('show');
+
+                            } else {
+                                dropdownMenu.append('<button class="dropdown-item" type="button">No results found</button>');
+                                dropdownMenu.dropdown('show');
+                               // $("#providerList").append('<a href="#" class="list-group-item">No results found</a>');
+                            }
+                        }
+                    });
+                } else {
+                    dropdownMenu.empty();
+                    dropdownMenu.dropdown('hide');
+                }
+            });
+        });
+
+        function setProvider(name) {
+            $("#providerInput").val(name);
+            $("#providerList").dropdown('hide');
+        }
+    </script> *@
+
+    <script>
+
+
+        function addInput() {
+            fetch('@Url.Action("InputPartial", "Instructor")')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('inputContainer').insertAdjacentHTML('beforeend', html);
+                });
+
+
+
+
+
+        }
+
+
+        document.getElementById('addCourseDynamicForm').addEventListener('submit', function (event) {
+            var inputs = document.querySelectorAll('input[name="dynamicInput"]');
+            var concatenatedInputs = Array.from(inputs).map(input => input.value).join(';');
+            document.getElementById('@Html.IdFor(m => m.TopicsCovered)').value = concatenatedInputs;
+        });
+    </script>
+
+   }
+
+
+@*  <script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+    </script> *@
+@* <script language="text/Javascript">
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+    function clearField(t) {                   //declaring the array outside of the
+        if (!cleared[t.id]) {                      // function makes it static and global
+            cleared[t.id] = 1;  // you could use true and false, but that's more typing
+            t.value = '';         // with more chance of typos
+            t.style.color = '#fff';
+        }
+    }
+</script>
+
+
+  </body> *@
+

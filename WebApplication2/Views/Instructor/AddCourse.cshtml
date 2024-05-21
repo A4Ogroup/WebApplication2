@@ -37,7 +37,7 @@
     <link href="~/css/site4.css" rel="stylesheet">
     <link href="~/css/StyleSheet.css" rel="stylesheet"> *@
     <style>
-
+         
 
         #subcategoriesList .dropdown-item {
             padding: 5px;
@@ -83,25 +83,12 @@
         /* Custom styling for the select element */
       /*   .custom-select {
             appearance: none; /* Removes default browser styling */
-            -webkit-appearance: none; /* For Safari and Chrome */
-            -moz-appearance: none; /* For Firefox */
-            padding: 0.375rem 1.75rem 0.375rem 0.75rem; /* Bootstrap's default padding */
-            font-size: 1rem; /* Bootstrap's default font size */
-            line-height: 1.5; /* Bootstrap's default line height */
-            border-radius: 0.25rem; /* Bootstrap's default border radius */
-            border: 1px solid #ced4da; /* Bootstrap's default border */
-            background-color: #fff;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>'); /* Bootstrap 5 arrow icon */
-            background-repeat: no-repeat, repeat;
-            background-position: right 0.75rem top 50%, 0 0; /* Position for the arrow icon */
-            background-size: 16px 12px; /* Size of the arrow icon */
-            cursor: pointer;
-        }
+          
 
         /* Adjust padding for the select wrapper to position the arrow correctly */
-        .select-wrapper {
+        /* .select-wrapper {
             position: relative;
-        } */
+        } */ 
     </style>
 
 </head>
@@ -186,9 +173,9 @@
         </nav>
     </header> *@
 
-@{
+@* @{
     Layout = "_InstructorLayout";
-}
+} *@
 
     <div class="banner header-text">
         <div class="owl-banner owl-carousel">
@@ -241,29 +228,30 @@
 
 
                                 <!-- category dropdown region -->
-                              <fieldset>
+                            <!-- Category dropdown region -->
+                            <fieldset>
+                                <div class="form-group mb-4">
+                                    <select id="categoriesDropdown" asp-for="CategoryId" asp-items="CategoriesList" onchange="updateSubcategories(this.value)" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
+                                        <option value="-1">Select a Category &#9660;</option>
+                                    </select>
+                                </div>
+                            </fieldset>
 
-    <div class="form-group mb-4">
-        <select id="categoriesDropdown" asp-for="CategoryId" asp-items="CategoriesList" onchange="updateSubcategories(this.value)" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
-            <option value="-1">Select a Category &#9660;</option>
-        </select>
-    </div>
-</fieldset>
-                                <!-- subcategory dropdown region -->
-<div class="col-lg-12 col-md-12 col-sm-12">
-    <fieldset>
-        <div class="dropdown  form-group mb-4 "style=" border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
-            <a class="dropdown-toggle form-control" id="dropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Select a Subcategory
-            </a>
-            <ul id="subcategoriesList" class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
-                <!-- Dynamic subcategory items will be added here -->
-            </ul>
-        </div>
-                                        <input type="hidden" asp-for="SubcategoryId" id="selectedSubcategoryId"  />
-        
-    </fieldset>
- </div>
+                            <!-- Subcategory dropdown region -->
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <div class="dropdown form-group mb-4" style="border: 1px solid #e9ecef; border-radius: 0.25rem;">
+                                        <a class="dropdown-toggle form-control" id="dropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Select a Subcategory
+                                        </a>
+                                        <ul id="subcategoriesList" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <!-- Dynamic subcategory items will be added here -->
+                                        </ul>
+                                    </div>
+                                    <input type="hidden" asp-for="SubcategoryId" id="selectedSubcategoryId" />
+                                </fieldset>
+                            </div>
+
 
 
 
@@ -543,7 +531,7 @@
 
 
 <!-- bootstrap core javascript -->
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -554,65 +542,69 @@
 <script src="~/js/site1.js"></script>
 <script src="~/js/site2.js"></script>
 <script src="~/js/site3.js"></script>
-<script src="~/js/site4.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
+<script src="~/js/site4.js"></script>*@
+@* <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script> 
+ *@
+
+@section Scripts{
 
     <script>
-         $(document).ready(function () { 
-            // Handle subcategory selection and update the display and hidden input
-            $(document).on('click', '#subcategoriesList .dropdown-item', function () {
-                var selectedText = $(this).text();
-                var selectedValue = $(this).data('value');
+    $(document).ready(function () {
+        console.log("Document is ready"); // Debugging
 
-                $('#dropdownMenuLink').text(selectedText); // Update dropdown link text
-                $('#selectedSubcategoryId').val(selectedValue); // Update hidden input value
-            });
+        // Handle subcategory selection and update the display and hidden input
+        $(document).on('click', '#subcategoriesList .dropdown-item', function () {
+            console.log("Document is ready"); // Debugging
+
+            var selectedText = $(this).text();
+            var selectedValue = $(this).data('value');
+            console.log(selectedText);
+            $('#dropdownMenuLink').html(selectedText + ' <span class="caret"></span>'); // Update dropdown link text
+            $('#selectedSubcategoryId').val(selectedValue); // Update hidden input value
         });
+    });
 
-        function updateSubcategories(categoryId) {
-            // Always clear the current subcategories and the selected subcategory display and value
-            $('#subcategoriesList').empty();
-            $('#dropdownMenuLink').text('Select a Subcategory'); // Reset the button text
-            $('#selectedSubcategoryId').val(''); // Clear the hidden input value
+    function updateSubcategories(categoryId) {
+        // Always clear the current subcategories and the selected subcategory display and value
+        $('#subcategoriesList').empty();
+        $('#dropdownMenuLink').text('Select a Subcategory'); // Reset the button text
+        $('#selectedSubcategoryId').val(''); // Clear the hidden input value
 
-            if (categoryId && categoryId != "-1") { // Check if a valid category is selected
-                $.ajax({
-                    url: '@Url.Action("GetSubcategories", "Instructor")', // Ensure this matches your MVC routing setup
-                    type: 'GET',
-                    dataType: 'json',
-                    data: { categoryId: categoryId },
-                    success: function (data) {
-                        if (data.length > 0) {
-                            $.each(data, function (i, item) {
-                                console.log(item.subName);
-                                $('<li>')
-                                    .addClass('dropdown-item')
-                                    .data('value', item.subId)
-                                    .text(item.subName)
-                                    .appendTo('#subcategoriesList');
-                            });
-                        } else {
-                            // Optionally, handle when there are no subcategories
+        if (categoryId && categoryId != "-1") { // Check if a valid category is selected
+            $.ajax({
+                url: '@Url.Action("GetSubcategories", "Instructor")', // Ensure this matches your MVC routing setup
+                type: 'GET',
+                dataType: 'json',
+                data: { categoryId: categoryId },
+                success: function (data) {
+                    if (data.length > 0) {
+                        $.each(data, function (i, item) {
+                            console.log(item.subName); // Debugging
                             $('<li>')
-                                .addClass('dropdown-item')
-                                .text('No subcategories available')
+                                .append('<a class="dropdown-item" data-value="' + item.subId + '">' + item.subName + '</a>')
                                 .appendTo('#subcategoriesList');
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("An error occurred: " + error);
-                        // Optionally, update UI to reflect the error state
-                        $('#dropdownMenuLink').text('Error loading subcategories');
+                        });
+                    } else {
+                        // Optionally, handle when there are no subcategories
+                        $('<li>')
+                            .append('<a class="dropdown-item" href="#">No subcategories available</a>')
+                            .appendTo('#subcategoriesList');
                     }
-                });
-            } else {
-                // If the selected category ID is the default or invalid, clear and show default message
-                $('<li>')
-                    .addClass('dropdown-item')
-                    .text('Select a category first')
-                    .appendTo('#subcategoriesList');
-            }
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + error);
+                    // Optionally, update UI to reflect the error state
+                    $('#dropdownMenuLink').text('Error loading subcategories');
+                }
+            });
+        } else {
+            // If the selected category ID is the default or invalid, clear and show default message
+            $('<li>')
+                .append('<a class="dropdown-item" href="#">Select a category first</a>')
+                .appendTo('#subcategoriesList');
         }
+    }
+
     </script>
 
    @*  <script>
@@ -676,7 +668,7 @@
         });
    </script>
 
-
+   }
 
 
    @*  <script>
