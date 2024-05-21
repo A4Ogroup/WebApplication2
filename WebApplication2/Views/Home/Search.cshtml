@@ -1,4 +1,26 @@
-﻿@* <!DOCTYPE html>
+﻿@model AddCourseViewModel
+@using WebApplication2.Helpers.Enums
+@inject LconsultDBContext _context
+@{
+
+    var categories = _context.Categories.Select(C => new
+    {
+        C.CategoryId,
+        C.CategoryName
+    }).ToList();
+
+
+    var languages = _context.Languages.Select(L => new
+    {
+        L.LanguageId,
+        L.Name
+    }).ToList();
+
+
+}
+
+
+@* <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,7 +45,7 @@
     <link href="~/css/site3.css" rel="stylesheet">
     <link href="~/css/site4.css" rel="stylesheet">
     <link href="~/css/StyleSheet.css" rel="stylesheet">
-   
+
 
         <style>
             .collapse-content {
@@ -32,25 +54,25 @@
         </style>
 
 </head>  
- 
+
 
 <body>
  *@
-                  @*   <!-- ***** Preloader Start ***** -->
+@*   <!-- ***** Preloader Start ***** -->
                     <div id="preloader">
                         <div class="jumper">
                             <div></div>
                             <div></div>
                             <div></div>
                         </div>
-                    </div>   *@
+                    </div>   
                     <!-- ***** Preloader End ***** -->
 
                     <!-- Header -->
-@*               <header class="">
+             <header class="">
               <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-         
+
                   <a class="navbar-brand" href="index.html">
                     <h2 ><em>L</em>earn Consult</h2>
                   </a>
@@ -81,7 +103,7 @@
                         <a class="nav-link" href="index.html">For Instructors
                         </a>
                       </li> 
-              
+
                       <li class="nav-item">
                             <a asp-controller="home" asp-action="Login" class="nav-link">Login</a>
                       </li>
@@ -89,79 +111,385 @@
                             <a asp-controller="home" asp-action="SignUp" class="nav-link">Sign Up</a>
                       </li>
                     </ul>
-         
+
                     </div>
                   </div>
-        
+
               </nav>
             </header> *@
 
-                    <!-- Page Content -->
+<!-- Page Content -->
+@*   <head>
+                        <style>
+        .collapse {
+            margin: 4px;
+            width: 100%;
+        }
+
+        .checkbox_collapse .panel.panel-default {
+            padding: 0px !important;
+            margin-bottom: 10px;
+            border-radius: 0px
+        }
+
+            .checkbox_collapse .panel.panel-default span.circle {
+                width: 18px;
+                height: 18px;
+                position: relative;
+                border: 1px solid #ccc;
+                margin-right: 10px;
+                border-radius: 2px;
+                background-color: #fff;
+                display: inline-flex;
+                vertical-align: middle
+            }
+
+                .checkbox_collapse .panel.panel-default span.circle:after {
+                    width: 25px;
+                    content: "";
+                    background: url(https://image.flaticon.com/icons/svg/64/64484.svg);
+                    position: absolute;
+                    left: 3px;
+                    right: 0;
+                    margin: 0 auto;
+                    top: 4px;
+                    z-index: 99999;
+                    background-size: 10px;
+                    height: 25px;
+                    opacity: 0;
+                    background-repeat: no-repeat
+                }
+
+            .checkbox_collapse .panel.panel-default a {
+                padding: 15px;
+                background-color: #009688;
+                color: #fff;
+                font-weight: normal;
+                text-decoration: none;
+                font-size: 14px;
+                text-transform: capitalize;
+                display: block;
+                border-radius: 5px
+            }
+
+                .checkbox_collapse .panel.panel-default a[aria-expanded="false"]:after {
+                    display: none !important
+                }
+
+                .checkbox_collapse .panel.panel-default a[aria-expanded="false"] span:after {
+                    opacity: 0
+                }
+
+                .checkbox_collapse .panel.panel-default a[aria-expanded="true"]:after {
+                    display: none !important
+                }
+
+                .checkbox_collapse .panel.panel-default a[aria-expanded="true"] span:after {
+                    opacity: 1
+                }
+
+
+                        </style>
+</head> *@
+
+<head>
+    <style>
+        .checked {
+        color: red;
+        }
+
+
+        /* 
+        .rating {
+        direction: rtl;
+        unicode-bidi: bidi-override;
+        font-size: 24px;
+        }
+
+        .rating > input {
+        display: none;
+        }
+
+        .rating > label {
+        color: #ddd;
+        font-size: 24px;
+        padding: 0;
+        cursor: pointer;
+        display: inline-block;
+        }
+
+        .rating > label:hover,
+        .rating > label:hover ~ label,
+        .rating > input:checked ~ label {
+        color: #f5b301;
+        } */
+
+
+        /*       .rating {
+        direction: ltr;
+        unicode-bidi: bidi-override;
+        font-size: 24px;
+        }
+
+        .rating > input {
+        display: none;
+        }
+
+        .rating > span {
+        color: red;
+        font-size: 24px;
+        padding: 0;
+        cursor: pointer;
+        display: inline-block;
+        }
+
+        .rating > label:hover,
+        .rating > label:hover ~ label,
+        .rating > input:checked ~ label {
+        color: red;
+        }
+        */
+        /*         * {
+        margin: 0;
+        padding: 0;
+        }
+
+        .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        }
+
+        .rate:not(:checked) > input {
+        position: absolute;
+        top: -9999px;
+        }
+
+        .rate:not(:checked) > label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+        }
+
+        .rate:not(:checked) > label:before {
+        content: '★ ';
+        }
+
+        .rate > input:checked ~ label {
+        color: red;
+        }
+
+        .rate:not(:checked) > label:hover,
+        .rate:not(:checked) > label:hover ~ label {
+        color: red;
+        }
+
+        .rate > input:checked + label:hover,
+        .rate > input:checked + label:hover ~ label,
+        .rate > input:checked ~ label:hover,
+        .rate > input:checked ~ label:hover ~ label,
+        .rate > label:hover ~ input:checked ~ label {
+        color: red;
+        } */
+    </style>
+</head>
 @{
     Layout = "_Layout";
 }
-                      <div class="banner header-text">
-                         <div class="owl-banner owl-carousel">
-                          
-                          </div>
-                        </div>  
-                  <!-- BEGIN SEARCH RESULTf -->
-         <div class="col-md-12 my-3">
-             <div class="grid search">
-                <div class="grid-body">
-                    <div class="row">
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
 
-                          <!-- BEGIN FILTERS -->
+    </div>
+</div>  
+<!-- BEGIN SEARCH RESULTf -->
 
-             <div class="col-md-3">
-                 <div class="container">
-                    <h2 class="grid-title"><i class="fa fa-filter"></i> Filter by</h2>
-                     <hr>
+<div class="container">
+    <div class="row">
+
+        <!-- BEGIN FILTERS -->
+
+        <div class="col-md-3">
+
+            <h2 class="grid-title"><i class="fa fa-filter"></i> Filter by</h2>
+            <hr>
 
 
-                      <!-- BEGIN FILTER BY Rating -->
-                       <p style="margin:3px" ><button class="btn btn-light" type="button" data-toggle="collapse" data-target="#checkboxFilter3">
-                     <h4>Rating</h4> 
-                    </button></p>
-                    <div id="checkboxFilter3" class="collapse" style="margin:6px">                        
-                      <div class="down-content ">
-                           <span class="stars btn">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                        </div>
+            <!-- BEGIN FILTER BY Rating -->
+
+
+            <p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                    Rating
+                </button>
+            </p>
+            <div style="min-height: 10px">
+                <div class="collapse" id="collapseWidthExample">
+                    <div class="form-check" style="margin: 10px 0px 10px 0;">
+
+
+
+                        <div>
+
+                            <input type="checkbox" name="star5"> @for (int i = 0; i < 4; i++ )
+                            { <span class="fa fa-star checked"></span>}
+
+                    </div>
+                    <div>
+                            <input type="checkbox" name="star4"> @for (int i = 0; i < 3; i++)
+                            {
+                                <span class="fa fa-star checked"></span>
+                            }
+
+                    </div>
                       
-                          <div class="down-content">
-                           <span class="stars btn">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                        </div>
-
-                         <div class="down-content">
-                           <span class="stars btn">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                        </div>
-
-                       <div class="down-content">
-                           <span class="stars btn">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                        </div>
+                           <div>
+                            <input type="checkbox" name="star3"> @for (int i = 0; i < 2; i++)
+                            {
+                                <span class="fa fa-star checked"></span>
+                            }
                       </div>
+@* 
+
+
+                        <div class="down-content ">
+                            <span class="stars btn">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </span>
+
+                        <span class="stars btn">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                         
+                        </span>
+
+                        <span class="stars btn">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                      
+                        </span>
+                     </div> *@
+
+
+
+                 
+                </div>
+            </div>
+            </div>
+
+            <p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" aria-expanded="false" aria-controls="collapseWidthExample1">
+                    Categry
+                </button>
+            </p>
+            <div style="min-height: 10px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample1">
+                    <div class="form-check" style="margin: 10px 0px 10px 0;">
+
+                        <ul class="dropdown" aria-labelledby="navbarDropdown">
+                            @foreach (var category in categories)
+                            {
+                                <li><input type="checkbox" style="margin:3px;">@category.CategoryName
+
+                                </li>
+                            }
+                    
+                        </ul>
+                    </div>
+
+                    <div>
+
+                    </div>
+                    </div>
+                    </div>
+
+
+            <p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample3" aria-expanded="false" aria-controls="collapseWidthExample3">
+                    Language
+                </button>
+            </p>
+            <div style="min-height: 10px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample3">
+                    <div class="form-check" style="margin: 10px 0px 10px 0;">
+
+                        <ul class="dropdown" aria-labelledby="navbarDropdown">
+                            @foreach (var language in languages)
+                            {
+                                <li><input type="checkbox" style="margin:3px;">@language.Name</li>
+                            }
+
+                        </ul>
+                    </div>
+
+                  
+                </div>
+            </div>
+
+            <p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample4" aria-expanded="false" aria-controls="collapseWidthExample4">
+                    Level
+                </button>
+            </p>
+            <div style="min-height: 10px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample4">
+                    <div class="form-check" style="margin: 10px 0px 10px 0;">
+                        <ul class="dropdown" aria-labelledby="navbarDropdown">
+                        @foreach (var level in Enum.GetValues(typeof(Level)))
+                        {
+                            <li>
+                                <input type="checkbox">@level
+                                <!-- Add options related to this level here -->
+                                <!-- Example: If you have data related to each level, you can retrieve and display it here -->
+                                </li>
+                        }
+                    </div>
+                    </ul>
+
+                    <div>
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample5" aria-expanded="false" aria-controls="collapseWidthExample5">
+                    Video Length
+                </button>
+            </p>
+            <div style="min-height: 10px;">
+                <div class="collapse collapse-horizontal" id="collapseWidthExample5">
+                    <div class="form-check" style="margin: 10px 0px 10px 0;">
+                        <ul class="dropdown" aria-labelledby="navbarDropdown">
+                            @foreach (var VideoLength in Enum.GetValues(typeof(VideoLengthCategory)))
+                            {
+                                <li>
+                                    <input type="checkbox">@VideoLength
+                                    <!-- Add options related to this level here -->
+                                    <!-- Example: If you have data related to each level, you can retrieve and display it here -->
+                                </li>
+                            }
+                    </div>
+                    </ul>
+
+                    <div>
+                    </div>
+                </div>
+            </div>
                        <!-- END FILTER BY Rating -->
 
 
-                       <!-- BEGIN FILTER BY CATEGORY -->
+@*                        <!-- BEGIN FILTER BY CATEGORY -->
                     <p style="margin:5px" ><button class="btn btn-light" type="button" data-toggle="collapse" data-target="#checkboxFilter" >
                      <h4>Categry</h4> 
                     </button></p>
@@ -178,258 +506,174 @@
                         <input type="checkbox" class="form-check-input" id="checkbox3">
                         <label class="form-check-label" for="checkbox3">CS</label>
                       </div>
-                    </div>
+                    </div> *@
                    
-              
-                      <!-- END FILTER BY CATEGORY -->
 
-                         <!-- BEGIN FILTER BY language -->
-                    <p style="margin:3px"><button class="btn btn-light" type="button" data-toggle="collapse" data-target="#checkboxFilter1">
-                     <h4>language</h4> 
-                    </button></p>
-                    <div id="checkboxFilter1" class="collapse" style="margin:6px">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="checkbox1">
-                        <label class="form-check-label" for="checkbox1">English </label>
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="checkbox2">
-                        <label class="form-check-label" for="checkbox2">Arabic </label>
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="checkbox3">
-                        <label class="form-check-label" for="checkbox3">Other </label>
-                      </div>
-                    </div>
-                      
+                  </div>
                   
-                      <!-- END FILTER BY language -->
-
-                         <!-- BEGIN FILTER BY price -->
-                    <p style="margin:3px" ><button class="btn btn-light" type="button" data-toggle="collapse" data-target="#checkboxFilter2">
-                     <h4>Price</h4> 
-                    </button></p>
-                    <div id="checkboxFilter2" class="collapse" style="margin:6px">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="checkbox1">
-                        <label class="form-check-label" for="checkbox1">Free</label>
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="checkbox2">
-                        <label class="form-check-label" for="checkbox2">Paid</label>
-                      </div>
-                   </div>
+            
                   
-                     
-                   <!-- BEGIN FILTER BY Level -->
-                         <p style="margin:3px" ><button class="btn btn-light" type="button" data-toggle="collapse" data-target="#checkboxFilter6">
-                     <h4>Level</h4> 
-                    </button></p>
-                    <div id="checkboxFilter6" class="collapse" style="margin:6px">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="checkbox1">
-                        <label class="form-check-label" for="checkbox1">Beginner</label>
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="checkbox2">
-                        <label class="form-check-label" for="checkbox2">Intermediate</label>
-                      </div>
-                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="checkbox2">
-                        <label class="form-check-label" for="checkbox2">Advanced</label>
-                      </div>
-                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="checkbox2">
-                        <label class="form-check-label" for="checkbox2">Combined</label>
-                      </div>
-                      </div>
-                    <!-- END FILTER BY Level -->
-
-                    
-                    
-                   
-                    
+  
+             
                  
-                      <!-- END FILTER BY price -->
-         
+                  
+                 
+
+             <div class="col-md-9 my-3">
+
+            <p>Showing all results matching "web development"</p>
+
+            <div class="padding">
+
+                <div class="row">
+
+
+                    <!-- BEGIN TABLE RESULT -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td class="number text-center">1</td>
+                                    <td class="image"><img src="~/images/client-01.png" alt=""></td>
+                                    <td class="product">
+                                        <strong>Course 1</strong>
+                                        <br>This is the course description
+                                        <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
+                                        <br>
+                                        <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a> <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
+                                    </td>
+                                    <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
+                                    <td class="price text-right">Free</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="number text-center">2</td>
+                                    <td class="image"><img src="~/images/client-01.png" alt=""></td>
+                                    <td class="product">
+                                        <strong>Course 2</strong>
+                                        <br>This is the course description
+                                        <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
+                                        <br>
+                                        <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
+                                    </td>
+                                    <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
+                                    <td class="price text-right">Free</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="number text-center">3</td>
+                                    <td class="image"><img src="~/images/client-01.png" alt=""></td>
+                                    <td class="product">
+                                        <strong>Course 3</strong>
+                                        <br>This is the course description
+                                        <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
+                                        <br>
+                                        <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
+                                    </td>
+                                    <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
+                                    <td class="price text-right">Free</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="number text-center">4</td>
+                                    <td class="image"><img src="~/images/client-01.png" alt=""></td>
+                                    <td class="product">
+                                        <strong>Course 4</strong>
+                                        <br>This is the course description
+                                        <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
+                                        <br>
+                                        <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
+                                    </td>
+                                    <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
+                                    <td class="price text-right">Free</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="number text-center">5</td>
+                                    <td class="image"><img src="~/images/client-01.png" alt=""></td>
+                                    <td class="product">
+                                        <strong>Course 5</strong>
+                                        <br>This is the course description
+                                        <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
+                                        <br>
+                                        <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
+                                    </td>
+                                    <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
+                                    <td class="price text-right">Free</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="number text-center">6</td>
+                                    <td class="image"><img src="~/images/client-01.png" alt=""></td>
+                                    <td class="product">
+                                        <strong>Course 6</strong>
+                                        <br>This is the course description
+                                        <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
+                                        <br>
+                                        <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>   <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
+                                    </td>
+                                    <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
+                                    <td class="price text-right">Free</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="number text-center">7</td>
+                                    <td class="image"><img src="~/images/client-01.png" alt=""></td>
+                                    <td class="product">
+                                        <strong>Course 7</strong>
+                                        <br>This is the course description
+                                        <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
+                                        <br>
+                                        <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
+                                    </td>
+                                    <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
+                                    <td class="price text-right">Free</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="number text-center">8</td>
+                                    <td class="image"><img src="~/images/client-01.png" alt=""></td>
+                                    <td class="product">
+                                        <strong>Course 8</strong>
+                                        <br>This is the course description
+                                        <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
+                                        <br>
+                                        <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
+                                    </td>
+                                    <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
+                                    <td class="price text-right">Free</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END TABLE RESULT -->
+                    <!-- BEGIN PAGINATION -->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- END PAGINATION -->
                 </div>
-                  </div>
-                          <!-- END FILTERS -->
-
-                          <!-- BEGIN RESULT -->
-       <div class="col-md-9 my-3">
-                       
-             <p>Showing all results matching "web development"</p>
-            
-                <div class="padding">
-            
-                 <div class="row">
-                          
-            
-                            <!-- BEGIN TABLE RESULT -->
-                            <div class="table-responsive">
-                              <table class="table table-hover">
-                                <tbody>
-                                <tr>
-                                  <td class="number text-center">1</td>
-                                  <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                  <td class="product"><strong>Course 1</strong>
-                                    <br>This is the course description
-                                    <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                    <br>
-                                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a> <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                  </td>
-                                  <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                  <td class="price text-right">Free</td>
-                                </tr>
-
-                                   <tr>
-                                  <td class="number text-center">2</td>
-                                  <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                  <td class="product"><strong>Course 2</strong>
-                                    <br>This is the course description
-                                    <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                    <br>
-                                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                  </td>
-                                  <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                  <td class="price text-right">Free</td>
-                                </tr>
-
-                                <tr>
-                                  <td class="number text-center">3</td>
-                                  <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                  <td class="product"><strong>Course 3</strong>
-                                    <br>This is the course description
-                                    <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                    <br>
-                                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                  </td>
-                                  <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                  <td class="price text-right">Free</td>
-                                </tr>
-
-                                  <tr>
-                                  <td class="number text-center">4</td>
-                                  <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                  <td class="product"><strong>Course 4</strong>
-                                    <br>This is the course description
-                                    <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                    <br>
-                                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                  </td>
-                                  <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                  <td class="price text-right">Free</td>
-                                </tr>
-
-                                <tr>
-                                  <td class="number text-center">5</td>
-                                  <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                  <td class="product"><strong>Course 5</strong>
-                                    <br>This is the course description
-                                    <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                    <br>
-                                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                  </td>
-                                  <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                  <td class="price text-right">Free</td>
-                                </tr>
-
-                                <tr>
-                                  <td class="number text-center">6</td>
-                                  <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                  <td class="product"><strong>Course 6</strong>
-                                    <br>This is the course description
-                                    <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                    <br>
-                                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>   <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                  </td>
-                                  <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                  <td class="price text-right">Free</td>
-                                </tr>
-
-                                <tr>
-                                  <td class="number text-center">7</td>
-                                  <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                  <td class="product"><strong>Course 7</strong>
-                                    <br>This is the course description
-                                    <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                    <br>
-                                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                  </td>
-                                  <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                  <td class="price text-right">Free</td>
-                                </tr>
-
-                                <tr>
-                                  <td class="number text-center">8</td>
-                                  <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                  <td class="product"><strong>Course 8</strong>
-                                    <br>This is the course description
-                                    <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                    <br>
-                                                    <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                  </td>
-                                  <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                  <td class="price text-right">Free</td>
-                                </tr>
-                              </tbody></table>
-                            </div>
-                            <!-- END TABLE RESULT -->
-
-            
-                            <!-- BEGIN PAGINATION -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                  <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                  </li>
-                                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                  </li>
-                                </ul>
-                              </nav>
-                            <!-- END PAGINATION -->
-                          </div>
-                          <!-- END RESULT -->
+                <!-- END RESULT -->
 
 
 
 
-                        </div>
-                      </div>
-                         <footer class="footer_area section_gap_top">
-                          <div class="container">
-                            <div class="row single-footer-widget">
-                              <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="copy_right_text">
-                                  <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                      All Copyrights &copy reserved 
-                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                                </div>
-                              </div>
-                              <div class="col-md-4">
-                                <div class="left-content">
-                                  <ul class="social-icons">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </footer>
-                 
-                  
-                     </div>
+            </div>
+        </div>
                   </div>
                   </div>
-                  </div>
+              
+                
                   <!-- END SEARCH RESULT -->
 
 
@@ -454,7 +698,26 @@
                     $('.btn').click(function() {
                       $('.collapse-content').toggle();
                     });
-                    </script>           
+                    </script>
+
+@* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.rating input').on('change', function () {
+            var ratingValue = $(this).val();
+            // You can use this value to save the rating to the database
+            alert('Rating: ' + ratingValue);
+            $('#hdnRating').val(ratingValue);
+        });
+    });
+</script> *@
+
 @*   </body>
 
   </html> *@
+
+
+                    
+
+
+                    
