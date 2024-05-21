@@ -95,6 +95,13 @@ namespace WebApplication2.Controllers
         {
             return PartialView("_topicsInputPartialView");
         }
+        
+
+        public IActionResult Category()
+        {
+
+            return View();
+        }
         // GET: CourseController/Details/5
         public ActionResult Details(int id)
         {

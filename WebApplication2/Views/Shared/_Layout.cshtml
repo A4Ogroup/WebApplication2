@@ -22,10 +22,10 @@
     <title>Learn consult</title>
 
 
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-
-
+     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+@*      <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+ *@
+    
 
     <link href="~/css/site.css" rel="stylesheet">
     <link href="~/css/site1.css" rel="stylesheet">
@@ -33,15 +33,19 @@
     <link href="~/css/site3.css" rel="stylesheet">
     <link href="~/css/site4.css" rel="stylesheet">
 
-    @* <style>
-        .dropdown:hover .dropdown-menu {
+     <style>
+        /* .dropdown {
+             display:none; */
+
+         }
+       /*  .dropdown:hover .dropdown-menu  {
             display: block;
-        }
+        } 
 
         .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
             margin-top: 0;
-        }
-    </style> *@
+        } */
+    </style> 
 </head>
 
 <body>
@@ -150,10 +154,11 @@
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+@*     <script src="~/lib/jquery/dist/jquery.js"></script>
+ *@    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+@*     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+ *@   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+   
 
 
     <!-- Additional Scripts -->
@@ -162,7 +167,7 @@
     <script src="~/js/site2.js"></script>
     <script src="~/js/site3.js"></script>
     <script src="~/js/site4.js"></script>
-
+ 
 
     <script language="text/Javascript">
         cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
@@ -174,6 +179,7 @@
             }
         }
     </script>
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>
