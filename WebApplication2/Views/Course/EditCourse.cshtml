@@ -1,11 +1,11 @@
-﻿@model AddCourseViewModel
-
+﻿@model EditCourseViewModel
+@inject LconsultDBContext _context
 @{
     Layout = "_InstructorLayout";
 }
 @{
-    var CategoriesList = new SelectList(ViewBag.Categories, "CategoryId", "CategoryName");
-    var LanguageList = new SelectList(ViewBag.Languages, "LanguageId", "Name");
+    var CategoriesList = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+    var LanguageList = new SelectList(_context.Languages, "LanguageId", "Name");
 }
 
 
@@ -85,13 +85,13 @@
             }
         /* Custom styling for the select element */
         /*   .custom-select {
-                    appearance: none; /* Removes default browser styling */
+                            appearance: none; /* Removes default browser styling */
 
 
         /* Adjust padding for the select wrapper to position the arrow correctly */
         /* .select-wrapper {
-                    position: relative;
-                } */
+                            position: relative;
+                        } */
     </style>
 
 </head>
@@ -190,7 +190,7 @@
 
 <div class="send-message">
     <div class="container">
-        <form enctype="multipart/form-data" asp-controller="Course" id="addCourseDynamicForm" asp-action="Addcourse" method="post">
+        <form enctype="multipart/form-data" asp-controller="Course" id="addCourseDynamicForm" asp-action="EditCourse" method="post">
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">

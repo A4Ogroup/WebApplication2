@@ -91,7 +91,7 @@ namespace WebApplication2.Controllers
                 SubcategoryId = model.SubcategoryId,
                 TopicsCovered = model.TopicsCovered,
                     Link = model.Link,
-                    VedioLenght = model.VedioLength,
+                    VedioLength = model.VedioLength,
                     Picture=uniqeFileName,
                 };
                 _courseRepository.Add(newCourse);

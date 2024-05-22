@@ -109,9 +109,9 @@ namespace WebApplication2.Models
 
                 entity.Property(e => e.TopicsCovered).HasColumnName("topicsCovered");
 
-                entity.Property(e => e.VedioLenght)
+                entity.Property(e => e.VedioLength)
                     .HasMaxLength(10)
-                    .HasColumnName("vedioLenght");
+                    .HasColumnName("vedioLength");
 
                 entity.HasOne(d => d.AddedByUser)
                     .WithMany(p => p.Courses)

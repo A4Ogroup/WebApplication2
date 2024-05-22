@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
+using WebApplication2.Helpers.Enums;
 
 namespace WebApplication2.Controllers
 {
@@ -18,6 +19,7 @@ namespace WebApplication2.Controllers
             _context = context;
             _courseRepository = Course;
             _environment = environment;
+
         }
         public ActionResult Index()
         {
@@ -44,11 +46,13 @@ namespace WebApplication2.Controllers
         }
 
 
-
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult AddCourse(AddCourseViewModel model)
         {
             string uniqeFileName = ProcessUploadFile(model);
+            ViewBag.Categories = _context.Categories;
+            ViewBag.Languages = _context.Languages;
             if (ModelState.IsValid)
             {
                 Course newCourse = new()
@@ -58,6 +62,7 @@ namespace WebApplication2.Controllers
                     AddingDate = model.AddingDate,
                     AverageRating = model.AverageRating,
                     LastUpdate = model.LastUpdate,
+                    InstructorFullName = model.InstructorFullName,
                     CourseDuration = model.CourseDuration,
                     CourseDescription = model.CourseDescription,
                     LanguageId = model.LanguageId,
@@ -66,7 +71,7 @@ namespace WebApplication2.Controllers
                     SubcategoryId = model.SubcategoryId,
                     TopicsCovered = model.TopicsCovered,
                     Link = model.Link,
-                    VedioLenght = model.VedioLength,
+                    VedioLength = model.VedioLength,
                     Picture = uniqeFileName,
                 };
                 _courseRepository.Add(newCourse);
@@ -130,10 +135,35 @@ namespace WebApplication2.Controllers
         }
 
         // GET: CourseController/Edit/5
-        public IActionResult Edit(int id)
+        public IActionResult EditCourse(int id)
         {
+            var course = _courseRepository.GetById(id);
+            if(course is not null)
+            {
+                EditCourseViewModel editCourseViewModel = new ()
+                {
+                    CourseId = course.CourseId,
+                    Title = course.Title,
+                    CategoryId = course.CategoryId,
+                    AddingDate = course.AddingDate,
+                    AverageRating = course.AverageRating,
+                    LastUpdate = course.LastUpdate,
+                    InstructorFullName = course.InstructorFullName,
+                    CourseDuration = course.CourseDuration,
+                    CourseDescription = course.CourseDescription,
+                    LanguageId = course.LanguageId,
+                    Level = course.Level,
+                    PriceStatus = course.PriceStatus,
+                    SubcategoryId = course.SubcategoryId,
+                    TopicsCovered = course.TopicsCovered,
+                    Link = course.Link,
+                    VedioLength = course.VedioLength,
+                    // Picture = uniqeFileName,
+                };
+                return View(editCourseViewModel);
+            }
 
-            return RedirectToAction("AddCourse","Instructor");
+            return View();
         }
 
         // POST: CourseController/Edit/5
