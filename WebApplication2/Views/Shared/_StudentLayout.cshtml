@@ -57,6 +57,54 @@
 
     <!-- Header -->
     <header class="">
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="home" asp-action="index">
+                    <h2><em>L</em>earn Consult</h2>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Category
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (var category in categories)
+                                {
+                                    <li><a class="dropdown-item" asp-controller="home" asp-action="Category">@category.CategoryName</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <div class="search-form dropdown">
+                                <form method="post" action="/home/search" class="d-flex">
+                                    <input type="search" class="form-control border-0 rounded-pill" name="search-input" placeholder="Search Here" required="" />
+                                    <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+
+                                </form>
+                            </div>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" asp-controller="student" asp-action="review">
+                                Add Review
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link">Signout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a c
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+@*     <header class="">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
 
@@ -79,8 +127,7 @@
                                 {
                                     <li><a class="dropdown-item" asp-controller="home" asp-action="Category">@category.CategoryName</a></li>
                                 }
-                                @*                 <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
-                                <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li> *@
+
                             </ul>
                         </li>
 
@@ -115,7 +162,7 @@
             </div>
 
         </nav>
-    </header>
+    </header> *@
 
 
     <div>
