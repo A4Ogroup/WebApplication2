@@ -35,7 +35,58 @@
     </div>
     <!-- ***** Preloader End ***** -->
     <!-- Header -->
+
+
+
     <header class="">
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="home" asp-action="index">
+                    <h2><em>L</em>earn Consult</h2>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <div class="search-form">
+                                <form method="post" action="index.html">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control border-0 rounded-pill" name="search-input" value="" placeholder="Search Here" required="" />
+                                        <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" asp-controller="Instructor" asp-action="MyCourses">
+                                My Courses
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" asp-controller="Instructor" asp-action="AddCourse">
+                                Add Course
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link">Signout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Instructor" asp-action="Profile">Profile</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+@*     <header class="">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
 
@@ -99,7 +150,7 @@
             </div>
 
         </nav>
-    </header>
+    </header> *@
 
 
 

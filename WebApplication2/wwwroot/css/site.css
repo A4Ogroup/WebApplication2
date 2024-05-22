@@ -988,7 +988,7 @@ footer {
         padding: 15px 0px;
     }
     
-/* Responsive Style */
+/* Responsive Style 
 @media (max-width: 768px) {
     .banner .text-content {
         width: 90%;
@@ -1152,3 +1152,210 @@ footer {
     
 
 }
+
+*/
+
+/* Small Devices (Phones) */
+/*@media (max-width: 576px) {*/
+    /* Styles for screens up to 576px wide */
+    /*.navbar-brand h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-item .dropdown-menu {
+        font-size: 0.9rem;
+    }
+
+    .search-form .form-control {
+        width: 200px;
+    }
+}*/
+
+/* Medium Devices (Tablets) */
+/*@media (min-width: 577px) and (max-width: 768px) {*/
+    /* Styles for screens between 577px and 768px wide */
+    /*.navbar-brand h2 {
+        font-size: 1.8rem;
+    }
+
+    .nav-item .dropdown-menu {
+        font-size: 1rem;
+    }
+
+    .search-form .form-control {
+        width: 300px;
+    }
+}*/
+
+/* Large Devices (Laptops/Desktops) */
+/*@media (min-width: 769px) and (max-width: 992px) {*/
+    /* Styles for screens between 769px and 992px wide */
+    /*.navbar-brand h2 {
+        font-size: 2rem;
+    }
+
+    .nav-item .dropdown-menu {
+        font-size: 1.1rem;
+    }
+
+    .search-form .form-control {
+        width: 400px;
+    }
+}*/
+
+/* Extra Large Devices (Desktops) */
+/*@media (min-width: 993px) {*/
+    /* Styles for screens 993px and wider */
+    /*.navbar-brand h2 {
+        font-size: 2.2rem;
+    }
+
+    .nav-item .dropdown-menu {
+        font-size: 1.2rem;
+    }
+
+    .search-form .form-control {
+        width: 500px;
+    }
+}*/
+
+
+
+@media (max-width: 768px) {
+    .navbar .navbar-brand {
+        position: absolute;
+        left: 30px;
+        top: 32px;
+    }
+
+        .navbar .navbar-brand h2 {
+            font-size: 1.5rem;
+        }
+
+    .navbar-toggler {
+        margin-right: 30px;
+    }
+
+    .navbar .navbar-nav {
+        text-align: center;
+    }
+
+    #navbarSupportedContent {
+        text-align: center;
+    }
+
+    .nav-item {
+        margin-bottom: 15px;
+    }
+
+    .search-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+        .search-btn .form-group {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .search-btn .form-control {
+            width: 70%;
+            margin-right: 5px;
+        }
+
+        .search-btn .btn {
+            width: 20%;
+        }
+}
+
+@media (max-width: 992px) {
+    .navbar .navbar-brand {
+        position: absolute;
+        left: 30px;
+        top: 32px;
+    }
+
+    .navbar .navbar-brand {
+        width: auto;
+    }
+
+    .navbar:after {
+        display: none;
+    }
+
+    #navbarResponsive {
+        z-index: 99999;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background-color: #fff;
+        box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar .navbar-nav .nav-item {
+        border-bottom: 1px solid #eee;
+    }
+
+        .navbar .navbar-nav .nav-item:last-child {
+            border-bottom: none;
+        }
+
+    .navbar .navbar-nav a.nav-link {
+        padding: 15px 0px;
+        color: #1e1e1e !important;
+    }
+
+    .navbar .navbar-nav .nav-link:hover,
+    .navbar .navbar-nav .active > .nav-link,
+    .navbar .navbar-nav .nav-link.active,
+    .navbar .navbar-nav .nav-link.show,
+    .navbar .navbar-nav .show > .nav-link {
+        color: #f33f3f !important;
+        border-bottom: none !important;
+        padding-bottom: 15px;
+    }
+
+    .product-item .down-content h4 {
+        margin-bottom: 10px;
+    }
+
+    .product-item .down-content h6 {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-bottom: 20px;
+    }
+
+    .product-item .down-content span {
+        position: relative;
+        right: 0;
+        bottom: 0;
+    }
+
+    .container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}
+
+
+.search-form {
+    position: relative;
+}
+
+    .search-form .dropdown-menu {
+        top: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    .search-form .form-control {
+        border-radius: 20px 0 0 20px;
+    }
+
+    .search-form .btn-outline-secondary {
+        border-radius: 0 20px 20px 0;
+    }
