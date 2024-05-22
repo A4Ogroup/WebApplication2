@@ -30,8 +30,9 @@ namespace WebApplication2.ViewModels
         public bool? Claimed { get; set; }
         public bool? Status { get; set; }
         //public string InstructorId { get; set; }
-        //public string InstructorFullName { get; set; }
+        public string InstructorFullName { get; set; }
         [DisplayName("Average Video Length")]
+        //[Required]
         public VideoLengthCategory? VedioLength { get; set; }
         [DisplayName("Course Total Hours")]
         public int? CourseDuration { get; set; }
