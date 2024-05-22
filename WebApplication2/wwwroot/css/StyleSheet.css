@@ -224,7 +224,7 @@
     }
    
 
-body {
+/*body {
 
     font-family: "Poppins", sans-serif;
     font-weight: 300;
@@ -239,7 +239,7 @@ body {
     background-color: #fff;
     position: relative;
     height: 370px;
-}
+}*/
 
 .card {
     width: 380px;
@@ -302,7 +302,7 @@ header[role="banner"] {
 }
 
 
-#navbar-primary.navbar-default {
+/*#navbar-primary.navbar-default {
     background: transparent;
     border: none;
 }
@@ -319,7 +319,7 @@ header[role="banner"] {
 .a{
     padding-left: 30px;
     padding-right: 30px;
-}
+}*/
 
 
 
@@ -878,13 +878,13 @@ h2 {
 }*/
 
 
-.gradient-custom {
+/*.gradient-custom {*/
     /* fallback for old browsers */
-    background: #f093fb;
+    /*background: #f093fb;*/
     /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
+    /*background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));*/
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1))
+    /*background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1))
 }
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -896,7 +896,7 @@ h2 {
 
 .card-registration .select-arrow {
     top: 13px;
-}
+}*/
 
 
 
