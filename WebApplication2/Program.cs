@@ -14,6 +14,7 @@ builder.Services.AddDbContext<LconsultDBContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("LconsultDBConnection")));
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 var app = builder.Build();
 
 
