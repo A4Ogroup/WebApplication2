@@ -27,7 +27,7 @@ namespace WebApplication2.Models
 
         [Required]
         public Level? Level { get; set; }
-        public bool? PriceStatus { get; set; }
+        public  bool? PriceStatus { get; set; }
         public DateTime? LastUpdate { get; set; }
         public DateTime? AddingDate { get; set; }= DateTime.Now;
         public string? Picture { get; set; }
