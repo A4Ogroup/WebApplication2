@@ -5,6 +5,7 @@ using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
 using WebApplication2.Helpers.Enums;
+using System;
 
 namespace WebApplication2.Controllers
 {
@@ -50,7 +51,9 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult AddCourse(AddCourseViewModel model)
         {
-            string uniqeFileName = ProcessUploadFile(model);
+            string uniqeFileName = ProcessUploadFile(model, x => x.Picture);
+
+            //string uniqeFileName = ProcessUploadFile(model);
             ViewBag.Categories = _context.Categories;
             ViewBag.Languages = _context.Languages;
             if (ModelState.IsValid)
@@ -79,19 +82,37 @@ namespace WebApplication2.Controllers
             return RedirectToAction("AddCourse");
         }
 
-        private string ProcessUploadFile(AddCourseViewModel model)
+        //private string ProcessUploadFile(AddCourseViewModel model)
+        //{
+        //    string uniqeFileName = null;
+        //    if (model.Picture is not null)
+        //    {
+        //        string uploadFolder = Path.Combine(_environment.WebRootPath, "images/users");
+        //        uniqeFileName = Guid.NewGuid().ToString() + "_" + model.Picture.FileName;
+        //        string filePath = Path.Combine(uploadFolder, uniqeFileName);
+        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            model.Picture.CopyTo(fileStream);
+        //        }
+
+        //    }
+
+        //    return uniqeFileName;
+        //}
+
+        private string ProcessUploadFile<T>(T model, Func<T, IFormFile> pictureAccessor)
         {
             string uniqeFileName = null;
-            if (model.Picture is not null)
+            var picture = pictureAccessor(model);
+            if (picture is not null)
             {
-                string uploadFolder = Path.Combine(_environment.WebRootPath, "images/users");
-                uniqeFileName = Guid.NewGuid().ToString() + "_" + model.Picture.FileName;
+                string uploadFolder = Path.Combine(_environment.WebRootPath, "images/courses");
+                uniqeFileName = Guid.NewGuid().ToString() + "_" + picture.FileName;
                 string filePath = Path.Combine(uploadFolder, uniqeFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    model.Picture.CopyTo(fileStream);
+                    picture.CopyTo(fileStream);
                 }
-
             }
 
             return uniqeFileName;
@@ -158,7 +179,7 @@ namespace WebApplication2.Controllers
                     TopicsCovered = course.TopicsCovered,
                     Link = course.Link,
                     VedioLength = course.VedioLength,
-                    // Picture = uniqeFileName,
+                    ExistingPhotoPath = course.Picture,
                 };
                 return View(editCourseViewModel);
             }
@@ -169,17 +190,48 @@ namespace WebApplication2.Controllers
         // POST: CourseController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult EditCourse( EditCourseViewModel model)
         {
-            try
+            //if(modelstate.isvalid)
+            
+
+                Course course = _courseRepository.GetById(model.CourseId);
+
+
+            course.CourseId = model.CourseId;
+            course.Title = model.Title;
+            course.CategoryId = model.CategoryId;
+            course.AddingDate = model.AddingDate;
+            course.AverageRating = model.AverageRating;
+            course.LastUpdate = model.LastUpdate;
+           course.InstructorFullName = model.InstructorFullName;
+            course.CourseDuration = model.CourseDuration;
+            course.CourseDescription = model.CourseDescription;
+            course.LanguageId = model.LanguageId;
+            course.Level = model.Level;
+            course.PriceStatus = model.PriceStatus;
+            course.SubcategoryId = model.SubcategoryId;
+            course.TopicsCovered = model.TopicsCovered;
+            course.Link = model.Link;
+            course.VedioLength = model.VedioLength;
+            if (model.Picture != null)
             {
-                return RedirectToAction(nameof(Index));
+
+                if (model.ExistingPhotoPath != null)
+                {
+                    string filePath = Path.Combine(_environment.WebRootPath, "images/courses", model.ExistingPhotoPath);
+                    System.IO.File.Delete(filePath);
+                }
+                course.Picture = ProcessUploadFile(model,x=>x.Picture);
+
             }
-            catch
-            {
-                return View();
-            }
-        }
+            _courseRepository.Update(course);
+            _courseRepository.Save();
+            return View();
+            
+                
+             }
+        
 
         // GET: CourseController/Delete/5
         public ActionResult Delete(int id)

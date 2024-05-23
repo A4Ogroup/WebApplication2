@@ -6,6 +6,8 @@
 @{
     var CategoriesList = new SelectList(_context.Categories, "CategoryId", "CategoryName");
     var LanguageList = new SelectList(_context.Languages, "LanguageId", "Name");
+    var photoPath = "~/images/courses" + (Model.ExistingPhotoPath ?? "noimage.png");
+
 }
 
 
@@ -191,6 +193,9 @@
 <div class="send-message">
     <div class="container">
         <form enctype="multipart/form-data" asp-controller="Course" id="addCourseDynamicForm" asp-action="EditCourse" method="post">
+            <input hidden asp-for="CourseId" />
+            <input hidden asp-for="ExistingPhotoPath" />
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
@@ -366,15 +371,17 @@
                                     </fieldset>
                                 </div>
 
-                                <div id="inputContainer" class="col-lg-12 col-md-12 col-sm-12">
+                                @* <div id="inputContainer" class="col-lg-12 col-md-12 col-sm-12">
                                     <!-- Render initial input field via partial view -->
                                     @Html.Partial("_topicsInputPartialView")
 
                                 </div>
                                 <button type="button" onclick="addInput()" class="btn btn-default">+</button>
-                                <textarea asp-for="TopicsCovered" hidden></textarea>
-
-
+                                <textarea asp-for="TopicsCovered" hidden></textarea> *@
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                <textarea id="topicsTextarea" class="form-control" rows="4" placeholder="Enter topics covered..."></textarea>
+                                <input type="hidden" id="hiddenTopicsCovered" asp-for="TopicsCovered">
+                                </div>
 
                                 <!-- course topics covered   region -->
                                 @* <div class="col-lg-12 col-md-12 col-sm-12">
@@ -468,7 +475,7 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input asp-for="Picture" class="form-control" id="course picture" placeholder="Course Poster Image">
+                                    <input asp-for="Picture" class="form-control"  placeholder="Course Poster Image">
                                 </fieldset>
                             </div>
 
@@ -478,6 +485,9 @@
                                 <button type="submit" id="contact" class="filled-button">Submit </button>
                             </fieldset>
 
+                        </div>
+                        <div>
+                            <img src="@photoPath" class="imageThumbnail" asp-append-version="true" />
                         </div>
         </form>
 
@@ -610,44 +620,97 @@
 
     </script>
 
-    @*  <script>
+    
+    <script>
         $(document).ready(function () {
-            $("#providerInput").on("input", function () {
-                var input = $(this).val();
-                var dropdownMenu = $("#providerList");
-                if (input.length > 1) {  // Trigger AJAX call when user has typed two or more characters
-                    $.ajax({
-                        url: '@Url.Action("GetProviders", "Instructor")',  // Adjust controller and action names
-                        data: { search: input },
-                        success: function (data) {
-                            dropdownMenu.empty();
-                            if (data.length > 0) {
-                                data.forEach(function (item) {
-                                    dropdownMenu.append(`<button class="dropdown-item" type="button" onclick="setProvider('${item}')">${item}</button>`);
-                                });
-                                dropdownMenu.dropdown('show');
+            console.log("Document is ready");
 
-                            } else {
-                                dropdownMenu.append('<button class="dropdown-item" type="button">No results found</button>');
-                                dropdownMenu.dropdown('show');
-                               // $("#providerList").append('<a href="#" class="list-group-item">No results found</a>');
-                            }
-                        }
-                    });
-                } else {
-                    dropdownMenu.empty();
-                    dropdownMenu.dropdown('hide');
-                }
+            // Initial population of subcategories if CategoryId has a value
+            var initialCategoryId = '@Model.CategoryId'; // Assumes you have CategoryId in your model
+            if (initialCategoryId && initialCategoryId != "-1") {
+                updateSubcategories(initialCategoryId, '@Model.SubcategoryId');
+            }
+
+            $(document).on('click', '#subcategoriesList .dropdown-item', function () {
+                var selectedText = $(this).text();
+                var selectedValue = $(this).data('value');
+                $('#dropdownMenuLink').html(selectedText + ' <span class="caret"></span>'); // Update dropdown link text
+                $('#selectedSubcategoryId').val(selectedValue); // Update hidden input value
             });
         });
 
-        function setProvider(name) {
-            $("#providerInput").val(name);
-            $("#providerList").dropdown('hide');
-        }
-    </script> *@
+        function updateSubcategories(categoryId, selectedSubcategoryId) {
+            // Clear current subcategories
+            $('#subcategoriesList').empty();
+            $('#dropdownMenuLink').text('Select a Subcategory');
+            $('#selectedSubcategoryId').val('');
 
+            if (categoryId && categoryId != "-1") {
+                $.ajax({
+                    url: '@Url.Action("GetSubcategories", "Course")',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { categoryId: categoryId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            $.each(data, function (i, item) {
+                                var subcategoryElement = $('<li>').append(
+                                    $('<a>').addClass('dropdown-item').attr('data-value', item.subId).text(item.subName)
+                                );
+
+                                // Append to list
+                                $('#subcategoriesList').append(subcategoryElement);
+
+                                // Set the selected subcategory
+                                if (item.subId == selectedSubcategoryId) {
+                                    $('#dropdownMenuLink').html(item.subName + ' <span class="caret"></span>');
+                                    $('#selectedSubcategoryId').val(selectedSubcategoryId);
+                                }
+                            });
+                        } else {
+                            $('#subcategoriesList').append($('<li>').append($('<a>').addClass('dropdown-item').text('No subcategories available')));
+                        }
+                    },
+                    error: function () {
+                        console.error("Error loading subcategories");
+                        $('#dropdownMenuLink').text('Error loading subcategories');
+                    }
+                });
+            }
+        }
+    </script>
+
+
+   
     <script>
+
+        // Topics Covered area 
+
+        $(document).ready(function () {
+            // Existing initialization code
+            console.log("Document is ready");
+            
+            // Function to display topics
+            function displayTopics() {
+                var topics = '@Model.TopicsCovered'; // Get the topics from the model
+                var topicsArray = topics.split(';'); // Split the string by semicolons
+                var formattedTopics = topicsArray.join('\n'); // Join the array into a string with new lines
+                $('#topicsTextarea').val(formattedTopics); // Set the value of the textarea
+            }
+
+            // Call the function on page load 
+            displayTopics();
+
+            // Handle form submission
+            $('#addCourseDynamicForm').on('submit', function (e) {
+                var allTopics = $('#topicsTextarea').val().split('\n'); // Split the textarea content by new lines
+                var topicsString = allTopics.join(';'); // Join into a single string with semicolons
+                $('#hiddenTopicsCovered').val(topicsString); // Set the hidden input value
+            });
+        });
+    </script>
+
+   @*  <script>
 
 
         function addInput() {
@@ -669,7 +732,7 @@
             var concatenatedInputs = Array.from(inputs).map(input => input.value).join(';');
             document.getElementById('@Html.IdFor(m => m.TopicsCovered)').value = concatenatedInputs;
         });
-    </script>
+    </script> *@
 
    }
 
