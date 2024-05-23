@@ -8,7 +8,8 @@ namespace WebApplication2.Models.Repository
         
         IEnumerable<Course> GetAll();
         Course Add(Course course);
-        Course Update(int id, Course courseChanges);
+        Course Update( Course courseChanges);
         Course Delete(int id);
+        bool Save();
     }
 }

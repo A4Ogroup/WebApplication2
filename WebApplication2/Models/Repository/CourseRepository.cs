@@ -1,4 +1,7 @@
-﻿namespace WebApplication2.Models.Repository
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace WebApplication2.Models.Repository
 {
    
     public class CourseRepository : ICourseRepository
@@ -18,6 +21,10 @@
         }
         public Course Add(Course course)
         {
+            if(course is  null)
+            {
+                throw new ArgumentNullException(nameof(course));
+            }
             _context.Courses.Add(course);
             _context.SaveChanges();
             return course;
@@ -30,9 +37,32 @@
 
        
 
-        public Course Update(int id, Course courseChanges)
+        public Course Update( Course courseChanges)
         {
-            throw new NotImplementedException();
+            var course =_context.Courses.Attach(courseChanges);
+            course.State = EntityState.Modified;
+            return courseChanges;
+            
+        }
+
+
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // dispose resources when needed
+            }
         }
     }
 }
