@@ -174,6 +174,7 @@ namespace WebApplication2.Controllers
                     CourseDescription = course.CourseDescription,
                     LanguageId = course.LanguageId,
                     Level = course.Level,
+                    Platform=course.Platform,
                     PriceStatus = course.PriceStatus,
                     SubcategoryId = course.SubcategoryId,
                     TopicsCovered = course.TopicsCovered,
@@ -209,6 +210,7 @@ namespace WebApplication2.Controllers
             course.CourseDescription = model.CourseDescription;
             course.LanguageId = model.LanguageId;
             course.Level = model.Level;
+            course.Platform = model.Platform;
             course.PriceStatus = model.PriceStatus;
             course.SubcategoryId = model.SubcategoryId;
             course.TopicsCovered = model.TopicsCovered;
@@ -227,7 +229,7 @@ namespace WebApplication2.Controllers
             }
             _courseRepository.Update(course);
             _courseRepository.Save();
-            return View();
+            return RedirectToAction("index","Home");
             
                 
              }

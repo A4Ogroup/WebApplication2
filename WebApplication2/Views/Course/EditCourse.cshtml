@@ -6,7 +6,10 @@
 @{
     var CategoriesList = new SelectList(_context.Categories, "CategoryId", "CategoryName");
     var LanguageList = new SelectList(_context.Languages, "LanguageId", "Name");
-    var photoPath = "~/images/courses" + (Model.ExistingPhotoPath ?? "noimage.png");
+    //The next to line should be deleted 
+    var photoPath = "~/images/courses/noimage.png";
+    if(Model is not null)
+     photoPath= "~/images/courses/" + (Model.ExistingPhotoPath ?? "noimage.png");
 
 }
 
@@ -192,7 +195,7 @@
 
 <div class="send-message">
     <div class="container">
-        <form enctype="multipart/form-data" asp-controller="Course" id="addCourseDynamicForm" asp-action="EditCourse" method="post">
+        <form enctype="multipart/form-data" asp-controller="Course" id="addCourseDynamicForm" asp-action="EditCourse" asp-route-Id="@Model.CourseId" method="post">
             <input hidden asp-for="CourseId" />
             <input hidden asp-for="ExistingPhotoPath" />
 
