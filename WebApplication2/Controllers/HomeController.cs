@@ -29,6 +29,9 @@ namespace WebApplication2.Controllers
 
         public IActionResult Index()
         {
+            var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
+                .Take(10).ToList();
+         
             //var categoryList = _context.Categories.Select(C => new
             //{
             //    C.CategoryId,
@@ -57,6 +60,9 @@ namespace WebApplication2.Controllers
         }
         public IActionResult New()
         {
+
+            var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
+             .Take(10).ToList();
             return View();
         }
         public IActionResult Login()
