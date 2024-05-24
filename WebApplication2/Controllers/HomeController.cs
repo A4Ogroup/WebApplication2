@@ -63,6 +63,9 @@ namespace WebApplication2.Controllers
 
             var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
              .Take(10).ToList();
+
+              var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
+             .Take(10).ToList();
             return View();
         }
         public IActionResult Login()

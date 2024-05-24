@@ -2,6 +2,9 @@
 @{ 
     var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
      .Take(10).ToList();
+
+    var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
+            .Take(10).ToList();
 }
 @* <!DOCTYPE html>
 <html lang="en">
@@ -88,10 +91,14 @@
 
                         @foreach (var items in courses)
                         {
-                            <div class="col-md-4">
-                                <div class="product-item">
-                                    <a href="#"><img src="~/images/courses/@items.Picture" alt=""></a>
-                                    <div class="down-content">
+                <div class="col-md-4">
+                    <div class="product-item">
+                        @if (@items.Picture is null)
+                        {
+                            items.Picture ="noimage.png";
+
+                        }<a href="#"><img src="~/images/courses/@items.Picture" alt=""></a>
+                        <div class="down-content">
                                         <a href="#"><h4>@items.Title</h4></a>
                                         @if(items.PriceStatus is true){
                                             <h6> paid </h6>
@@ -109,7 +116,38 @@
                                         </div>
 
                         }
- 
+
+            <div class="latest-products">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="section-heading">
+                                <h2>Recent Reviews</h2>
+                                <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+
+                        @foreach(var items in reviews){
+
+                        <div class="col-md-4">
+                            <div class="product-item">
+                                <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
+                                <div class="down-content">
+                                    <!--<a href="#"><h4>Tittle goes here</h4></a>-->
+                                    <h4>@items.Student</h4>
+                                    <h6>@items.RatingDate.ToString()</h6>
+                                    <ul class="stars">
+                                        <li><i class="fa fa-star">@items.Rate</i></li>
+                                    </ul>
+                                    <p>@items.Descritipn</p>
+                                </div>
+                            </div>
+                        </div>
+               }
+                        
+                    </div>
+                </div>
+            </div>
                    
                
 @*                 <div class="col-md-4">
