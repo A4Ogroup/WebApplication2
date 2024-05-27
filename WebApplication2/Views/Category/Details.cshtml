@@ -163,28 +163,54 @@ f
                     <div class="padding">
                         <div class="row">
                             <!-- BEGIN TABLE RESULT -->
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <tbody>
+                            
+                                
 
                                         
                                                 <div class="latest-products">
-                                                    <div class="container">
+                                                    <div class="container align-content-between">
                                                         <div class="row">
-                                         
+                                        <div class="card-deck">
                                         @foreach (var Course in Model.courses)
                                         {
 
+                                                       
+                                                        <div class="card mx-1 shadow-sm">
+                                                           @*  <span class="badge  badge-warning w-50 mt-2"
+                                                                  style="position: absolute; z-index: 3">BEST SELLER</span> *@
+                                                    <div class="card-body px-2">
+                                                        <img class="card-img-left" src="~/images/courses/04cb9edd-fc4d-47d3-b84f-19279d765226_Screenshot (32).png" alt="Card image cap">
+                                                            
+                                                                <h6>An Entire MBA in 1 Course:Award Winning...</h6>
+                                                                <p class="card-text" style="font-size: 11px;">Chris Haroun, Complete Busines...</p>
+                                                                <p class="card-text">
+                                                                    <small class="text-muted">
+                                                                        <i class="fas fa-star text-warning"></i>
+                                                                        <i class="fas fa-star text-warning"></i>
+                                                                        <i class="fas fa-star text-warning"></i>
+                                                                        <i class="fas fa-star text-warning"></i>
+                                                                        <i class="fas fa-star-half text-warning"></i>
+                                                                        4.5 (18,560)
+                                                                    </small>
+                                                                    <span class="d-block"></span>
+                                                                    <span class="float-xl-start">
+                                                                        <small style="text-decoration: line-through;" class="text-muted">
+                                                                            ($199)
+                                                                        </small>$9.99
+                                                                    </span>
 
+                                                                </p>
                  
-          
-          <div class="col-md-12">
+                                      </div>
+                                      </div>
+                                     
+         @*  <div class="col-md-12">
             <div class="product-item">
               <a href="#"><img src="~/images/product_01.jpg" alt=""></a>
               <div class="down-content">
                 <a href="#"><h4>Title</h4></a>
-               @*  <h6>@Model.PriceStatus</h6>
-                <p>@Model.CourseDescription</p> *@
+                 <h6>@Model.PriceStatus</h6>
+                <p>@Model.CourseDescription</p> 
                 <ul class="stars">
                   <li><i class="fa fa-star"></i></li>
                   <li><i class="fa fa-star"></i></li>
@@ -195,7 +221,7 @@ f
                 <span>Reviews (24)</span>
               </div>
             </div>
-          </div>
+          </div> *@
           
 
 
@@ -222,7 +248,7 @@ f
                                             </div> *@
 
                                         }
-
+                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -340,9 +366,7 @@ f
                                             <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
                                             <td class="price text-right">Free</td>
                                         </tr> *@
-                                    </tbody>
-                                </table>
-                            </div>
+                                   
                             <!-- END TABLE RESULT -->
                             <!--kjuuuggygy-->
                             <!-- BEGIN PAGINATION -->
