@@ -6,6 +6,7 @@ using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
 using WebApplication2.Helpers.Enums;
 using System;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace WebApplication2.Controllers
 {
@@ -130,9 +131,23 @@ namespace WebApplication2.Controllers
             return View();
         }
         // GET: CourseController/Details/5
-        public ActionResult Details(int id)
+        public  IActionResult Details(int id)
         {
-            return View();
+            var course =  _context.Courses.FirstOrDefault(c => c.CourseId == id);
+       
+
+            var review = _context.Reviews.Select(r => new
+            {
+                r.ReviewId,
+                r.RatingDate,
+                r.Student,
+                r.Rate,
+                r.Descritipn,
+            }).ToList();
+
+;
+
+            return View(course);
         }
 
         // GET: CourseController/Create

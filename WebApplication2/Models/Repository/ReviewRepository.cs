@@ -1,4 +1,6 @@
-﻿namespace WebApplication2.Models.Repository
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace WebApplication2.Models.Repository
 {
     public class ReviewRepository : IReviewRepository
     {
@@ -31,9 +33,15 @@
            return _context.Reviews.FirstOrDefault(R => R.ReviewId == id); 
         }
 
-        public Review Update(int id, Review review)
+        public Review Update(Review reviewchanges)
         {
-            throw new NotImplementedException();
+            var _review = _context.Reviews.Attach(reviewchanges);
+            _review.State= EntityState.Modified;
+            return reviewchanges;
+        }
+        public bool Save()
+        {
+            return (_context.SaveChanges() >=0);
         }
     }
 }

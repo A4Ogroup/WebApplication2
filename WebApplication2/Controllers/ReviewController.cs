@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
@@ -8,12 +9,14 @@ namespace WebApplication2.Controllers
     public class ReviewController : Controller
     {
         public IReviewRepository _reviewRepository;
+        public ICourseRepository _courseRepository;
         public LconsultDBContext _context;
 
-        public ReviewController(IReviewRepository reviewRepository, LconsultDBContext context)
+        public ReviewController(IReviewRepository reviewRepository, LconsultDBContext context, ICourseRepository courseRepository)
         {
             _reviewRepository = reviewRepository;
             _context = context;
+            _courseRepository = courseRepository;
         }
 
         public IActionResult Index()
@@ -22,26 +25,96 @@ namespace WebApplication2.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddReview()
+        public IActionResult AddReview(int Id)
         {
+            var model = new Review
+            {
+                CourseId = Id
+            };
+            return View(model);
 
-            return View();
+
+            //return View("addreview", new {Id});
         }
 
         [HttpPost]
         public IActionResult AddReview(AddReviewViewModel model)
         {
-
+            var course = _context.Courses.FirstOrDefault(c => c.CourseId == model.CourseId);
+            if(course  == null){
+                return View("index");
+            }
+           
             Review _review = new()
             {
                 Descritipn = model.Descritipn,
                 Rate = model.Rate,
+                MaterialQuality = model.MaterialQuality,
+                SupportQuality = model.SupportQuality,
+                TechnicalQuality = model.TechnicalQuality,
+                ContentQuality = model.ContentQuality,
+                EngagementLevel = model.EngagementLevel,
+                OverAllSatisfication = model.OverAllSatisfication,
+                CourseId= model.CourseId,
 
             };
+           //course.Reviews.Add(_review);
+           _reviewRepository.Add(_review);
 
-            _reviewRepository.Add(_review);
+            return RedirectToAction("AddReview", new { id = model.CourseId });
 
-            return RedirectToAction("AddReview");
+        }
+
+        [HttpGet]
+        public IActionResult EditReview( int id)
+        {
+            var _review=_reviewRepository.GetById(id);
+
+            if(_review != null)
+            {
+                EditReviewViewModel model = new()
+                {
+                    ReviewId = _review.ReviewId,
+                    Descritipn = _review.Descritipn,
+                    Rate = _review.Rate,
+                    MaterialQuality = _review.MaterialQuality,
+                    SupportQuality = _review.SupportQuality,
+                    TechnicalQuality  = _review.TechnicalQuality,
+                    EngagementLevel = _review.EngagementLevel,
+                    ContentQuality = _review.ContentQuality,
+                    OverAllSatisfication = _review.OverAllSatisfication,
+                    CourseId = _review.CourseId,
+                };
+                
+                return View(model);
+            }
+            return View();
+
+
+        }
+
+        [HttpPost]
+
+        public IActionResult EditReview(EditReviewViewModel model)
+        {
+
+            Review review=_reviewRepository.GetById(model.ReviewId);
+
+            review.ReviewId = model.ReviewId;
+            review.Descritipn= model.Descritipn;
+            review.Rate = model.Rate;
+            review.SupportQuality = model.SupportQuality;
+            review.MaterialQuality = model.MaterialQuality;
+            review.ContentQuality = model.ContentQuality;
+            review.EngagementLevel= model.EngagementLevel;
+            review.TechnicalQuality = model.TechnicalQuality;
+            review.OverAllSatisfication= model.OverAllSatisfication;
+            review.CourseId = model.CourseId;
+
+            _reviewRepository.Update(review);
+            _reviewRepository.Save();
+
+            return RedirectToAction("index", "student");
         }
 
     }
