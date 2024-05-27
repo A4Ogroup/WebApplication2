@@ -5,7 +5,8 @@
         Review GetById(int id);
         IEnumerable<Review> GetAll();
         Review Add(Review review);
-        Review Update(int id,Review review);
+        Review Update(Review review);
         Review Delete(int id);
+        bool Save();
     }
 }

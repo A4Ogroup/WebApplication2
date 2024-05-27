@@ -1,4 +1,5 @@
-﻿using WebApplication2.ViewModels;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Models.Repository
 {
@@ -12,5 +13,7 @@ namespace WebApplication2.Models.Repository
         Course Update(Course courseChanges);
         void Delete(Course course);
         bool Save();
+
+        
     }
 }

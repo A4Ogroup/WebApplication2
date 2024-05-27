@@ -1,9 +1,15 @@
-﻿@model AddCourseViewModel
+﻿@inject LconsultDBContext _context
+@{
+    var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
+     .Take(3).ToList();
+
+    var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
+            .Take(3).ToList();
+}
 @{
     Layout = "_Layout";
 }
-    <!-- Page Content -->
-    <!-- Banner Starts Here -->
+
     <div class="banner header-text">
       <div class="owl-banner owl-carousel">
         <div class="banner-item-01">
@@ -14,13 +20,11 @@
         </div>
       </div>
     </div>
-    <!-- Banner Ends Here -->
 
-
-    <!-- Top Courses starts Here -->
-    <div class="latest-products">
-      <div class="container">
+<div class="latest-products">
+    <div class="container">
         <div class="row">
+<<<<<<< HEAD
           <div class="col-md-12">
             <div class="section-heading">
               <h2>Top Courses</h2>
@@ -96,165 +100,116 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
+=======
+            <div class="col-md-12">
+>>>>>>> 963eec44e12dafe7baf7da846c886567dba32822
                 <div class="section-heading">
-                  <h2>Latest Courses</h2>
-                  <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
+                    <h2>Top Courses</h2>
+                  @*   <a asp-controller="home" asp-action="course">view all courses <i class="fa fa-angle-right"></i></a> *@
                 </div>
-              </div>
-              <div class="col-md-4">
-                <div class="product-item">
-                  <a href="#"><img src="~/images/product_04.jpg" alt=""></a>
-                  <div class="down-content">
-                    <a href="#"><h4>Tittle goes here</h4></a>
-                    <h6>Paid</h6>
-                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                    <ul class="stars">
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                    </ul>
-                    <span>Reviews (24)</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="product-item">
-                  <a href="#"><img src="~/images/product_01.jpg" alt=""></a>
-                  <div class="down-content">
-                    <a href="#"><h4>Tittle goes here</h4></a>
-                    <h6>Free</h6>
-                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                    <ul class="stars">
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                    </ul>
-                    <span>Reviews (21)</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="product-item">
-                  <a href="#"><img src="~/images/product_01.jpg" alt=""></a>
-                  <div class="down-content">
-                    <a href="#"><h4>Tittle goes here</h4></a>
-                    <h6>Free</h6>
-                    <p>Sixteen Clothing is free CSS template provided by TemplateMo.</p>
-                    <ul class="stars">
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                    </ul>
-                    <span>Reviews (36)</span>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-        <!-- Latest Courses Ends Here -->
+            @foreach (var items in courses)
+            {
+                <div class="col-md-4">
+                    <div class="product-item">
+                        @if (@items.Picture is null)
+                        {
+                            items.Picture = "noimage.png";
 
+                        }<a href="#"><img src="~/images/courses/@items.Picture" alt=""></a>
+                        <div class="down-content">
+                            <a href="#"><h4>@items.Title</h4></a>
+                            @if (items.PriceStatus is true)
+                            {
+                                <h6> paid </h6>
+                            }
+                            else
+                            {
+                                <h6>free  </h6>
+                            }
+                            <p>@items.CourseDescription</p>
+                            <ul class="stars">
+                                <li><i class="fa fa-star">@items.AverageRating</i></li>
 
-    <!-- Recent Reviews starts Here -->
-    <div class="latest-products">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-heading">
-              <h2>Recent Reviews</h2>
-              <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="product-item">
-              <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-              <div class="down-content">
-                <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                <h4>UserName</h4>
-                <h6>Date</h6>
-                <ul class="stars">
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                </ul>
-                <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="product-item">
-              <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-              <div class="down-content">
-                <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                <h4>UserName</h4>
-                <h6>Date</h6>
-                <ul class="stars">
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                </ul>
-                <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="product-item">
-              <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-              <div class="down-content">
-                <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                <h4>UserName</h4>
-                <h6>Date</h6>
-                <ul class="stars">
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                </ul>
-                <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-              </div>
-            </div>
-          </div>
+                            </ul>
+                            <span>Reviews (24)</span>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-      </div>
     </div>
-    <!-- Recent Reviews Ends Here -->
+</div>
 
-@*    <footer class="footer_area section_gap_top">
-      <div class="container">
-        <div class="row single-footer-widget">
-          <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="copy_right_text">
-              <p>
-                  All Copyrights &copy reserved 
-                 </p>
+
+<div class="latest-products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Recent Reviews</h2>
+                  @*   <a href="products.html">view all products <i class="fa fa-angle-right"></i></a> *@
+                </div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="left-content">
-              <ul class="social-icons">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i class="fa fa-behance"></i></a></li>
-              </ul>
-            </div>
-          </div>
+
+            @foreach (var items in reviews)
+            {
+
+                <div class="col-md-4">
+                    <div class="product-item">
+                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
+                        <div class="down-content">
+                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
+                            <h4>@items.Student</h4>
+                            <h6>@items.RatingDate.ToString()</h6>
+                            <ul class="stars">
+                                @switch (items.Rate)
+                                {
+                                    case 5:
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        break;
+                                    case 4:
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+
+                                        break;
+                                    case 3:
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+
+                                        break;
+                                    case 2:
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+
+                                        break;
+                                    default:
+                                        <li><i class="fa fa-star"></i></li>
+                                        break;
+                                }
+
+
+                            </ul>
+                            <p>@items.Descritipn</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
         </div>
-      </div>
-    </footer>
+    </div>
+</div>
 
 
+<<<<<<< HEAD
     <!-- Bootstrap core JavaScript -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -289,3 +244,5 @@
  
 
 @* </html> *@
+=======
+>>>>>>> 963eec44e12dafe7baf7da846c886567dba32822
