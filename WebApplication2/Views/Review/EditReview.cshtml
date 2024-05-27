@@ -1,9 +1,4 @@
-﻿@model Review 
-@inject LconsultDBContext _context
-@{
-  
-
-}
+﻿@model EditReviewViewModel
 <head>
 
     <style>
@@ -57,33 +52,33 @@
 
 
         /*         .choices ul.choice {
-                    text-align: left;
-                }
-
-                    .choices ul.choice li {
-                        display: inline-block;
-                        margin: 5px 3px;
-                    }
-
-                        .choices ul.choice li a {
-                            text-align: center;
-                            width: 44px;
-                            height: 44px;
-                            display: inline-block;
-                            line-height: 42px;
-                            border: 1px solid #eee;
-                            font-size: 15px;
-                            font-weight: 700;
-                            color: #121212;
-                            transition: all .3s;
+                            text-align: left;
                         }
 
-                            .choices ul.choice li a:hover,
-                            .choices ul.choice li.active a {
-                                background-color: #f33f3f;
-                                border-color: #f33f3f;
-                                color: #fff;
-                            } */
+                            .choices ul.choice li {
+                                display: inline-block;
+                                margin: 5px 3px;
+                            }
+
+                                .choices ul.choice li a {
+                                    text-align: center;
+                                    width: 44px;
+                                    height: 44px;
+                                    display: inline-block;
+                                    line-height: 42px;
+                                    border: 1px solid #eee;
+                                    font-size: 15px;
+                                    font-weight: 700;
+                                    color: #121212;
+                                    transition: all .3s;
+                                }
+
+                                    .choices ul.choice li a:hover,
+                                    .choices ul.choice li.active a {
+                                        background-color: #f33f3f;
+                                        border-color: #f33f3f;
+                                        color: #fff;
+                                    } */
 
     </style>
 
@@ -112,8 +107,8 @@
 
         <div class="col-md-12">
             <div class="contact-form">
-                <form id="contact" method="post" asp-controller="review" asp-action="addreview" >
-                    <input hidden  asp-for="CourseId" />
+                <form id="contact" method="post" asp-controller="review" asp-action="editreview" asp-route-id="@Model.ReviewId">
+                    <input hidden asp-for="ReviewId">
                     <div class="row">
                         <div class="col-lg-8">
                             <div class=" align-content-center" style="margin:15px;">
@@ -147,26 +142,6 @@
 
 
                         <div class="choices container">
-
-                            <div class="form-group">
-                                <div class="form-group d-flex align-items-center mb-3">
-                                    <label class="me-3 mb-0 col-md-8">
-                                        <h4>Quality of Instructional Material: </h4>
-                                        How would you rate the quality of the instructional materials provided (e.g., videos, readings, and resources)?
-                                    </label>
-                                    <div class="d-flex col-md-4">
-                                        @for (int i = 1; i <= 10; i++)
-                                        {
-                                            <label class="me-2">
-                                                <input type="radio" asp-for="@Model.MaterialQuality" value="@i" />
-                                                @i
-                                            </label>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-
-
 
                             <div class="form-group ">
                                 <div class="form-group d-flex align-items-center mb-3 ">
@@ -245,8 +220,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
 
 
 

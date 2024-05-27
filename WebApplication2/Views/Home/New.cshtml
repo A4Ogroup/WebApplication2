@@ -1,76 +1,12 @@
 ﻿@inject LconsultDBContext _context
 @{ 
     var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-     .Take(10).ToList();
+     .Take(3).ToList();
 
     var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
-            .Take(10).ToList();
+            .Take(3).ToList();
 }
-@* <!DOCTYPE html>
-<html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
-    <title>Learn consult</title>
-
-
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-
-
-
-    <link href="~/css/site.css" rel="stylesheet">
-    <link href="~/css/site1.css" rel="stylesheet">
-    <link href="~/css/site2.css" rel="stylesheet">
-    <link href="~/css/site3.css" rel="stylesheet">
-    <link href="~/css/site4.css" rel="stylesheet">
-    <link href="~/css/StyleSheet.css" rel="stylesheet">
-
-
-
-
-</head>
-
-
-<body>
-
-    <!-- ***** Preloader Start ***** -->
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-    <!-- ***** Preloader End ***** -->
-    <!-- Header -->
-    <header class="">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-
-                <a class="navbar-brand" href="index.html">
-                    <h2><em>L</em>earn Consult</h2>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="nav-item" id="navbarSupportedContent">
-
-
-                </div>
-            </div>
-
-        </nav>
-    </header> *@
-
-    <!-- Page Content -->
 
     <div class="banner header-text">
         <div class="owl-banner owl-carousel">
@@ -86,11 +22,8 @@
                         <a asp-controller="home" asp-action="course">view all courses <i class="fa fa-angle-right"></i></a>
                     </div>
                 </div>
-                
-                    
-
-                        @foreach (var items in courses)
-                        {
+            @foreach (var items in courses)
+            {
                 <div class="col-md-4">
                     <div class="product-item">
                         @if (@items.Picture is null)
@@ -114,81 +47,86 @@
                                         </div>
                                         </div>
                                         </div>
-
                         }
-
-            <div class="latest-products">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="section-heading">
-                                <h2>Recent Reviews</h2>
-                                <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-
-                        @foreach(var items in reviews){
-
-                        <div class="col-md-4">
-                            <div class="product-item">
-                                <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                <div class="down-content">
-                                    <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                    <h4>@items.Student</h4>
-                                    <h6>@items.RatingDate.ToString()</h6>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star">@items.Rate</i></li>
-                                    </ul>
-                                    <p>@items.Descritipn</p>
-                                </div>
-                            </div>
-                        </div>
-               }
-                        
-                    </div>
-                </div>
-            </div>
-                   
-               
-@*                 <div class="col-md-4">
-                    <div class="product-item">
-                        <a href="#"><img src="~/images/product_02.jpg" alt=""></a>
-                        <div class="down-content">
-                            <a href="#"><h4>Tittle goes here</h4></a>
-                            <h6>Paid</h6>
-                            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                            <span>Reviews (21)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <a href="#"><img src="~/images/product_03.jpg" alt=""></a>
-                        <div class="down-content">
-                            <a href="#"><h4>Tittle goes here</h4></a>
-                            <h6>Free</h6>
-                            <p>Sixteen Clothing is free CSS template provided by TemplateMo.</p>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                            <span>Reviews (36)</span>
-                        </div>
-                    </div>
-                </div> *@
-            </div>
         </div>
     </div>
+</div> 
+
+
+
+
+
+
+ <div class="latest-products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Recent Reviews</h2>
+                    <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+
+            @foreach (var items in reviews)
+            {
+
+                <div class="col-md-4">
+                    <div class="product-item">
+                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
+                        <div class="down-content">
+                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
+                            <h4>@items.Student</h4>
+                            <h6>@items.RatingDate.ToString()</h6>
+                            <ul class="stars">
+                                @switch (items.Rate)
+                                {
+                                    case 5:
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        break;
+                                    case 4:
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+
+                                        break;
+                                    case 3:
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+
+                                        break;
+                                    case 2:
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+
+                                        break;
+                                    default:
+                                        <li><i class="fa fa-star"></i></li>
+                                        break;
+                                }
+
+
+                            </ul>
+                            <p>@items.Descritipn</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div> 
+
+
+
+
+   
     <!-- Login 6 - Bootstrap Brain Component -->
 
 
