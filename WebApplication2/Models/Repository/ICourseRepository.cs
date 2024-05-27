@@ -7,9 +7,10 @@ namespace WebApplication2.Models.Repository
         Course GetById(int id);
         
         IEnumerable<Course> GetAll();
+        public IEnumerable<Course> GetCoursesByCategory(int categoryId);
         Course Add(Course course);
-        Course Update( Course courseChanges);
-        Course Delete(int id);
+        Course Update(Course courseChanges);
+        void Delete(Course course);
         bool Save();
     }
 }

@@ -13,11 +13,26 @@ namespace WebApplication2.Models.Repository
         }
         public Course GetById(int id)
         {
+            if (id == 0)
+            {
+                throw new ArgumentNullException(nameof(id));    
+            }
             return _context.Courses.FirstOrDefault(C => C.CourseId == id);
         }
         public IEnumerable<Course> GetAll()
         {
             return _context.Courses;
+        }
+
+        public IEnumerable<Course> GetCoursesByCategory(int categoryId)
+        {
+            if(categoryId==0)
+            {
+                throw new ArgumentNullException(nameof(categoryId));
+            }
+
+
+            return _context.Courses.Where(C=>C.CategoryId==categoryId);
         }
         public Course Add(Course course)
         {
@@ -26,13 +41,19 @@ namespace WebApplication2.Models.Repository
                 throw new ArgumentNullException(nameof(course));
             }
             _context.Courses.Add(course);
-            _context.SaveChanges();
+            //_context.SaveChanges();
             return course;
         }
 
-        public Course Delete(int id)
+
+        public void Delete(Course course)
         {
-            throw new NotImplementedException();
+            if (course is null)
+            {
+                throw new ArgumentNullException(nameof(course));
+            }
+
+            _context.Courses.Remove(course);
         }
 
        

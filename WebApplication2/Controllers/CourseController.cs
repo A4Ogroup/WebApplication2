@@ -43,7 +43,7 @@ namespace WebApplication2.Controllers
         {
             ViewBag.Categories = _context.Categories;
             ViewBag.Languages = _context.Languages;
-            return View();
+            return   View();
         }
 
 
@@ -78,6 +78,7 @@ namespace WebApplication2.Controllers
                     Picture = uniqeFileName,
                 };
                 _courseRepository.Add(newCourse);
+                _courseRepository.Save();
             }
             return RedirectToAction("AddCourse");
         }
@@ -205,7 +206,7 @@ namespace WebApplication2.Controllers
             course.AddingDate = model.AddingDate;
             course.AverageRating = model.AverageRating;
             course.LastUpdate = model.LastUpdate;
-           course.InstructorFullName = model.InstructorFullName;
+            course.InstructorFullName = model.InstructorFullName;
             course.CourseDuration = model.CourseDuration;
             course.CourseDescription = model.CourseDescription;
             course.LanguageId = model.LanguageId;
