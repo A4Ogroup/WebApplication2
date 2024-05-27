@@ -5,7 +5,7 @@
 
         LconsultDBContext _context;
 
-        public ReviewRepository( LconsultDBContext context)
+        public ReviewRepository(LconsultDBContext context)
         {
             _context = context;
         }

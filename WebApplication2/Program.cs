@@ -15,6 +15,7 @@ builder.Services.AddDbContext<LconsultDBContext>(
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepositroy>();
 var app = builder.Build();
 
 
