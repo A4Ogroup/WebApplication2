@@ -1,0 +1,237 @@
+﻿
+      <style>
+         .sliderr {
+             margin:40px 10px 20px 10px;
+             font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+            padding: 20px ;
+            position: relative;
+         } 
+        
+
+         .course-carousel {
+         background-color: white;
+/*        background-color: gray;
+ */            padding: 20px;
+            margin:10px;
+           /*  margin-top: 100px ; */
+            width: 95%;         
+/*              max-width: 1200px;
+ */           border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                 position:center     ;
+         }
+
+         .course-carousel h2 {
+            margin-bottom: 20px;
+         }
+
+         .carousel-container {
+            position: relative;
+         }
+
+         .carousel {
+            display: flex;
+            overflow: hidden;
+            transition: transform 0.5s ease;
+         }
+
+         .course-card {
+            min-width: 300px;
+            flex: 1 0 0;
+            max-width: calc(33.333% - 20px); /* Three cards to fit in a row */
+            margin-right: 20px;
+            text-align: left;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            box-sizing: border-box;
+         }
+
+         .course-card img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            border-radius: 5px;
+            object-fit: cover;
+         }
+
+         .course-card h3 {
+            font-size: 16px;
+            margin: 10px 0;
+         }
+
+         .course-card p {
+            margin: 5px 0;
+         }
+
+         .bestseller {
+            background-color: #f4c150;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+         }
+
+         .arrow {
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+        background-color: #f1f1f6;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translateY(-50%);
+            z-index: 1;
+         }
+
+         .arrow.prev {
+            left: 0;
+         }
+
+         .arrow.next {
+            right: 0;
+         }
+
+         @@media (max-width: 768px) {
+            .course-card {
+               max-width: calc(50% - 20px); /* Two cards to fit in a row */
+            }
+         }
+
+         @@media (max-width: 480px) {
+            .course-card {
+               max-width: 100%; /* One card to fit in a row */
+               margin-right: 0;
+            }
+         }
+      </style>
+   <div class="sliderr">
+      <div class="course-carousel">
+         <h2>Top Reted Courses..</h2>
+         <div class="carousel-container">
+            <button class="arrow prev">&#10094;</button>
+            <div class="carousel"></div>
+            <button class="arrow next">&#10095;</button>
+         </div>
+      </div>
+</div>
+
+    @section Scripts{
+        <script>
+                              let slideIndex = 0;
+                              const courses = [
+                                  {
+                                      img: "Screenshot(18).png",
+                                      title: "100 Days of Code: The Complete Python Pro Bootcamp",
+                                      author: "Dr. Angela Yu",
+                                      rating: 4.7,
+                                      reviews: 298762,
+                                      price: "$74.99",
+                                      bestseller: true,
+                                  },
+                                  {
+                                      img: "Screenshot(18).png",
+                                      title: "The Complete 2024 Web Development Bootcamp",
+                                      author: "Dr. Angela Yu",
+                                      rating: 4.7,
+                                      reviews: 379771,
+                                      price: "$74.99",
+                                      bestseller: true,
+                                  },
+                                  {
+                                      img: "Screenshot(18).png",
+                                      title: "The Complete Python Bootcamp From Zero to Hero in Python",
+                                      author: "Jose Portilla, Pierian Training",
+                                      rating: 4.6,
+                                      reviews: 506564,
+                                      price: "$74.99",
+                                      bestseller: false,
+                                  },
+                                  {
+                                      img: "Screenshot(18).png",
+                                      title: "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02",
+                                      author: "Stephane Maarek | AWS Certified Cloud...",
+                                      rating: 4.7,
+                                      reviews: 206240,
+                                      price: "$74.99",
+                                      bestseller: true,
+                                  },
+                                  {
+                                      img: "Screenshot(18).png",
+                                      title: "Ultimate AWS Certified Solutions Architect Associate...",
+                                      author: "Stephane Maarek | AWS Certified Cloud...",
+                                      rating: 4.7,
+                                      reviews: 223939,
+                                      price: "$74.99",
+                                      bestseller: true,
+                                  },
+                                  {
+                                      img: "Screenshot(18).png",
+                                      title: "Ultimate Python Bootcamp",
+                                      author: "Jose Portilla, Pierian Training",
+                                      rating: 4.8,
+                                      reviews: 402564,
+                                      price: "$69.99",
+                                      bestseller: false,
+                                  },
+                                  {
+                                      img: "portrait-woman-video-call-with-laptop-headphones-while-working-from-home-home-office-concept-new-normal-lifestyle_58466-16109.avif",
+                                      title: "Advanced JavaScript Bootcamp",
+                                      author: "Maximilian Schwarzmüller",
+                                      rating: 4.9,
+                                      reviews: 322564,
+                                      price: "$49.99",
+                                      bestseller: true,
+                                  },
+                              ];
+
+                              const coursesToShow = 3;
+
+                              function renderCourses(startIndex) {
+                                  const $carousel = $(".carousel");
+                                  $carousel.empty();
+                                  for (let i = startIndex; i < startIndex + coursesToShow; i++) {
+                                      const course = courses[i % courses.length];
+                                      const bestsellerBadge = course.bestseller
+                                          ? '<button class="bestseller">Bestseller</button>'
+                                          : "";
+                                      $carousel.append(`
+                                                  <div class="course-card">
+                                                      <img src="../../images/more-info.jpg" alt="${course.title}">
+                                                      <h3>${course.title}</h3>
+                                                      <p>${course.author}</p>
+                                                      <p>${course.rating
+                                          } <span class="stars">★★★★★</span> (${course.reviews.toLocaleString()})</p>
+                                                      <p>${course.price}</p>
+                                                      ${bestsellerBadge}
+                                                  </div>
+                                              `);
+                                  }
+                              }
+
+                              function moveSlide(direction) {
+                                  const totalCourses = courses.length;
+                                  slideIndex = (slideIndex + direction + totalCourses) % totalCourses;
+                                  renderCourses(slideIndex);
+                              }
+
+                              $(document).ready(function () {
+                                  renderCourses(slideIndex);
+
+                                  $(".arrow.prev").click(function () {
+                                      moveSlide(-1);
+                                  });
+
+                                  $(".arrow.next").click(function () {
+                                      moveSlide(1);
+                                  });
+                              });
+        </script>
+}
+     
+

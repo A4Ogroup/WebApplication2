@@ -60,7 +60,7 @@
     </div>
 
     <!-- Header -->
-    <header class="">
+    <header class=""style="position:relative;">
         <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-controller="home" asp-action="index">
@@ -169,12 +169,12 @@
         </nav>
     </header> *@
 
+    <di>@RenderBody()
+    </di>
+            
 
-<div>
-            @RenderBody()
 
 
-</div>
 
     <footer class="footer_area section_gap_top">
         <div class="container">
