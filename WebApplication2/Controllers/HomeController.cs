@@ -61,6 +61,29 @@ namespace WebApplication2.Controllers
 
             return View();
         }
+
+        public IActionResult Test()
+        {
+            var courses = _context.Courses.Select(c => new
+            {
+                c.Title,
+                c.CourseDescription,
+                c.CourseDuration,
+                c.Subcategory,
+                c.TopicsCovered,
+                c.InstructorFullName,
+                c.Language,
+                c.Level,
+                c.Picture,
+                c.Platform,
+                c.Link,
+                c.PriceStatus,
+                c.AverageRating,
+
+            }).ToList();
+
+            return View();
+        }
         public IActionResult Login()
         {
             return View();
