@@ -19,7 +19,6 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-
     <title>Learn consult</title>
 
 
@@ -39,7 +38,7 @@
         /* .dropdown {
              display:none; */
 
-         }
+         
        /*  .dropdown:hover .dropdown-menu  {
             display: block;
         } 
@@ -205,10 +204,12 @@
 
     <!-- Bootstrap core JavaScript -->
 @*     <script src="~/lib/jquery/dist/jquery.js"></script>
- *@    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    *@
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
 @*     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
- *@   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+    *@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+   
 
 
     <!-- Additional Scripts -->
@@ -230,6 +231,6 @@
         }
     </script>
     @RenderSection("Scripts", required: false)
-
+    
 </body>
 </html>
