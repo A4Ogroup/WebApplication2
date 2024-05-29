@@ -295,7 +295,7 @@ f
     Layout = "_Layout";
 }
 <!-- Page Content -->
-<div class="banner header-text">
+@* <div class="banner header-text">
     <div class="owl-banner owl-carousel">
     </div>
 </div>
@@ -473,7 +473,7 @@ f
 
                     </div>
                 </div>
-                @*                          <footer class="footer_area section_gap_top">
+                                        <footer class="footer_area section_gap_top">
                 <div class="container">
                 <div class="row single-footer-widget">
                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -521,16 +521,222 @@ f
                 <script src="~/js/site4.js"></script>
 
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> *@
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
                 <script>
                     $('.btn').click(function () {
                         $('.collapse-content').toggle();
                     });
                 </script>
-                @*   </body>
+                   </body>
 
 
                 </html>
-                *@
+                
 
 
+ *@
+
+@* <div class="col-md-12">
+    <a href="#" class="col-md-4"><img src="~/images/product_01.jpg" alt=""></a>
+    <div class="col-md-8">
+        
+        
+            <a href="#"><h4>Title</h4></a>
+              <h6>@Model.PriceStatus</h6>
+            <p>@Model.CourseDescription</p> 
+            <ul class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            </ul>
+            <span>Reviews (24)</span>
+      
+    </div>
+</div> *@
+
+
+<div class="container">
+    <div class="row">
+    
+            <div class="col-md-4">
+            <a href="#" class="col-md-4"><img class="rounded-3" src="~/images/product_01.jpg" alt="" style="width:100%;height:100%;"></a>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+             <div class="col-md-4">
+                <a href="#"><h4>Title</h4></a>
+                <a href="#"><h4>Title</h4></a>
+                <a href="#"><h4>Title</h4></a>
+                <a href="#"><h4>Title</h4></a>
+                <div class="stars">
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        <i class="fa fa-star" style="color:red;"></i>
+                    }
+                </div>
+                <div class="stars">
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        <i class="fa fa-star" style="color:red;"></i>
+                    }
+                </div>
+                <span>Reviews (24)</span>
+                <span>Reviews (24)</span>
+             </div>
+            <div class="col-md-4">
+                <a href="#"><h4>Title</h4></a>
+                <a href="#"><h4>Title</h4></a>
+                <a href="#"><h4>Title</h4></a>
+                <a href="#"><h4>Title</h4></a>
+                <div class="stars">
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        <i class="fa fa-star" style="color:red;"></i>
+                    }
+                </div>
+                <div class="stars">
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        <i class="fa fa-star" style="color:red;"></i>
+                    }
+                </div>
+                <span>Reviews (24)</span>
+                <span>Reviews (24)</span>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* <head>
+    <style>
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+        --blue: #007bff;
+        --indigo: #6610f2;
+        --purple: #6f42c1;
+        --pink: #e83e8c;
+        --red: #dc3545;
+        --orange: #fd7e14;
+        --yellow: #ffc107;
+        --green: #28a745;
+        --teal: #20c997;
+        --cyan: #17a2b8;
+        --white: #fff;
+        --gray: #6c757d;
+        --gray-dark: #343a40;
+        --primary: #007bff;
+        --secondary: #6c757d;
+        --success: #28a745;
+        --info: #17a2b8;
+        --warning: #ffc107;
+        --danger: #dc3545;
+        --light: #f8f9fa;
+        --dark: #343a40;
+        --breakpoint-xs: 0;
+        --breakpoint-sm: 576px;
+        --breakpoint-md: 768px;
+        --breakpoint-lg: 992px;
+        --breakpoint-xl: 1200px;
+        --font-family-sans-serif: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+        box-sizing: border-box;
+        position: relative;
+        width: 100%;
+        padding-right: 7.5px;
+        padding-left: 7.5px;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    </style>
+</head>
+
+<div class="col-md-4">
+    <!-- Widget: user widget style 1 -->
+    <div class="card card-widget widget-user shadow">
+        <!-- Add the bg color to the header using any of the bg-* classes -->
+        <div class="widget-user-header bg-info">
+            <h3 class="widget-user-username">Alexander Pierce</h3>
+            <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+        </div>
+        <div class="widget-user-image">
+            <img class="img-circle elevation-2" src="~/images/client-01.png" alt="User Avatar">
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                        <h5 class="description-header">3,200</h5>
+                        <span class="description-text">SALES</span>
+                    </div>
+                    <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                        <h5 class="description-header">13,000</h5>
+                        <span class="description-text">FOLLOWERS</span>
+                    </div>
+                    <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4">
+                    <div class="description-block">
+                        <h5 class="description-header">35</h5>
+                        <span class="description-text">PRODUCTS</span>
+                    </div>
+                    <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+    </div>
+    <!-- /.widget-user -->
+</div>
+<script>document.querySelector("body > div > div.content-wrapper > section.content > div > div:nth-child(31) > div:nth-child(2)")</script>
+
+
+ *@
+
+
+
+
+<div class="best-features about-features">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="right-image">
+                    <img src="~/images/courses/ad90126f-74b9-4a3c-9b99-287b9729d221_Screenshot (18).png" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="left-content">
+                    <div class="col-md-4">
+                        <a href="#"><h4>Title</h4></a>
+             
+
+                        <div class="stars">
+                            @for (int i = 0; i < 3; i++)
+                            {
+                                <i class="fa fa-star" style="color:red;"></i>
+                            }
+                        </div>
+                        <span>Reviews (24)</span>
+                
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

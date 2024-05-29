@@ -1,0 +1,687 @@
+﻿@inject LconsultDBContext _context
+@{
+    var courses = _context.Courses.Select(c => new
+    {
+        c.Title,
+        c.CourseDescription,
+        c.CourseDuration,
+        c.Subcategory,
+        c.TopicsCovered,
+        c.InstructorFullName,
+        c.Language,
+        c.Level,
+        c.Picture,
+        c.Platform,
+        c.Link,
+        c.PriceStatus,
+        c.AverageRating,
+
+    }).ToList();
+    }
+@{
+    Layout = "_InstructorLayout";
+
+}
+   <head>
+
+
+      <style>
+/*          body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+         } */
+/*          header {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+         } */
+/*          .logo img {
+            height: 50px;
+         } */
+         .search-bar input {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+         }
+         .main-content {
+            padding: 100px;
+         }
+         .sidebar {
+            padding-right: 20px;
+            border-right: 1px solid #ddd;
+         }
+         .filter-section {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+         }
+         .filter-section h4 {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+         }
+         .filter-section h4:hover {
+            color: #007acc;
+         }
+         .filter-section svg {
+            transition: transform 0.2s;
+         }
+         .filter-options {
+            display: none;
+            margin-top: 10px;
+         }
+         .fa-star {
+            color: #ff0000;
+         }
+         .result-item {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+         }
+         .result-item img {
+            border-radius: 10px;
+            width: 150px;
+            max-width: 100%;
+            height: auto;
+            margin-right: 15px;
+         }
+         .result-item .content h3 {
+            margin: 0;
+            color: #333;
+         }
+         .result-item .content .meta {
+            font-size: 14px;
+            color: gray;
+            margin-bottom: 10px;
+         }
+         .result-item .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+         }
+         .footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+         }
+         .footer img {
+            margin: 0 10px;
+            height: 30px;
+            width: 30px;
+         }
+         @@media (max-width: 992px) {
+            .result-item {
+               flex-direction: column;
+               align-items: flex-start;
+            }
+            .result-item img {
+               width: 100%;
+               height: auto;
+               margin-bottom: 10px;
+            }
+            header {
+               text-align: center;
+            }
+            .filter-toggle {
+               display: block;
+            }
+            .sidebar {
+               border-right: none;
+            }
+         }
+         .text-purple {
+            color: #6f42c1;
+         }
+      </style>
+   </head>
+   
+      <!-- Bootstrap Navbar -->
+     @*  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <a class="navbar-brand logo" href="#"
+            ><img src="https://via.placeholder.com/100x50" alt="Logo"
+         /></a>
+         <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+               <li class="nav-item">
+                  <input
+                     class="form-control mr-sm-2"
+                     type="search"
+                     placeholder="Search"
+                     aria-label="Search" />
+               </li>
+               <li class="nav-item">
+                  <button class="btn btn-dark my-2 my-sm-0" type="submit">
+                     Search
+                  </button>
+               </li>
+               <li class="nav-item">
+                  <button class="btn btn-link">Sign In</button>
+               </li>
+               <li class="nav-item">
+                  <button class="btn btn-link">Sign Up</button>
+               </li>
+            </ul>
+         </div>
+      </nav> *@
+
+      <div class="container-fluid main-content">
+         <div class="row">
+            <div class="col-lg-3">
+               <!-- Sidebar toggle button for mobile view -->
+               <button 
+                  class="btn btn-dark mb-3 w-100 d-lg-none"
+                  id="filter-toggle" >
+                  Filter
+               </button>
+               <!-- Sidebar -->
+               <div class="sidebar d-none d-lg-block">
+                  <div class="filter-section">
+                     <h3>Filters</h3>
+                  </div>
+                  <div class="filter-section">
+                     <h4>
+                        Ratings
+                        <svg
+                           width="24"
+                           height="24"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path
+                              d="M7 10L12 15L17 10"
+                              stroke="#333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        </svg>
+                     </h4>
+                     <div class="filter-options">
+                        <div class="form-check">
+                           <input
+                              class="form-check-input"
+                              type="checkbox"
+                              value="4.5" />
+                           <label class="form-check-label">
+                              <i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              ><i class="fa fa-star-half-full" style="color:red"></i> 4.5 & up (2,046)
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input
+                              class="form-check-input"
+                              type="checkbox"
+                              value="4.0" />
+                           <label class="form-check-label">
+                              <i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              > 4.0 & up
+                              (3,734)
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input
+                              class="form-check-input"
+                              type="checkbox"
+                              value="3.5" />
+                           <label class="form-check-label">
+                              <i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              ><i class="fa fa-star">
+                              </i><i class="fa fa-star-half-full" style="color:red"></i> 3.5 & up (4,403)
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input
+                              class="form-check-input"
+                              type="checkbox"
+                              value="3.0" />
+                           <label class="form-check-label">
+                              <i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              ><i class="fa fa-star"></i
+                              ><i class="far fa-star"></i> 3.0 & up (4,632)
+                           </label>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="filter-section">
+                     <h4>
+                        Language
+                        <svg
+                           width="24"
+                           height="24"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path
+                              d="M7 10L12 15L17 10"
+                              stroke="#333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        </svg>
+                     </h4>
+                     <div class="filter-options">
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label"
+                              >English (3,255)</label
+                           >
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Español (466)</label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label"
+                              >Português (396)</label
+                           >
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Türkçe (392)</label>
+                        </div>
+                        <a href="#">Show more</a>
+                     </div>
+                  </div>
+
+                  <div class="filter-section">
+                     <h4>
+                        Video Duration
+                        <svg
+                           width="24"
+                           height="24"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path
+                              d="M7 10L12 15L17 10"
+                              stroke="#333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        </svg>
+                     </h4>
+                     <div class="filter-options">
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Duration 1</label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Duration 2</label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Duration 3</label>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="filter-section">
+                     <h4>
+                        Features
+                        <svg
+                           width="24"
+                           height="24"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path
+                              d="M7 10L12 15L17 10"
+                              stroke="#333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        </svg>
+                     </h4>
+                     <div class="filter-options">
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Feature 1</label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Feature 2</label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Feature 3</label>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="filter-section">
+                     <h4>
+                        Topic
+                        <svg
+                           width="24"
+                           height="24"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path
+                              d="M7 10L12 15L17 10"
+                              stroke="#333"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round" />
+                        </svg>
+                     </h4>
+                     <div class="filter-options">
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Topic 1</label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Topic 2</label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" />
+                           <label class="form-check-label">Topic 3</label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="col-lg-9">
+               <div class="row mb-4">
+                  <div class="col-md-6">
+                     <button class="btn btn-light">
+                        Filter <span id="filter-count">0</span>
+                     </button>
+                  </div>
+                  <div class="col-md-6 text-right">
+                     <select class="custom-select">
+                        <option value="most-relevant">
+                           Sort by Most Relevant
+                        </option>
+                     </select>
+                     <a
+                        href="#"
+                        class="btn btn-link text-purple d-none"
+                        id="clear-filters"
+                        >Clear filters</a
+                     >
+                  </div>
+               </div>
+               <h2 id="results-count">5,296 results</h2>
+               <div id="course-list">
+
+
+                @foreach ( var items in courses)
+                {
+                    <div class="result-item">
+                        @if (items.Picture is null)
+                        {
+                                <a href="#"><img src="~/images/courses/noimage.png" alt=""></a>
+
+                        }<a href="#"><img src="~/images/courses/@items.Picture" alt=""></a>
+                        <div class="content">
+                            <h3>@items.Title</h3>
+                            <p class="meta">
+                                @*  ASP.NET Core 6, 7 & 8 | ASP.NET Core Projects |
+                            Bootcamp | Advanced | Interview Questions | Web API |
+                            MVC *@
+                            @items.TopicsCovered
+                            </p>
+                            <p class="meta">
+                                @items.InstructorFullName <br />
+                                @items.AverageRating <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i> (3,666)
+                            </p>
+                            <p class="meta">
+                                @* 82 total hours • 402 lectures • All Levels *@
+                                    @items.CourseDuration • @items.Level
+                            </p>
+                            <p class="price">
+                                    @if (items.PriceStatus is true)
+                                    {
+                                        <h6> paid </h6>
+                                    }
+                                    else
+                                    {
+                                        <h6>free  </h6>
+                                    }
+                            </p>
+                        </div>
+                    </div>
+                }
+
+
+
+@*                   <div class="result-item">
+                     <img
+                        src="https://via.placeholder.com/150x100"
+                        alt="Course Thumbnail" />
+                     <div class="content">
+                        <h3>ASP.NET Core 8 (.NET 8) | True Ultimate Guide</h3>
+                        <p class="meta">
+                          @*  ASP.NET Core 6, 7 & 8 | ASP.NET Core Projects |
+                           Bootcamp | Advanced | Interview Questions | Web API |
+                           MVC 
+
+                        </p>
+                        <p class="meta">
+                           Web University by Harsha Vardhan <br />
+                           4.6 <i class="fa fa-star"></i
+                           ><i class="fa fa-star"></i
+                           ><i class="fa fa-star"></i
+                           ><i class="fa fa-star"></i
+                           ><i class="fa fa-star-half-alt"></i> (3,666)
+                        </p>
+                        <p class="meta">
+                           @* 82 total hours • 402 lectures • All Levels 
+                        
+                        </p>
+                        <p class="price">
+                        
+                        </p>
+                     </div>
+                  </div>
+                  <div class="result-item">
+                     <img
+                        src="~/images/courses/04cb9edd-fc4d-47d3-b84f-19279d765226_Screenshot (32).png"
+                        alt="Course Thumbnail" />
+                     <div class="content">
+                        <h3>
+                            .NET Core MVC - The Complete Guide 2024 [E-commerce]
+                           [.NET8] 
+                           
+                        </h3>
+                        <p class="meta">
+                           Build real world e-commerce application using ASP.NET
+                           Core MVC, Entity Framework Core and ASP.NET Core
+                           Identity.
+                        </p>
+                        <p class="meta">
+                           Bhargav Patel <br />
+                           4.6 <i class="fa fa-star"></i
+                           ><i class="fa fa-star"></i
+                           ><i class="fa fa-star"></i
+                           ><i class="fa fa-star"></i
+                           ><i class="fa fa-star-half-alt"></i> (15,431)
+                        </p>
+                        <p class="meta">
+                           17 total hours • 218 lectures • Intermediate
+                        </p>
+                        <p class="price">
+                           $74.99
+                           <span class="badge badge-warning">Bestseller</span>
+                        </p>
+                     </div>
+                  </div>
+                  <div class="result-item">
+                     <img src="Screenshot (18).png" alt="Course Thumbnail" />
+                     <div class="content">
+                        <h3>
+                           Build ASP.NET Core Web API - Scratch To Finish (.NET8
+                           API)
+                        </h3>
+                        <p class="meta">
+                           Use C# and Build an ASP.NET Core Web API with Entity
+                           Framework Core, SQL Server, Authentication,
+                           Authorization | .NET8
+                        </p>
+                        <p class="meta">
+                           Sameer Saini <br />
+                           4.6 <i class="fa fa-star"></i
+                           ><i class="fa fa-star"></i
+                           ><i class="fa fa-star"></i
+                           ><i class="fa fa-star"></i
+                           ><i class="fa fa-star-half-alt"></i> (4,830)
+                        </p>
+                        <p class="meta">
+                           18 total hours • 185 lectures • All Levels
+                        </p>
+                        <p class="price">$69.99</p>
+                     </div>
+                  </div> *@
+                  <!-- Add more course items as needed -->
+               </div>
+               <nav aria-label="Page navigation">
+                  <ul class="pagination">
+                     <li class="page-item">
+                        <a class="page-link" href="#">Previous</a>
+                     </li>
+                     <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                     </li>
+                     <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                     </li>
+                     <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                     </li>
+                     <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                     </li>
+                  </ul>
+               </nav>
+            </div>
+         </div>
+      </div>
+
+
+      @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+@*       <script src="~/js/site.js"  ></script>
+      <script src="~/js/site1.js"  ></script>
+      <script src="~/js/site2.js"  ></script>
+      <script src="~/js/site3.js"  ></script>
+      <script src="~/js/site4.js"  ></script> *@
+
+@*       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> *@
+@section Scripts {
+     <script>
+
+
+              $(document).ready(function () {
+                  let originalCourseList = $("#course-list").html();
+
+                  // Sidebar toggle button for mobile view
+                  $("#filter-toggle").click(function () {
+                      $(".sidebar").toggleClass("d-none");
+                  });
+
+                  // Toggle filter options on click
+                  $(".filter-section h4").click(function () {
+                      let options = $(this).next(".filter-options");
+                      let svg = $(this).find("svg");
+                      options.slideToggle(200);
+                      if (
+                          svg.css("transform") == "none" ||
+                          svg.css("transform") == "matrix(1, 0, 0, 1, 0, 0)"
+                      ) {
+                          svg.css("transform", "rotate(180deg)");
+                      } else {
+                          svg.css("transform", "rotate(0deg)");
+                      }
+                  });
+
+                  // Show 'Clear filters' button when any filter option is clicked
+                  $(".form-check-input").change(function () {
+                      updateClearFiltersButton();
+                      // Apply filters logic can be added here similar to how the filters are shown
+                      applyFilters();
+                  });
+
+                  // Clear filters functionality
+                  $("#clear-filters").click(function (e) {
+                      e.preventDefault();
+                      $(".form-check-input").prop("checked", false);
+                      $("#clear-filters").addClass("d-none");
+                      $("#filter-count").text("0");
+                      resetCourseList();
+                  });
+
+                  function updateClearFiltersButton() {
+                      let filterCount = $(".form-check-input:checked").length;
+                      if (filterCount > 0) {
+                          $("#clear-filters").removeClass("d-none");
+                          $("#filter-count").text(`(${filterCount})`);
+                      } else {
+                          $("#clear-filters").addClass("d-none");
+                          $("#filter-count").text("0");
+                      }
+                  }
+
+                  function resetCourseList() {
+                      // Reset the course list to the original state
+                      $("#course-list").html(originalCourseList);
+                      $("#results-count").text(`5,296 results`);
+                  }
+
+                  function applyFilters() {
+                      // This function should contain the logic to filter courses
+                      // For illustrative purposes, we'll filter based on the checkbox values
+                      let selectedFilters = $(".form-check-input:checked")
+                          .map(function () {
+                              return $(this).val();
+                          })
+                          .get();
+
+                      if (selectedFilters.length > 0) {
+                          // Update the course list based on the selected filters
+                          let filteredList = originalCourseList;
+                          if (selectedFilters.includes("4.5")) {
+                              filteredList = $("#course-list")
+                                  .children()
+                                  .filter(function () {
+                                      return $(this).find(".meta").text().includes("4.6");
+                                  });
+                          }
+                          $("#course-list").html(filteredList);
+                          $("#results-count").text(`Filtered results`);
+                      } else {
+                          resetCourseList();
+                      }
+                  }
+              });
+</script>}
+     

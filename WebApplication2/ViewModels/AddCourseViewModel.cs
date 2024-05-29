@@ -26,6 +26,7 @@ namespace WebApplication2.ViewModels
         public DateTime? LastUpdate { get; set; }
         public DateTime? AddingDate { get; set; } = DateTime.Now;
         public IFormFile? Picture { get; set; }
+
         public int? AverageRating { get; set; } = 0;
         public bool? Claimed { get; set; }
         public bool? Status { get; set; }
