@@ -6,6 +6,30 @@
     var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
             .Take(3).ToList();
 }
+<head>
+    <style>
+
+        card-block {
+            font-size: 1em;
+            position: relative;
+            margin: 0;
+            padding: 1em;
+            border: none;
+            border-top: 1px solid rgba(34, 36, 38, .1);
+            box-shadow: none;
+        }
+
+        .card {
+            font-size: 1em;
+            overflow: hidden;
+            padding: 5;
+            border: none;
+            border-radius: .28571429rem;
+            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+            margin-top: 20px;
+        }
+    </style>
+</head>
 
 
     <div class="banner header-text">
@@ -66,7 +90,24 @@
                     <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
                 </div>
             </div>
+            <div class="card float-right">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <img class="d-block w-100" src="https://picsum.photos/150?image=641" alt="">
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="card-block">
+                            <!--           <h4 class="card-title">Small card</h4> -->
+                            <p>Copy paste the HTML and CSS.</p>
+                            <p>Change around the content for awsomenes</p>
+                            <br>
+                            <a href="#" class="btn btn-primary btn-sm float-right">Read More</a>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
+        </div>
             @foreach (var items in reviews)
             {
 
@@ -133,9 +174,8 @@
     
     <!-- END SEARCH RESULT -->
     <!-- Bootstrap core JavaScript -->
-    <link src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js">
-    <link src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css">
-
+    
+<script>
         $('.btn').click(function () {
             $('.collapse-content').toggle();
         });
