@@ -117,18 +117,95 @@ f
     Layout = "_Layout";
 }
 <style>
- 
 
 
 
+    .result-item {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-right:20px;
+        background-color: white;
+    }
+
+        .result-item img {
+            border-radius: 10px;
+            width: 150px;
+            max-width: 100%;
+            height: auto;
+            margin-right: 15px;
+        }
+
+        .result-item .content h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .result-item .content .meta {
+            font-size: 14px;
+            color: gray;
+            margin-bottom: 10px;
+        }
+
+        .result-item .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+    .footer {
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 40px 20px;
+        margin-top: 40px;
+    }
+
+        .footer img {
+            margin: 0 10px;
+            height: 30px;
+            width: 30px;
+        }
+
+    @@media (max-width: 992px) {
+        .result-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+            .result-item img {
+                width: 100%;
+                height: auto;
+                margin-bottom: 10px;
+            }
+
+        header {
+            text-align: center;
+        }
+
+        .filter-toggle {
+            display: block;
+        }
+
+        .sidebar {
+            border-right: none;
+        }
+    }
+
+    .text-purple {
+        color: #6f42c1;
+    }
 
 
 </style>
 <!-- Page Content -->
-<div class="banner header-text">
+@* <div class="banner header-text">
     <div class="owl-banner owl-carousel">
     </div>
-</div>
+</div> *@
 <!-- BEGIN SEARCH RESULTf -->
 <div class="col-md-12 my-3">
     <div class="grid search">
@@ -157,227 +234,167 @@ f
 
                     </div>
                 </div>
+                <div class="col-lg-9">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <button class="btn btn-light">
+                                Filter <span id="filter-count">0</span>
+                            </button>
+                        </div>
+                        <div class="col-lg-12 text-right align-content-end" style="margin-right:0px">
+                            <select class="custom-select" ;">
+                                <option value="most-relevant">
+                                    Sort by Most Relevant
+                                </option>
+                            </select>
+                            <a href="#"
+                               class="btn btn-link text-purple d-none"
+                               id="clear-filters">Clear filters</a>
+                        </div>
+                    </div>
+                    <h2 id="results-count">5,296 results</h2>
+                    <div id="course-list">
+
+
+                        @foreach (var items in Model.courses)
+                        {
+                            <div class="result-item">
+                                @if (items.Picture is null)
+                                {
+                                    <a href="#"><img src="~/images/courses/noimage.png" alt=""></a>
+
+                                }<a href="#"><img src="~/images/courses/@items.Picture" alt=""></a>
+                                <div class="content">
+                                    <h3>@items.Title</h3>
+                                    <p class="meta">
+                                        @*  ASP.NET Core 6, 7 & 8 | ASP.NET Core Projects |
+                                    Bootcamp | Advanced | Interview Questions | Web API |
+                                    MVC *@
+                                        @items.TopicsCovered
+                                    </p>
+                                    <p class="meta">
+                                        @items.InstructorFullName <br />
+                                        @items.AverageRating <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i> (3,666)
+                                    </p>
+                                    <p class="meta">
+                                        @* 82 total hours • 402 lectures • All Levels *@
+                                        @items.CourseDuration • @items.Level
+                                    </p>
+                                    <p class="price">
+                                        @if (items.PriceStatus is true)
+                                        {
+                                            <h6> paid </h6>
+                                        }
+                                        else
+                                        {
+                                            <h6>free  </h6>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        }
+
+
+
+                        @*                   <div class="result-item">
+                        <img
+                        src="https://via.placeholder.com/150x100"
+                        alt="Course Thumbnail" />
+                        <div class="content">
+                        <h3>ASP.NET Core 8 (.NET 8) | True Ultimate Guide</h3>
+                        <p class="meta">
+                        @*  ASP.NET Core 6, 7 & 8 | ASP.NET Core Projects |
+                        Bootcamp | Advanced | Interview Questions | Web API |
+                        MVC
+
+                        </p>
+                        <p class="meta">
+                        Web University by Harsha Vardhan <br />
+                        4.6 <i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i
+                        ><i class="fa fa-star-half-alt"></i> (3,666)
+                        </p>
+                        <p class="meta">
+                        @* 82 total hours • 402 lectures • All Levels
+
+                        </p>
+                        <p class="price">
+
+                        </p>
+                        </div>
+                        </div>
+                        <div class="result-item">
+                        <img
+                        src="~/images/courses/04cb9edd-fc4d-47d3-b84f-19279d765226_Screenshot (32).png"
+                        alt="Course Thumbnail" />
+                        <div class="content">
+                        <h3>
+                        .NET Core MVC - The Complete Guide 2024 [E-commerce]
+                        [.NET8]
+
+                        </h3>
+                        <p class="meta">
+                        Build real world e-commerce application using ASP.NET
+                        Core MVC, Entity Framework Core and ASP.NET Core
+                        Identity.
+                        </p>
+                        <p class="meta">
+                        Bhargav Patel <br />
+                        4.6 <i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i
+                        ><i class="fa fa-star-half-alt"></i> (15,431)
+                        </p>
+                        <p class="meta">
+                        17 total hours • 218 lectures • Intermediate
+                        </p>
+                        <p class="price">
+                        $74.99
+                        <span class="badge badge-warning">Bestseller</span>
+                        </p>
+                        </div>
+                        </div>
+                        <div class="result-item">
+                        <img src="Screenshot (18).png" alt="Course Thumbnail" />
+                        <div class="content">
+                        <h3>
+                        Build ASP.NET Core Web API - Scratch To Finish (.NET8
+                        API)
+                        </h3>
+                        <p class="meta">
+                        Use C# and Build an ASP.NET Core Web API with Entity
+                        Framework Core, SQL Server, Authentication,
+                        Authorization | .NET8
+                        </p>
+                        <p class="meta">
+                        Sameer Saini <br />
+                        4.6 <i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i
+                        ><i class="fa fa-star"></i
+                        ><i class="fa fa-star-half-alt"></i> (4,830)
+                        </p>
+                        <p class="meta">
+                        18 total hours • 185 lectures • All Levels
+                        </p>
+                        <p class="price">$69.99</p>
+                        </div>
+                        </div> *@
+                        <!-- Add more course items as needed -->
+                    </div>
+                    
+                </div>
+
                 <!-- END FILTERS -->
                 <!-- BEGIN RESULT -->
                 <div class="col-md-9 my-3">
                     <div class="padding">
                         <div class="row">
                             <!-- BEGIN TABLE RESULT -->
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <tbody>
-
-                                        
-                                                <div class="latest-products">
-                                                    <div class="container">
-                                                        <div class="row">
-                                         
-                                        @foreach (var Course in Model.courses)
-                                        {
-
-                                                       
-                                                        <div class="card mx-1 shadow-sm">
-                                                           @*  <span class="badge  badge-warning w-50 mt-2"
-                                                                  style="position: absolute; z-index: 3">BEST SELLER</span> *@
-                                                    <div class="card-body px-2">
-                                                        <img class="card-img-left" src="~/images/courses/04cb9edd-fc4d-47d3-b84f-19279d765226_Screenshot (32).png" alt="Card image cap">
-                                                            
-                                                                <h6>An Entire MBA in 1 Course:Award Winning...</h6>
-                                                                <p class="card-text" style="font-size: 11px;">Chris Haroun, Complete Busines...</p>
-                                                                <p class="card-text">
-                                                                    <small class="text-muted">
-                                                                        <i class="fas fa-star text-warning"></i>
-                                                                        <i class="fas fa-star text-warning"></i>
-                                                                        <i class="fas fa-star text-warning"></i>
-                                                                        <i class="fas fa-star text-warning"></i>
-                                                                        <i class="fas fa-star-half text-warning"></i>
-                                                                        4.5 (18,560)
-                                                                    </small>
-                                                                    <span class="d-block"></span>
-                                                                    <span class="float-xl-start">
-                                                                        <small style="text-decoration: line-through;" class="text-muted">
-                                                                            ($199)
-                                                                        </small>$9.99
-                                                                    </span>
-
-                                                        <div class="best-features about-features">
-                                                            <div class="container">
-                                                                <div class="row">
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="right-image">
-                                                                            <img src="~/images/courses/ad90126f-74b9-4a3c-9b99-287b9729d221_Screenshot (18).png" alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="left-content">
-                                                                            <div class="col-md-4">
-                                                                                <a href="#"><h4>Title</h4></a>
-
-
-                                                                                <div class="stars">
-                                                                                    @for (int i = 0; i < 3; i++)
-                                                                                    {
-                                                                                        <i class="fa fa-star" style="color:red;"></i>
-                                                                                    }
-                                                                                </div>
-                                                                                <span>Reviews (24)</span>
-
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-          
-
-
-
-
-                                                   
-                                                
-                                            
-
-                                            @* <div class="card mx-auto" style="max-width: 720px; font-family: Arial, sans-serif;">
-                                                <div class="card-body d-flex flex-row flex-wrap align-items-center">
-                                                    <img src="path_to_image.jp" class="rounded-circle me-3" alt="Steven Heart" style="width: 50px; height: 50px;">
-                                                    <div class="flex-grow-1 me-3">
-                                                        <h5 class="card-title mb-1">The Ultimate Guide To Programming</h5>
-                                                        <h6 class="card-subtitle mb-2 text-muted">by steven heart</h6>
-                                                        <div class="d-flex flex-wrap align-items-center mb-2">
-                                                            <span class="badge bg-danger me-2">5.0 (10 Reviews)</span>
-                                                            <span class="badge bg-success">Free</span>
-                                                        </div>
-                                                        <p class="card-text"><strong>10 total hours</strong> | All Levels</p>
-                                                    </div>
-                                                    <a href="#" class="btn btn-primary mt-2 mt-md-0">View More Details</a>
-                                                </div>
-                                            </div> *@
-
-                                        }
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @*
-                                        <tr>
-                                                                                  <td class="number text-center">1</td>
-                                        
-                                    <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                    <td class="product">
-                                        <strong>@Course.Title</strong>
-                                        <br>This is the course description
-                                        <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                        <br>
-                                        <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                    </td>
-                                    <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                    <td class="price text-right">Free</td>
-                                    </tr>
-                                            
-                                        
-                                        <tr>
-                                            <td class="number text-center">2</td>
-                                            <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                            <td class="product">
-                                                <strong>Course 2</strong>
-                                                <br>This is the course description
-                                                <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                                <br>
-                                                <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                            </td>
-                                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                            <td class="price text-right">Free</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="number text-center">3</td>
-                                            <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                            <td class="product">
-                                                <strong>Course 3</strong>
-                                                <br>This is the course description
-                                                <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                                <br>
-                                                <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                            </td>
-                                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                            <td class="price text-right">Free</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="number text-center">4</td>
-                                            <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                            <td class="product">
-                                                <strong>Course 4</strong>
-                                                <br>This is the course description
-                                                <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                                <br>
-                                                <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                            </td>
-                                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                            <td class="price text-right">Free</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="number text-center">5</td>
-                                            <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                            <td class="product">
-                                                <strong>Course 5</strong>
-                                                <br>This is the course description
-                                                <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                                <br>
-                                                <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                            </td>
-                                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                            <td class="price text-right">Free</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="number text-center">6</td>
-                                            <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                            <td class="product">
-                                                <strong>Course 6</strong>
-                                                <br>This is the course description
-                                                <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                                <br>
-                                                <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a> <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                            </td>
-                                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                            <td class="price text-right">Free</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="number text-center">7</td>
-                                            <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                            <td class="product">
-                                                <strong>Course 7</strong>
-                                                <br>This is the course description
-                                                <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                                <br>
-                                                <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a>  <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                            </td>
-                                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                            <td class="price text-right">Free</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="number text-center">8</td>
-                                            <td class="image"><img src="~/images/client-01.png" alt=""></td>
-                                            <td class="product">
-                                                <strong>Course 8</strong>
-                                                <br>This is the course description
-                                                <br>Instructor name <span style="margin-left: 20px;"> Platform</span>
-                                                <br>
-                                                <br><a class="btn btn-light " asp-controller="Student" asp-action="Review"> Review </a> <a class="btn btn-light " asp-controller="home" asp-action="course"> Details </a>
-                                            </td>
-                                            <td class="rate text-right"><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></span></td>
-                                            <td class="price text-right">Free</td>
-                                        </tr> *@
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- END TABLE RESULT -->
+                            
                             <!--kjuuuggygy-->
                             <!-- BEGIN PAGINATION -->
                             <nav aria-label="Page navigation example">
