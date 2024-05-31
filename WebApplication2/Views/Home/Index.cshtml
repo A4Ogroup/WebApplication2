@@ -1,7 +1,7 @@
 ﻿@inject LconsultDBContext _context
 @{
     var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-     .Take(3).ToList();
+     .Take(10).ToList();
 
     var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
             .Take(3).ToList();
@@ -9,6 +9,120 @@
 @{
     Layout = "_Layout";
 }
+<style>
+    
+
+
+    .course-carousel {
+        background-color: white;
+        /*        background-color: gray;
+     */ padding: 20px;
+        margin: 10px;
+        margin-top: 0px ; 
+        width: 95%;
+        /*              max-width: 1200px;
+     */ border-radius: 8px;
+/*         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ */        position: relative;
+    }
+
+        /* .course-carousel h2 {
+            margin-bottom: 20px;
+        } */
+
+    .carousel-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .carousel {
+        min-width: 100%;
+        display: flex;
+        /*             overflow: hidden;
+     */ flex-wrap: nowrap;
+        transition: 0.5s ease-in-out;
+    }
+
+    .course-card {
+        min-width: auto; /*calc(100% / 3); */
+        flex: 0 0 auto;
+        /*             max-width: calc(33.333% - 20px); /* Three cards to fit in a row */
+        margin-right: 20px;
+        /*  margin-left:20px;
+     */ text-align: left;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 2px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+        .course-card img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+/*             border-radius: 5px;
+ */            object-fit: cover;
+        }
+
+        .course-card h3 {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .course-card p {
+            margin: 5px 0;
+            flex: 0 0 33.333%; /* Adjust based on how many cards you want to show at once */
+            box-sizing: border-box;
+        }
+
+    .bestseller {
+        background-color: #f4c150;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .arrow {
+        position: absolute;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        background-color: #f1f1f6;
+        color: #333;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+        .arrow.prev {
+            left: 0;
+        }
+
+        .arrow.next {
+            right: 0;
+        }
+
+    @@media (max-width: 768px) {
+        .course-card {
+            max-width: calc(50% - 20px); /* Two cards to fit in a row */
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .course-card {
+            max-width: 100%; /* One card to fit in a row */
+            margin-right: 0;
+        }
+    }
+</style>
 
     <div class="banner header-text " style="padding-top:inherit;">
       <div class="owl-banner owl-carousel">
@@ -31,15 +145,41 @@
               <a asp-controller="home" asp-action="course">view all courses <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
-            
+
+
+          
+                <div class="course-carousel">
+@*                     <h2>Top Rated Courses</h2>
+ *@                    <div class="carousel-container">
+                        <button class="arrow prev">&#10094;</button>
+                        <div class="carousel">
+                            @foreach (var course in courses)
+                            {
+                                <div class="course-card">
+                                    <img src="~/images/more-info.jpg" alt="@course.Title" />
+                                    <h3>@course.Title</h3>
+                                    <p>@course.InstructorFullName</p>
+                                    <p>@course.AverageRating <span class="stars">★★★★★</span> (@course.Reviews.Count().ToString()</p>
+                                    <p></p>
+                                    @if (course.PriceStatus is true)
+                                    {
+                                        <button class="bestseller">Free</button>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <button class="arrow next">&#10095;</button>
+                    </div>
+                </div>
+          
               
-                <div class="col-md-4">
+               @*  <div class="col-md-4">
                     <div class="product-item">
                         <a href="#"><img src="~/images/product_01.jpg" alt=""></a>
                         <div class="down-content">
                             <a href="#"><h4>Title</h4></a>
                             @*  <h6>@Model.PriceStatus</h6>
-                            <p>@Model.CourseDescription</p> *@
+                            <p>@Model.CourseDescription</p> 
                             <ul class="stars">
                                 <li><i class="fa fa-star"></i></li>
                                 <li><i class="fa fa-star"></i></li>
@@ -86,7 +226,7 @@
                             <span>Reviews (36)</span>
                         </div>
                     </div>
-                </div>
+                </div> *@
           
           
         </div>
@@ -207,7 +347,69 @@
     </div>
 </div>
 
-@*
+    @section Scripts{
+
+        <script>
+            $(document).ready(function () {
+                const slides = $(".carousel .course-card");
+                let totalSlides = slides.length;
+                let slideIndex = 0;
+
+                function getVisibleSlides() {
+                    const screenWidth = $(window).width();
+                    if (screenWidth < 768) {
+                        return 1;  // Show 1 card on very small screens
+                    } else if (screenWidth < 992) {
+                        return 2;  // Show 2 cards on medium screens
+                    }
+                    return 3;  // Default to showing 3 cards on large screens
+                }
+
+                function setCarouselDimensions() {
+                    const visibleSlides = getVisibleSlides();
+                    const containerWidth = $(".carousel-container").width();
+                    const marginPerSlide = 20;
+                    const totalMargin = marginPerSlide * (visibleSlides - 1);
+                    const slideWidth = (containerWidth - totalMargin) / visibleSlides;
+
+                    slides.width(slideWidth - 32);  // Set each slide's width
+                    $(".carousel").width(slideWidth * totalSlides + totalMargin);  // Adjust total width of the carousel
+
+                    showSlides(slideIndex);  // Update display to current slide index
+                }
+
+                function showSlides(newIndex) {
+                    const slideWidth = slides.first().outerWidth(true);  // Get the actual width including margins
+                    const shift = -(slideWidth * newIndex);
+                    $(".carousel").css("transform", `translateX(${shift}px)`);
+                    slideIndex = newIndex;  // Update the global slideIndex
+                }
+
+                $(".arrow.next").click(function () {
+                    const visibleSlides = getVisibleSlides();
+                    if (slideIndex < totalSlides - visibleSlides) {
+                        showSlides(slideIndex + 1);
+                    }
+                });
+
+                $(".arrow.prev").click(function () {
+                    if (slideIndex > 0) {
+                        showSlides(slideIndex - 1);
+                    }
+                });
+
+                // Initialize carousel
+                setCarouselDimensions();
+
+                // Reinitialize carousel on window resize
+                $(window).resize(setCarouselDimensions);
+            });
+        </script>
+
+
+
+    }
+    @*
 <<<<<<< HEAD
     <!-- Bootstrap core JavaScript -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>

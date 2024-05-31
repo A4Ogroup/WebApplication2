@@ -1,4 +1,8 @@
-﻿
+﻿@inject LconsultDBContext _context
+
+@{
+    var Courses = _context.Courses.Take(10).ToList();
+}
       <style>
          .sliderr {
              margin:40px 10px 20px 10px;
@@ -19,7 +23,7 @@
 /*              max-width: 1200px;
  */           border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                 position:center     ;
+                 position:relative     ;
          }
 
          .course-carousel h2 {
@@ -28,20 +32,29 @@
 
          .carousel-container {
             position: relative;
+            overflow:hidden;
+            width:100%;
+        padding-left: 0;
+         padding-right: 0;
          }
 
          .carousel {
+        min-width: 100%;
             display: flex;
-            overflow: hidden;
-            transition: transform 0.5s ease;
+/*             overflow: hidden;
+ */            flex-wrap:nowrap;
+        transition:  0.5s  ease-in-out;
+        
          }
 
          .course-card {
-            min-width: 300px;
-            flex: 1 0 0;
-            max-width: calc(33.333% - 20px); /* Three cards to fit in a row */
-            margin-right: 20px;
-            text-align: left;
+        min-width:auto; /*calc(100% / 3); */
+        flex: 0 0 auto;
+        
+/*             max-width: calc(33.333% - 20px); /* Three cards to fit in a row */
+margin-right: 20px;
+/*  margin-left:20px;
+ */            text-align: left;
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -64,6 +77,12 @@
 
          .course-card p {
             margin: 5px 0;
+          
+
+    
+        flex: 0 0 33.333%; /* Adjust based on how many cards you want to show at once */
+        box-sizing: border-box;
+    
          }
 
          .bestseller {
@@ -110,128 +129,96 @@
             }
          }
       </style>
-   <div class="sliderr">
-      <div class="course-carousel">
-         <h2>Top Reted Courses..</h2>
-         <div class="carousel-container">
+
+
+<div class="sliderr">
+    <div class="course-carousel">
+        <h2>Top Rated Courses</h2>
+        <div class="carousel-container">
             <button class="arrow prev">&#10094;</button>
-            <div class="carousel"></div>
+            <div class="carousel">
+                @foreach (var course in Courses)
+                {
+                    <div class="course-card">
+                        <img src="~/images/more-info.jpg" alt="@course.Title" />
+                        <h3>@course.Title</h3>
+                        <p>@course.InstructorFullName</p>
+                        <p>@course.AverageRating <span class="stars">★★★★★</span> (@course.Reviews.Count().ToString()</p>
+                        <p></p>
+                        @if (course.PriceStatus is true )
+                        {
+                            <button class="bestseller">Free</button>
+                        }
+                    </div>
+                }
+            </div>
             <button class="arrow next">&#10095;</button>
-         </div>
-      </div>
+        </div>
+    </div>
 </div>
 
-    @section Scripts{
-        <script>
-                              let slideIndex = 0;
-                              const courses = [
-                                  {
-                                      img: "Screenshot(18).png",
-                                      title: "100 Days of Code: The Complete Python Pro Bootcamp",
-                                      author: "Dr. Angela Yu",
-                                      rating: 4.7,
-                                      reviews: 298762,
-                                      price: "$74.99",
-                                      bestseller: true,
-                                  },
-                                  {
-                                      img: "Screenshot(18).png",
-                                      title: "The Complete 2024 Web Development Bootcamp",
-                                      author: "Dr. Angela Yu",
-                                      rating: 4.7,
-                                      reviews: 379771,
-                                      price: "$74.99",
-                                      bestseller: true,
-                                  },
-                                  {
-                                      img: "Screenshot(18).png",
-                                      title: "The Complete Python Bootcamp From Zero to Hero in Python",
-                                      author: "Jose Portilla, Pierian Training",
-                                      rating: 4.6,
-                                      reviews: 506564,
-                                      price: "$74.99",
-                                      bestseller: false,
-                                  },
-                                  {
-                                      img: "Screenshot(18).png",
-                                      title: "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02",
-                                      author: "Stephane Maarek | AWS Certified Cloud...",
-                                      rating: 4.7,
-                                      reviews: 206240,
-                                      price: "$74.99",
-                                      bestseller: true,
-                                  },
-                                  {
-                                      img: "Screenshot(18).png",
-                                      title: "Ultimate AWS Certified Solutions Architect Associate...",
-                                      author: "Stephane Maarek | AWS Certified Cloud...",
-                                      rating: 4.7,
-                                      reviews: 223939,
-                                      price: "$74.99",
-                                      bestseller: true,
-                                  },
-                                  {
-                                      img: "Screenshot(18).png",
-                                      title: "Ultimate Python Bootcamp",
-                                      author: "Jose Portilla, Pierian Training",
-                                      rating: 4.8,
-                                      reviews: 402564,
-                                      price: "$69.99",
-                                      bestseller: false,
-                                  },
-                                  {
-                                      img: "portrait-woman-video-call-with-laptop-headphones-while-working-from-home-home-office-concept-new-normal-lifestyle_58466-16109.avif",
-                                      title: "Advanced JavaScript Bootcamp",
-                                      author: "Maximilian Schwarzmüller",
-                                      rating: 4.9,
-                                      reviews: 322564,
-                                      price: "$49.99",
-                                      bestseller: true,
-                                  },
-                              ];
 
-                              const coursesToShow = 3;
+@section Scripts{
 
-                              function renderCourses(startIndex) {
-                                  const $carousel = $(".carousel");
-                                  $carousel.empty();
-                                  for (let i = startIndex; i < startIndex + coursesToShow; i++) {
-                                      const course = courses[i % courses.length];
-                                      const bestsellerBadge = course.bestseller
-                                          ? '<button class="bestseller">Bestseller</button>'
-                                          : "";
-                                      $carousel.append(`
-                                                  <div class="course-card">
-                                                      <img src="../../images/more-info.jpg" alt="${course.title}">
-                                                      <h3>${course.title}</h3>
-                                                      <p>${course.author}</p>
-                                                      <p>${course.rating
-                                          } <span class="stars">★★★★★</span> (${course.reviews.toLocaleString()})</p>
-                                                      <p>${course.price}</p>
-                                                      ${bestsellerBadge}
-                                                  </div>
-                                              `);
-                                  }
-                              }
+    <script>
+        $(document).ready(function () {
+            const slides = $(".carousel .course-card");
+            let totalSlides = slides.length;
+            let slideIndex = 0;
 
-                              function moveSlide(direction) {
-                                  const totalCourses = courses.length;
-                                  slideIndex = (slideIndex + direction + totalCourses) % totalCourses;
-                                  renderCourses(slideIndex);
-                              }
+            function getVisibleSlides() {
+                const screenWidth = $(window).width();
+                if (screenWidth < 768) {
+                    return 1;  // Show 1 card on very small screens
+                } else if (screenWidth < 992) {
+                    return 2;  // Show 2 cards on medium screens
+                }
+                return 3;  // Default to showing 3 cards on large screens
+            }
 
-                              $(document).ready(function () {
-                                  renderCourses(slideIndex);
+            function setCarouselDimensions() {
+                const visibleSlides = getVisibleSlides();
+                const containerWidth = $(".carousel-container").width();
+                const marginPerSlide = 20;
+                const totalMargin = marginPerSlide * (visibleSlides - 1);
+                const slideWidth = (containerWidth - totalMargin) / visibleSlides;
 
-                                  $(".arrow.prev").click(function () {
-                                      moveSlide(-1);
-                                  });
+                slides.width(slideWidth-32);  // Set each slide's width
+                $(".carousel").width(slideWidth * totalSlides + totalMargin);  // Adjust total width of the carousel
 
-                                  $(".arrow.next").click(function () {
-                                      moveSlide(1);
-                                  });
-                              });
-        </script>
-}
+                showSlides(slideIndex);  // Update display to current slide index
+            }
+
+            function showSlides(newIndex) {
+                const slideWidth = slides.first().outerWidth(true);  // Get the actual width including margins
+                const shift = -(slideWidth * newIndex);
+                $(".carousel").css("transform", `translateX(${shift}px)`);
+                slideIndex = newIndex;  // Update the global slideIndex
+            }
+
+            $(".arrow.next").click(function () {
+                const visibleSlides = getVisibleSlides();
+                if (slideIndex < totalSlides - visibleSlides) {
+                    showSlides(slideIndex + 1);
+                }
+            });
+
+            $(".arrow.prev").click(function () {
+                if (slideIndex > 0) {
+                    showSlides(slideIndex - 1);
+                }
+            });
+
+            // Initialize carousel
+            setCarouselDimensions();
+
+            // Reinitialize carousel on window resize
+            $(window).resize(setCarouselDimensions);
+        });
+    </script>
+
+
+   
+} 
      
 
