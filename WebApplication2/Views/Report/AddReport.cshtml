@@ -1,0 +1,66 @@
+﻿@model AddReportViewModel
+
+@{
+	Layout = "_StudentLayout";
+}
+
+
+
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
+    </div>
+</div>
+
+
+@* <div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Report</h4>
+        </div>
+        <div class="col-md-8">
+            <form method="post" asp-controller="report" asp-action="addreport">
+                <input hidden asp-for="@Model.ReviewId" />
+                <textarea type="text" asp-for="@Model.Message"></textarea>
+            </form>
+        </div>
+    </div>
+
+
+</div> *@
+ <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section-heading">
+                <h2>Review Reports</h2>
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="contact-form">
+                <form id="contact" method="post" asp-controller="report" asp-action="addreport" >
+                    <input hidden  asp-for="@Model.ReviewId" />
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class=" align-content-center" style="margin:15px;">
+
+
+
+                                <textarea class="form-control" placeholder="Your Report"  asp-for="@Model.Message"></textarea>
+
+                                
+                            </div>
+                            </div>
+                            </div>
+
+                    <div class="col-lg-12">
+                        <fieldset>
+                            <button type="submit" id="form-submit" class="filled-button">Send </button>
+                        </fieldset>
+                    </div>
+                            </form>
+
+                  </div>
+                  </div>
+   </div>
+</div> 

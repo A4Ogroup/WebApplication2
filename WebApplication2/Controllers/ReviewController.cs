@@ -27,7 +27,7 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public IActionResult AddReview(int Id)
         {
-            var model = new Review
+            var model = new AddReviewViewModel
             {
                 CourseId = Id
             };
@@ -116,6 +116,5 @@ namespace WebApplication2.Controllers
 
             return RedirectToAction("index", "student");
         }
-
     }
 }

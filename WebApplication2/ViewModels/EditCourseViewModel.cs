@@ -5,8 +5,6 @@ namespace WebApplication2.ViewModels
     {
 
             public int CourseId { get; set; }
-            public string? ExistingPhotoPath { get; set; }
-
-       
+            public string? ExistingPhotoPath { get; set; } 
     }
 }
