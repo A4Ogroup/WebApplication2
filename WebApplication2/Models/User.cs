@@ -18,7 +18,7 @@ namespace WebApplication2.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Pic { get; set; }
-        public DateTime? RegisterDate { get; set; }
+        public DateTime? RegisterDate { get; set; }=DateTime.Now;
         public bool? Status { get; set; }
         public byte? UserType { get; set; }
 

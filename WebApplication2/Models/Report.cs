@@ -9,7 +9,7 @@ namespace WebApplication2.Models
     {
         public int ReportId { get; set; }
         public string Message { get; set; }
-        public DateTime? ReportDate { get; set; }
+        public DateTime? ReportDate { get; set; } = DateTime.Now;
         public int? ReviewId { get; set; }
         public bool Status { get; set; }
         public string StudentId { get; set; }
