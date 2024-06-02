@@ -1,0 +1,264 @@
+﻿@model WebApplication2.ViewModels.CourseFilterViewModel
+@inject LconsultDBContext _context
+@{
+
+    var categories = _context.Categories.Select(C => new
+    {
+        C.CategoryId,
+        C.CategoryName
+    }).ToList();
+
+
+    var languages = _context.Languages.Select(L => new
+    {
+        L.LanguageId,
+        L.Name
+    }).ToList();
+
+    var Courses = _context.Courses.Select(c => new
+    {
+        c.Title,
+        c.CourseDescription,
+        c.Level,
+        c.VedioLength,
+        c.AverageRating,
+        c.Language,
+        c.CategoryId,
+        c.Picture,
+        c.TopicsCovered,
+        c.CourseDuration,
+        c.InstructorFullName,
+        c.PriceStatus
+
+    }).ToList();
+
+
+}
+@{
+    var photoPath = "imgaes";
+}
+
+
+
+@{
+    Layout = "_Layout";
+}
+<head>
+    <style>
+        .checked {
+            color: red;
+        }
+    .result-item {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        background-color: white;
+    }
+
+        .result-item img {
+            border-radius: 10px;
+            width: 150px;
+            max-width: 100%;
+            height: auto;
+            margin-right: 15px;
+        }
+
+        .result-item .content h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .result-item .content .meta {
+            font-size: 14px;
+            color: gray;
+            margin-bottom: 10px;
+        }
+
+        .result-item .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+
+
+    @@media (max-width: 992px) {
+        .result-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+            .result-item img {
+                width: 100%;
+                height: auto;
+                margin-bottom: 10px;
+            }
+
+
+
+        .filter-toggle {
+            display: block;
+        }
+
+        .sidebar {
+            border-right: none;
+        }
+    }
+
+    .text-purple {
+        color: #6f42c1;
+    }
+
+</style>
+</head>
+
+
+<div class="col-md-12 my-3">
+
+            <div class="row">
+ <div class="col-md-3">
+     <div class="container" >
+    <h2 class="grid-title"><i class="fa fa-filter"></i> Filter by</h2>
+    <hr>
+
+    <form method="post" asp-action="new" asp-controller="test" >
+        <!-- Filter by Rating -->
+      <p style="margin:10px;">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRating" aria-expanded="false">
+                Rating
+            </button>
+        </p>
+        <div class="collapse" id="collapseRating">
+            <div class="form-check" style="margin: 10px 0px;">
+                @for (int i = 5; i >= 1; i--)
+                {
+                    <div>
+                        <input type="checkbox" name="Ratings" value="@i"> @for (int j = 0; j < i; j++)
+                        {
+                            <span class="fa fa-star checked"></span>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Filter by Category -->
+       <p style="margin:10px;">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false">
+                Category
+            </button>
+        </p>
+        <div class="collapse" id="collapseCategory">
+            <div class="form-check" style="margin: 10px 0px;">
+                @foreach (var category in categories)
+                {
+                    <div>
+                        <input type="checkbox" name="CategoryIds" value="@category"> @category.CategoryName
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Filter by Language -->
+                    <p style="margin:10px;">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLanguage" aria-expanded="false">
+                Language
+            </button>
+        </p>
+        <div class="collapse" id="collapseLanguage">
+            <div class="form-check" style="margin: 10px 0px;">
+                @foreach (var language in languages)
+                {
+                    <div>
+                        <input type="checkbox" name="LanguageIds" value="@language"> @language.Name
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Filter by Level -->
+                    <p style="margin:10px;">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLevel" aria-expanded="false">
+                Level
+            </button>
+        </p>
+        <div class="collapse" id="collapseLevel">
+            <div class="form-check" style="margin: 10px 0px;">
+                @foreach (var level in Enum.GetValues(typeof(Level)))
+                {
+                    <div>
+                        <input type="checkbox" name="Levels" value="@level"> @level
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Filter by Video Length -->
+                    <p style="margin:10px;">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVideoLength" aria-expanded="false">
+                Video Length
+            </button>
+        </p>
+        <div class="collapse" id="collapseVideoLength" >
+            <div class="form-check" style="margin: 10px 0px;">
+                @foreach (var videoLength in Enum.GetValues(typeof(VideoLengthCategory)))
+                {
+                    <div>
+                        <input type="checkbox" name="VideoLengths" value="@videoLength"> @videoLength
+                    </div>
+                }
+            </div>
+        </div>
+
+                    <button type="submit" class="btn btn-primary" style="margin:10px;">Apply Filters</button>
+    </form>
+                    </div>
+</div> 
+
+<div class="col-md-9">
+    <h2>Results</h2>
+    <hr>
+    @foreach (var items in Model.Courses)
+    {
+                        <div class="result-item">
+                            @if (items.Picture is null)
+                            {
+                                <a href="#"><img src="~/images/courses/noimage.png" alt=""></a>
+
+                            }<a href="#"><img src="~/images/courses/@items.Picture" alt=""></a>
+                            <div class="content">
+                                <h3>@items.Title</h3>
+                                <p class="meta">
+                                    @*  ASP.NET Core 6, 7 & 8 | ASP.NET Core Projects |
+                                Bootcamp | Advanced | Interview Questions | Web API |
+                                MVC *@
+                                    @items.TopicsCovered
+                                </p>
+                                <p class="meta">
+                                    @items.InstructorFullName <br />
+                                    @items.AverageRating <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i> (3,666)
+                                </p>
+                                <p class="meta">
+                                    @* 82 total hours • 402 lectures • All Levels *@
+                                    @items.CourseDuration Hour • @items.Level
+                                </p>
+                                <p class="price">
+                                    @if (items.PriceStatus is true)
+                                    {
+                                        <h6> paid </h6>
+                                    }
+                                    else
+                                    {
+                                        <h6>free  </h6>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+    }
+</div> 
+
+</div></div>
