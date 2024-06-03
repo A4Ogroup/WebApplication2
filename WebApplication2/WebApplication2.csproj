@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="E:\visual studio projects\AbdullahRepositories\WebApplication2\WebApplication2\.editorconfig" />
     <None Include="efpt.config.json.user" />
   </ItemGroup>
 
@@ -17,6 +18,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="E:\visual studio projects\AbdullahRepositories\WebApplication2\WebApplication2\.editorconfig" />
   </ItemGroup>
 
 </Project>
