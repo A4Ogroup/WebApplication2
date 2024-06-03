@@ -22,6 +22,81 @@
 <!-- Page Content -->
 <head>
     <style>
+
+    .course-reviews {
+        background-color: white;
+        padding: 20px;
+        border-radius: 4px;
+        margin: 10px; /* Adjusted for inner spacing */
+        max-width: calc(50% - 20px); /* Allows 3 cards per row with spacing */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        flex: 1 1 calc(50% - 20px); /* Allows 3 cards per row */
+        box-sizing: border-box;
+    }
+
+    .title {
+        color: #f00;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .rating-summary {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .rating-summary .stars {
+        color: #f00;
+    }
+
+    .review-card {
+        margin-bottom: 10px;
+    }
+
+    .review-card .stars {
+        color: #f00;
+    }
+
+    .checked {
+        color: red;
+    }
+
+    /* Flexbox container for review cards */
+    .reviews-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: -10px; /* Adjust for inner padding */
+    }
+
+    /* Inner padding for review cards */
+    .reviews-container > .course-reviews {
+        margin: 10px;
+    }
+
+    /* Responsive styles */
+    @@media (max-width: 992px) {
+        .course-reviews {
+            flex: 1 1 calc(50% - 20px); /* 2 cards per row */
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .course-reviews {
+            flex: 1 1 calc(100% - 20px); /* 1 card per row */
+        }
+    }
+
+    /* Ensure the footer is not overlapped */
+    .footer {
+        clear: both;
+        position: relative;
+        z-index: 10;
+    }
+
+    .container, .row, .padding {
+        overflow: hidden;
+    }
         .checked {
         color: red;
         }
@@ -611,6 +686,7 @@
                             </div>
                             <!-- END TABLE RESULT -->
                             <!-- BEGIN PAGINATION -->
+
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item disabled">
@@ -631,12 +707,13 @@
 
 
 
-                    </div>
+               </div>
                     <!-- END FILTERS -->
                     <!-- BEGIN RESULT -->
 
 
 
+                </div>
                 </div>
                 @*                 <footer class="footer_area section_gap_top">
                 <div class="container">
@@ -666,12 +743,6 @@
 
 
 
-            </div>
-
-        </div>
-
-    </div>
-</div>
 @*
     </div>
     </div> *@
