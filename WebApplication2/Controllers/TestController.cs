@@ -60,7 +60,7 @@ namespace WebApplication2.Controllers
         {
             var courses = _context.Courses.ToList();
             var languages = _context.Languages.ToList();
-            v
+            
 
             if (courses == null)
             {
