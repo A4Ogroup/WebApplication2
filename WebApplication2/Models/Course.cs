@@ -31,7 +31,7 @@ namespace WebApplication2.Models
         public DateTime? LastUpdate { get; set; }
         public DateTime? AddingDate { get; set; }= DateTime.Now;
         public string? Picture { get; set; }
-        public int? AverageRating { get; set; }
+        public double? AverageRating { get; set; } = 0.0;
         public bool? Claimed { get; set; }
         public bool? Status { get; set; }
         public string? InstructorId { get; set; }
