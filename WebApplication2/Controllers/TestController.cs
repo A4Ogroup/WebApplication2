@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Helpers.Enums;
 using WebApplication2.Models;
+using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
@@ -9,6 +10,7 @@ namespace WebApplication2.Controllers
     public class TestController : Controller
     {
         LconsultDBContext _context;
+        ICourseRepository _courseRepository;
 
         public TestController( LconsultDBContext context)
         {
@@ -52,6 +54,31 @@ namespace WebApplication2.Controllers
             ViewBag.Languages = _context.Courses.Select(c => c.LanguageId).Distinct().ToList();
 
             return View(filter);
+        }
+
+        public IActionResult Search()
+        {
+            var courses = _context.Courses.ToList();
+            var languages = _context.Languages.ToList();
+            v
+
+            if (courses == null)
+            {
+                return NotFound();
+            }
+
+            var searchViewModel = new SearchViewModel()
+            {
+                
+                courses = courses ,
+                languages= languages,
+                
+
+
+            };
+            //var courses = _context.Courses.ToList();
+
+            return View(/*courses*/);
         }
     }
 }
