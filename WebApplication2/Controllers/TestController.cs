@@ -78,7 +78,14 @@ namespace WebApplication2.Controllers
             };
             //var courses = _context.Courses.ToList();
 
-            return View(/*courses*/);
+            return View(/*courses*/searchViewModel);
+        }
+
+        public IActionResult Action1()
+        {
+            var reviews = _context.Reviews.ToList();
+
+            return View(reviews);
         }
     }
 }

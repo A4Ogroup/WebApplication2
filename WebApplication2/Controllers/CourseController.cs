@@ -143,6 +143,7 @@ namespace WebApplication2.Controllers
                 r.Student,
                 r.Rate,
                 r.Descritipn,
+                V = r.GetFormattedDate(r.RatingDate.Value),
             }).ToList();
 
 ;

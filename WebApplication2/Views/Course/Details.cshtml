@@ -9,6 +9,7 @@
         r.Student,
         r.Rate,
         r.Descritipn,
+        V = r.GetFormattedDate(r.RatingDate.Value),
         
     }).ToList();
 
@@ -410,7 +411,7 @@
                                                             <div class="d-flex">
                                                                 <div class="user-info">
                                                                     <strong>@items.Student</strong>
-                                                                    <span class="text-muted small">@items.RatingDate.Value.Month </span>
+                                                                    <span class="text-muted small">@items.V </span>
                                                                     <ul class="stars">
                                                                         @switch (items.Rate)
                                                                         {
