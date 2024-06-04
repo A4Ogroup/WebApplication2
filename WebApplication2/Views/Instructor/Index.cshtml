@@ -1,10 +1,10 @@
 ﻿@inject LconsultDBContext _context
 @{
     var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-     .Take(3).ToList();
+     .Take(10).ToList();
 
     var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
-            .Take(3).ToList();
+            .Take(10).ToList();
 }
 @{
     Layout = "_InstructorLayout";
@@ -13,14 +13,15 @@
 <head>
     <style>
 
+        <!-- review style-- >
         .course-reviews {
             background-color: white;
             padding: 20px;
             border-radius: 4px;
-            margin: 10px; /* Adjusted for inner spacing */
-            max-width: calc(33.333% - 20px); /* Allows 3 cards per row with spacing */
+            margin: 10px;
+            max-width: calc(33.333% - 20px);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            flex: 1 1 calc(33.333% - 20px); /* Allows 3 cards per row */
+            flex: 1 1 calc(33.333% - 20px);
             box-sizing: border-box;
         }
 
@@ -35,15 +36,7 @@
             margin-bottom: 10px;
         }
 
-            .rating-summary .stars {
-                color: #f00;
-            }
-
-        .review-card {
-            margin-bottom: 10px;
-        }
-
-            .review-card .stars {
+            .rating-summary .stars, .review-card .stars {
                 color: #f00;
             }
 
@@ -51,33 +44,29 @@
             color: red;
         }
 
-        /* Flexbox container for review cards */
         .reviews-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            margin: -10px; /* Adjust for inner padding */
+            margin: -10px;
         }
 
-            /* Inner padding for review cards */
             .reviews-container > .course-reviews {
                 margin: 10px;
             }
 
-        /* Responsive styles */
         @@media (max-width: 992px) {
             .course-reviews {
-                flex: 1 1 calc(50% - 20px); /* 2 cards per row */
+                flex: 1 1 calc(100% - 20px);
             }
         }
 
         @@media (max-width: 768px) {
             .course-reviews {
-                flex: 1 1 calc(100% - 20px); /* 1 card per row */
+                flex: 1 1 calc(100% - 20px);
             }
         }
 
-        /* Ensure the footer is not overlapped */
         .footer {
             clear: both;
             position: relative;
@@ -88,8 +77,153 @@
             overflow: hidden;
         }
 
+        .arrow2 {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            color: #333;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            z-index: 1000;
+        }
+
+            .arrow2.prev2 {
+                left: 0;
+            }
+
+            .arrow2.next2 {
+                right: 0;
+            }
+
         .checked {
             color: red;
+        }
+
+        .description {
+            display: inline;
+        }
+
+        .more-text {
+            display: none;
+        }
+
+        .see-more {
+            color: blue;
+            cursor: pointer;
+        }
+        <!-- review style end-- >
+
+
+        .course-carousel {
+            background-color: white;
+            /*        background-color: gray;
+             */ padding: 20px;
+            margin: 10px;
+            margin-top: 0px;
+            width: 95%;
+            /*              max-width: 1200px;
+             */ border-radius: 8px;
+            /*         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+         */ position: relative;
+        }
+
+        /* .course-carousel h2 {
+                    margin-bottom: 20px;
+                } */
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .carousel {
+            min-width: 100%;
+            display: flex;
+            /*             overflow: hidden;
+             */ flex-wrap: nowrap;
+            transition: 0.5s ease-in-out;
+        }
+
+        .course-card {
+            min-width: auto; /*calc(100% / 3); */
+            flex: 0 0 auto;
+            /*             max-width: calc(33.333% - 20px); /* Three cards to fit in a row */
+            margin-right: 20px;
+            /*  margin-left:20px;
+             */ text-align: left;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+            .course-card img {
+                width: 100%;
+                height: auto;
+                max-height: 150px;
+                /*             border-radius: 5px;
+         */ object-fit: cover;
+            }
+
+            .course-card h3 {
+                font-size: 16px;
+                margin: 10px 0;
+            }
+
+            .course-card p {
+                margin: 5px 0;
+                flex: 0 0 33.333%; /* Adjust based on how many cards you want to show at once */
+                box-sizing: border-box;
+            }
+
+        .bestseller {
+            background-color: #f4c150;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            background-color: #f1f1f6;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+            .arrow.prev {
+                left: 0;
+            }
+
+            .arrow.next {
+                right: 0;
+            }
+
+        @@media (max-width: 768px) {
+            .course-card {
+                max-width: calc(50% - 20px); /* Two cards to fit in a row */
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .course-card {
+                max-width: 100%; /* One card to fit in a row */
+                margin-right: 0;
+            }
         }
     </style>
 </head>
@@ -108,14 +242,143 @@
     <!-- Banner Ends Here -->
 
 
-    <!-- Top Courses starts Here -->
 <div class="latest-products">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Top Courses</h2>
+                    <a asp-controller="home" asp-action="course">view all courses <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+
+
+
+            <div class="course-carousel">
+                @*                     <h2>Top Rated Courses</h2>
+                *@                    <div class="carousel-container">
+                    <button class="arrow prev">&#10094;</button>
+                    <div class="carousel">
+                        @foreach (var course in courses)
+                        {
+                            <div class="course-card">
+                                @if (@course.Picture is null)
+                                {
+                                    course.Picture = "noimage.png";
+
+                                }<a href="#"><img src="~/images/courses/@course.Picture" alt=""></a>
+                                <h3>@course.Title</h3>
+                                <p>@course.InstructorFullName</p>
+                                <p>
+                                    @course.AverageRating
+                                    @if (course.AverageRating > 4.0 && course.AverageRating <= 4.9)
+                                    {
+                                        <span class="fa fa-star" style="color:red;"><span class="fa fa-star-half-full"></span></span>
+                                    }
+                                    @if (course.AverageRating == 4.0)
+                                    {
+                                        <span class="stars" style="color:red;">★★★★</span>
+                                    }
+                                    @if (course.AverageRating > 3.0 && course.AverageRating <= 3.9)
+                                    {
+                                        <span class="stars" style="color:red;">★★★<span class="fa fa-star-half-full"></span></span>
+                                    }
+                                    @if (course.AverageRating == 3.0)
+                                    {
+                                        <span class="stars" style="color:red;">★★★</span>
+                                    }
+                                    @if (course.AverageRating < 3.0)
+                                    {
+                                        <span class="stars" style="color:red;">★★</span>
+                                    }
+                                    (@course.Reviews.Count().ToString())
+                                </p>
+                                <p></p>
+                                @if (course.PriceStatus is true)
+                                {
+                                    <span>Paid</span>
+                                }
+                                else
+                                {
+                                    <sapn>Free</sapn>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <button class="arrow next">&#10095;</button>
+                </div>
+            </div>
+
+
+            @*  <div class="col-md-4">
+            <div class="product-item">
+            <a href="#"><img src="~/images/product_01.jpg" alt=""></a>
+            <div class="down-content">
+            <a href="#"><h4>Title</h4></a>
+            @*  <h6>@Model.PriceStatus</h6>
+            <p>@Model.CourseDescription</p>
+            <ul class="stars">
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            </ul>
+            <span>Reviews (24)</span>
+            </div>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="product-item">
+            <a href="#"><img src="~/images/product_02.jpg" alt=""></a>
+            <div class="down-content">
+            <a href="#"><h4>Tittle goes here</h4></a>
+            <h6>Paid</h6>
+            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
+            <ul class="stars">
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            </ul>
+            <span>Reviews (21)</span>
+            </div>
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="product-item">
+            <a href="#"><img src="~/images/product_03.jpg" alt=""></a>
+            <div class="down-content">
+            <a href="#"><h4>Tittle goes here</h4></a>
+            <h6>Free</h6>
+            <p>Sixteen Clothing is free CSS template provided by TemplateMo.</p>
+            <ul class="stars">
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            </ul>
+            <span>Reviews (36)</span>
+            </div>
+            </div>
+            </div> *@
+
+
+        </div>
+    </div>
+</div>
+
+    <!-- Top Courses starts Here -->
+@* <div class="latest-products">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="section-heading">
                     <h2>Top Courses</h2>
-                  @*   <a asp-controller="home" asp-action="course">view all courses <i class="fa fa-angle-right"></i></a> *@
+
                 </div>
             </div>
             @foreach (var items in courses)
@@ -148,91 +411,89 @@
             }
         </div>
     </div>
-</div>
+</div> *@
 
 
 
 <div class="container">
     <div class="row">
-
-    <div class="padding">
-  
+        <div class="padding">
             <div class="latest-products">
-                <div class="reviews-container">
-                        <div class="col-md-12">
-                            <div class="section-heading">
-                                <h2>Reviews</h2>
-                                @*   <a asp-controller="home" asp-action="course">view all courses <i class="fa fa-angle-right"></i></a> *@
-                            </div>
+                <div class="reviews-container position-relative">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h2>Reviews</h2>
+
                         </div>
-                    @foreach (var items in reviews)
-                    {
-                        <div class="course-reviews">
-                            <div class="review-card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex">
-                                            <div class="user-info">
-                                                <strong>@items.Student</strong>
-                                                <span class="text-muted small">@items.GetFormattedDate(items.RatingDate.Value) </span>
-                                                <ul class="stars">
-                                                    @switch (items.Rate)
-                                                    {
-                                                        case 5:
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                        case 4:
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                        case 3:
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                        case 2:
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                        default:
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                    }
-                                                </ul>
+                    </div>
+                    <button class="arrow2 prev2">&#10094;</button>
+                    <div class="carousel2 d-flex">
+                        @foreach (var items in reviews)
+                        {
+                            <div class="course-reviews">
+                                <div class="review-card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex">
+                                                <div class="user-info">
+                                                    <strong>@items.Student</strong>
+                                                    <span class="text-muted small">@items.GetFormattedDate(items.RatingDate.Value)</span>
+                                                    <ul class="stars">
+                                                        @switch (items.Rate)
+                                                        {
+                                                            case 5:
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                            case 4:
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                            case 3:
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                            case 2:
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                            default:
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                        }
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                        @*                                                             <div class="dropdown">
-                                    <button class="btn btn-link p-0"
-                                    type="button"
-                                    id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i class="fa fa-ellipsis-v"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right"
-                                    aria-labelledby="dropdownMenuButton1">
-                                    <a class="dropdown-item" asp-controller="report" asp-action="addreport" asp-route-Id="@items.ReviewId">Report</a>
+                                        @if (items.Descritipn.Length > 100)
+                                        {
+                                            <p class="description">
+                                                @items.Descritipn.Substring(0, 100)
+                                                <span class="more-text">@items.Descritipn.Substring(100)</span>
+                                                <span class="see-more">...See More</span>
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p class="description">@items.Descritipn</p>
+                                        }
+
                                     </div>
-                                    </div> *@
-                                    </div>
-                                    <p>@items.Descritipn</p>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
+                    <button class="arrow2 next2">&#10095;</button>
                 </div>
             </div>
         </div>
-
-</div>
+    </div>
 </div>
 
 
@@ -300,3 +561,133 @@
         </div>
     </div>
 </div>  *@
+
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            const slides = $(".carousel .course-card");
+            let totalSlides = slides.length;
+            let slideIndex = 0;
+
+            function getVisibleSlides() {
+                const screenWidth = $(window).width();
+                if (screenWidth < 768) {
+                    return 1;  // Show 1 card on very small screens
+                } else if (screenWidth < 992) {
+                    return 2;  // Show 2 cards on medium screens
+                }
+                return 3;  // Default to showing 3 cards on large screens
+            }
+
+            function setCarouselDimensions() {
+                const visibleSlides = getVisibleSlides();
+                const containerWidth = $(".carousel-container").width();
+                const marginPerSlide = 20;
+                const totalMargin = marginPerSlide * (visibleSlides - 1);
+                const slideWidth = (containerWidth - totalMargin) / visibleSlides;
+
+                slides.width(slideWidth - 32);  // Set each slide's width
+                $(".carousel").width(slideWidth * totalSlides + totalMargin);  // Adjust total width of the carousel
+
+                showSlides(slideIndex);  // Update display to current slide index
+            }
+
+            function showSlides(newIndex) {
+                const slideWidth = slides.first().outerWidth(true);  // Get the actual width including margins
+                const shift = -(slideWidth * newIndex);
+                $(".carousel").css("transform", `translateX(${shift}px)`);
+                slideIndex = newIndex;  // Update the global slideIndex
+            }
+
+            $(".arrow.next").click(function () {
+                const visibleSlides = getVisibleSlides();
+                if (slideIndex < totalSlides - visibleSlides) {
+                    showSlides(slideIndex + 1);
+                }
+            });
+
+            $(".arrow.prev").click(function () {
+                if (slideIndex > 0) {
+                    showSlides(slideIndex - 1);
+                }
+            });
+
+            // Initialize carousel
+            setCarouselDimensions();
+
+            // Reinitialize carousel on window resize
+            $(window).resize(setCarouselDimensions);
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            const slides = $(".carousel2 .course-reviews");
+            let totalSlides = slides.length;
+            let slideIndex = 0;
+
+            function getVisibleSlides() {
+                const screenWidth = $(window).width();
+                if (screenWidth < 768) {
+                    return 1;
+                } else if (screenWidth < 992) {
+                    return 2;
+                }
+                return 3;
+            }
+
+            function setCarouselDimensions() {
+                const visibleSlides = getVisibleSlides();
+                const containerWidth = $(".reviews-container").width();
+                const marginPerSlide = 20;
+                const totalMargin = marginPerSlide * (visibleSlides - 1);
+                const slideWidth = (containerWidth - totalMargin) / visibleSlides;
+
+                slides.width(slideWidth - 32);
+                $(".carousel2").width(slideWidth * totalSlides + totalMargin);
+
+                showSlides(slideIndex);
+            }
+
+            function showSlides(newIndex) {
+                const slideWidth = slides.first().outerWidth(true);
+                const shift = -(slideWidth * newIndex);
+                $(".carousel2").css("transform", `translateX(${shift}px)`);
+                slideIndex = newIndex;
+            }
+
+            $(".arrow2.next2").click(function () {
+                const visibleSlides = getVisibleSlides();
+                if (slideIndex < totalSlides - visibleSlides) {
+                    showSlides(slideIndex + 1);
+                }
+            });
+
+            $(".arrow2.prev2").click(function () {
+                if (slideIndex > 0) {
+                    showSlides(slideIndex - 1);
+                }
+            });
+
+            setCarouselDimensions();
+            $(window).resize(setCarouselDimensions);
+
+            // Toggle "See More" functionality
+            $(".see-more").click(function () {
+                const moreText = $(this).siblings(".more-text");
+                if (moreText.is(":visible")) {
+                    $(this).text("...See More");
+                } else {
+                    $(this).text("...See Less");
+                }
+                moreText.toggle();
+            });
+        });
+    </script>
+
+
+
+}

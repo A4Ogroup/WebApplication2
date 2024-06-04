@@ -87,5 +87,11 @@ namespace WebApplication2.Controllers
 
             return View(reviews);
         }
+        public IActionResult Action2()
+        {
+            var courses = _context.Reviews.OrderByDescending(c => c.RatingDate)
+            .Take(10).ToList();
+            return View(courses);
+        }
     }
 }

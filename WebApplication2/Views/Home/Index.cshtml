@@ -4,23 +4,24 @@
      .Take(10).ToList();
 
     var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
-            .Take(3).ToList();
+            .Take(10).ToList();
 }
 @{
     Layout = "_Layout";
 }
 <style>
-    
 
 
+
+    <!-- review style-- >
     .course-reviews {
         background-color: white;
         padding: 20px;
         border-radius: 4px;
-        margin: 10px; /* Adjusted for inner spacing */
-        max-width: calc(33.333% - 20px); /* Allows 3 cards per row with spacing */
+        margin: 10px;
+        max-width: calc(33.333% - 20px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        flex: 1 1 calc(33.333% - 20px); /* Allows 3 cards per row */
+        flex: 1 1 calc(33.333% - 20px);
         box-sizing: border-box;
     }
 
@@ -35,15 +36,7 @@
         margin-bottom: 10px;
     }
 
-        .rating-summary .stars {
-            color: #f00;
-        }
-
-    .review-card {
-        margin-bottom: 10px;
-    }
-
-        .review-card .stars {
+        .rating-summary .stars, .review-card .stars {
             color: #f00;
         }
 
@@ -51,33 +44,29 @@
         color: red;
     }
 
-    /* Flexbox container for review cards */
     .reviews-container {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin: -10px; /* Adjust for inner padding */
+        margin: -10px;
     }
 
-        /* Inner padding for review cards */
         .reviews-container > .course-reviews {
             margin: 10px;
         }
 
-    /* Responsive styles */
     @@media (max-width: 992px) {
         .course-reviews {
-            flex: 1 1 calc(50% - 20px); /* 2 cards per row */
+            flex: 1 1 calc(100% - 20px);
         }
     }
 
     @@media (max-width: 768px) {
         .course-reviews {
-            flex: 1 1 calc(100% - 20px); /* 1 card per row */
+            flex: 1 1 calc(100% - 20px);
         }
     }
 
-    /* Ensure the footer is not overlapped */
     .footer {
         clear: both;
         position: relative;
@@ -88,9 +77,43 @@
         overflow: hidden;
     }
 
+    .arrow2 {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 30px;
+        color: #333;
+        background: rgba(255, 255, 255, 0.7);
+        border: none;
+        z-index: 1000;
+    }
+
+        .arrow2.prev2 {
+            left: 0;
+        }
+
+        .arrow2.next2 {
+            right: 0;
+        }
+
     .checked {
         color: red;
     }
+
+    .description {
+        display: inline;
+    }
+
+    .more-text {
+        display: none;
+    }
+
+    .see-more {
+        color: blue;
+        cursor: pointer;
+    }
+    <!-- review style end-- >
 
 
     .course-carousel {
@@ -243,15 +266,36 @@
                                 }<a href="#"><img src="~/images/courses/@course.Picture" alt=""></a>
                                     <h3>@course.Title</h3>
                                     <p>@course.InstructorFullName</p>
-                                    <p>@course.AverageRating <span class="stars">★★★★★</span> (@course.Reviews.Count().ToString())</p>
+                                    <p>@course.AverageRating 
+                                    @if(course.AverageRating > 4.0 && course.AverageRating <= 4.9)
+                                    {
+                                        <span class="fa fa-star" style="color:red;"><span class="fa fa-star-half-full"></span></span>
+                                    }
+                                    @if (course.AverageRating == 4.0)
+                                    {
+                                        <span class="stars" style="color:red;">★★★★</span>
+                                    }
+                                    @if (course.AverageRating > 3.0 && course.AverageRating <= 3.9)
+                                    {
+                                        <span class="stars" style="color:red;">★★★<span class="fa fa-star-half-full"></span></span>
+                                    }
+                                    @if (course.AverageRating == 3.0)
+                                    {
+                                        <span class="stars" style="color:red;">★★★</span>
+                                    } 
+                                    @if (course.AverageRating < 3.0)
+                                    {
+                                        <span class="stars" style="color:red;">★★</span>
+                                    }
+                                    (@course.Reviews.Count().ToString())</p>
                                     <p></p>
                                     @if (course.PriceStatus is true)
                                 {
-                                    <button class="bestseller">Paid</button>
+                                    <span >Paid</span>
                                 }
                                 else
                                 {
-                                    <button class="bestseller">Free</button>
+                                    <sapn >Free</sapn>
                                 }
                             </div>
                             }
@@ -449,7 +493,94 @@
 </div> </div>
 </div>
 </div> *@
-   <div class="container">
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="padding">
+            <div class="latest-products">
+                <div class="reviews-container position-relative">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h2>Reviews</h2>
+
+                        </div>
+                    </div>
+                    <button class="arrow2 prev2">&#10094;</button>
+                    <div class="carousel2 d-flex">
+                        @foreach (var items in reviews)
+                        {
+                            <div class="course-reviews">
+                                <div class="review-card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex">
+                                                <div class="user-info">
+                                                    <strong>@items.Student</strong>
+                                                    <span class="text-muted small">@items.GetFormattedDate(items.RatingDate.Value)</span>
+                                                    <ul class="stars">
+                                                        @switch (items.Rate)
+                                                        {
+                                                            case 5:
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                            case 4:
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                            case 3:
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                            case 2:
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                            default:
+                                                                <i class="fa fa-star"></i>
+                                                                break;
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (items.Descritipn.Length > 100)
+                                        {
+                                            <p class="description">
+                                                @items.Descritipn.Substring(0, 100)
+                                                <span class="more-text">@items.Descritipn.Substring(100)</span>
+                                                <span class="see-more">...See More</span>
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p class="description">@items.Descritipn</p>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <button class="arrow2 next2">&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+  @*  <div class="container">
         <div class="row">
 
             <div class="padding">
@@ -520,7 +651,7 @@
             </div>
 
         </div>
-    </div> 
+    </div>  *@
 
 
 
@@ -653,6 +784,70 @@
             });
         </script>
 
+    <script>
+        $(document).ready(function () {
+            const slides = $(".carousel2 .course-reviews");
+            let totalSlides = slides.length;
+            let slideIndex = 0;
+
+            function getVisibleSlides() {
+                const screenWidth = $(window).width();
+                if (screenWidth < 768) {
+                    return 1;
+                } else if (screenWidth < 992) {
+                    return 2;
+                }
+                return 3;
+            }
+
+            function setCarouselDimensions() {
+                const visibleSlides = getVisibleSlides();
+                const containerWidth = $(".reviews-container").width();
+                const marginPerSlide = 20;
+                const totalMargin = marginPerSlide * (visibleSlides - 1);
+                const slideWidth = (containerWidth - totalMargin) / visibleSlides;
+
+                slides.width(slideWidth - 32);
+                $(".carousel2").width(slideWidth * totalSlides + totalMargin);
+
+                showSlides(slideIndex);
+            }
+
+            function showSlides(newIndex) {
+                const slideWidth = slides.first().outerWidth(true);
+                const shift = -(slideWidth * newIndex);
+                $(".carousel2").css("transform", `translateX(${shift}px)`);
+                slideIndex = newIndex;
+            }
+
+            $(".arrow2.next2").click(function () {
+                const visibleSlides = getVisibleSlides();
+                if (slideIndex < totalSlides - visibleSlides) {
+                    showSlides(slideIndex + 1);
+                }
+            });
+
+            $(".arrow2.prev2").click(function () {
+                if (slideIndex > 0) {
+                    showSlides(slideIndex - 1);
+                }
+            });
+
+            setCarouselDimensions();
+            $(window).resize(setCarouselDimensions);
+
+            // Toggle "See More" functionality
+            $(".see-more").click(function () {
+                const moreText = $(this).siblings(".more-text");
+                if (moreText.is(":visible")) {
+                    $(this).text("...See More");
+                } else {
+                    $(this).text("...See Less");
+                }
+                moreText.toggle();
+            });
+        });
+    </script>
 
 
     }
