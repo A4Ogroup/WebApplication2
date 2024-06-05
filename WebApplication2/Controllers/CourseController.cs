@@ -143,6 +143,12 @@ namespace WebApplication2.Controllers
                 r.Student,
                 r.Rate,
                 r.Descritipn,
+                r.MaterialQuality,
+                r.ContentQuality,
+                r.SupportQuality,
+                r.TechnicalQuality,
+                r.EngagementLevel,
+                r.OverAllSatisfication,
                 V = r.GetFormattedDate(r.RatingDate.Value),
             }).ToList();
 
