@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using WebApplication2.Helpers.Enums;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
@@ -12,14 +11,10 @@ namespace WebApplication2.Controllers
     {
         LconsultDBContext _context;
         ICourseRepository _courseRepository;
-        private List<Course> _courses; // Replace with your data source
 
-        public TestController( LconsultDBContext context,ICourseRepository courseRepository)
+        public TestController( LconsultDBContext context)
         {
-           
             _context = context;
-            _courseRepository = courseRepository;
-            _courses = _courseRepository.GetAll().ToList();
         }
         public IActionResult Test()
         {
@@ -83,80 +78,20 @@ namespace WebApplication2.Controllers
             };
             //var courses = _context.Courses.ToList();
 
-            return View(searchViewModel);
+            return View(/*courses*/searchViewModel);
         }
 
-        
-       
-
-        public IActionResult Index()
+        public IActionResult Action1()
         {
-            ViewBag.courses = _context.Courses.ToList();
-            ViewBag.languages = _context.Languages.ToList();
-            var model = new CourseFilterViewModel
-            {
-                //Courses = _courseRepository.GetAll().ToList(),
-                Ratings = new List<double>(),
-                CategoryIds = new List<byte>(),
-                LanguageIds = new List<int>(),
-                Levels = new List<Level>(),
-                VideoLengths = new List<VideoLengthCategory>(),
-                IsFree = new List<bool>()
-            };
+            var reviews = _context.Reviews.ToList();
 
-            return View("filter2",model);
+            return View(reviews);
         }
-
-        [HttpPost]
-        public IActionResult ApplyFilters([FromBody] CourseFilterViewModel filters)
-        { 
-            var filteredCourses = FilterCourses(filters);
-            return PartialView("_CourseListPartial", filteredCourses);
-        }
-
-        private List<Course> FilterCourses(CourseFilterViewModel filters)
+        public IActionResult Action2()
         {
-            var filteredCourses = _courses.AsQueryable();
-
-            if (filters.IsFree != null && (filters.IsFree.Contains(true) || filters.IsFree.Contains(false)))
-            {
-                filteredCourses = filteredCourses.Where(c => c.PriceStatus == filters.IsFree[0]);
-            }
-
-            if (filters.IsFree != null && filters.IsFree.Contains(false))
-            {
-                filteredCourses = filteredCourses.Where(c => c.PriceStatus == false);
-            }
-            if (filters.Ratings != null && filters.Ratings.Any())
-            {
-                filteredCourses = filteredCourses.Where(c => filters.Ratings.Any(r => r <= c.AverageRating));
-            }
-
-            if (filters.CategoryIds != null && filters.CategoryIds.Any())
-            {
-                filteredCourses = filteredCourses.Where(c => filters.CategoryIds.Contains(c.CategoryId ??0));
-            }
-
-            if (filters.LanguageIds != null && filters.LanguageIds.Any())
-            {
-                filteredCourses = filteredCourses.Where(c => filters.LanguageIds.Contains(c.LanguageId??0));
-            }
-
-            if (filters.Levels != null && filters.Levels.Any( ))
-            {
-                filteredCourses = filteredCourses.Where(c => filters.Levels.Contains(c.Level ?? 0));
-            }
-
-            if (filters.VideoLengths != null && filters.VideoLengths.Any())
-            {
-                filteredCourses = filteredCourses.Where(c => filters.VideoLengths.Contains(c.VedioLength ?? 0));
-            }
-
-            return filteredCourses.ToList();
+            var courses = _context.Reviews.OrderByDescending(c => c.RatingDate)
+            .Take(10).ToList();
+            return View(courses);
         }
-
-       
-     
-
-}
+    }
 }
