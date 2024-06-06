@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
@@ -10,21 +11,30 @@ namespace WebApplication2.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly LconsultDBContext _context;
-
+       // private readonly layOutViewModel layOutViewModel;
         public HomeController(ILogger<HomeController> logger,LconsultDBContext context)
         {
             _context = context;
             _logger = logger;
+
+           
+
+
+            layOutViewModel layout = new()
+                {
+               
+            };
+
         }
 
         public IActionResult Index()
         {
-            var categoryList = _context.Categories.Select(C => new
-            {
-                C.CategoryId,
-                C.CategoryName
-            }).ToList();
-            ViewBag.Categories = categoryList;
+            //var categoryList = _context.Categories.Select(C => new
+            //{
+            //    C.CategoryId,
+            //    C.CategoryName
+            //}).ToList();
+            //ViewBag.Categories = categoryList;
             return View();
         }
 
