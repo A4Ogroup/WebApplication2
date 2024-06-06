@@ -1232,7 +1232,9 @@
 .fa-star-half-empty:before, .fa-star-half-full:before, .fa-star-half-o:before {
     content: "\f123"
 }
-
+.fa-star-o:before {
+    content: "\f006"; /* This is the Unicode for the empty star outline in Font Awesome */
+}
 .fa-location-arrow:before {
     content: "\f124"
 }

@@ -1,0 +1,364 @@
+﻿@model CourseFilterViewModel
+
+@{
+    Layout = "_Layout"; // Adjust the layout page as needed
+}
+
+<head>
+    <style>
+        .main-content {
+            padding: 20px;
+        }
+
+        .sidebar {
+            padding-right: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .filter-section {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+            .filter-section h4 {
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .filter-section h4:hover {
+                    color: #007acc;
+                }
+
+            .filter-section svg {
+                transition: transform 0.2s;
+            }
+
+        .filter-options {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .fa-star {
+            color: #ff0000;
+        }
+
+        .fa-star-o {
+            color: red; /* Changes the color of the star outline to red */
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+
+            .result-item img {
+                border-radius: 10px;
+                width: 150px;
+                max-width: 100%;
+                height: auto;
+                margin-right: 15px;
+            }
+
+            .result-item .content h3 {
+                margin: 0;
+                color: #333;
+            }
+
+            .result-item .content .meta {
+                font-size: 14px;
+                color: gray;
+                margin-bottom: 10px;
+            }
+
+            .result-item .price {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+            }
+
+        .footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+            .footer img {
+                margin: 0 10px;
+                height: 30px;
+                width: 30px;
+            }
+
+        @@media (max-width: 992px) {
+            .result-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+                .result-item img {
+                    width: 100%;
+                    height: auto;
+                    margin-bottom: 10px;
+                }
+
+            header {
+                text-align: center;
+            }
+
+            .filter-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                border-right: none;
+            }
+        }
+
+        .text-purple {
+            color: #6f42c1;
+        }
+    </style>
+</head>
+
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel"></div>
+</div>
+<div class="container-fluid main-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <button class="btn btn-dark mb-3 w-100 d-lg-none" id="filter-toggle">Filter</button>
+            <div class="sidebar d-none d-lg-block">
+                <div class="filter-section">
+                    <h3>Filters</h3>
+                </div>
+                <div class="filter-section">
+                    <h4>
+                        Ratings
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 10L12 15L17 10" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </h4>
+                    <div class="filter-options">
+                        <div class="form-check">
+                            <input class="form-check-input rating-filter" type="checkbox" value="4.5" />
+                            <label class="form-check-label">
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-empty" style="color:red;"></i> 4.5 & up (2,046)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input rating-filter" type="checkbox" value="4.0" />
+                            <label class="form-check-label">
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i> 4.0 & up (3,734)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input rating-filter" type="checkbox" value="3.5" />
+                            <label class="form-check-label">
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-empty" style="color:red;"></i><i class="fa fa-star-o"></i> 3.5 & up (4,403)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input rating-filter" type="checkbox" value="3.0" />
+                            <label class="form-check-label">
+                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> 3.0 & up (4,632)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h4>
+                        Language
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 10L12 15L17 10" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </h4>
+                    <div class="filter-options">
+                        @foreach (var language in ViewBag.languages)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input language-filter" type="checkbox" value="@language.LanguageId" />
+                                <label class="form-check-label">@language.Name</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h4>
+                        Level
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 10L12 15L17 10" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </h4>
+                    <div class="filter-options">
+                        @foreach (var level in Enum.GetValues(typeof(Level)))
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input level-filter" type="checkbox" value="@((int)level)" />
+                                <label class="form-check-label">@level</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h4>
+                        Average Of Video Length
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 10L12 15L17 10" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </h4>
+                    <div class="filter-options">
+                        @foreach (var videoLength in Enum.GetValues(typeof(VideoLengthCategory)))
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input video-length-filter" type="checkbox" value="@((int)videoLength)" />
+                                <label class="form-check-label" >@Html.DisplayNameFor(c=>c.VideoLengths)</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h4>
+                        Price
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 10L12 15L17 10" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </h4>
+                    <div class="filter-options">
+                        <div class="form-check">
+                            <input class="form-check-input price-filter" type="checkbox" value="false" />
+                            <label class="form-check-label">Paid</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input price-filter" type="checkbox" value="true" />
+                            <label class="form-check-label">Free</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <button class="btn btn-light">Filter <span id="filter-count">0</span></button>
+                </div>
+                <div class="col-md-6 text-right">
+                    <select class="custom-select">
+                        <option value="most-relevant">Sort by Most Relevant</option>
+                    </select>
+                    <a href="#" class="btn btn-link text-purple d-none" id="clear-filters">Clear filters</a>
+                </div>
+            </div>
+            <h2 id="results-count">5,296 results</h2>
+            <div id="course-list">
+                @Html.Partial("_CourseListPartial", (IEnumerable<Course>)ViewBag.courses)
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        let originalCourseList = $("#course-list").html();
+
+        // Sidebar toggle button for mobile view
+        $("#filter-toggle").click(function () {
+            $(".sidebar").toggleClass("d-none");
+        });
+
+        // Toggle filter options on click
+        $(".filter-section h4").click(function () {
+            let options = $(this).next(".filter-options");
+            let svg = $(this).find("svg");
+            options.slideToggle(200);
+            if (
+                svg.css("transform") == "none" ||
+                svg.css("transform") == "matrix(1, 0, 0, 1, 0, 0)"
+            ) {
+                svg.css("transform", "rotate(180deg)");
+            } else {
+                svg.css("transform", "rotate(0deg)");
+            }
+        });
+
+        // Show 'Clear filters' button when any filter option is clicked
+        $(".form-check-input").change(function () {
+            updateClearFiltersButton();
+            applyFilters();
+        });
+
+        // Clear filters functionality
+        $("#clear-filters").click(function (e) {
+            e.preventDefault();
+            $(".form-check-input").prop("checked", false);
+            $("#clear-filters").addClass("d-none");
+            $("#filter-count").text("0");
+            resetCourseList();
+        });
+
+        function updateClearFiltersButton() {
+            let filterCount = $(".form-check-input:checked").length;
+            if (filterCount > 0) {
+                $("#clear-filters").removeClass("d-none");
+                $("#filter-count").text(`(${filterCount})`);
+            } else {
+                $("#clear-filters").addClass("d-none");
+                $("#filter-count").text("0");
+            }
+        }
+
+        function resetCourseList() {
+            // Reset the course list to the original state
+            $("#course-list").html(originalCourseList);
+            $("#results-count").text(`5,296 results`);
+        }
+
+        function applyFilters() {
+            let filters = gatherFilterData();
+            console.log(filters)
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ApplyFilters", "Test")', // Update with the path to your Razor Page
+                contentType: "application/json",
+                data: JSON.stringify(filters),
+                success: function (response) {
+                    $("#course-list").html(response);
+                    $("#results-count").text(`${response.filteredCount} results`);
+                    updateClearFiltersButton();
+                },
+                error: function (xhr, status, error) {
+                   console.error("Filter application failed:", error);
+                }
+            });
+        }
+
+        function gatherFilterData() {
+            return {
+                Ratings: $('.rating-filter:checked').map(function () { return Number($(this).val()); }).get(),
+                CategoryIds: $('.category-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
+                LanguageIds: $('.language-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
+                Levels: $('.level-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
+                VideoLengths: $('.video-length-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
+                IsFree: $('.price-filter:checked').map(function () { return $(this).val() === 'true'; }).get()
+            };
+        }
+    });
+</script>
