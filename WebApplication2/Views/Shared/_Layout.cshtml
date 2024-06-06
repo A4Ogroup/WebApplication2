@@ -1,13 +1,17 @@
 ﻿@inject LconsultDBContext _context
-@{
 
-    var categories = _context.Categories.Select(C => new
+@{
+    var CategoriesList = _context.Categories.Select(C => new
     {
         C.CategoryId,
         C.CategoryName
     }).ToList();
+    //var CategoriesList = new SelectList(, "CategoryId", "CategoryName");
+
 
 }
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,31 +26,18 @@
     <title>Learn consult</title>
 
 
-     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true">
-@*      <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
- *@
-    
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 
-    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true">
-    <link href="~/css/site1.css" rel="stylesheet" asp-append-version="true">
-    <link href="~/css/site2.css" rel="stylesheet" asp-append-version="true">
-    <link href="~/css/site3.css" rel="stylesheet" asp-append-version="true">
-    <link href="~/css/site4.css" rel="stylesheet" asp-append-version="true">
-   @* <link href="~/css/StyleSheet.css" rel="stylesheet"> *@
 
-     <style>
-        /* .dropdown {
-             display:none; */
 
-         
-       /*  .dropdown:hover .dropdown-menu  {
-            display: block;
-        } 
+    <link href="~/css/site.css" rel="stylesheet">
+    <link href="~/css/site1.css" rel="stylesheet">
+    <link href="~/css/site2.css" rel="stylesheet">
+    <link href="~/css/site3.css" rel="stylesheet">
+    <link href="~/css/site4.css" rel="stylesheet">
 
-        .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
-            margin-top: 0;
-        } */
-    </style> 
+
 </head>
 
 <body>
@@ -60,60 +51,11 @@
     </div>
 
     <!-- Header -->
-    <header class=""style="position:relative;">
-        <nav class="navbar navbar-expand-lg ">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="home" asp-action="index">
-                    <h2><em>L</em>earn Consult</h2>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Category
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach (var category in categories)
-                                {
-                                    <li><a class="dropdown-item" asp-controller="Category" asp-action="Details" asp-route-categoryId="@category.CategoryId">@category.CategoryName</a></li>
-                                }
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <div class="search-form">
-                                <form method="post" action="index.html">
-                                    <div class="input-group">
-                                        <input type="search" class="form-control border-0 rounded-pill" name="search-input" value="" placeholder="Search Here" required="" />
-                                        <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="home" asp-action="ForInstructor">
-                                For Instructors
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="home" asp-action="Login" class="nav-link">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="home" asp-action="SignUp" class="nav-link">Sign Up</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-@*     <header class="">
+    <header class="">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
 
-                <a class="navbar-brand" asp-controller="home" asp-action="index">
+                <a class="navbar-brand" href="index.html">
                     <h2><em>L</em>earn Consult</h2>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,11 +70,12 @@
                                 Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach (var category in categories)
+                                @* @foreach (var category in CategoriesList)
                                 {
                                     <li><a class="dropdown-item" asp-controller="home" asp-action="Category">@category.CategoryName</a></li>
-                                }
-
+                                } *@
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="category">another action</a></li>
+                                <li><a class="dropdown-item" asp-controller="home" asp-action="category">something else here</a></li>
                             </ul>
                         </li>
 
@@ -167,12 +110,11 @@
             </div>
 
         </nav>
-    </header> *@
+    </header>
 
-    <di>@RenderBody()
-    </di>
-            
 
+  
+            @RenderBody()
 
 
 
@@ -203,22 +145,19 @@
 
 
     <!-- Bootstrap core JavaScript -->
-@*     <script src="~/lib/jquery/dist/jquery.js"></script>
-    *@
-    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-@*     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    *@
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
-   
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 
     <!-- Additional Scripts -->
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/site1.js" asp-append-version="true"></script>
-    <script src="~/js/site2.js" asp-append-version="true"></script>
-    <script src="~/js/site3.js" asp-append-version="true"></script>
-    <script src="~/js/site4.js" asp-append-version="true"></script>
- 
+    <script src="~/js/site.js"></script>
+    <script src="~/js/site1.js"></script>
+    <script src="~/js/site2.js"></script>
+    <script src="~/js/site3.js"></script>
+    <script src="~/js/site4.js"></script>
+
 
     <script language="text/Javascript">
         cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
@@ -230,7 +169,6 @@
             }
         }
     </script>
-    @RenderSection("Scripts", required: false)
-    
+
 </body>
 </html>

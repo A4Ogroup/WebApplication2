@@ -29,9 +29,6 @@ namespace WebApplication2.Controllers
 
         public IActionResult Index()
         {
-            var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-                .Take(10).ToList();
-         
             //var categoryList = _context.Categories.Select(C => new
             //{
             //    C.CategoryId,
@@ -60,38 +57,6 @@ namespace WebApplication2.Controllers
         }
         public IActionResult New()
         {
-
-            var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-             .Take(3).ToList();
-
-            //var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
-            // .Take(10).ToList();
-
-            var reviews = _context.Reviews.OrderByDescending(r => r.Rate).Take(3).ToList();
-
-            return View();
-        }
-
-        public IActionResult Test()
-        {
-            var courses = _context.Courses.Select(c => new
-            {
-                c.Title,
-                c.CourseDescription,
-                c.CourseDuration,
-                c.Subcategory,
-                c.TopicsCovered,
-                c.InstructorFullName,
-                c.Language,
-                c.Level,
-                c.Picture,
-                c.Platform,
-                c.Link,
-                c.PriceStatus,
-                c.AverageRating,
-
-            }).ToList();
-
             return View();
         }
         public IActionResult Login()
