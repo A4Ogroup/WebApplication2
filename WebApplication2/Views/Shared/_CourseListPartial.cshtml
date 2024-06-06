@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Course>
+
+@foreach (var course in Model)
+{
+    <div class="result-item">
+        @if (course.Picture == null)
+        {
+            <a href="#"><img src="~/images/courses/noimage.png" alt="@course.Title"></a>
+        }
+        else
+        {
+            <a href="#"><img src="~/images/courses/@course.Picture" alt=""></a>
+        }
+        <div class="content">
+            <h3>@course.Title</h3>
+            <p class="meta">@course.InstructorFullName</p>
+            <p class="meta">@course.AverageRating 
+                @{
+                    double fraction = @course.AverageRating.Value % 1;
+                    for(int i=1;i<=course.AverageRating;i++){
+                    
+                            <i class="fa fa-star"></i>
+                        }
+                        if (fraction > 0.0)
+                        {
+                            <i class="fa fa-star-half-empty" style="color:red;"></i>
+
+                        }
+                    for (int i = 5; i > (int)Math.Ceiling(course.AverageRating.Value) && i > 0; i--)
+                    {
+                        <i class="fa fa-star-o"></i>
+                    }
+                            
+
+                    
+
+                    
+
+
+
+                    
+
+                }
+                (3, 666)
+                </p>
+            <p class="meta">@course.CourseDuration total hours • @course.Level</p>
+            <p class="price">
+                @if (course.PriceStatus is false)
+                {
+                    <h6>paid</h6>
+                }
+                else
+                {
+                    <h6>free</h6>
+                }
+            </p>
+        </div>
+    </div>
+}
