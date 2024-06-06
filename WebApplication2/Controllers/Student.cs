@@ -16,12 +16,12 @@ namespace WebApplication2.Controllers
         {
 
             var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-            .Take(3).ToList();
+            .Take(10).ToList();
 
             var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
-                    .Take(3).ToList();
+                    .Take(10).ToList();
             var latestCourses = _context.Courses.OrderByDescending(c => c.AddingDate)
-                .Take(3).ToList();
+                .Take(10).ToList();
 
             return View();
         }

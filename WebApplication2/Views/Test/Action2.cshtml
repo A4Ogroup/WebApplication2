@@ -1,0 +1,289 @@
+﻿@model List<Review>
+
+<style>
+    .carousel-container3 {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .carousel3 {
+        min-width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        transition: 0.5s ease-in-out;
+    }
+
+    .course-card3 {
+        flex: 0 0 auto;
+        margin-right: 20px;
+        text-align: left;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 2px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .course-card3 img {
+        width: 100%;
+        height: auto;
+        max-height: 150px;
+        object-fit: cover;
+    }
+
+    .course-card3 h3 {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .course-card3 p {
+        margin: 5px 0;
+        flex: 0 0 33.333%;
+        box-sizing: border-box;
+    }
+
+    .arrow3 {
+        position: absolute;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        background-color: #f1f1f6;
+        color: #333;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    .arrow3.prev3 {
+        left: 0;
+    }
+
+    .arrow3.next3 {
+        right: 0;
+    }
+
+    @@media (max-width: 768px) {
+        .course-card3 {
+            max-width: calc(50% - 20px); /* Two cards to fit in a row */
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .course-card3 {
+            max-width: 100%; /* One card to fit in a row */
+            margin-right: 0;
+        }
+    }
+
+    .description {
+        display: inline;
+    }
+
+    .more-text {
+        display: none;
+    }
+
+    .see-more {
+        color: blue;
+        cursor: pointer;
+    }
+
+    .progress-container {
+        width: 100%;
+        background-color: #f3f3f3;
+        border-radius: 5px;
+        margin-top: 10px;
+        height: 10px;
+    }
+
+    .progress-bar {
+        height: 10px;
+        background-color: #4caf50;
+        border-radius: 5px;
+        width: 0;
+    }
+</style>
+
+
+
+<div class="latest-products">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Reviews</h2>
+
+                </div>
+            </div>
+
+
+
+            <div class="course-carousel3">
+                <div class="carousel-container3">
+                    <button class="arrow3 prev3">&#10094;</button>
+                    <div class="carousel3">
+                        @foreach (var review in Model)
+                        {
+                            <div class="course-card3">
+
+                                <strong>@review.Student</strong>
+                                <span class="text-muted small">@review.GetFormattedDate(review.RatingDate.Value)</span>
+                                <ul style="color:red;">
+
+                                    @switch (review.Rate)
+                                    {
+                                        case 5:
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            break;
+                                        case 4:
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            break;
+                                        case 3:
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            break;
+                                        case 2:
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            break;
+                                        default:
+                                            <i class="fa fa-star"></i>
+                                            break;
+                                    }
+                                </ul>
+
+                                @if (review.Descritipn.Length > 100)
+                                {
+                                    <p class="description">
+                                        @review.Descritipn.Substring(0, 100)
+                                        <span class="more-text">@review.Descritipn.Substring(100)</span>
+                                        <span class="see-more">...See More</span>
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="description">@review.Descritipn</p>
+                                }
+
+                                <h4 class="text-muted small">Material Quality</h4>
+                                <div class="progress-container">
+                                </div>
+                                <h4 class="text-muted small">Content Quality</h4>
+                                <div class="progress-container">
+                                    <div class="progress-bar" data-progress="@((review.ContentQuality / 10.0) * 100)%"></div>
+                                </div>
+                                <h4 class="text-muted small">Engagement Level</h4>
+                                 <div class="progress-container">
+                                    <div class="progress-bar" data-progress="@((review.EngagementLevel / 10.0) * 100)%"></div>
+                                </div>
+                                <h4 class="text-muted small">Technical Quality</h4>
+                                 <div class="progress-container">
+                                    <div class="progress-bar" data-progress="@((review.TechnicalQuality / 10.0) * 100)%"></div>
+                                </div>
+                                <h4 class="text-muted small">Support Quality</h4>
+                                <div class="progress-container">
+                                    <div class="progress-bar" data-progress="@((review.SupportQuality / 10.0) * 100)%"></div>
+                                </div>
+                                <h4 class="text-muted small">Over All Satisfication</h4>
+                                <div class="progress-container">
+                                    <div class="progress-bar" data-progress="@((review.OverAllSatisfication / 10.0) * 100)%"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <button class="arrow3 next3">&#10095;</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const slides = $(".carousel3 .course-card3");
+            let totalSlides = slides.length;
+            let slideIndex = 0;
+
+            function getVisibleSlides() {
+                const screenWidth = $(window).width();
+                if (screenWidth < 768) {
+                    return 1;  // Show 1 card on very small screens
+                } else if (screenWidth < 992) {
+                    return 2;  // Show 2 cards on medium screens
+                }
+                return 3;  // Default to showing 3 cards on large screens
+            }
+
+            function setCarouselDimensions() {
+                const visibleSlides = getVisibleSlides();
+                const containerWidth = $(".carousel-container3").width();
+                const marginPerSlide = 20;
+                const totalMargin = marginPerSlide * (visibleSlides - 1);
+                const slideWidth = (containerWidth - totalMargin) / visibleSlides;
+
+                slides.width(slideWidth - 32);  // Set each slide's width
+                $(".carousel3").width(slideWidth * totalSlides + totalMargin);  // Adjust total width of the carousel
+
+                showSlides(slideIndex);  // Update display to current slide index
+            }
+
+            function showSlides(newIndex) {
+                const slideWidth = slides.first().outerWidth(true);  // Get the actual width including margins
+                const shift = -(slideWidth * newIndex);
+                $(".carousel3").css("transform", `translateX(${shift}px)`);
+                slideIndex = newIndex;  // Update the global slideIndex
+            }
+
+            $(".arrow3.next3").click(function () {
+                const visibleSlides = getVisibleSlides();
+                if (slideIndex < totalSlides - visibleSlides) {
+                    showSlides(slideIndex + 1);
+                }
+            });
+
+            $(".arrow3.prev3").click(function () {
+                if (slideIndex > 0) {
+                    showSlides(slideIndex - 1);
+                }
+            });
+
+            // Initialize carousel
+            setCarouselDimensions();
+
+            // Reinitialize carousel on window resize
+            $(window).resize(setCarouselDimensions);
+
+            // Toggle "See More" functionality
+            $(".see-more").click(function () {
+                const moreText = $(this).siblings(".more-text");
+                if (moreText.is(":visible")) {
+                    $(this).text("...See More");
+                } else {
+                    $(this).text("...See Less");
+                }
+                moreText.toggle();
+            });
+            $(".progress-bar").each(function () {
+                const progress = $(this).data("progress");
+                $(this).css("width", progress);
+            });
+        });
+    </script>
+}

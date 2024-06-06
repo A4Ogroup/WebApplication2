@@ -9,6 +9,13 @@
         r.Student,
         r.Rate,
         r.Descritipn,
+        r.MaterialQuality,
+        r.ContentQuality,
+        r.SupportQuality,
+        r.TechnicalQuality,
+        r.EngagementLevel,
+        r.OverAllSatisfication,
+        V = r.GetFormattedDate(r.RatingDate.Value),
         
     }).ToList();
 
@@ -99,6 +106,34 @@
     }
         .checked {
         color: red;
+        }
+
+        .description {
+            display: inline;
+        }
+
+        .more-text {
+            display: none;
+        }
+
+        .see-more {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            margin-top: 10px;
+            height: 10px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #4caf50;
+            border-radius: 5px;
+            width: 0;
         }
        </style>
        </head>
@@ -410,7 +445,7 @@
                                                             <div class="d-flex">
                                                                 <div class="user-info">
                                                                     <strong>@items.Student</strong>
-                                                                    <span class="text-muted small">@items.RatingDate.Value.Month </span>
+                                                                    <span class="text-muted small">@items.V </span>
                                                                     <ul class="stars">
                                                                         @switch (items.Rate)
                                                                         {
@@ -459,7 +494,44 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <p>@items.Descritipn</p>
+
+                                                        @if (items.Descritipn.Length > 100)
+                                                        {
+                                                            <p class="description">
+                                                                @items.Descritipn.Substring(0, 100)
+                                                                <span class="more-text">@items.Descritipn.Substring(100)</span>
+                                                                <span class="see-more">...See More</span>
+                                                            </p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p class="description">@items.Descritipn</p>
+                                                        }
+                                                        <hr>
+                                                        <h4 class="text-muted small">Material Quality</h4>
+                                                        <div class="progress-container">
+                                                            <div class="progress-bar" data-progress="@((items.MaterialQuality / 10.0) * 100)%"></div>
+                                                        </div>
+                                                        <h4 class="text-muted small">Content Quality</h4>
+                                                        <div class="progress-container">
+                                                            <div class="progress-bar" data-progress="@((items.ContentQuality / 10.0) * 100)%"></div>
+                                                        </div>
+                                                        <h4 class="text-muted small">Engagement Level</h4>
+                                                         <div class="progress-container">
+                                                            <div class="progress-bar" data-progress="@((items.EngagementLevel / 10.0) * 100)%"></div>
+                                                        </div>
+                                                        <h4 class="text-muted small">Technical Quality</h4>
+                                                         <div class="progress-container">
+                                                            <div class="progress-bar" data-progress="@((items.TechnicalQuality / 10.0) * 100)%"></div>
+                                                        </div>
+                                                        <h4 class="text-muted small">Support Quality</h4>
+                                                        <div class="progress-container">
+                                                            <div class="progress-bar" data-progress="@((items.SupportQuality / 10.0) * 100)%"></div>
+                                                        </div>
+                                                        <h4 class="text-muted small">Over All Satisfication</h4>
+                                                        <div class="progress-container">
+                                                            <div class="progress-bar" data-progress="@((items.OverAllSatisfication / 10.0) * 100)%"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -715,64 +787,29 @@
 
                 </div>
                 </div>
-                @*                 <footer class="footer_area section_gap_top">
-                <div class="container">
-                <div class="row single-footer-widget">
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="copy_right_text">
-                <p>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                All Copyrights &copy reserved
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-                </div>
-                </div>
-                <div class="col-md-4">
-                <div class="left-content">
-                <ul class="social-icons">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-                </div>
-                </div>
-                </div>
-                </div>
-                </footer> *@
 
+@section Scripts{
+    <script>
+        $('.btn').click(function () {
+            $('.collapse-content').toggle();
+        });
 
-
-@*
-    </div>
-    </div> *@
-
-
-
-<!-- BEGIN SEARCH RESULTf -->
-@*     <!-- END SEARCH RESULT -->
-    <!-- Bootstrap core JavaScript -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
-
-    <!-- Additional Scripts -->
-    <script src="~/js/site.js"></script>
-    <script src="~/js/site1.js"></script>
-    <script src="~/js/site2.js"></script>
-    <script src="~/js/site3.js"></script>
-    <script src="~/js/site4.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-     *@
-<script>
-    $('.btn').click(function () {
-        $('.collapse-content').toggle();
-    });
-</script>
+        // Toggle "See More" functionality
+        $(".see-more").click(function () {
+            const moreText = $(this).siblings(".more-text");
+            if (moreText.is(":visible")) {
+                $(this).text("...See More");
+            } else {
+                $(this).text("...See Less");
+            }
+            moreText.toggle();
+        });
+        $(".progress-bar").each(function () {
+            const progress = $(this).data("progress");
+            $(this).css("width", progress);
+        });
+    </script>
+}
 @* </body>
 
 </html> *@
