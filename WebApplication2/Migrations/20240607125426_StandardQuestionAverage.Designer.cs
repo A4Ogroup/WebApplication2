@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication2.Models;
 
@@ -11,9 +12,10 @@ using WebApplication2.Models;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(LconsultDBContext))]
-    partial class LconsultDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240607125426_StandardQuestionAverage")]
+    partial class StandardQuestionAverage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,27 +81,27 @@ namespace WebApplication2.Migrations
                         .HasColumnType("date")
                         .HasColumnName("addingDate");
 
-                    b.Property<double>("AverageContentQuality")
-                        .HasColumnType("float");
+                    b.Property<int>("AverageContentQuality")
+                        .HasColumnType("int");
 
-                    b.Property<double>("AverageEngagementLevel")
-                        .HasColumnType("float");
+                    b.Property<int>("AverageEngagementLevel")
+                        .HasColumnType("int");
 
-                    b.Property<double>("AverageMaterialQuality")
-                        .HasColumnType("float");
+                    b.Property<int>("AverageMaterialQuality")
+                        .HasColumnType("int");
 
-                    b.Property<double>("AverageOverallSatisfaction")
-                        .HasColumnType("float");
+                    b.Property<int>("AverageOverallSatisfaction")
+                        .HasColumnType("int");
 
                     b.Property<double?>("AverageRating")
                         .HasColumnType("float")
                         .HasColumnName("averageRating");
 
-                    b.Property<double>("AverageSupportQuality")
-                        .HasColumnType("float");
+                    b.Property<int>("AverageSupportQuality")
+                        .HasColumnType("int");
 
-                    b.Property<double>("AverageTechnicalQuality")
-                        .HasColumnType("float");
+                    b.Property<int>("AverageTechnicalQuality")
+                        .HasColumnType("int");
 
                     b.Property<byte?>("CategoryId")
                         .HasColumnType("tinyint")

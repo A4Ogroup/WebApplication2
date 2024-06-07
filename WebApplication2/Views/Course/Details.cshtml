@@ -184,6 +184,35 @@
 
                                 </ul>
                             </div>
+                            <div class="down-content">
+                                <h3>Average Ratings</h3>
+                                <ul>
+                                    <h4 class="text-muted small">Material Quality</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageMaterialQuality / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Content Quality</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageContentQuality / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Engagement Level</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageEngagementLevel / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Technical Quality</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageTechnicalQuality / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Support Quality</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageSupportQuality / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Over All Satisfication</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageOverallSatisfaction / 10.0) * 100)%"></div>
+                                    </div>
+                                </ul>
+                            </div>
                             
 
                         </div>
