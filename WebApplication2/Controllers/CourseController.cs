@@ -133,7 +133,8 @@ namespace WebApplication2.Controllers
         // GET: CourseController/Details/5
         public  IActionResult Details(int id)
         {
-            var course =  _context.Courses.FirstOrDefault(c => c.CourseId == id);
+            var course =  _context.Courses.Include(c => c.Language)
+                .FirstOrDefault(c => c.CourseId == id);
        
 
             var review = _context.Reviews.Select(r => new

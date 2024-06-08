@@ -149,11 +149,14 @@
             <input hidden asp-for="CourseId" />
             <div class="col-md-4 how-img" style="margin-top:20px;">
   
-                @*                 @if (Model.Picture is null)
+                               @if (Model.Picture is null)
                 {
-                    <a href="#"><img src="~/images/courses/noimage.png" ></a>
+                  
+                        Model.Picture = "noimage.png";
 
-                }<a href="#"><img src="~/images/courses/@Model.Picture" alt="" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;"></a>  *@
+            
+
+                }<a href="#"><img src="~/images/courses/@Model.Picture" alt="" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;"></a>  
                  @* <img src="~/images/product_01.jpg" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;" />  *@
                 <h4>@Model.Title</h4>
                 <h6 class="text-muted" style="margin-bottom:12px;">
@@ -168,8 +171,9 @@
                     <div class="row">
 
                         <div class="col-md-6">
+
                             <h6>@Model.InstructorFullName</h6>
-                            <h6>@Model.Language</h6>
+                            <h6>@Model.Language.Name</h6>
                             <h6>@Model.Level</h6>
                             <h6>@Model.TopicsCovered</h6>
                             <div class="down-content ">
@@ -536,31 +540,7 @@
                                                         {
                                                             <p class="description">@items.Descritipn</p>
                                                         }
-                                                        <hr>
-                                                        <h4 class="text-muted small">Material Quality</h4>
-                                                        <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.MaterialQuality / 10.0) * 100)%"></div>
-                                                        </div>
-                                                        <h4 class="text-muted small">Content Quality</h4>
-                                                        <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.ContentQuality / 10.0) * 100)%"></div>
-                                                        </div>
-                                                        <h4 class="text-muted small">Engagement Level</h4>
-                                                         <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.EngagementLevel / 10.0) * 100)%"></div>
-                                                        </div>
-                                                        <h4 class="text-muted small">Technical Quality</h4>
-                                                         <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.TechnicalQuality / 10.0) * 100)%"></div>
-                                                        </div>
-                                                        <h4 class="text-muted small">Support Quality</h4>
-                                                        <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.SupportQuality / 10.0) * 100)%"></div>
-                                                        </div>
-                                                        <h4 class="text-muted small">Over All Satisfication</h4>
-                                                        <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.OverAllSatisfication / 10.0) * 100)%"></div>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
