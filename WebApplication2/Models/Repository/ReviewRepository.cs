@@ -43,5 +43,10 @@ namespace WebApplication2.Models.Repository
         {
             return (_context.SaveChanges() >=0);
         }
+
+        IEnumerable<Review> IReviewRepository.GetAllWithCourse()
+        {
+            return _context.Reviews.Include(r => r.Course);
+        }
     }
 }

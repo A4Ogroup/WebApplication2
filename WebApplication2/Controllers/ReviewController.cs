@@ -40,7 +40,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult AddReview(AddReviewViewModel model)
         {
-            var course = _context.Courses.FirstOrDefault(c => c.CourseId == model.CourseId);
+            var course = _courseRepository.GetById(model.CourseId);
             if(course  == null){
                 return View("index");
             }
@@ -68,7 +68,7 @@ namespace WebApplication2.Controllers
 
         public IActionResult Details(int id)
         {
-            var reviews = _context.Reviews.FirstOrDefault(r => r.ReviewId == id);
+            var reviews = _reviewRepository.GetById(id);
 
             var review = new ReviewDetailsViewModel
             {
