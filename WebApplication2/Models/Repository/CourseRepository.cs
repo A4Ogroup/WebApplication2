@@ -41,7 +41,7 @@ namespace WebApplication2.Models.Repository
                 throw new ArgumentNullException(nameof(course));
             }
             _context.Courses.Add(course);
-            //_context.SaveChanges();
+            _context.SaveChanges();
             return course;
         }
 

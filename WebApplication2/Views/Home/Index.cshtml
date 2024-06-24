@@ -269,7 +269,7 @@
                                 {
                                     course.Picture = "noimage.png";
 
-                                }<a href="#"><img src="~/images/courses/@course.Picture" alt=""></a>
+                                }<a asp-action="details" asp-controller="course" asp-route-id="@course.CourseId"><img src="~/images/courses/@course.Picture" alt=""></a>
                                     <h3>@course.Title</h3>
                                     <p>@course.InstructorFullName</p>
                                     <p>@course.AverageRating 

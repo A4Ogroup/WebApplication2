@@ -5,6 +5,7 @@ using WebApplication2.Helpers.Enums;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
+using static WebApplication2.ViewModels.PagenationViewModel;
 
 namespace WebApplication2.Controllers
 {
@@ -21,9 +22,17 @@ namespace WebApplication2.Controllers
             _courseRepository = courseRepository;
             _courses = _courseRepository.GetAll().ToList();
         }
-        public IActionResult Test()
+        public async Task<IActionResult> Test(int? pageNumber)
         {
-            return View();
+            int pageSize = 12;
+            var reviews = _context.Reviews.Include(r => r.Course);
+            return View(await PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
+        public async Task<IActionResult> Test1(int? pageNumber)
+        {
+            int pageSize = 12;
+            var course = _context.Courses.Include(r => r.Language);
+            return View(await PaginatedList<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         public IActionResult New(CourseFilterViewModel filter)
         {
