@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using WebApplication2.ResourceParameters;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Models.Repository
 {
@@ -64,6 +66,79 @@ namespace WebApplication2.Models.Repository
             course.State = EntityState.Modified;
             return courseChanges;
             
+        }
+        public  IEnumerable<Course> GetCourses(CourseResourceParameters? ResourceParameters)
+        {
+            if (ResourceParameters == null)
+            {
+                return GetAll();
+            }
+            var collection = _context.Courses as IQueryable<Course>;
+            if (ResourceParameters.CategoryId !=null)
+            {
+
+                //ResourceParameters.Category = ResourceParameters.Category.Trim();
+                collection = collection.Where(a => a.CategoryId == ResourceParameters.CategoryId);
+
+            }
+            if (!string.IsNullOrWhiteSpace(ResourceParameters.SearchQuery))
+            {
+
+                ResourceParameters.SearchQuery =  .SearchQuery.Trim();
+                collection = collection.Where(a => a.Title.Contains(ResourceParameters.SearchQuery)
+                || a.InstructorFullName.Contains(ResourceParameters.SearchQuery)
+                || a.CourseDescription.Contains(ResourceParameters.SearchQuery));
+
+            }
+            return collection.ToList();
+
+
+        }
+
+        public IQueryable<Course> FilterCourses(CourseFilterViewModel filters,IEnumerable<Course> resultCourses)
+        {
+
+            var filteredCourses = resultCourses as IQueryable<Course>;
+
+
+            if (filters.IsFree != null)
+            {
+                if (filters?.IsFree?.Count() == 1)
+                    filteredCourses = filteredCourses.Where(c => c.PriceStatus == filters.IsFree[0]);
+
+
+            }
+
+            //if (filters.IsFree != null && filters.IsFree.Contains(false))
+            //{
+            //    filteredCourses = filteredCourses.Where(c => c.PriceStatus == false);
+            //}
+            if (filters.Ratings != null && filters.Ratings.Any())
+            {
+                filteredCourses = filteredCourses.Where(c => filters.Ratings.Any(r => r <= c.AverageRating));
+            }
+
+            if (filters.CategoryIds != null && filters.CategoryIds.Any())
+            {
+                filteredCourses = filteredCourses.Where(c => filters.CategoryIds.Contains(c.CategoryId ?? 0));
+            }
+
+            if (filters.LanguageIds != null && filters.LanguageIds.Any())
+            {
+                filteredCourses = filteredCourses.Where(c => filters.LanguageIds.Contains(c.LanguageId ?? 0));
+            }
+
+            if (filters.Levels != null && filters.Levels.Any())
+            {
+                filteredCourses = filteredCourses.Where(c => filters.Levels.Contains(c.Level ?? 0));
+            }
+
+            if (filters.VideoLengths != null && filters.VideoLengths.Any())
+            {
+                filteredCourses = filteredCourses.Where(c => filters.VideoLengths.Contains(c.VedioLength ?? 0));
+            }
+
+            return filteredCourses;
         }
 
 

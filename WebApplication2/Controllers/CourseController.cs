@@ -7,7 +7,6 @@ using WebApplication2.ViewModels;
 using WebApplication2.Helpers.Enums;
 using System;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static WebApplication2.ViewModels.PagenationViewModel;
 
 namespace WebApplication2.Controllers
 {
@@ -17,11 +16,16 @@ namespace WebApplication2.Controllers
         private readonly LconsultDBContext _context;
         private readonly IWebHostEnvironment _environment;
         private readonly ICourseRepository _courseRepository;
+        const int pageSize = 6;
+        private IQueryable<Course> _courses;
+
         public CourseController( LconsultDBContext context, IWebHostEnvironment environment,ICourseRepository Course)
         {
             _context = context;
             _courseRepository = Course;
             _environment = environment;
+             _courses = _courseRepository?.GetAll() as IQueryable<Course>;
+
 
         }
         public ActionResult Index()
@@ -270,8 +274,89 @@ namespace WebApplication2.Controllers
             
                 
              }
-        
 
+        public IActionResult Index1(int pg = 1)
+        {
+            ViewBag.languages = _context.Languages.ToList();
+            //////paging
+           var _courses =_courseRepository.GetAll();
+            if (pg < 1)
+                pg = 1;
+            int recordCount = _courses?.Count() ??0;
+            var pager = new Pager(recordCount, pg, pageSize);
+            // int recordSkip = (pg - 1) * pageSize;
+            ViewBag.courses = _courses.Skip((pg - 1) * pageSize).Take(pager.PageSize).ToList();
+            ViewBag.Pager = pager;
+            var model = new CourseFilterViewModel
+            {
+                //Courses = _courseRepository.GetAll().ToList(),
+                Ratings = new List<double>(),
+                CategoryIds = new List<byte>(),
+                LanguageIds = new List<int>(),
+                Levels = new List<Level>(),
+                VideoLengths = new List<VideoLengthCategory>(),
+                IsFree = new List<bool>()
+            };
+
+            return View("filter2", model);
+        }
+
+        [HttpPost]
+        public IActionResult ApplyFilters([FromBody] FilterRequest filterRequest)
+        {
+            var filters = filterRequest.Filters;
+            var pageNumber = filterRequest.PageNumber;
+            var filteredCourses = _courseRepository.FilterCourses(filters,_courses).AsEnumerable();
+            var pager = new Pager(filteredCourses.Count(), pageNumber, pageSize);
+            var paginatedCourses = filteredCourses.Skip((pageNumber - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+            ViewBag.Pager = pager;
+            return PartialView("_CourseListPartial", paginatedCourses);
+        }
+
+        //private IQueryable<Course> FilterCourses(CourseFilterViewModel filters)
+        //{
+        //    var filteredCourses = _context.Courses.ToList().AsQueryable();
+
+
+        //    if (filters.IsFree != null)
+        //    {
+        //        if (filters?.IsFree?.Count() == 1)
+        //            filteredCourses = filteredCourses.Where(c => c.PriceStatus == filters.IsFree[0]);
+
+
+        //    }
+
+        //    //if (filters.IsFree != null && filters.IsFree.Contains(false))
+        //    //{
+        //    //    filteredCourses = filteredCourses.Where(c => c.PriceStatus == false);
+        //    //}
+        //    if (filters.Ratings != null && filters.Ratings.Any())
+        //    {
+        //        filteredCourses = filteredCourses.Where(c => filters.Ratings.Any(r => r <= c.AverageRating ));
+        //    }
+
+        //    if (filters.CategoryIds != null && filters.CategoryIds.Any())
+        //    {
+        //        filteredCourses = filteredCourses.Where(c => filters.CategoryIds.Contains(c.CategoryId ?? 0));
+        //    }
+
+        //    if (filters.LanguageIds != null && filters.LanguageIds.Any())
+        //    {
+        //        filteredCourses = filteredCourses.Where(c => filters.LanguageIds.Contains(c.LanguageId ?? 0));
+        //    }
+
+        //    if (filters.Levels != null && filters.Levels.Any())
+        //    {
+        //        filteredCourses = filteredCourses.Where(c => filters.Levels.Contains(c.Level ?? 0));
+        //    }
+
+        //    if (filters.VideoLengths != null && filters.VideoLengths.Any())
+        //    {
+        //        filteredCourses = filteredCourses.Where(c => filters.VideoLengths.Contains(c.VedioLength ?? 0));
+        //    }
+
+        //    return filteredCourses;
+        //}
         // GET: CourseController/Delete/5
         public ActionResult Delete(int id)
         {

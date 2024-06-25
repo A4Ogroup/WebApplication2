@@ -14,7 +14,7 @@ namespace WebApplication2.Helpers.Enums
         [Display(Name = "Long (15 to 30 minutes)")]
         Long = 3,
 
-        [Display(Name = "Extended (over 30 minutes)")]
+        [Display(Name = "Extended (over 30 minutes)")] 
         Extended = 4  // Use sparingly for complex, detailed content or workshops
     }
 

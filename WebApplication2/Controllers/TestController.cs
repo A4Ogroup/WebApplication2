@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using WebApplication2.Helpers;
 using WebApplication2.Helpers.Enums;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
@@ -14,6 +17,7 @@ namespace WebApplication2.Controllers
         LconsultDBContext _context;
         ICourseRepository _courseRepository;
         private List<Course> _courses; // Replace with your data source
+        const int pageSize = 6;
 
         public TestController(LconsultDBContext context, ICourseRepository courseRepository)
         {
@@ -98,10 +102,19 @@ namespace WebApplication2.Controllers
 
 
 
-        public IActionResult Index()
+        public IActionResult Index(int pg=1)
         {
-            ViewBag.courses = _context.Courses.ToList();
+            
             ViewBag.languages = _context.Languages.ToList();
+            //////paging
+            ///
+            if (pg < 1)
+                pg = 1;
+            int recordCount = _courses.Count();
+            var pager = new Pager(recordCount, pg, pageSize);
+           // int recordSkip = (pg - 1) * pageSize;
+            ViewBag.courses = _courses.Skip((pg - 1) * pageSize).Take(pager.PageSize).ToList();
+            ViewBag.Pager = pager;
             var model = new CourseFilterViewModel
             {
                 //Courses = _courseRepository.GetAll().ToList(),
@@ -117,25 +130,34 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public IActionResult ApplyFilters([FromBody] CourseFilterViewModel filters)
+        public IActionResult ApplyFilters([FromBody] FilterRequest filterRequest)
         {
-            var filteredCourses = FilterCourses(filters);
-            return PartialView("_CourseListPartial", filteredCourses);
+            var filters=filterRequest.Filters;
+            var pageNumber = filterRequest.PageNumber;
+            var filteredCourses = FilterCourses(filters).ToList();
+            var pager = new Pager(filteredCourses.Count(), pageNumber, pageSize);
+            var paginatedCourses = filteredCourses.Skip((pageNumber - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+            ViewBag.Pager=pager;
+            return PartialView("_CourseListPartial", paginatedCourses);
         }
 
-        private List<Course> FilterCourses(CourseFilterViewModel filters)
+        private IQueryable<Course> FilterCourses(CourseFilterViewModel filters)
         {
             var filteredCourses = _courses.AsQueryable();
 
-            if (filters.IsFree != null && (filters.IsFree.Contains(true) || filters.IsFree.Contains(false)))
+
+            if (filters.IsFree != null)
             {
-                filteredCourses = filteredCourses.Where(c => c.PriceStatus == filters.IsFree[0]);
+                if(filters?.IsFree?.Count()==1)
+                    filteredCourses = filteredCourses.Where(c => c.PriceStatus == filters.IsFree[0]);
+
+               
             }
 
-            if (filters.IsFree != null && filters.IsFree.Contains(false))
-            {
-                filteredCourses = filteredCourses.Where(c => c.PriceStatus == false);
-            }
+            //if (filters.IsFree != null && filters.IsFree.Contains(false))
+            //{
+            //    filteredCourses = filteredCourses.Where(c => c.PriceStatus == false);
+            //}
             if (filters.Ratings != null && filters.Ratings.Any())
             {
                 filteredCourses = filteredCourses.Where(c => filters.Ratings.Any(r => r <= c.AverageRating));
@@ -161,7 +183,7 @@ namespace WebApplication2.Controllers
                 filteredCourses = filteredCourses.Where(c => filters.VideoLengths.Contains(c.VedioLength ?? 0));
             }
 
-            return filteredCourses.ToList();
+            return filteredCourses;
         }
 
         public IActionResult Action1()
