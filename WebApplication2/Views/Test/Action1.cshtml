@@ -1,8 +1,264 @@
-﻿<div class="toast align-items-center text-white bg-primary border-0 top-0 start-50 translate-middle-x" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-        <div class="toast-body">
-            Hello, world! This is a toast message.
+﻿@* @{
+    Layout = "_Admin1Layout";
+} *@
+@{
+    Layout = "_StudentLayout";
+}
+
+<style>
+
+    .banner-item-1 {
+        padding: 50px 0px;
+ 
+        background-position: center center;
+    }
+</style>
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
+        <div class="banner-item-1">
         </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
 </div>
+
+
+<div class="container">
+    <div class="row" style="margin-top:-75px">
+        <div class="col-md-3 text-center">
+            <img src="~/images/product_02.jpg" class="rounded-circle img-fluid" alt="Instructor Image">
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="btn-group-vertical w-100">
+                <a href="#" class="btn btn-outline-secondary mb-2">Website</a>
+                <a href="#" class="btn btn-outline-secondary mb-2">Twitter</a>
+                <a href="#" class="btn btn-outline-secondary mb-2">Facebook</a>
+                <a href="#" class="btn btn-outline-secondary mb-2">LinkedIn</a>
+                <a href="#" class="btn btn-outline-secondary mb-2">YouTube</a>
+            </div>
+
+        </div>
+        <div class="col-md-9" style="padding:15px; margin-bottom:2px;">
+            <h3 class="fw-bold">Anudeep Ayyagari</h3>
+            <p>29-year UX + Design Veteran; Consultant, Author & Speaker</p>
+
+            <p>
+                <span class="text-danger">&#9733; 4.5</span> Instructor Rating
+                <br />
+                <span class="text-black"><i class="fa fa-comment"></i></span> 28,707 Reviews
+                <br />
+                <span class="text-black"><i class="fa fa-book"></i></span> 8 Courses
+            </p>
+
+        </div>
+    </div>
+</div>
+
+@* <style>
+    .banner-item-1 {
+        padding: 50px 0px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+</style>
+
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
+        <div class="banner-item-1">
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="row" style="margin-top:-150px">
+        <!-- Column -->
+        <div class="col-lg-4 col-xlg-3 col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <center class="m-t-30">
+                        <img src="~/images/product_02.jpg"
+                             class="rounded-circle" width="150" />
+                        <h4 class="card-title m-t-10">Hanna Gover</h4>
+                        <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
+                        <div class="row text-center justify-content-md-center">
+                            <div class="col-4">
+                                <a href="javascript:void(0)" class="link">
+                                    <i class="icon-people"></i>
+                                    <font class="font-medium">254</font>
+                                </a>
+                            </div>
+                            <div class="col-4">
+                                <a href="javascript:void(0)" class="link">
+                                    <i class="icon-picture"></i>
+                                    <font class="font-medium">54</font>
+                                </a>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+                <div>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <small class="text-muted">Email address </small>
+                    <h6>hannagover@gmail.com</h6> <small class="text-muted p-t-30 db">Phone</small>
+                    <h6>+91 654 784 547</h6> <small class="text-muted p-t-30 db">Address</small>
+                    <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6>
+                    <small class="text-muted p-t-30 db">Social Profile</small>
+                    <br />
+                    <button class="btn btn-circle btn-light"><i class="fa fa-facebook-f"></i></button>
+                    <button class="btn btn-circle btn-light"><i class="fa fa-twitter"></i></button>
+                    <button class="btn btn-circle btn-light"><i class="fa fa-youtube"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+                <div class="card-body">
+  
+                            <h3 class="col-md-12" >Full Name</h3>
+
+                            <h5  class="col-md-12 text-muted">Email</h5>
+   
+                      
+                        <div class="form-group">
+                            <label class="col-md-12">Password</label>
+                            <div class="col-md-12">
+                                <input type="password" value="password"
+                                       class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Phone No</label>
+                            <div class="col-md-12">
+                                <input type="text" placeholder="123 456 7890"
+                                       class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Message</label>
+                            <div class="col-md-12">
+                                <textarea rows="5" class="form-control form-control-line"></textarea>
+                            </div>
+                        </div>
+
+
+                  
+                </div>
+            </div>
+        *@ </div>
+
+    </div>
+
+</div>
+        @* <div class="container">
+
+              <div class="row" style="margin-top:-150px">
+                <!-- Column -->
+                <div class="col-lg-4 col-xlg-3 col-md-5" >
+                    <div class="card">
+                        <div class="card-body">
+                            <center class="m-t-30">
+                                <img src="~/images/product_02.jpg"
+                                     class="rounded-circle" width="150" />
+                                <h4 class="card-title m-t-10">Hanna Gover</h4>
+                                <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
+                                <div class="row text-center justify-content-md-center">
+                                    <div class="col-4">
+                                        <a href="javascript:void(0)" class="link">
+                                            <i class="icon-people"></i>
+                                            <font class="font-medium">254</font>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="javascript:void(0)" class="link">
+                                            <i class="icon-picture"></i>
+                                            <font class="font-medium">54</font>
+                                        </a>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                        <div>
+                            <hr>
+                        </div>
+                        <div class="card-body">
+                            <small class="text-muted">Email address </small>
+                            <h6>hannagover@gmail.com</h6> <small class="text-muted p-t-30 db">Phone</small>
+                            <h6>+91 654 784 547</h6> <small class="text-muted p-t-30 db">Address</small>
+                            <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6>
+                             <small class="text-muted p-t-30 db">Social Profile</small>
+                            <br />
+                            <button class="btn btn-circle btn-light"><i class="fa fa-facebook-f"></i></button>
+                            <button class="btn btn-circle btn-light"><i class="fa fa-twitter"></i></button>
+                            <button class="btn btn-circle btn-light"><i class="fa fa-youtube"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+                <!-- Column -->
+                <div class="col-lg-8 col-xlg-9 col-md-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="form-horizontal form-material mx-2">
+                                <div class="form-group">
+                                    <label class="col-md-12">Full Name</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="Johnathan Doe"
+                                               class="form-control form-control-line">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-email" class="col-md-12">Email</label>
+                                    <div class="col-md-12">
+                                        <input type="email" placeholder="johnathan@admin.com"
+                                               class="form-control form-control-line" name="example-email"
+                                               id="example-email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Password</label>
+                                    <div class="col-md-12">
+                                        <input type="password" value="password"
+                                               class="form-control form-control-line">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Phone No</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="123 456 7890"
+                                               class="form-control form-control-line">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Message</label>
+                                    <div class="col-md-12">
+                                        <textarea rows="5" class="form-control form-control-line"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-12">Select Country</label>
+                                    <div class="col-sm-12">
+                                        <select class="form-select shadow-none form-control-line">
+                                            <option>London</option>
+                                            <option>India</option>
+                                            <option>Usa</option>
+                                            <option>Canada</option>
+                                            <option>Thailand</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+           
+            </div>
+
+        </div> *@

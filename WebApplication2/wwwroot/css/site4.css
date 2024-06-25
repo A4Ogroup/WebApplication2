@@ -249,11 +249,11 @@ div.text-muted {
     float: right;
 }
 
-.card:hover {
-    transform: scale(1.1);
+/*.card:hover {*/
+    /*transform: scale(1.1);
     transition: all 0.5s ease-in-out;
-    cursor: pointer;
-}
+    cursor: pointer;*/
+/*}*/
 
 .card-body {
     padding: 0.5rem;
