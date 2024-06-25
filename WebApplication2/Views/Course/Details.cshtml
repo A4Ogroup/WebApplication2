@@ -1,6 +1,6 @@
-﻿@model Course
+﻿@model CourseDetailsViewModel
 @inject LconsultDBContext _context
-@{
+@* @{
 
     var review = _context.Reviews.Select(r => new
     {
@@ -20,7 +20,7 @@
     }).ToList();
 
 
-}
+} *@
 @{
     Layout = "_Layout";
 
@@ -135,32 +135,37 @@
             border-radius: 5px;
             width: 0;
         }
+
+        .banner-item-1 {
+            padding: 50px;
+
+        }
        </style>
        </head>
 
 <div class="banner header-text">
     <div class="owl-banner owl-carousel">
+        <div class="banner-item-1">
+        </div>
     </div>
 </div>
 
 <div class="how-section1">
     <div class="container">
         <div class="row ">
-            <input hidden asp-for="CourseId" />
-            <div class="col-md-4 how-img" style="margin-top:20px;">
-  
-                               @if (Model.Picture is null)
+            <input hidden asp-for="@Model.Course.CourseId" />
+            <div class="col-md-4 how-img" >
+
+                @if (Model.Course.Picture is null)
                 {
-                  
-                        Model.Picture = "noimage.png";
 
-            
+                    Model.Course.Picture = "noimage.png";
 
-                }<a href="#"><img src="~/images/courses/@Model.Picture" alt="" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;"></a>  
-                 @* <img src="~/images/product_01.jpg" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;" />  *@
-                <h4>@Model.Title</h4>
+                }<a href="#"><img src="~/images/courses/@Model.Course.Picture" alt="" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;"></a>
+                @* <img src="~/images/product_01.jpg" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;" />  *@
+                <h4>@Model.Course.Title</h4>
                 <h6 class="text-muted" style="margin-bottom:12px;">
-                    @Model.CourseDescription
+                    @Model.Course.CourseDescription
                 </h6>
             </div>
 
@@ -172,12 +177,12 @@
 
                         <div class="col-md-6">
 
-                            <h6>@Model.InstructorFullName</h6>
-                            <h6>@Model.Language.Name</h6>
-                            <h6>@Model.Level</h6>
-                            <h6>@Model.TopicsCovered</h6>
+                            <h6>@Model.Course.InstructorFullName</h6>
+                            <h6>@Model.Course.Language.Name</h6>
+                            <h6>@Model.Course.Level</h6>
+                            <h6>@Model.Course.TopicsCovered</h6>
                             <div class="down-content ">
-                                <span style="left:1px;">@Model.AverageRating</span>
+                                <span style="left:1px;">@Model.Course.AverageRating</span>
                                 <ul class="stars">
                                     <li><i class="fa fa-star"></i></li>
                                     <li><i class="fa fa-star"></i></li>
@@ -193,27 +198,27 @@
                                 <ul>
                                     <h4 class="text-muted small">Material Quality</h4>
                                     <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.AverageMaterialQuality / 10.0) * 100)%"></div>
+                                        <div class="progress-bar" data-progress="@((Model.Course.AverageMaterialQuality / 10.0) * 100)%"></div>
                                     </div>
                                     <h4 class="text-muted small">Content Quality</h4>
                                     <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.AverageContentQuality / 10.0) * 100)%"></div>
+                                        <div class="progress-bar" data-progress="@((Model.Course.AverageContentQuality / 10.0) * 100)%"></div>
                                     </div>
                                     <h4 class="text-muted small">Engagement Level</h4>
                                     <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.AverageEngagementLevel / 10.0) * 100)%"></div>
+                                        <div class="progress-bar" data-progress="@((Model.Course.AverageEngagementLevel / 10.0) * 100)%"></div>
                                     </div>
                                     <h4 class="text-muted small">Technical Quality</h4>
                                     <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.AverageTechnicalQuality / 10.0) * 100)%"></div>
+                                        <div class="progress-bar" data-progress="@((Model.Course.AverageTechnicalQuality / 10.0) * 100)%"></div>
                                     </div>
                                     <h4 class="text-muted small">Support Quality</h4>
                                     <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.AverageSupportQuality / 10.0) * 100)%"></div>
+                                        <div class="progress-bar" data-progress="@((Model.Course.AverageSupportQuality / 10.0) * 100)%"></div>
                                     </div>
                                     <h4 class="text-muted small">Over All Satisfication</h4>
                                     <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.AverageOverallSatisfaction / 10.0) * 100)%"></div>
+                                        <div class="progress-bar" data-progress="@((Model.Course.AverageOverallSatisfaction / 10.0) * 100)%"></div>
                                     </div>
                                 </ul>
                             </div>
@@ -222,8 +227,8 @@
                         </div>
 
                         <div class="col-md-2">
-                            
-                                 @if (Model.PriceStatus is true)
+
+                            @if (Model.Course.PriceStatus is true)
                                 {
                                     <h6> paid </h6>
                                 }
@@ -232,10 +237,10 @@
                                     <h6>free  </h6>
                                 } 
                             
-                            <h6>@Model.LastUpdate</h6>
-                            <h6>@Model.Platform</h6>
-                            <h6><a href="@Model.Link">@Model.Link</a></h6>
-                            <a class="btn btn-light" asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.CourseId" style="margin-top:20px;"> Review </a>
+                            <h6>@Model.Course.LastUpdate</h6>
+                            <h6>@Model.Course.Platform</h6>
+                            <h6><a href="@Model.Course.Link">@Model.Course.Link</a></h6>
+                            <a class="btn btn-light" asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.Course.CourseId" style="margin-top:20px;"> Review </a>
                         </div>
 
 
@@ -464,93 +469,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-9 my-3">
-                        <div class="padding">
-                            <div class="row">
-                                <div class="latest-products">
-                                    <div class="reviews-container">
-                                        @foreach(var items in review)
-                                        {
-                                            <div class="course-reviews">
-                                                <div class="review-card">
-                                                    <div class="card-body">
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="d-flex">
-                                                                <div class="user-info">
-                                                                    <strong>@items.Student</strong>
-                                                                    <span class="text-muted small">@items.V </span>
-                                                                    <ul class="stars">
-                                                                        @switch (items.Rate)
-                                                                        {
-                                                                            case 5:
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                break;
-                                                                            case 4:
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                break;
-                                                                            case 3:
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                break;
-                                                                            case 2:
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                break;
-                                                                            default:
-                                                                                <i class="fa fa-star"></i>
-                                                                                break;
-                                                                        }
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-link p-0"
-                                                                        type="button"
-                                                                        id="dropdownMenuButton1"
-                                                                        data-bs-toggle="dropdown"
-                                                                        aria-haspopup="true"
-                                                                        aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </button>
-                                                                <div class="dropdown-menu dropdown-menu-right"
-                                                                     aria-labelledby="dropdownMenuButton1">
-                                                                    <a class="dropdown-item" asp-controller="report" asp-action="addreport" asp-route-Id="@items.ReviewId">Report</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        @if (items.Descritipn.Length > 100)
-                                                        {
-                                                            <p class="description">
-                                                                @items.Descritipn.Substring(0, 100)
-                                                                <span class="more-text">@items.Descritipn.Substring(100)</span>
-                                                                <span class="see-more">...See More</span>
-                                                            </p>
-                                                        }
-                                                        else
-                                                        {
-                                                            <p class="description">@items.Descritipn</p>
-                                                        }
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <partial name="_ReviewPartial" model="Model.PaginatedReviews"></partial>
 
 @*                     <div class="col-md-9 my-3">
 
@@ -768,7 +687,7 @@
                             <!-- END TABLE RESULT -->
                             <!-- BEGIN PAGINATION -->
 
-                            <nav aria-label="Page navigation example">
+@*                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item disabled">
                                         <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -780,7 +699,7 @@
                                         <a class="page-link" href="#">Next</a>
                                     </li>
                                 </ul>
-                            </nav>
+                            </nav> *@
                             <!-- END PAGINATION -->
                         </div>
                         <!-- END RESULT -->

@@ -7,6 +7,7 @@ using WebApplication2.ViewModels;
 using WebApplication2.Helpers.Enums;
 using System;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static WebApplication2.ViewModels.PagenationViewModel;
 
 namespace WebApplication2.Controllers
 {
@@ -132,31 +133,41 @@ namespace WebApplication2.Controllers
             return View();
         }
         // GET: CourseController/Details/5
-        public  IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id, int? pageNumber)
         {
-            var course =  _context.Courses.Include(c => c.Language)
+            var course = _context.Courses.Include(c => c.Language)
                 .FirstOrDefault(c => c.CourseId == id);
-       
+            int pageSize = 2;
+            var reviews = _context.Reviews.Where(r => r.CourseId == id);
 
-            var review = _context.Reviews.Select(r => new
+            var CourseReview = new CourseDetailsViewModel
             {
-                r.ReviewId,
-                r.RatingDate,
-                r.Student,
-                r.Rate,
-                r.Descritipn,
-                r.MaterialQuality,
-                r.ContentQuality,
-                r.SupportQuality,
-                r.TechnicalQuality,
-                r.EngagementLevel,
-                r.OverAllSatisfication,
-                V = r.GetFormattedDate(r.RatingDate.Value),
-            }).ToList();
+                Course = course,
+                PaginatedReviews = 
+          await   PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize)
+
+        };
+
+
+            //var review = _context.Reviews.Select(r => new
+            //{
+            //    r.ReviewId,
+            //    r.RatingDate,
+            //    r.Student,
+            //    r.Rate,
+            //    r.Descritipn,
+            //    r.MaterialQuality,
+            //    r.ContentQuality,
+            //    r.SupportQuality,
+            //    r.TechnicalQuality,
+            //    r.EngagementLevel,
+            //    r.OverAllSatisfication,
+            //    V = r.GetFormattedDate(r.RatingDate.Value),
+            //}).ToList();
 
 ;
 
-            return View(course);
+            return View(CourseReview);
         }
 
         // GET: CourseController/Create
