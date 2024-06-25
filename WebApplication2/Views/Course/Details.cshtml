@@ -149,11 +149,14 @@
             <input hidden asp-for="CourseId" />
             <div class="col-md-4 how-img" style="margin-top:20px;">
   
-                @*                 @if (Model.Picture is null)
+                               @if (Model.Picture is null)
                 {
-                    <a href="#"><img src="~/images/courses/noimage.png" ></a>
+                  
+                        Model.Picture = "noimage.png";
 
-                }<a href="#"><img src="~/images/courses/@Model.Picture" alt="" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;"></a>  *@
+            
+
+                }<a href="#"><img src="~/images/courses/@Model.Picture" alt="" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;"></a>  
                  @* <img src="~/images/product_01.jpg" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;" />  *@
                 <h4>@Model.Title</h4>
                 <h6 class="text-muted" style="margin-bottom:12px;">
@@ -168,8 +171,9 @@
                     <div class="row">
 
                         <div class="col-md-6">
+
                             <h6>@Model.InstructorFullName</h6>
-                            <h6>@Model.Language</h6>
+                            <h6>@Model.Language.Name</h6>
                             <h6>@Model.Level</h6>
                             <h6>@Model.TopicsCovered</h6>
                             <div class="down-content ">
@@ -182,6 +186,35 @@
                                     <li><i class="fa fa-star"></i></li>
                                     <span class="justify-items-start">(24)  </span>
 
+                                </ul>
+                            </div>
+                            <div class="down-content">
+                                <h3>Average Ratings</h3>
+                                <ul>
+                                    <h4 class="text-muted small">Material Quality</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageMaterialQuality / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Content Quality</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageContentQuality / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Engagement Level</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageEngagementLevel / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Technical Quality</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageTechnicalQuality / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Support Quality</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageSupportQuality / 10.0) * 100)%"></div>
+                                    </div>
+                                    <h4 class="text-muted small">Over All Satisfication</h4>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" data-progress="@((Model.AverageOverallSatisfaction / 10.0) * 100)%"></div>
+                                    </div>
                                 </ul>
                             </div>
                             
@@ -445,6 +478,7 @@
                                                             <div class="d-flex">
                                                                 <div class="user-info">
                                                                     <strong>@items.Student</strong>
+                                                                    <span class="text-muted small">@items.V </span>
                                                                     <ul class="stars">
                                                                         @switch (items.Rate)
                                                                         {
@@ -506,30 +540,10 @@
                                                         {
                                                             <p class="description">@items.Descritipn</p>
                                                         }
-                                                        <hr>
-                                                        <h4 class="text-muted small">Material Quality</h4>
-                                                        <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.MaterialQuality / 10.0) * 100)%"></div>
-                                                        </div>
-                                                        <h4 class="text-muted small">Content Quality</h4>
-                                                        <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.ContentQuality / 10.0) * 100)%"></div>
-                                                        </div>
-                                                        <h4 class="text-muted small">Engagement Level</h4>
-                                                         <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.EngagementLevel / 10.0) * 100)%"></div>
-                                                        </div>
-                                                        </div>
-                                                        <h4 class="text-muted small">Support Quality</h4>
-                                                        <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.SupportQuality / 10.0) * 100)%"></div>
-                                                        </div>
-                                                        <h4 class="text-muted small">Over All Satisfication</h4>
-                                                        <div class="progress-container">
-                                                            <div class="progress-bar" data-progress="@((items.OverAllSatisfication / 10.0) * 100)%"></div>
-                                                        </div>
+
                                                     </div>
                                                 </div>
+                                            </div>
                                         }
                                     </div>
                                 </div>
@@ -782,40 +796,8 @@
 
                 </div>
                 </div>
-                @*                 <footer class="footer_area section_gap_top">
-                <div class="container">
-                <div class="row single-footer-widget">
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="copy_right_text">
-                <p>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                All Copyrights &copy reserved
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-                </div>
-                </div>
-                <div class="col-md-4">
-                <div class="left-content">
-                <ul class="social-icons">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-                </div>
-                </div>
-                </div>
-                </div>
-                </footer> *@
 
-
-
-@*
-    </div>
-    </div> *@
-
-
-
+@section Scripts{
     <script>
         $('.btn').click(function () {
             $('.collapse-content').toggle();

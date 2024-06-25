@@ -228,20 +228,7 @@
             cursor: pointer;
         }
 
-        .progress-container {
-            width: 100%;
-            background-color: #f3f3f3;
-            border-radius: 5px;
-            margin-top: 10px;
-            height: 10px;
-        }
 
-        .progress-bar {
-            height: 10px;
-            background-color: #4caf50;
-            border-radius: 5px;
-            width: 0;
-        }
         <!-- review style end-->
 
 
@@ -596,31 +583,7 @@
                                 {
                                     <p class="description">@review.Descritipn</p>
                                 }
-                                <hr />
-                                <h4 class="text-muted small">Material Quality</h4>
-                                <div class="progress-container">
-                                    <div class="progress-bar" data-progress="@((review.MaterialQuality / 10.0) * 100)%"></div>
-                                </div>
-                                <h4 class="text-muted small">Content Quality</h4>
-                                <div class="progress-container">
-                                    <div class="progress-bar" data-progress="@((review.ContentQuality / 10.0) * 100)%"></div>
-                                </div>
-                                <h4 class="text-muted small">Engagement Level</h4>
-                                <div class="progress-container">
-                                    <div class="progress-bar" data-progress="@((review.EngagementLevel / 10.0) * 100)%"></div>
-                                </div>
-                                <h4 class="text-muted small">Technical Quality</h4>
-                                <div class="progress-container">
-                                    <div class="progress-bar" data-progress="@((review.TechnicalQuality / 10.0) * 100)%"></div>
-                                </div>
-                                <h4 class="text-muted small">Support Quality</h4>
-                                <div class="progress-container">
-                                    <div class="progress-bar" data-progress="@((review.SupportQuality / 10.0) * 100)%"></div>
-                                </div>
-                                <h4 class="text-muted small">Over All Satisfication</h4>
-                                <div class="progress-container">
-                                    <div class="progress-bar" data-progress="@((review.OverAllSatisfication / 10.0) * 100)%"></div>
-                                </div>
+
                             </div>
                         }
                     </div>
@@ -818,10 +781,7 @@
                 }
                 moreText.toggle();
             });
-            $(".progress-bar").each(function () {
-                const progress = $(this).data("progress");
-                $(this).css("width", progress);
-            });
+
         });
     </script>
 

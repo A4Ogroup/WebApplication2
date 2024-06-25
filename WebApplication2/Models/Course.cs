@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Metrics;
 using WebApplication2.Helpers;
 using WebApplication2.Helpers.Enums;
 
@@ -40,11 +41,19 @@ namespace WebApplication2.Models
         public VideoLengthCategory? VedioLength { get; set; }
         public int? CourseDuration { get; set; }
         public string? Link { get; set; }
+       
+        public double AverageMaterialQuality {  get; set; }
+        public double AverageSupportQuality {  get; set; }
+        public double AverageEngagementLevel {  get; set; }
+        public double AverageTechnicalQuality {  get; set; }
+        public double AverageContentQuality {  get; set; }
+        public double AverageOverallSatisfaction { get; set; }
+
 
         public virtual User AddedByUser { get; set; }
         public virtual Instructor Instructor { get; set; }
         public virtual Language Language { get; set; }
         public virtual SubCategory Subcategory { get; set; }
-        public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; } 
     }
 }

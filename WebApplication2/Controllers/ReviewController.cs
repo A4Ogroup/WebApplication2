@@ -40,7 +40,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult AddReview(AddReviewViewModel model)
         {
-            var course = _context.Courses.FirstOrDefault(c => c.CourseId == model.CourseId);
+            var course = _courseRepository.GetById(model.CourseId);
             if(course  == null){
                 return View("index");
             }
@@ -59,10 +59,31 @@ namespace WebApplication2.Controllers
 
             };
            //course.Reviews.Add(_review);
-           _reviewRepository.Add(_review);
+          var review= _reviewRepository.Add(_review);
+            _reviewRepository.Save();
 
-            return RedirectToAction("AddReview", new { id = model.CourseId });
+            return RedirectToAction("Details", new { id = review.ReviewId });
 
+        }
+
+        public IActionResult Details(int id)
+        {
+            var reviews = _reviewRepository.GetById(id);
+
+            var review = new ReviewDetailsViewModel
+            {
+                ReviewId = reviews.ReviewId,
+                Descritipn= reviews.Descritipn,
+                Rate = reviews.Rate,
+                MaterialQuality = reviews.MaterialQuality,  
+                SupportQuality = reviews.SupportQuality,
+                ContentQuality= reviews.ContentQuality,
+                TechnicalQuality= reviews.TechnicalQuality,
+                EngagementLevel = reviews.EngagementLevel,
+                OverAllSatisfication= reviews.OverAllSatisfication,
+                CourseId = reviews.CourseId,
+            };
+            return View(review);
         }
 
         [HttpGet]
@@ -109,7 +130,7 @@ namespace WebApplication2.Controllers
             review.EngagementLevel= model.EngagementLevel;
             review.TechnicalQuality = model.TechnicalQuality;
             review.OverAllSatisfication= model.OverAllSatisfication;
-            review.CourseId = model.CourseId;
+            //review.CourseId = model.CourseId;
 
             _reviewRepository.Update(review);
             _reviewRepository.Save();
