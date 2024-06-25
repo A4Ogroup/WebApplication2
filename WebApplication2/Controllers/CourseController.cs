@@ -80,8 +80,9 @@ namespace WebApplication2.Controllers
                 };
                 _courseRepository.Add(newCourse);
                 _courseRepository.Save();
+                TempData["Success"] = "Course added successfully!";
             }
-            return RedirectToAction("AddCourse");
+            return RedirectToAction("index","instructor");
         }
 
         //private string ProcessUploadFile(AddCourseViewModel model)
@@ -253,7 +254,8 @@ namespace WebApplication2.Controllers
             }
             _courseRepository.Update(course);
             _courseRepository.Save();
-            return RedirectToAction("index","Home");
+            TempData["Success"] = "Course edited successfully!";
+            return RedirectToAction("index","instructor");
             
                 
              }

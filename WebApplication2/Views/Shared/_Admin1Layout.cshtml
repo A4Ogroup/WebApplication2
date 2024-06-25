@@ -3,28 +3,78 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords"
-          content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Xtreme lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Xtreme admin lite design, Xtreme admin lite dashboard bootstrap 5 dashboard template">
-    <meta name="description"
-          content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
-    <meta name="robots" content="noindex,nofollow">
-    <title>Xtreme Admin Lite Template by WrapPixel</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/xtreme-admin-lite/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Learn consult</title>
+
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="~/Admin/assets/images/favicon.png">
+
+@*     <!-- Custom CSS -->
+    <link href="~/Admin/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">*@
     <!-- Custom CSS -->
-    <link href="~/Admin/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="~/Admin/dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="~/Admin/dist/css/style.min.css" rel="stylesheet"> 
+
+    <style>
+        .icon-container {
+            width: 500px;
+            height:64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+          
+        }
+
+        .custom-topbar {
+            background-color: black;
+        }
+
+            .custom-topbar .navbar {
+                background-color: inherit; /* Inherit the background color from the parent */
+            }
+
+                .custom-topbar .navbar .navbar-brand h2 {
+                    color: white; /* Change the color of the text inside the brand */
+                }
+
+                .custom-topbar .navbar .nav-link,
+                .custom-topbar .navbar .dropdown-menu,
+                .custom-topbar .navbar .dropdown-item {
+                    color: white; /* Change the color of nav links and dropdown items */
+                }
+
+                /* Adjust the dropdown background */
+                .custom-topbar .navbar .dropdown-menu {
+                    background-color: #333;
+                }
+
+                /* Adjust the dropdown items on hover */
+                .custom-topbar .navbar .dropdown-item:hover {
+                    background-color: #444;
+                }
+
+            .navbar .navbar-brand h2 {
+                color: #fff;
+                text-transform: uppercase;
+                font-size: 24px;
+                font-weight: 700;
+                -webkit-transition: all .3s ease 0s;
+                -moz-transition: all .3s ease 0s;
+                -o-transition: all .3s ease 0s;
+                transition: all .3s ease 0s;
+            }
+
+            .navbar .navbar-brand h2 em {
+                font-style: normal;
+                color: #f33f3f;
+            }
+
+
+    </style>
 </head>
 
 <body>
@@ -42,34 +92,16 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin5">
+        <header class="topbar custom-topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <div class="navbar-header" data-logobg="skin5">
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
-                        <!-- Logo icon -->
-                        <b class="logo-icon">
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <img src="~/Admin/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
-                            <!-- Light Logo icon -->
-                            <img src="~/Admin/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
-                        </b>
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
-                        <span class="logo-text">
-                            <!-- dark Logo text -->
-                            <img src="~/Admin/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                            <!-- Light Logo text -->
-                            <img src="~/Admin/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                        </span>
+                <div class="navbar-header">
+         
+                    <a class="navbar-brand" asp-action="index">
+                        <div class="icon-container">
+                            <h2><em>L</em>earn Consult</h2>
+                        </div>
                     </a>
-                    <!-- ============================================================== -->
-                    <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
                         <i class="ti-menu ti-close"></i>
                     </a>
@@ -77,7 +109,7 @@
                 <!-- ============================================================== -->
                 <!-- End Logo -->
                 <!-- ============================================================== -->
-                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" >
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
@@ -192,8 +224,8 @@
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               href="pages-profile.html" aria-expanded="false">
-                                <i class="mdi mdi-account-network"></i><span class="hide-menu">Profile</span>
+                               asp-action="review" asp-controller="admin" aria-expanded="false">
+                                <i class="mdi mdi-account-network"></i><span class="hide-menu">Review</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

@@ -45,7 +45,9 @@ namespace WebApplication2.Controllers
                 ReviewId = report.ReviewId,
             };
             _reportRepository.Add(_report1);
-            return RedirectToAction("addreport");
+            _reportRepository.Save();
+            TempData["Success"] = "Report added successfully!";
+            return RedirectToAction("index","student");
         }
         [HttpGet]
         public IActionResult EditReport(int id)

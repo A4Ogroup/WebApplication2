@@ -1,4 +1,17 @@
 ﻿@model ReviewDetailsViewModel
+
+@{
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <script type="text/javascript">
+        alert('@successMessage');
+    </script>
+}
+
+
 <head>
 
     <style>
@@ -89,12 +102,14 @@
 
     </style>
 
+
+
 </head>
 @{
     Layout = "_StudentLayout";
 }
 <!-- Page Content -->
-<div class="banner header-text " style="padding-top:inherit;">
+<div class="banner header-text" >
     <div class="owl-banner owl-carousel">
         <div class="banner-item-1">
         </div>
@@ -254,67 +269,11 @@
     </div>
 </div>
 
-@*             <footer class="footer_area section_gap_top">
-                <div class="container-fluid">
-                    <div class="row single-footer-widget">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="copy_right_text">
-                                <p>
-
-                                    All Copyrights &copy reserved
-
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="left-content">
-                                <ul class="social-icons">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    </footer>
-
-
-
-
-
-
-
-
-    <!-- END SEARCH RESULT -->
-    <!-- Bootstrap core JavaScript -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
-
-    <!-- Additional Scripts -->
-    <script src="~/js/site.js"></script>
-    <script src="~/js/site1.js"></script>
-    <script src="~/js/site2.js"></script>
-    <script src="~/js/site3.js"></script>
-    <script src="~/js/site4.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> *@
 <script>
     $('.btn').click(function () {
         $('.collapse-content').toggle();
     });
 </script>
 
-@* <script>
-    function selectNumber(number) {
-        document.getElementById('selectedNumber').value = number;
-    }
-</script>
-</body>
 
-</html> *@
+

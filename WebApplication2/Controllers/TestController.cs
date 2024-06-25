@@ -28,7 +28,7 @@ namespace WebApplication2.Controllers
             var reviews = _context.Reviews.Include(r => r.Course);
             return View(await PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
-        public async Task<IActionResult> Test1(int? pageNumber)
+        public async Task<IActionResult> Course(int? pageNumber)
         {
             int pageSize = 12;
             var course = _context.Courses.Include(r => r.Language);
@@ -164,7 +164,10 @@ namespace WebApplication2.Controllers
             return filteredCourses.ToList();
         }
 
-
+        public IActionResult Action1()
+        {
+            return View();
+        }
 
 
     }

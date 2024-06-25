@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Test\Test1.cshtml" />
+    <Content Remove="Views\Test\Last.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="E:\visual studio projects\AbdullahRepositories\WebApplication2\WebApplication2\.editorconfig" />
     <None Include="efpt.config.json.user" />
-    <None Include="Views\Test\Test1.cshtml" />
+    <None Include="Views\Test\Last.cshtml" />
     <None Include="wwwroot\Admin\assets\.DS_Store" />
     <None Include="wwwroot\Admin\assets\libs\.DS_Store" />
     <None Include="wwwroot\Admin\assets\libs\bootstrap\dist\.DS_Store" />
@@ -292,6 +292,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="toastr" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -480,14 +481,6 @@
     <Content Include="Views\Test\Admin1\js\js\sidebarmenu.js" />
     <Content Include="Views\Test\Admin1\js\js\waves.js" />
     <Content Include="Views\Test\Admin1\js\pages\dashboard1.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Test\Test1.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Test\Test1.cshtml" />
   </ItemGroup>
 
 </Project>

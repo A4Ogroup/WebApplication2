@@ -42,6 +42,7 @@ namespace WebApplication2.Controllers
         {
             var course = _courseRepository.GetById(model.CourseId);
             if(course  == null){
+              
                 return View("index");
             }
            
@@ -61,14 +62,18 @@ namespace WebApplication2.Controllers
            //course.Reviews.Add(_review);
           var review= _reviewRepository.Add(_review);
             _reviewRepository.Save();
+            TempData["Success"] = "Review added successfully!";
 
-            return RedirectToAction("Details", new { id = review.ReviewId });
+           // return RedirectToAction("Details", new { id = review.ReviewId });
+           return RedirectToAction("Index","student");
 
         }
 
         public IActionResult Details(int id)
         {
             var reviews = _reviewRepository.GetById(id);
+
+            //ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
             var review = new ReviewDetailsViewModel
             {
@@ -134,8 +139,9 @@ namespace WebApplication2.Controllers
 
             _reviewRepository.Update(review);
             _reviewRepository.Save();
+            TempData["SuccessMessage"] = "Review edited successfully!";
 
-            return RedirectToAction("index", "student");
+            return RedirectToAction("index", "student",TempData);
         }
     }
 }
