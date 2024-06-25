@@ -351,7 +351,7 @@
             let filters = gatherFilterData();
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("ApplyFilters", "Test")',
+                url: '@Url.Action("ApplyFilters", "Course")',
                 contentType: "application/json",
                 data: JSON.stringify({ Filters: filters }),
                 success: function (response) {
@@ -382,7 +382,7 @@
             let filters = gatherFilterData();
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("ApplyFilters", "Test")',
+                url: '@Url.Action("ApplyFilters", "Course")',
                 contentType: "application/json",
                     data: JSON.stringify({ Filters: filters, pageNumber: page }),
                 success: function (response) {

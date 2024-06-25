@@ -8,6 +8,7 @@ namespace WebApplication2.Models.Repository
         Course GetById(int id);
         
         IEnumerable<Course> GetAll();
+        public IQueryable<Course> FilterCourses(CourseFilterViewModel filters,IEnumerable<Course> resultCourses);
         public IEnumerable<Course> GetCoursesByCategory(int categoryId);
         Course Add(Course course);
         Course Update(Course courseChanges);
