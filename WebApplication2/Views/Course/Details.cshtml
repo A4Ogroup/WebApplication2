@@ -150,7 +150,7 @@
     </div>
 </div>
 
-<div class="how-section1">
+<div class="how-section1" >
     <div class="container">
         <div class="row ">
             <input hidden asp-for="@Model.Course.CourseId" />
@@ -181,18 +181,28 @@
                             <h6>@Model.Course.Language.Name</h6>
                             <h6>@Model.Course.Level</h6>
                             <h6>@Model.Course.TopicsCovered</h6>
-                            <div class="down-content ">
-                                <span style="left:1px;">@Model.Course.AverageRating</span>
-                                <ul class="stars">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <span class="justify-items-start">(24)  </span>
+                            <p class="meta">
+                                @Model.Course.AverageRating
+                                @{
+                                    double fraction = @Model.Course.AverageRating.Value % 1;
+                                    for (int i = 1; i <= Model.Course.AverageRating; i++)
+                                    {
 
-                                </ul>
-                            </div>
+                                        <i class="fa fa-star" style="color:red;"></i>
+                                    }
+                                    if (fraction > 0.0)
+                                    {
+                                        <i class="fa fa-star-half-empty" style="color:red;"></i>
+
+                                    }
+                                    for (int i = 5; i > (int)Math.Ceiling(Model.Course.AverageRating.Value) && i > 0; i--)
+                                    {
+                                        <i class="fa fa-star-o" style="color:red;"></i>
+                                    }
+
+                                }
+                                (3, 666)
+                            </p>
                             <div class="down-content">
                                 <h3>Average Ratings</h3>
                                 <ul>

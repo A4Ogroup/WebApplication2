@@ -7,6 +7,8 @@ using WebApplication2.ViewModels;
 using WebApplication2.Helpers.Enums;
 using System;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static WebApplication2.ViewModels.PagenationViewModel;
+using WebApplication2.Helpers;
 
 namespace WebApplication2.Controllers
 {
@@ -306,7 +308,7 @@ namespace WebApplication2.Controllers
         {
             var filters = filterRequest.Filters;
             var pageNumber = filterRequest.PageNumber;
-            var filteredCourses = _courseRepository.FilterCourses(filters,_courses).AsEnumerable();
+            var filteredCourses = _courseRepository.FilterCourses(filters, _courses).AsEnumerable();
             var pager = new Pager(filteredCourses.Count(), pageNumber, pageSize);
             var paginatedCourses = filteredCourses.Skip((pageNumber - 1) * pager.PageSize).Take(pager.PageSize).ToList();
             ViewBag.Pager = pager;

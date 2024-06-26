@@ -47,16 +47,36 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-                        <li class="nav-item">
+
+                        <li class="nav-item w-95">
                             <div class="search-form">
-                                <form method="post" action="index.html">
-                                    <div class="input-group">
-                                        <input type="search" class="form-control border-0 rounded-pill" name="search-input" value="" placeholder="Search Here" required="" />
-                                        <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
-                                    </div>
+                                <form method="post" action="index.html" class="d-flex w-100">
+                                    <div class="d-flex align-items-center w-100 p-2" style="border-radius: 25px; ">
+                                        <li class="dropdown me-2">
+                                            <a class="nav-link dropdown-toggle" style="border: none; padding: 0; background: none;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                All <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li><a class="dropdown-item" href="#">All</a></li>
+                                                <li><a class="dropdown-item" href="#">Category 1</a></li>
+                                                <li><a class="dropdown-item" href="#">Category 2</a></li>
+                                            </ul>
+                                        </li>
+                                        <div style="border-left: 1px solid #ccc; height: 30px; margin-right: 10px;"></div>
+                                        <input type="text" class="form-control border-0 flex-grow-1" style="box-shadow: none;" placeholder="search">
+                                        <a role="button" class="nav-link" style="border: none; padding: 0; background: none; margin: 0 5px;">
+                                            <span>&#x2716;</span>
+                                        </a>
+                                        <div style="border-left: 1px solid #ccc; height: 30px; margin: 0 10px;"></div>
+                                        <a role="button" class="nav-link" style="border: none; padding: 0; background: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.648.196a5 5 0 1 1 7.071-7.07 5 5 0 0 1-7.07 7.07z" />
+                                            </svg>
+                                        </a>
+                                </div>
                                 </form>
                             </div>
-                        </li>
+                            </li>
 
                         <li class="nav-item ">
                             <a class="nav-link" asp-controller="Instructor" asp-action="MyCourses">
@@ -79,6 +99,7 @@
                     </ul>
                 </div>
             </div>
+
         </nav>
     </header>
 

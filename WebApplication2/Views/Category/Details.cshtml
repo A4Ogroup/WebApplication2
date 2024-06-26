@@ -274,7 +274,37 @@ f
                                     </p>
                                     <p class="meta">
                                         @items.InstructorFullName <br />
-                                        @items.AverageRating <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i> (3,666)
+                                    <p class="meta">
+                                            @items.AverageRating
+                                            @{
+                                                double fraction = @items.AverageRating.Value % 1;
+                                                for (int i = 1; i <= items.AverageRating; i++)
+                                                {
+
+                                                <i class="fa fa-star" style="color:red;"></i>
+                                                }
+                                                if (fraction > 0.0)
+                                                {
+                                                <i class="fa fa-star-half-empty" style="color:red;"></i>
+
+                                                }
+                                                for (int i = 5; i > (int)Math.Ceiling(items.AverageRating.Value) && i > 0; i--)
+                                                {
+                                                <i class="fa fa-star-o" style="color:red;"></i>
+                                                }
+
+
+
+
+
+
+
+
+
+
+                                            }
+                                        (3, 666)
+                                    </p>
                                     </p>
                                     <p class="meta">
                                         @* 82 total hours • 402 lectures • All Levels *@

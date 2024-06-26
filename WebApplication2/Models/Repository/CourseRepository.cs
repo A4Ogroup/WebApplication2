@@ -84,7 +84,7 @@ namespace WebApplication2.Models.Repository
             if (!string.IsNullOrWhiteSpace(ResourceParameters.SearchQuery))
             {
 
-                ResourceParameters.SearchQuery =  .SearchQuery.Trim();
+                ResourceParameters.SearchQuery =  ResourceParameters.SearchQuery.Trim();
                 collection = collection.Where(a => a.Title.Contains(ResourceParameters.SearchQuery)
                 || a.InstructorFullName.Contains(ResourceParameters.SearchQuery)
                 || a.CourseDescription.Contains(ResourceParameters.SearchQuery));

@@ -129,23 +129,23 @@
 
         </div>
 
-        <div class="col-md-12">
-            <div class="contact-form">
-                <form id="contact" method="post" asp-controller="review" asp-action="details" asp-route-id="@Model.ReviewId">
+        <div class="col-md-12 " >
+            <div class="contact-form" >
+                <form id="contact" method="post" asp-controller="review" asp-action="details" asp-route-id="@Model.ReviewId" >
                     <input hidden asp-for="ReviewId">
                     <div class="row">
                         <div class="col-lg-8">
                             <div class=" align-content-center" style="margin:15px;">
                                 <div class="rate" >
-                                    <input type="radio" id="star5" asp-for="@Model.Rate" value="5"/>
+                                    <input type="radio" id="star5" asp-for="@Model.Rate" value="5" disabled/>
                                     <label for="star5" title="5">5 stars</label>
-                                    <input type="radio" id="star4" asp-for="@Model.Rate" value="4"  />
+                                    <input type="radio" id="star4" asp-for="@Model.Rate" value="4" disabled />
                                     <label for="star4" title="4">4 stars</label>
-                                    <input type="radio" id="star3" asp-for="@Model.Rate" value="3"  />
+                                    <input type="radio" id="star3" asp-for="@Model.Rate" value="3" disabled />
                                     <label for="star3" title="3">3 stars</label>
-                                    <input type="radio" id="star2" asp-for="@Model.Rate" value="2"  />
+                                    <input type="radio" id="star2" asp-for="@Model.Rate" value="2" disabled />
                                     <label for="star2" title="2">2 stars</label>
-                                    <input type="radio" id="star1" asp-for="@Model.Rate" value="1"  />
+                                    <input type="radio" id="star1" asp-for="@Model.Rate" value="1" disabled />
                                     <label for="star1" title="1">1 star</label>
 
                                 </div>
@@ -174,7 +174,7 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2 ">
-                                                <input type="radio" asp-for="@Model.EngagementLevel" value="@i"  />
+                                                <input type="radio" asp-for="@Model.EngagementLevel" value="@i" disabled />
                                                 @i
                                             </label>
                                         }
@@ -189,7 +189,7 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2">
-                                                <input type="radio" asp-for="@Model.ContentQuality" value="@i"  />
+                                                <input type="radio" asp-for="@Model.ContentQuality" value="@i" disabled />
                                                 @i
                                             </label>
                                         }
@@ -204,7 +204,7 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2">
-                                                <input type="radio" asp-for="@Model.SupportQuality" value="@i"  />
+                                                <input type="radio" asp-for="@Model.SupportQuality" value="@i" disabled />
                                                 @i
                                             </label>
                                         }
@@ -219,7 +219,7 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2">
-                                                <input type="radio" asp-for="@Model.TechnicalQuality" value="@i"  />
+                                                <input type="radio" asp-for="@Model.TechnicalQuality" value="@i" disabled />
                                                 @i
                                             </label>
                                         }
@@ -237,7 +237,7 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2">
-                                                <input type="radio" asp-for="@Model.OverAllSatisfication" value="@i"  />
+                                                <input type="radio" asp-for="@Model.OverAllSatisfication" value="@i" disabled />
                                                 @i
                                             </label>
                                         }
