@@ -59,254 +59,202 @@
         </nav>
     </header> *@
 
+
+
 @{
     Layout = "_Layout";
 } 
 
-    <div class="banner header-text">
-        <div class="owl-banner owl-carousel">
+
+
+
+
+<style>
+
+
+
+
+    option {
+        background: white; /* Option background */
+        color: black;
+        cursor: pointer;
+    }
+
+        option:after {
+            background-color: #f0f0f0; /* hover effect for better user experience */
+        }
+
+    .custom-select {
+        appearance: none; /* this is important to remove default select arrow */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+        font-size: 1rem;
+        border: 1px solid gray;
+        border-radius: 0.25rem;
+        line-height: 1.5;
+        background-color: #fff;
+        background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h12L6 12z" fill="%23FF0000"/></svg>'), linear-gradient(to bottom, #ffffff 0%,#e9ecef 100%);
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 12px 12px;
+    }
+
+        .custom-select:focus {
+            border-color: red;
+            outline: none;
+            box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.5);
+        }
+
+    .banner-item-1 {
+        padding: 50px 0px;
+ 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+    /* Custom styling for the select element */
+    /*   .custom-select {
+                            appearance: none; /* Removes default browser styling */
+
+
+    /* Adjust padding for the select wrapper to position the arrow correctly */
+    /* .select-wrapper {
+                            position: relative;
+                        } */
+</style>
+
+
+
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
+        <div class="banner-item-1">
         </div>
     </div>
+</div>
 
-
-
-
-    <div class="send-message">
-        <div class="container">
+<div class="send-message" style="margin-top:-75px">
+    <div class="container">
+        <form enctype="multipart/form-data" asp-controller="home" asp-action="signup" method="post">
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
                         <h2>Sign Up</h2>
                     </div>
                 </div>
+
                 <div class="col-md-6">
                     <div class="contact-form">
-                        <form id="contact" action="" method="post">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-                                        <input asp-area="FirstName" type="text" class="form-control" placeholder="First Name" required="">
-                                    </fieldset>
-                                </div>
 
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-                                        <input asp-area="Email" type="email" class="form-control" placeholder="Email" required="">
-                                    </fieldset>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-                                        <input asp-area="Password" type="text" class="form-control" placeholder="Password" required="">
-                                    </fieldset>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-
-                                        <ul class=" dropdown">
-                                            <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Categories you have tought
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                            </ul>
-                                        </ul>
-
-                                    </fieldset>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-
-                                        <input asp-area="NumberOfCourses" type="number" class="form-control" placeholder="Number Of Courses" required="">
-
-                                    </fieldset>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-
-                                        <input asp-area="Picture" type="file" class="form-control" placeholder="Picture" required="">
-
-                                    </fieldset>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-
-                                        <input asp-area="SocialMediaAccounts" type="url" class="form-control " placeholder="Social Media Accounts" required="" />
-                                        
-                                    </fieldset>
-                                   
-                                </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input asp-area="FirstName" type="text" class="form-control" placeholder="First Name" required="">
+                                </fieldset>
                             </div>
-                        </form>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input asp-area="Email" type="email" class="form-control" placeholder="Email" required="">
+                                </fieldset>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input asp-area="Password" type="text" class="form-control" placeholder="Password" required="">
+                                </fieldset>
+                            </div>
+
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+
+                                    <input asp-area="NumberOfCourses" type="number" class="form-control" placeholder="Number Of Courses" required="">
+
+                                </fieldset>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+
+                                    <input asp-area="Picture" type="file" class="form-control" placeholder="Picture" required="">
+
+                                </fieldset>
+                            </div>
+
+  
+
+                        </div>
+
+                        @*  </form> *@
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="contact-form">
-                        <form id="contact" action="" method="post">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-
-
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <fieldset>
-                                            <input name="LastName" type="text" class="form-control" placeholder="Last Name" required="">
-                                        </fieldset>
-                                    </div>
-
-
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <fieldset>
-
-                                            <input asp-area="Profession" type="text" class="form-control" placeholder="Profession" required="">
-
-                                        </fieldset>
-                                    </div>
-
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <fieldset>
-
-                                            <input asp-area="ConfirmPassword" type="text" class="form-control" placeholder="Confirm Password" required="">
-
-                                        </fieldset>
-                                    </div>
-
-
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-
-                                        <ul class=" dropdown">
-                                            <a class="dropdown-toggle form-control" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Platforms you have tought at
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                            </ul>
-                                        </ul>
-
-                                    </fieldset>
-                                </div>
-
+                        @*  <form id="contact" action="" method="post"> *@
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
 
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
-
-                                        <input asp-area="YearsOfExperience" type="number" class="form-control" placeholder="Years Of Experience" required="">
-
+                                        <input class="form-control" id="course name" placeholder="Last Name">
                                     </fieldset>
                                 </div>
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
-
-                                        <input asp-area="PhoneNumber" class="form-control" placeholder="Phone Number" required="">
-
+                                        <input class="form-control" id="course name" placeholder="Profession">
                                     </fieldset>
-                                </div>  
+                                </div>
+                                
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input class="form-control" id="course name" placeholder="Confirm Password">
+                                    </fieldset>
+                                </div>
 
+
+                        
+
+
+
+
+                               
 
                             </div>
-                        </form>
 
+
+
+                            <!-- course picture   region -->
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input class="form-control" placeholder="Phone Number">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+
+                                    <input asp-area="SocialMediaAccounts" type="url" class="form-control " placeholder="Social Media Accounts" required="" />
+
+                                </fieldset>
+
+                            </div>
+
+                        </div>
                         <div class="col-lg-12">
                             <fieldset>
                                 <button type="submit" id="contact" class="filled-button">Submit </button>
                             </fieldset>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <fieldset>
-                        <h6> Already have account <a class="link-secondary btn btn-light" asp-controller="home" asp-action="Login"> Login</a></h6>
-                    </fieldset>
-                </div>
-            </div>
-@*             <footer class="footer_area section_gap_top">
-                <div class="container">
-                    <div class="row single-footer-widget">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="copy_right_text">
-                                <p>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    All Copyrights &copy reserved
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                </p>
-                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="left-content">
-                                <ul class="social-icons">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer> *@
-
-        </div>
+                       </div>
+                 </div>
+        </form>
 
     </div>
 
+</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*     <!-- Bootstrap core JavaScript -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
-
-    <!-- Additional Scripts -->
-    <script src="~/js/site.js"></script>
-    <script src="~/js/site1.js"></script>
-    <script src="~/js/site2.js"></script>
-    <script src="~/js/site3.js"></script>
-    <script src="~/js/site4.js"></script> *@
-
-
-    <script language="text/Javascript">
-        cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-        function clearField(t) {                   //declaring the array outside of the
-            if (!cleared[t.id]) {                      // function makes it static and global
-                cleared[t.id] = 1;  // you could use true and false, but that's more typing
-                t.value = '';         // with more chance of typos
-                t.style.color = '#fff';
-            }
-        }
-    </script>
-
-@* 
-</body>
-
-</html> *@
