@@ -87,10 +87,10 @@ namespace WebApplication2.Models.Repository
                 ResourceParameters.SearchQuery =  ResourceParameters.SearchQuery.Trim();
                 collection = collection.Where(a => a.Title.Contains(ResourceParameters.SearchQuery)
                 || a.InstructorFullName.Contains(ResourceParameters.SearchQuery)
-                || a.CourseDescription.Contains(ResourceParameters.SearchQuery));
+                || a.CourseDescription.Contains(ResourceParameters.SearchQuery)|| a.TopicsCovered.Contains(ResourceParameters.SearchQuery));
 
             }
-            return collection.ToList();
+            return collection;
 
 
         }
