@@ -76,7 +76,7 @@ namespace WebApplication2.Models.Repository
                 return GetAll();
             }
             var collection = _context.Courses as IQueryable<Course>;
-            if (ResourceParameters.CategoryId !=null)
+            if (ResourceParameters.CategoryId !=null && ResourceParameters.CategoryId!=0 )
             {
 
                 //ResourceParameters.Category = ResourceParameters.Category.Trim();
