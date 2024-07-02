@@ -48,13 +48,15 @@ namespace WebApplication2.Models.Repository
         }
 
 
-        public void Delete(Course course)
+        public void Delete(int id)
         {
-            if (course is null)
+            if (id == null)
             {
-                throw new ArgumentNullException(nameof(course));
+                throw new ArgumentNullException(nameof(id));
             }
 
+            var course = _context.Courses.FirstOrDefault(C => C.CourseId == id);
+            _context.SaveChanges();
             _context.Courses.Remove(course);
         }
 

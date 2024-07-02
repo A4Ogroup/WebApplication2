@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
@@ -139,9 +140,22 @@ namespace WebApplication2.Controllers
 
             _reviewRepository.Update(review);
             _reviewRepository.Save();
-            TempData["SuccessMessage"] = "Review edited successfully!";
+            TempData["Success"] = "Review edited successfully!";
 
-            return RedirectToAction("index", "student",TempData);
+            return RedirectToAction("index", "student");
+        }
+        public IActionResult EditableDetails(int id)
+        {
+            var review = _context.Reviews.FirstOrDefault(r => r.ReviewId == id);
+
+            return View(review);
+        }
+        public IActionResult Delete(int id) { 
+        
+            _reviewRepository.Delete(id);
+            _reviewRepository.Save();
+            TempData["Success"] = "Review deleted successfully!";
+            return RedirectToAction("index","admin");
         }
     }
 }

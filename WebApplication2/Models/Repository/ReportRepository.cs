@@ -18,14 +18,17 @@ namespace WebApplication2.Models.Repository
             return report;
         }
 
-        public Report Delete(int id)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var report = _context.Reports.FirstOrDefault(r => r.ReportId == id);
+            _context.Reports.Remove(report);
+            _context.SaveChanges();
+
         }
 
         public IEnumerable<Report> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Reports;
         }
 
         public Report GetById(int id)

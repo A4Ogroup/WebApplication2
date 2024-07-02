@@ -9,7 +9,7 @@ namespace WebApplication2.Models.Repository
         IEnumerable<Report> GetAll();
         Report Add(Report report);
         Report Update(Report report);
-        Report Delete(int id);
+        void Delete(int id);
         bool Save();
     }
 }

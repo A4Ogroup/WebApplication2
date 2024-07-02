@@ -360,24 +360,36 @@ namespace WebApplication2.Controllers
         //    return filteredCourses;
         //}
         // GET: CourseController/Delete/5
-        public ActionResult Delete(int id)
+        //[HttpGet]
+        public IActionResult EditableDetails(int id)
         {
-            return View();
+            var _course = _context.Courses.Include(c => c.Language).FirstOrDefault(c => c.CourseId == id);
+            var course = new CourseDetailsViewModel
+            {
+                Course = _course
+            };
+            return View(course);
         }
 
         // POST: CourseController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
+            _courseRepository.Delete(id);
+            _courseRepository.Save();
+            TempData["Success"] = "Course deleted successfully!";
+
+            return RedirectToAction("index", "admin");
+            //try
+            //{
+
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
     }
 }

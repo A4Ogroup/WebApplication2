@@ -16,6 +16,7 @@
     <link href="~/Admin/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">*@
     <!-- Custom CSS -->
     <link href="~/Admin/dist/css/style.min.css" rel="stylesheet"> 
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
     <style>
         .icon-container {
@@ -225,13 +226,13 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                asp-action="review" asp-controller="admin" aria-expanded="false">
-                                <i class="mdi mdi-account-network"></i><span class="hide-menu">Review</span>
+                                <i class="mdi mdi-account-network"></i><span class="hide-menu">Reviews</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               href="table-basic.html" aria-expanded="false">
-                                <i class="mdi mdi-border-all"></i><span class="hide-menu">Table</span>
+                               asp-action="report" asp-controller="admin" aria-expanded="false">
+                                <i class="mdi mdi-border-all"></i><span class="hide-menu">Reports</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

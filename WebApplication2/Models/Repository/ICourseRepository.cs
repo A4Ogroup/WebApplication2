@@ -12,7 +12,7 @@ namespace WebApplication2.Models.Repository
         public IEnumerable<Course> GetCoursesByCategory(int categoryId);
         Course Add(Course course);
         Course Update(Course courseChanges);
-        void Delete(Course course);
+        void Delete(int id);
         bool Save();
 
         

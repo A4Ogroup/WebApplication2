@@ -80,5 +80,13 @@ namespace WebApplication2.Controllers
             _reportRepository.Save();
             return RedirectToAction("index","student");
         }
+
+        public IActionResult Delete(int id) 
+        { 
+            _reportRepository.Delete(id);
+            _reportRepository.Save();
+            TempData["Success"] = "Report deleted successfully!";
+            return RedirectToAction("index", "admin");
+        }
     }
 }

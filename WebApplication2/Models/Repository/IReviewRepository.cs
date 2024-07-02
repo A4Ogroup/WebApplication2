@@ -7,7 +7,7 @@
         IEnumerable<Review> GetAllWithCourse();
         Review Add(Review review);
         Review Update(Review review);
-        Review Delete(int id);
+        void Delete(int id);
         bool Save();
     }
 }

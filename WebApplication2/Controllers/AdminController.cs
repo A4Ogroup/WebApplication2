@@ -13,18 +13,21 @@ namespace WebApplication2.Controllers
         LconsultDBContext _context;
         ICourseRepository _courseRepository;
         IReviewRepository _reviewRepository;
-        public AdminController(LconsultDBContext context,ICourseRepository courseRepository,IReviewRepository reviewRepository) {
+        IReportRepository _reportRepository;
+        public AdminController(LconsultDBContext context,ICourseRepository courseRepository,IReviewRepository reviewRepository,IReportRepository reportRepository) {
             
             _context = context;
             _courseRepository = courseRepository; 
             _reviewRepository = reviewRepository;
-        
+            _reportRepository = reportRepository;
+
         }
 
         public ActionResult Index()
         {
-            var review = _courseRepository.GetAll();
-            var course = _reviewRepository.GetAll();
+            var course = _courseRepository.GetAll();
+            var review = _reviewRepository.GetAll();
+            var report = _reportRepository.GetAll();
             return View();
         }
         //public async Task<IActionResult> Index(int? pageNumber)
@@ -52,6 +55,13 @@ namespace WebApplication2.Controllers
             int pageSize = 12;
             var reviews = _context.Reviews.Include(r => r.Course);
             return View(await PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
+        
+        public async Task<IActionResult> Report(int? pageNumber)
+        {
+            int pageSize = 12;
+            var report = _context.Reports.Include(r => r.Review);
+            return View(await PaginatedList<Report>.CreateAsync(report.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         //public IActionResult Review()
         //{

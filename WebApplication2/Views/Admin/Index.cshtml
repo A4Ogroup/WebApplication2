@@ -3,8 +3,10 @@
 
     var course = _context.Courses.ToList();
     var review = _context.Reviews.ToList();
+    var report = _context.Reports.ToList();
 
 }
+<partial name="_NotificationPartial"></partial>
 @{
     Layout = "_Admin1Layout";
 }
@@ -192,6 +194,23 @@
                                             </div>
                                         </div>
                                         <a href="@Url.Action("ClicksDetails", "Dashboard")" class="btn btn-light btn-sm mt-3">See More</a>
+                                    </div>
+                                </div> 
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                    <i class="fa fa-id-card"></i>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <h5>Reports</h5>
+                                                    <h2>@report.Count</h2>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="@Url.Action("report", "admin")" class="btn btn-light btn-sm mt-3">See More</a>
                                     </div>
                                 </div>
                                 @*                                   <div class="col-md-4">

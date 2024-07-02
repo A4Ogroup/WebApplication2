@@ -18,9 +18,12 @@ namespace WebApplication2.Models.Repository
             return review;
         }
 
-        public Review Delete(int id)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Review review=GetById(id);
+            _context.Reviews.Remove(review);
+            _context.SaveChanges();
+           
         }
 
         public IEnumerable<Review> GetAll()

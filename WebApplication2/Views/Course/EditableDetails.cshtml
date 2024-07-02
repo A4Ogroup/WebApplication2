@@ -1,0 +1,247 @@
+﻿@model CourseDetailsViewModel
+
+@{
+    Layout = "_Layout";
+
+
+}
+<!-- Page Content -->
+<head>
+    <style>
+
+        .course-reviews {
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 10px; /* Adjusted for inner spacing */
+            max-width: calc(50% - 20px); /* Allows 3 cards per row with spacing */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1 1 calc(50% - 20px); /* Allows 3 cards per row */
+            box-sizing: border-box;
+        }
+
+        .title {
+            color: #f00;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .rating-summary {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+            .rating-summary .stars {
+                color: #f00;
+            }
+
+        .review-card {
+            margin-bottom: 10px;
+        }
+
+            .review-card .stars {
+                color: #f00;
+            }
+
+        .checked {
+            color: red;
+        }
+
+        /* Flexbox container for review cards */
+        .reviews-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: -10px; /* Adjust for inner padding */
+        }
+
+            /* Inner padding for review cards */
+            .reviews-container > .course-reviews {
+                margin: 10px;
+            }
+
+        /* Responsive styles */
+        @@media (max-width: 992px) {
+            .course-reviews {
+                flex: 1 1 calc(50% - 20px); /* 2 cards per row */
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .course-reviews {
+                flex: 1 1 calc(100% - 20px); /* 1 card per row */
+            }
+        }
+
+        /* Ensure the footer is not overlapped */
+        .footer {
+            clear: both;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container, .row, .padding {
+            overflow: hidden;
+        }
+
+        .checked {
+            color: red;
+        }
+
+        .description {
+            display: inline;
+        }
+
+        .more-text {
+            display: none;
+        }
+
+        .see-more {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            margin-top: 10px;
+            height: 10px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #4caf50;
+            border-radius: 5px;
+            width: 0;
+        }
+
+        .banner-item-1 {
+            padding: 50px;
+        }
+    </style>
+</head>
+
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
+        <div class="banner-item-1">
+        </div>
+    </div>
+</div>
+
+<div class="how-section1">
+    <div class="container">
+        <div class="row ">
+            <input hidden asp-for="@Model.Course.CourseId" />
+            <div class="col-md-4 how-img">
+
+                @if (Model.Course.Picture is null)
+                {
+
+                    Model.Course.Picture = "noimage.png";
+
+                }<a href="#"><img src="~/images/courses/@Model.Course.Picture" alt="" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;"></a>
+                @* <img src="~/images/product_01.jpg" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;" />  *@
+                <h4>@Model.Course.Title</h4>
+                <h6 class="text-muted" style="margin-bottom:12px;">
+                    @Model.Course.CourseDescription
+                </h6>
+            </div>
+
+            <div class="col-md-8 " style="margin-top:20px;">
+
+                <div class="product-item" style="border:none">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <h6>@Model.Course.InstructorFullName</h6>
+                            <h6>@Model.Course.Language.Name</h6>
+                            <h6>@Model.Course.Level</h6>
+                            <h6>@Model.Course.TopicsCovered</h6>
+                            <p class="meta">
+                                @Model.Course.AverageRating
+                                @{
+                                    double fraction = @Model.Course.AverageRating.Value % 1;
+                                    for (int i = 1; i <= Model.Course.AverageRating; i++)
+                                    {
+
+                                        <i class="fa fa-star" style="color:red;"></i>
+                                    }
+                                    if (fraction > 0.0)
+                                    {
+                                        <i class="fa fa-star-half-empty" style="color:red;"></i>
+
+                                    }
+                                    for (int i = 5; i > (int)Math.Ceiling(Model.Course.AverageRating.Value) && i > 0; i--)
+                                    {
+                                        <i class="fa fa-star-o" style="color:red;"></i>
+                                    }
+
+                                }
+                                (3, 666)
+                            </p>
+            
+
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            @if (Model.Course.PriceStatus is true)
+                            {
+                                <h6> paid </h6>
+                            }
+                            else
+                            {
+                                <h6>free  </h6>
+                            }
+
+                            <h6>@Model.Course.LastUpdate</h6>
+                            <h6>@Model.Course.Platform</h6>
+                            <h6><a href="@Model.Course.Link">@Model.Course.Link</a></h6>
+                            <a class="btn btn-light" asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.Course.CourseId" style="margin-top:20px;"> Review </a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            @*<div class="col-md-12 my-3">
+            <div class="grid search"> *@
+       
+
+        </div>
+
+
+
+        <div class="col-lg-12">
+            <fieldset>
+                <a type="submit" id="form-submit" class="filled-button" asp-action="course" asp-controller="admin">Back To List </a>
+                <a type="submit" id="form-submit" class="filled-button" asp-action="editcourse" asp-controller="course" asp-route-id="@Model.Course.CourseId">Update </a>
+                <a type="submit" id="form-submit" class="filled-button" asp-action="Delete" asp-controller="course" asp-route-id="@Model.Course.CourseId">Delete </a>
+            </fieldset>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('.btn').click(function () {
+            $('.collapse-content').toggle();
+        });
+
+
+    </script>
+}
+@* </body>
+
+</html> *@
