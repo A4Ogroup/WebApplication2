@@ -7,14 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Admin\Report.cshtml" />
+    <!--<Content Remove="Views\Admin\Report.cshtml" />-->
     <Content Remove="Views\Test\Last.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="E:\visual studio projects\AbdullahRepositories\WebApplication2\WebApplication2\.editorconfig" />
     <None Include="efpt.config.json.user" />
-    <None Include="Views\Admin\Report.cshtml" />
     <None Include="Views\Test\Last.cshtml" />
     <None Include="wwwroot\Admin\assets\.DS_Store" />
     <None Include="wwwroot\Admin\assets\libs\.DS_Store" />
@@ -485,12 +484,12 @@
     <Content Include="Views\Test\Admin1\js\pages\dashboard1.js" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <UpToDateCheckInput Remove="Views\Admin\Report.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Admin\Report.cshtml" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
