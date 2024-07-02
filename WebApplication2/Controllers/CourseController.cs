@@ -9,6 +9,7 @@ using System;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static WebApplication2.ViewModels.PagenationViewModel;
 using WebApplication2.Helpers;
+using WebApplication2.ResourceParameters;
 
 namespace WebApplication2.Controllers
 {
@@ -277,11 +278,11 @@ namespace WebApplication2.Controllers
                 
              }
 
-        public IActionResult Index1(int pg = 1)
+        public IActionResult Index1(CourseResourceParameters parameters, int pg = 1)
         {
             ViewBag.languages = _context.Languages.ToList();
             //////paging
-           var _courses =_courseRepository.GetAll();
+           var _courses =_courseRepository.GetCourses(parameters);
             if (pg < 1)
                 pg = 1;
             int recordCount = _courses?.Count() ??0;

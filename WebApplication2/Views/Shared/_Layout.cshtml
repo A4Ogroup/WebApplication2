@@ -76,7 +76,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="">
                                 Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -90,32 +90,39 @@
 
                         <li class="nav-item w-95">
                             <div class="search-form">
-                                <form method="post" action="index.html" class="d-flex w-100">
-                                    <div class="d-flex align-items-center w-100 p-2" style="border-radius: 25px; "> 
-                                        <li class="dropdown me-2">
-                                            <a class="nav-link dropdown-toggle" style="border: none; padding: 0; background: none;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                All <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="#">All</a></li>
-                                                <li><a class="dropdown-item" href="#">Category 1</a></li>
-                                                <li><a class="dropdown-item" href="#">Category 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <div style="border-left: 1px solid #ccc; height: 30px; margin-right: 10px;"></div>
-                                        <input type="text" class="form-control border-0 flex-grow-1" style="box-shadow: none;" placeholder="search">
-                                        <a role="button" class="nav-link" style="border: none; padding: 0; background: none; margin: 0 5px;">
-                                            <span>&#x2716;</span>
-                                        </a>
-                                        <div style="border-left: 1px solid #ccc; height: 30px; margin: 0 10px;"></div>
-                                        <a role="button" class="nav-link" style="border: none; padding: 0; background: none;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.648.196a5 5 0 1 1 7.071-7.07 5 5 0 0 1-7.07 7.07z" />
-                                            </svg>
-                                        </a>
-                                      </div>
-                                 </form>
-                              </div>
+                                <form method="get" asp-controller="Course" asp-action="Index1" class="d-flex w-100">
+                                    <div class="d-flex align-items-center w-100 p-2" style="border-radius: 25px;">
+                        <li class="dropdown me-2">
+                            <a class="nav-link dropdown-toggle" style="border: none; padding: 0; background: none;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span id="selectedCategory">All</span> <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#" onclick="selectCategory(0,'All')">All</a></li>
+                                                @foreach(var category in categories)
+                                                {
+
+                                    <li><a class="dropdown-item" onclick="selectCategory(@category.CategoryId,  '@category.CategoryName')">@category.CategoryName</a></li>
+                                                }
+                                             
+                            </ul>
+                        </li>
+                        <input type="hidden" id="categoryIdInput" name="CategoryId" value="0">
+                        <div style="border-left: 1px solid #ccc; height: 30px; margin-right: 10px;"></div>
+                        <input type="text" id="searchText" name="SearchQuery" class="form-control border-0 flex-grow-1" style="box-shadow: none;" placeholder="search">
+                        <a role="button" class="nav-link" style="border: none; padding: 0; background: none; margin: 0 5px;" onclick="clearSearch()">
+                            <span>&#x2716;</span>
+                        </a>
+                        <div style="border-left: 1px solid #ccc; height: 30px; margin: 0 10px;"></div>
+                        <button type="submit" class="nav-link" style="border: none; padding: 0; background: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.648.196a5 5 0 1 1 7.071-7.07 5 5 0 0 1-7.07 7.07z" />
+                            </svg>
+                        </button>
+                </div>
+                </form>
+            </div>
+
+            
                           </li>
 
 
@@ -248,7 +255,16 @@
     <script src="~/js/site3.js" asp-append-version="true"></script>
     <script src="~/js/site4.js" asp-append-version="true"></script>
  
+    <script>
+        function selectCategory(CategoryId,categoryName) {
+            document.getElementById('selectedCategory').textContent = categoryName;
+            document.getElementById('categoryIdInput').value = CategoryId;
+        }
 
+        function clearSearch() {
+            document.getElementById('SearchQuery').value = '';
+        }
+    </script>
     <script language="text/Javascript">
         cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
         function clearField(t) {                   //declaring the array outside of the
@@ -259,6 +275,8 @@
             }
         }
     </script>
+    
+
     @RenderSection("Scripts", required: false)
     
 </body>

@@ -23,7 +23,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Instructor]",
+         "Name": "[dbo].[Instructor]", 
          "ObjectType": 0
       },
       {
