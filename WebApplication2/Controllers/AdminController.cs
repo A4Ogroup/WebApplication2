@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Printing;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using static WebApplication2.ViewModels.PagenationViewModel;

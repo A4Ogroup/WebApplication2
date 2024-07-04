@@ -1,117 +1,15 @@
-﻿@model CategoryViewModel
+﻿@using static WebApplication2.ViewModels.PagenationViewModel
+@model PaginatedList<Course>
 
 @{
     var photoPath = "imgaes";
+   
 }
 
 
 
 
 
-@* <!DOCTYPE html>
-<html lang="en">
-f
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
-    <title>Learn consult</title>
-
-
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" >
-
-
-
-    <link href="~/css/site.css" rel="stylesheet">
-    <link href="~/css/site1.css" rel="stylesheet">
-    <link href="~/css/site2.css" rel="stylesheet">
-    <link href="~/css/site3.css" rel="stylesheet">
-    <link href="~/css/site4.css" rel="stylesheet">
-    <link href="~/css/StyleSheet.css" rel="stylesheet">
-
-
-
-</head>
-
-
-<body>
-
-                    <!-- ***** Preloader Start ***** -->
-                    <div id="preloader">
-                        <div class="jumper">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                    <!-- ***** Preloader End ***** -->
-
-    <!--gtrfrsesrdrr-->
-
-                    <!-- Header -->
-              <header class="">
-              <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-
-                  <a class="navbar-brand" asp-action="index">
-                    <h2 ><em>L</em>earn Consult</h2>
-                  </a>
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-
-                  <div class="nav-item" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Category
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                    <li><a class="dropdown-item" asp-controller="home" asp-action="Category">category.</a></li>
-
-                          <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Another action</a></li>
-                          <li><a class="dropdown-item" asp-controller="home" asp-action="Category">Something else here</a></li>
-                        </ul>
-                      </li>
-
-                        <li class="text-end pe-4 me-4 border-dark search-btn">
-                            <div class="search-form">
-                                <form method="post" action="index.html">
-                                    <div class="form-group">
-                                        <div class="d-flex">
-                                            <input type="search" class="form-control border-0 rounded-pill" name="search-input" value="" placeholder="Search Here" required="" />
-                                            <button><i class="fa fa-search btn"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
-                        <li class="nav-item ">
-                        <a class="nav-link" href="index.html">For Instructors
-                        </a>
-                      </li>
-
-                      <li class="nav-item">
-                            <a asp-controller="home" asp-action="Login" class="nav-link">Login</a>
-                      </li>
-                      <li class="nav-item">
-                            <a asp-controller="home" asp-action="SignUp" class="nav-link">Sign Up</a>
-                      </li>
-                    </ul>
-
-                    </div>
-                  </div>
-
-              </nav>
-            </header> *@
 
 @{
     Layout = "_Layout";
@@ -215,21 +113,39 @@ f
     </div>
 </div>
 <!-- BEGIN SEARCH RESULTf -->
-<div class="col-md-12 my-3" >
+<div class="col-md-12 my-3 container-fluid" >
 
     
             <div class="row">
                 <div class="col-md-3">
                     <div class="container">
-                        <h2 class="grid-title"> @Model.categoryName</h2>
+                <h2 class="grid-title"> @ViewBag.categoryName</h2>
                         <hr>
+                @* <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group"> *@
 
-                       @foreach(var subCategory in Model.subCategories ){
-                            <div class="container-fluid">
-                                <a class="newlink">@subCategory.SubName  </a>
-                            </div>
+
+                @{
+                    int n = 0;
+                }
+                @foreach (var subCategory in ViewBag.subCategories)
+                {
+                    n++;
+
+                        
+                    <a  asp-action="FilterBySubCategory" asp-route-categoryId="@(subCategory.CategoryId)" asp-route-subCategoryId="@(subCategory.SubId)">
+                        <button class="btn" id="danger-outlined-@n" style="text-align:start;word-break:keep-all;background-color:rgba(244, 239, 239, 1);margin-bottom:10px;border-left:solid black 5px;"><h5>@subCategory.SubName</h5></button>
+                        
+                               
+                    </a>
+                    
+                    @* 
+                            <div class="container-fluid"> 
+                                <div class="">
+                            <a class="newlink" asp-action="FilterBySubCategory" asp-route-categoryId="@(subCategory.CategoryId)" asp-route-subCategoryId="@(subCategory.SubId)"><input type="radio" name="subCategoryId">@subCategory.SubName</a>
+                        </div>
+                            </div> *@
                         }
-
+                @* </div> *@
 
                     </div>
                 </div>
@@ -255,15 +171,17 @@ f
                     <div id="course-list">
 
 
-                        @foreach (var items in Model.courses)
+                        @foreach (var items in Model)
                         {
-                            <div class="result-item">
-                                @if (items.Picture is null)
-                                {
-                                    <a href="#"><img src="~/images/courses/noimage.png" alt=""></a>
+                    
+                    <div class="result-item">
+                        @if (items.Picture is null)
+                        {
+                            <a href="#"><img src="~/images/courses/noimage.png" alt=""></a>
 
-                                }<a href="#"><img src="~/images/courses/@items.Picture" alt=""></a>
-                                <div class="content">
+                        }
+                        <a href="#"><img src="~/images/courses/@items.Picture" alt=""></a>
+                        <div class="content">
                                     <h3>@items.Title</h3>
                                     <p class="meta">
                                         @*  ASP.NET Core 6, 7 & 8 | ASP.NET Core Projects |
@@ -317,8 +235,26 @@ f
 
 
                     </div>
-                    
-                </div>
+            @{
+                var CategoryId = Model?.FirstOrDefault()?.CategoryId ?? 0;
+            }
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                        <a class="page-link" asp-action="Details" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-categoryId="@(CategoryId)">Previous</a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                            <a class="page-link" asp-action="Details" asp-route-pageNumber="@i" asp-route-categoryId="@(CategoryId)">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                        <a class="page-link" asp-action="Details" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-categoryId="@(CategoryId)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
                 <!-- END FILTERS -->
                 <!-- BEGIN RESULT -->
@@ -329,20 +265,7 @@ f
                             
                             <!--kjuuuggygy-->
                             <!-- BEGIN PAGINATION -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <!-- END PAGINATION -->
+                                          <!-- END PAGINATION -->
                         </div>
                         <!-- END RESULT -->
 

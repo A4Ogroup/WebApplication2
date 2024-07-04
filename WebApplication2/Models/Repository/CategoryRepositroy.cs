@@ -25,14 +25,24 @@ return _context.Categories;
         }
 
 
-        public bool CategoryExists(int  categoryId)
+        public bool CategoryExists(int categoryId)
         {
-            if (categoryId == 0)
-            {
-                throw new ArgumentNullException(nameof(categoryId));
-            }
+            //if (categoryId == 0)
+            //{
+            //    throw new ArgumentNullException(nameof(categoryId));
+            //}
 
             return _context.Categories.Any(c => c.CategoryId == categoryId);
         }
-    }
+
+            public  bool SubCategoryExists(int subCategoryId)
+            {
+                //if (subCategoryId == 0)
+                //{
+                //    throw new ArgumentNullException(nameof(subCategoryId));
+                //}
+
+                return  _context.SubCategories.Any(c => c.SubId == subCategoryId);
+            }
+        }
 }
