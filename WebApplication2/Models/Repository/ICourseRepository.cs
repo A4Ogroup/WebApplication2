@@ -12,6 +12,7 @@ namespace WebApplication2.Models.Repository
         public IQueryable<Course> FilterCourses(CourseFilterViewModel filters,IEnumerable<Course> resultCourses);
         public IEnumerable<Course> GetCoursesByCategory(int categoryId);
         public IEnumerable<Course> GetCourses(CourseResourceParameters? ResourceParameters);
+        IEnumerable<Course> GetAllWithLanguage();
         Course Add(Course course);
         Course Update(Course courseChanges);
         void Delete(int id);

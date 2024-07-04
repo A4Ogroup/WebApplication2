@@ -6,30 +6,33 @@ namespace WebApplication2.ViewModels
 {
     public class AddCourseViewModel
     {
-       // public int CourseId { get; set; }
+        // public int CourseId { get; set; }
+        [Required(ErrorMessage = "This fieled is required")]
         public string? Title { get; set; }
 
         
         public string? AddedByUserId { get; set; } //= Guid.NewGuid().ToString();
-        
+        [Required(ErrorMessage = "This fieled is required")]
         public string? CourseDescription { get; set; }
+        [Required(ErrorMessage = "This fieled is required")]
         public string? TopicsCovered { get; set; }
         [DisplayName("Course Category")]
         public byte? CategoryId { get; set; }
         [DisplayName("Course SubCategory")]
         public int? SubcategoryId { get; set; }
+        [Required(ErrorMessage = "This fieled is required")]
         public string? Platform { get; set; }
         public int? LanguageId { get; set; }
         
         public Level? Level { get; set; }
         public bool? PriceStatus { get; set; }
         public DateTime? LastUpdate { get; set; }
-        public DateTime? AddingDate { get; set; } = DateTime.Now;
+        public DateTime AddingDate { get; set; } = DateTime.Now;
         public IFormFile? Picture { get; set; }
 
         public double? AverageRating { get; set; } = 0.0;
         public bool? Claimed { get; set; }
-        public bool? Status { get; set; }
+        public bool Status { get; set; } = false;
         //public string InstructorId { get; set; }
         public string InstructorFullName { get; set; }
         [DisplayName("Average Video Length")]
@@ -37,6 +40,8 @@ namespace WebApplication2.ViewModels
         public VideoLengthCategory? VedioLength { get; set; }
         [DisplayName("Course Total Hours")]
         public int? CourseDuration { get; set; }
+        [RegularExpression(@"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$", ErrorMessage = "Please enter a valid URL.")]
+        [Required(ErrorMessage ="This fieled is required")]
         public string? Link { get; set; }
     }
 }

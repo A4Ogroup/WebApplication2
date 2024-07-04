@@ -205,6 +205,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                     <input asp-for="Title" class="form-control" id="course name" placeholder="course name">
+                                    <span class="text-danger" asp-validation-for="Title"></span>
                                 </fieldset>
                             </div>
 
@@ -298,6 +299,7 @@
                                 <fieldset>
 
                                     <input asp-for="Platform" type="text" class="form-control" id="providerInput" placeholder="Platform">
+                                    <span class="text-danger" asp-validation-for="Platform"></span>
 
 
                                 </fieldset>
@@ -326,6 +328,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                     <input asp-for="Link" type="url" class="form-control" id="link " placeholder="Course link ">
+                                    <span class="text-danger" asp-validation-for="Link"></span>
                                 </fieldset>
                             </div>
 
@@ -362,6 +365,7 @@
                                     <fieldset>
                                         <div class="form-group">
                                             <textarea asp-for="CourseDescription" class="form-control" rows="3" placeholder="Course Description..."></textarea>
+                                            <span class="text-danger" asp-validation-for="CourseDescription"></span>
                                         </div>
                                     </fieldset>
                                 </div>
@@ -373,6 +377,7 @@
                                 </div>
                                 <button type="button" onclick="addInput()" class="btn btn-default">+</button>
                                 <textarea asp-for="TopicsCovered" hidden></textarea>
+
 
 
 
@@ -551,6 +556,7 @@
 
 @section Scripts{
 
+    <partial name="_ValidationScriptsPartial"></partial>
     <script>
         $(document).ready(function () {
             console.log("Document is ready"); // Debugging

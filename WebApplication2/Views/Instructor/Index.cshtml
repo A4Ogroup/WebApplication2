@@ -275,7 +275,7 @@
                                 {
                                     course.Picture = "noimage.png";
 
-                                }<a href="#"><img src="~/images/courses/@course.Picture" alt=""></a>
+                                }<a asp-action="details" asp-controller="course" asp-route-id="@course.CourseId"><img src="~/images/courses/@course.Picture" alt=""></a>
                                 <h3>@course.Title</h3>
                                 <p>@course.InstructorFullName</p>
                                 <p>
@@ -347,7 +347,7 @@
                             <div class="course-card3">
 
                                 <strong>@review.Student</strong>
-                                <span class="text-muted small">@review.GetFormattedDate(review.RatingDate.Value)</span>
+                                <span class="text-muted small">@review.GetFormattedDate(review.RatingDate)</span>
                                 <ul style="color:red;">
 
 

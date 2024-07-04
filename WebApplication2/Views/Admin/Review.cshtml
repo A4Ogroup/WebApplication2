@@ -1,5 +1,5 @@
-﻿@using static WebApplication2.ViewModels.PagenationViewModel
-@model PaginatedList<Review>
+﻿@* @using static WebApplication2.ViewModels.PagenationViewModel *@
+@model PaginatedListNew<Review>
 
 @{
     Layout = "_Admin1Layout";
@@ -160,7 +160,7 @@
                                             </ul>
                                         </td>
                                         <td>@review.Course.Title</td>
-                                        <td>@review.GetFormattedDate(review.RatingDate.Value)</td>
+                                        <td>@review.GetFormattedDate(review.RatingDate)</td>
                                         <td>
                                             <a href="@Url.Action("EditableDetails", "review", new { id = review.ReviewId })" class="btn btn-light btn-action">View</a>
                                        @*      <div class="dropdown">

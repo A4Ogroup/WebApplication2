@@ -30,6 +30,10 @@ namespace WebApplication2.Models.Repository
         {
             return _context.Reports;
         }
+        public IEnumerable<Report> GetAllWithReview()
+        {
+            return _context.Reports.Include(r=>r.Review);
+        }
 
         public Report GetById(int id)
         {

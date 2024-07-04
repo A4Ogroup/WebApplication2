@@ -36,6 +36,11 @@ namespace WebApplication2.Models.Repository
 
             return _context.Courses.Where(C=>C.CategoryId==categoryId);
         }
+
+        public IEnumerable<Course> GetAllWithLanguage()
+        {
+            return _context.Courses.Include(c => c.Language);
+        }
         public Course Add(Course course)
         {
             if(course is  null)

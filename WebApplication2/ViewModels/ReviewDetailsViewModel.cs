@@ -6,8 +6,8 @@ namespace WebApplication2.ViewModels
         public int ReviewId { get; set; }
         public string Descritipn { get; set; }
         public bool? Status { get; set; }
-        public byte? Rate { get; set; }
-        public DateTime? RatingDate { get; set; } = DateTime.Now;
+        public byte Rate { get; set; }
+        public DateTime RatingDate { get; set; } = DateTime.Now;
         public int MaterialQuality { get; set; }
         public int SupportQuality { get; set; }
         public int EngagementLevel { get; set; }
