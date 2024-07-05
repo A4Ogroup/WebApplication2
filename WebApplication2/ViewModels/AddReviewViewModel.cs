@@ -1,19 +1,27 @@
-﻿using WebApplication2.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using WebApplication2.Models;
 
 namespace WebApplication2.ViewModels
 {
     public class AddReviewViewModel
     {
-       
+        [Required(ErrorMessage = "Description fieled is required")]
         public string Descritipn { get; set; }
         public bool? Status { get; set; }
+        [Required(ErrorMessage = "Rate fieled is required")]
         public byte Rate { get; set; }
         public DateTime RatingDate { get; set; } = DateTime.Now;
+        [Required(ErrorMessage = "Material Quality fieled is required")]
         public int MaterialQuality { get; set; }
+        [Required(ErrorMessage = "Support Quality fieled is required")]
         public int SupportQuality { get; set; }
+        [Required(ErrorMessage = "Engagement Level fieled is required")]
         public int EngagementLevel { get; set; }
+        [Required(ErrorMessage = "Technical Quality fieled is required")]
         public int TechnicalQuality { get; set; }
+        [Required(ErrorMessage = "Content Quality fieled is required")]
         public int ContentQuality { get; set; }
+        [Required(ErrorMessage = "Over All Satisfication fieled is required")]
         public int OverAllSatisfication { get; set; }
         public int CourseId { get; set; }
 

@@ -121,24 +121,27 @@
                 <form id="contact" method="post" asp-controller="review" asp-action="addreview" >
                     <input hidden  asp-for="CourseId" />
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class=" align-content-center" style="margin:15px;">
                                 <div class="rate">
-                                    <input type="radio" id="star5" asp-for="@Model.Rate" value="5" />
+                                    <input type="radio" id="star5" asp-for="Rate" value="5" />
                                     <label for="star5" title="5">5 stars</label>
-                                    <input type="radio" id="star4" asp-for="@Model.Rate" value="4" />
+                                    <input type="radio" id="star4" asp-for="Rate" value="4" />
                                     <label for="star4" title="4">4 stars</label>
-                                    <input type="radio" id="star3" asp-for="@Model.Rate" value="3" />
+                                    <input type="radio" id="star3" asp-for="Rate" value="3" />
                                     <label for="star3" title="3">3 stars</label>
-                                    <input type="radio" id="star2" asp-for="@Model.Rate" value="2" />
+                                    <input type="radio" id="star2" asp-for="Rate" value="2" />
                                     <label for="star2" title="2">2 stars</label>
-                                    <input type="radio" id="star1" asp-for="@Model.Rate" value="1" />
+                                    <input type="radio" id="star1" asp-for="Rate" value="1" />
                                     <label for="star1" title="1">1 star</label>
+                                    
 
                                 </div>
+                                <span class="text-danger" asp-validation-for="Rate"></span>
                             </div>
                             <fieldset>
-                                <textarea asp-for="@Model.Descritipn" rows="6" class="form-control" placeholder="Your Review" required></textarea>
+                                <textarea asp-for="Descritipn" rows="6" class="form-control" placeholder="Your Review"></textarea>
+                                <span class="text-danger" asp-validation-for="Descritipn"></span>
                             </fieldset>
 
                         </div>
@@ -164,10 +167,12 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2">
-                                                <input type="radio" asp-for="@Model.MaterialQuality" value="@i" />
+                                                <input type="radio" asp-for="MaterialQuality" value="@i" />
                                                 @i
                                             </label>
+                                            
                                         }
+                                        <span class="text-danger" asp-validation-for="MaterialQuality"></span>
                                     </div>
                                 </div>
                             </div>
@@ -181,10 +186,12 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2 ">
-                                                <input type="radio" asp-for="@Model.EngagementLevel" value="@i" />
+                                                <input type="radio" asp-for="EngagementLevel" value="@i" />
                                                 @i
                                             </label>
+                                            
                                         }
+                                        <span class="text-danger" asp-validation-for="EngagementLevel"></span>
                                     </div>
                                 </div>
                             </div>
@@ -196,10 +203,12 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2">
-                                                <input type="radio" asp-for="@Model.ContentQuality" value="@i" />
+                                                <input type="radio" asp-for="ContentQuality" value="@i" />
                                                 @i
                                             </label>
+                                            
                                         }
+                                        <span class="text-danger" asp-validation-for="ContentQuality"></span>
                                     </div>
                                 </div>
                             </div>
@@ -211,10 +220,12 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2">
-                                                <input type="radio" asp-for="@Model.SupportQuality" value="@i" />
+                                                <input type="radio" asp-for="SupportQuality" value="@i" />
                                                 @i
                                             </label>
+                                            
                                         }
+                                        <span class="text-danger" asp-validation-for="SupportQuality"></span>
                                     </div>
                                 </div>
                             </div>
@@ -226,10 +237,12 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2">
-                                                <input type="radio" asp-for="@Model.TechnicalQuality" value="@i" />
+                                                <input type="radio" asp-for="TechnicalQuality" value="@i" />
                                                 @i
                                             </label>
+                                            
                                         }
+                                        <span class="text-danger" asp-validation-for="TechnicalQuality"></span>
                                     </div>
                                 </div>
                             </div>
@@ -244,10 +257,12 @@
                                         @for (int i = 1; i <= 10; i++)
                                         {
                                             <label class="me-2">
-                                                <input type="radio" asp-for="@Model.OverAllSatisfication" value="@i" />
+                                                <input type="radio" asp-for="OverAllSatisfication" value="@i" />
                                                 @i
                                             </label>
+                                            
                                         }
+                                        <span class="text-danger" asp-validation-for="OverAllSatisfication"></span>
                                     </div>
                                 </div>
                             </div>
@@ -260,7 +275,7 @@
 
                             <div class="col-lg-12">
                                 <fieldset>
-                                    <button type="submit" id="form-submit" class="filled-button">Send </button>
+                                    <button type="submit" id="contact" class="filled-button">Send </button>
                                 </fieldset>
                             </div>
                         </div>
@@ -276,67 +291,12 @@
     </div>
 </div>
 
-@*             <footer class="footer_area section_gap_top">
-                <div class="container-fluid">
-                    <div class="row single-footer-widget">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="copy_right_text">
-                                <p>
 
-                                    All Copyrights &copy reserved
-
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="left-content">
-                                <ul class="social-icons">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    </footer>
-
-
-
-
-
-
-
-
-    <!-- END SEARCH RESULT -->
-    <!-- Bootstrap core JavaScript -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
-
-    <!-- Additional Scripts -->
-    <script src="~/js/site.js"></script>
-    <script src="~/js/site1.js"></script>
-    <script src="~/js/site2.js"></script>
-    <script src="~/js/site3.js"></script>
-    <script src="~/js/site4.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> *@
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
 <script>
     $('.btn').click(function () {
         $('.collapse-content').toggle();
     });
 </script>
-
-@* <script>
-    function selectNumber(number) {
-        document.getElementById('selectedNumber').value = number;
-    }
-</script>
-</body>
-
-</html> *@
+}

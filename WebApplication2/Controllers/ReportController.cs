@@ -29,24 +29,28 @@ namespace WebApplication2.Controllers
             var model = new AddReportViewModel { ReviewId = id };
             return View(model);
         }
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult AddReport(AddReportViewModel report)
         {
-            var _report= _context.Reviews.FirstOrDefault(r => r.ReviewId==report.ReviewId);
-            if (_report==null)
+            //var _report= _context.Reviews.FirstOrDefault(r => r.ReviewId==report.ReviewId);
+            //if (_report==null)
+            //{
+            //    return RedirectToAction("index","home");
+            //}
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("index","home");
-            }
 
-            Report _report1 = new()
-            {
-               
-                Message = report.Message,
-                ReviewId = report.ReviewId,
-            };
-            _reportRepository.Add(_report1);
-            _reportRepository.Save();
-            TempData["Success"] = "Report added successfully!";
+                Report _report1 = new()
+                {
+
+                    Message = report.Message,
+                    ReviewId = report.ReviewId,
+                };
+                _reportRepository.Add(_report1);
+                _reportRepository.Save();
+                TempData["Success"] = "Report added successfully!";
+            }
             return RedirectToAction("index","student");
         }
         [HttpGet]
