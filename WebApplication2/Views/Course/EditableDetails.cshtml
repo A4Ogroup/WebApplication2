@@ -182,8 +182,46 @@
                                 }
                                 (3, 666)
                             </p>
-            
 
+                            <form asp-action="ToggleStatus" method="post">
+                         @*        <input type="hidden" name="id" value="@Model.Course.CourseId" />
+                                @if (@Model.Course.Status.Value)
+                                {
+                                    <h6> Accepted </h6>
+                                }
+                                else
+                                {
+                                    <input class="btn btn-light" type="submit" value="Pending" />
+
+
+                                } *@
+                                @if (@Model.Course.Status)
+                                {
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black">
+                                        Accepted
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                        
+                                        <a class="dropdown-item" asp-action="ToggleStatus" asp-controller="admin" asp-route-id="@Model.Course.CourseId">Pending</a>
+
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black">
+                                        Pending
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                        <a class="dropdown-item" asp-action="ToggleStatus" asp-controller="admin" asp-route-id="@Model.Course.CourseId">Accepted</a>
+                                    
+
+                                    </ul>
+                                 
+                                }
+
+                            </form>
 
                         </div>
 

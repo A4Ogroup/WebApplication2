@@ -7,6 +7,7 @@ namespace WebApplication2.Models.Repository
      
         Report GetById(int id);
         IEnumerable<Report> GetAll();
+        IEnumerable<Report> GetAllWithReview();
         Report Add(Report report);
         Report Update(Report report);
         void Delete(int id);

@@ -30,11 +30,11 @@ namespace WebApplication2.Models
         public Level? Level { get; set; }
         public  bool? PriceStatus { get; set; }
         public DateTime? LastUpdate { get; set; }
-        public DateTime? AddingDate { get; set; }= DateTime.Now;
+        public DateTime AddingDate { get; set; }= DateTime.Now;
         public string? Picture { get; set; }
         public double? AverageRating { get; set; } = 0.0;
         public bool? Claimed { get; set; }
-        public bool? Status { get; set; }
+        public bool Status { get; set; }
         public string? InstructorId { get; set; }
         public string? InstructorFullName { get; set; }
        // [Required]

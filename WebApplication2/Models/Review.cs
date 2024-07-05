@@ -15,8 +15,8 @@ namespace WebApplication2.Models
         public int ReviewId { get; set; }
         public string Descritipn { get; set; }
         public bool? Status { get; set; }
-        public byte? Rate { get; set; }
-        public DateTime? RatingDate { get; set; } = DateTime.Now;
+        public byte Rate { get; set; }
+        public DateTime RatingDate { get; set; } = DateTime.Now;
         public int CourseId { get; set; }
         public string StudentId { get; set; }
         public int MaterialQuality { get; set; }

@@ -30,13 +30,13 @@ namespace WebApplication2.Controllers
         {
             int pageSize = 12;
             var reviews = _context.Reviews.Include(r => r.Course);
-            return View(await PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedListNew<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         public async Task<IActionResult> Course(int? pageNumber)
         {
             int pageSize = 12;
             var course = _context.Courses.Include(r => r.Language);
-            return View(await PaginatedList<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedListNew<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         public IActionResult New(CourseFilterViewModel filter)
         {

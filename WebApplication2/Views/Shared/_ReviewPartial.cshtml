@@ -1,5 +1,5 @@
-﻿@using static WebApplication2.ViewModels.PagenationViewModel
-@model PaginatedList<Review>
+﻿@* @using static WebApplication2.ViewModels.PagenationViewModel *@
+@model PaginatedListNew<Review>
 
     <style>
     .description {
@@ -31,7 +31,7 @@
                                         <div class="d-flex">
                                             <div class="user-info">
                                                 <strong>@items.Student</strong>
-                                                <span class="text-muted small">@items.GetFormattedDate(items.RatingDate.Value) </span>
+                                                <span class="text-muted small">@items.GetFormattedDate(items.RatingDate) </span>
                                                 <ul class="stars">
                                                     @switch (items.Rate)
                                                     {

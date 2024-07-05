@@ -85,6 +85,7 @@ namespace WebApplication2.Controllers
                     Link = model.Link,
                     VedioLength = model.VedioLength,
                     Picture = uniqeFileName,
+                    Status = model.Status,
                 };
                 _courseRepository.Add(newCourse);
                 _courseRepository.Save();
@@ -142,7 +143,7 @@ namespace WebApplication2.Controllers
         // GET: CourseController/Details/5
         public async Task<IActionResult> Details(int id, int? pageNumber)
         {
-            var course = _context.Courses.Include(c => c.Language)
+            var course = _courseRepository.GetAllWithLanguage()
                 .FirstOrDefault(c => c.CourseId == id);
             int pageSize = 2;
             var reviews = _context.Reviews.Where(r => r.CourseId == id);
@@ -151,7 +152,7 @@ namespace WebApplication2.Controllers
             {
                 Course = course,
                 PaginatedReviews = 
-          await   PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize)
+          await PaginatedListNew<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize)
 
         };
 
@@ -364,7 +365,7 @@ namespace WebApplication2.Controllers
         //[HttpGet]
         public IActionResult EditableDetails(int id)
         {
-            var _course = _context.Courses.Include(c => c.Language).FirstOrDefault(c => c.CourseId == id);
+            var _course = _courseRepository.GetAllWithLanguage().FirstOrDefault(c => c.CourseId == id);
             var course = new CourseDetailsViewModel
             {
                 Course = _course

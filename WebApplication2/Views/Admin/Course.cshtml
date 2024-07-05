@@ -1,10 +1,10 @@
-﻿@using static WebApplication2.ViewModels.PagenationViewModel
-@model PaginatedList<Course>
+﻿@* @using static WebApplication2.ViewModels.PagenationViewModel *@
+@model PaginatedListNew<Course>
 
 @{
     Layout = "_Admin1Layout";
 }
-
+<partial name="_NotificationPartial"></partial>
 <style>
     /* Custom styles for dashboard cards */
     .card {
@@ -176,7 +176,7 @@
                                                 <span class="badge bg-success">Free</span>
                                             }
                                         </td>
-                                        <td data-label="Status">@course.Claimed</td>
+                                        <td data-label="Status">@(course.Status ? "Accepted" : "Pending")</td>
                                         <td data-label="Addition Date">@course.AddingDate</td>
                                         <td data-label="Actions">
                                             <a href="@Url.Action("EditableDetails", "Course", new { id = course.CourseId })" class="btn btn-light btn-action">View</a>
