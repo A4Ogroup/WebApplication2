@@ -35,6 +35,19 @@
    @* <link href="~/css/StyleSheet.css" rel="stylesheet"> *@
 
      <style>
+
+        .footer_area section_gap_top {
+            background-attachment: fixed;
+            background-color: #000 !important;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            white-space: nowrap;
+            line-height: 60px;
+        }
         /* .dropdown {
              display:none; */
 
@@ -213,15 +226,20 @@
 
 
 
-    <footer class="footer_area section_gap_top">
-        <div class="container">
+    <footer class="footer_area section_gap_top" style=" background-attachment: fixed;
+position:relative;           
+background-color: #000 !important; 
+margin-top:100px;
+    bottom: 0;
+    width: 100%;
+height:270px;
+    white-space: nowrap;
+    line-height: 60px;">
+        <div class="container" style="padding-top:30px; position:absolute;">
             <div class="row single-footer-widget">
                 <div class="col-lg-6 col-md-6 col-sm-12">
-                    <div class="copy_right_text">
-                        <p>
-                            All Copyrights &copy reserved
-                        </p>
-                    </div>
+                    <h2 style="font-weight: bold;color: #fff; word-break:break-word;">READY FOR YOUR <span style="color: red;">NEXT</span> LESSON?</h2>
+                    
                 </div>
                 <div class="col-md-4">
                     <div class="left-content">
@@ -232,6 +250,11 @@
                             <li><a href="#"><i class="fa fa-behance"></i></a></li>
                         </ul>
                     </div>
+                </div>
+                <div class=" copy_right_text" style="text-align:center; margin:auto;">
+                    <p style="color: #fff;">
+                        All Copyrights &copy reserved
+                    </p>
                 </div>
             </div>
         </div>
