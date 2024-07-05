@@ -27,7 +27,7 @@ namespace WebApplication2.Controllers
             _context = context;
             _courseRepository = Course;
             _environment = environment;
-             _courses = _courseRepository?.GetAll() as IQueryable<Course>;
+             //_courses = _courseRepository?.GetAll() as IQueryable<Course>;
 
 
         }
@@ -242,7 +242,7 @@ namespace WebApplication2.Controllers
             //if(modelstate.isvalid)
             
 
-                Course course = _courseRepository.GetById(model.CourseId);
+            Course course = _courseRepository.GetById(model.CourseId);
 
 
             course.CourseId = model.CourseId;
@@ -285,7 +285,7 @@ namespace WebApplication2.Controllers
         {
             ViewBag.languages = _context.Languages.ToList();
             //////paging
-           var _courses =_courseRepository.GetCourses(parameters);
+             _courses =_courseRepository.GetCourses(parameters) as IQueryable<Course>;
             if (pg < 1)
                 pg = 1;
             int recordCount = _courses?.Count() ??0;
@@ -298,7 +298,7 @@ namespace WebApplication2.Controllers
                 //Courses = _courseRepository.GetAll().ToList(),
                 Ratings = new List<double>(),
                 CategoryIds = new List<byte>(),
-                LanguageIds = new List<int>(),
+                 LanguageIds = new List<int>(),
                 Levels = new List<Level>(),
                 VideoLengths = new List<VideoLengthCategory>(),
                 IsFree = new List<bool>()
