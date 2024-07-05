@@ -37,36 +37,39 @@ namespace WebApplication2.Controllers
 
             //return View("addreview", new {Id});
         }
-
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult AddReview(AddReviewViewModel model)
         {
-            var course = _courseRepository.GetById(model.CourseId);
-            if(course  == null){
+            //var course = _courseRepository.GetById(model.CourseId);
+            //if(course  == null){
               
-                return View("index");
-            }
-           
-            Review _review = new()
+            //    return View("index");
+            //}
+
+            if (ModelState.IsValid)
             {
-                Descritipn = model.Descritipn,
-                Rate = model.Rate,
-                MaterialQuality = model.MaterialQuality,
-                SupportQuality = model.SupportQuality,
-                TechnicalQuality = model.TechnicalQuality,
-                ContentQuality = model.ContentQuality,
-                EngagementLevel = model.EngagementLevel,
-                OverAllSatisfication = model.OverAllSatisfication,
-                CourseId= model.CourseId,
+                Review _review = new()
+                {
+                    Descritipn = model.Descritipn,
+                    Rate = model.Rate,
+                    MaterialQuality = model.MaterialQuality,
+                    SupportQuality = model.SupportQuality,
+                    TechnicalQuality = model.TechnicalQuality,
+                    ContentQuality = model.ContentQuality,
+                    EngagementLevel = model.EngagementLevel,
+                    OverAllSatisfication = model.OverAllSatisfication,
+                    CourseId = model.CourseId,
 
-            };
-           //course.Reviews.Add(_review);
-          var review= _reviewRepository.Add(_review);
-            _reviewRepository.Save();
-            TempData["Success"] = "Review added successfully!";
+                };
+              
+                 _reviewRepository.Add(_review);
+                _reviewRepository.Save();
+                TempData["Success"] = "Review added successfully!";
 
-           // return RedirectToAction("Details", new { id = review.ReviewId });
-           return RedirectToAction("Index","student");
+            }
+            // return RedirectToAction("Details", new { id = review.ReviewId });
+            return RedirectToAction("Index","student");
 
         }
 

@@ -90,8 +90,10 @@ namespace WebApplication2.Controllers
                 _courseRepository.Add(newCourse);
                 _courseRepository.Save();
                 TempData["Success"] = "Course added successfully!";
+                return RedirectToAction("index", "instructor");
             }
-            return RedirectToAction("index","instructor");
+         
+            return RedirectToAction("addcourse","instructor");
         }
 
         //private string ProcessUploadFile(AddCourseViewModel model)
@@ -209,21 +211,21 @@ namespace WebApplication2.Controllers
                 {
                     CourseId = course.CourseId,
                     Title = course.Title,
-                    CategoryId = course.CategoryId,
+                    CategoryId = course.CategoryId.Value,
                     AddingDate = course.AddingDate,
                     AverageRating = course.AverageRating,
-                    LastUpdate = course.LastUpdate,
+                    LastUpdate = course.LastUpdate.Value,
                     InstructorFullName = course.InstructorFullName,
-                    CourseDuration = course.CourseDuration,
+                    CourseDuration = course.CourseDuration.Value,
                     CourseDescription = course.CourseDescription,
-                    LanguageId = course.LanguageId,
-                    Level = course.Level,
+                    LanguageId = course.LanguageId.Value,
+                    Level = course.Level.Value,
                     Platform=course.Platform,
-                    PriceStatus = course.PriceStatus,
+                    PriceStatus = course.PriceStatus.Value,
                     SubcategoryId = course.SubcategoryId,
                     TopicsCovered = course.TopicsCovered,
                     Link = course.Link,
-                    VedioLength = course.VedioLength,
+                    VedioLength = course.VedioLength.Value,
                     ExistingPhotoPath = course.Picture,
                 };
                 return View(editCourseViewModel);

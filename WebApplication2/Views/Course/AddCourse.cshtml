@@ -190,7 +190,9 @@
 
 <div class="send-message">
     <div class="container">
+       
         <form enctype="multipart/form-data" asp-controller="Course" id="addCourseDynamicForm" asp-action="Addcourse" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div> 
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
@@ -204,8 +206,9 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
+                                   
                                     <input asp-for="Title" class="form-control" id="course name" placeholder="course name">
-                                    <span class="text-danger" asp-validation-for="Title"></span>
+                                    <span asp-validation-for="Title" class="text-danger"></span>
                                 </fieldset>
                             </div>
 
@@ -235,9 +238,11 @@
                             <!-- Category dropdown region -->
                             <fieldset>
                                 <div class="form-group mb-4">
+                                    
                                     <select id="categoriesDropdown" asp-for="CategoryId" asp-items="CategoriesList" onchange="updateSubcategories(this.value)" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
-                                        <option value="-1">Select a Category &#9660;</option>
+                                        <option value="">Select a Category &#9660;</option>
                                     </select>
+                                    <span class="text-danger" asp-validation-for="CategoryId"></span>
                                 </div>
                             </fieldset>
 
@@ -264,9 +269,11 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                     <div class="form-group mb-4">
+                                        <span class="text-danger" asp-validation-for="LanguageId"></span>
                                         <select id="languageDropdown" asp-for="LanguageId" asp-items="LanguageList" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
-                                            <option value="-1">Select Course Language &#9660;</option>
+                                            <option value="">Select Course Language &#9660;</option>
                                         </select>
+
                                     </div>
                                 </fieldset>
                             </div>
@@ -279,7 +286,7 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-
+                                    <span class="text-danger" asp-validation-for="LastUpdate"></span>
                                     <input asp-for="LastUpdate" type="date" class="form-control" id="lastupdate" placeholder="Course last update">
 
                                 </fieldset>
@@ -297,9 +304,9 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
 
                                 <fieldset>
-
-                                    <input asp-for="Platform" type="text" class="form-control" id="providerInput" placeholder="Platform">
                                     <span class="text-danger" asp-validation-for="Platform"></span>
+                                    <input asp-for="Platform" type="text" class="form-control" id="providerInput" placeholder="Platform">
+                                    
 
 
                                 </fieldset>
@@ -327,8 +334,9 @@
                             <!-- Coourse link    region -->
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input asp-for="Link" type="url" class="form-control" id="link " placeholder="Course link ">
                                     <span class="text-danger" asp-validation-for="Link"></span>
+                                    <input asp-for="Link" type="url" class="form-control" id="link " placeholder="Course link ">
+                                    
                                 </fieldset>
                             </div>
 
@@ -338,6 +346,7 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
+                                    <span class="text-danger" asp-validation-for="InstructorFullName"></span>
                                     <input type="text" asp-for="InstructorFullName" class="form-control" id="instructorname" placeholder="Instructor Full Name">
                                 </fieldset>
                             </div>
@@ -364,14 +373,16 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
                                         <div class="form-group">
-                                            <textarea asp-for="CourseDescription" class="form-control" rows="3" placeholder="Course Description..."></textarea>
                                             <span class="text-danger" asp-validation-for="CourseDescription"></span>
+                                            <textarea asp-for="CourseDescription" class="form-control" rows="3" placeholder="Course Description..."></textarea>
+                                            
                                         </div>
                                     </fieldset>
                                 </div>
 
                                 <div id="inputContainer" class="col-lg-12 col-md-12 col-sm-12">
                                     <!-- Render initial input field via partial view -->
+                                    <span class="text-danger" asp-validation-for="TopicsCovered"></span>
                                     @Html.Partial("_topicsInputPartialView")
 
                                 </div>
@@ -411,8 +422,9 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                     <div class="form-group mb-4">
+                                        <span class="text-danger" asp-validation-for="Level"></span>
                                         <select id="leveldropdown" asp-for="Level" asp-items="Html.GetEnumSelectList<Level>()" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
-                                            <option value="-1"> Level &#9660;</option>
+                                            <option value=""> Level &#9660;</option>
                                         </select>
                                     </div>
                                 </fieldset>
@@ -428,6 +440,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                     <div class="form-group mb-4">
+                                        <span class="text-danger" asp-validation-for="PriceStatus"></span>
                                         <select id="pricestatusdropdown" asp-for="PriceStatus" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
                                             <option value=""> Price Status &#9660;</option>
                                             <option value="false"> Paid</option>
@@ -442,6 +455,7 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
+                                    <span class="text-danger" asp-validation-for="CourseDuration"></span>
                                     <input asp-for="CourseDuration" type="number" class="form-control" id="courseduration " placeholder="Course Total Hours">
                                 </fieldset>
                             </div>
@@ -461,8 +475,9 @@
                                     @*                                         <label asp-for="VedioLength"></label>
                                     *@
                                     <div class="form-group mb-4">
+                                        <span class="text-danger" asp-validation-for="VedioLength"></span>
                                         <select id="videolengthaverage" asp-for="VedioLength" asp-items="Html.GetEnumSelectList<VideoLengthCategory>()" style="border: 1px solid #e9ecef; border-radius: 0.25rem;" class="form-select mr-sm-2">
-                                            <option value="0"> Average Videio Length &#9660;</option>
+                                            <option value=""> Average Videio Length &#9660;</option>
                                         </select>
                                     </div>
                                 </fieldset>
@@ -476,20 +491,24 @@
                                     <input asp-for="Picture" class="form-control" id="course picture" placeholder="Course Poster Image">
                                 </fieldset>
                             </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <button type="submit" id="contact" class="filled-button">Submit </button>
+                                </fieldset>
 
+                            </div>
                         </div>
-                        <div class="col-lg-12">
-                            <fieldset>
-                                <button type="submit" id="contact" class="filled-button">Submit </button>
-                            </fieldset>
-
-                        </div>
+                 
+            </div>
+            </div>
+        </div>
+       
         </form>
 
     </div>
     @* </form> *@
 </div>
-            </div>
+           
 @*     <footer class="footer_area section_gap_top">
         <div class="container">
             <div class="row single-footer-widget">
@@ -515,10 +534,6 @@
             </div>
         </div>
     </footer> *@
-
-        </div>
-
-    </div>
 
 
 
@@ -556,7 +571,11 @@
 
 @section Scripts{
 
-    <partial name="_ValidationScriptsPartial"></partial>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+    
     <script>
         $(document).ready(function () {
             console.log("Document is ready"); // Debugging
@@ -596,7 +615,7 @@
                         } else {
                             // Optionally, handle when there are no subcategories
                             $('<li>')
-                                .append('<a class="dropdown-item" href="#">No subcategories available</a>')
+                                .append('<a class="dropdown-item" href="">No subcategories available</a>')
                                 .appendTo('#subcategoriesList');
                         }
                     },

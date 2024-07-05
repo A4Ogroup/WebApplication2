@@ -22,21 +22,6 @@
 </div>
 
 
-@* <div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            <h4>Report</h4>
-        </div>
-        <div class="col-md-8">
-            <form method="post" asp-controller="report" asp-action="addreport">
-                <input hidden asp-for="@Model.ReviewId" />
-                <textarea type="text" asp-for="@Model.Message"></textarea>
-            </form>
-        </div>
-    </div>
-
-
-</div> *@
  <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -57,6 +42,7 @@
 
 
                                 <textarea class="form-control" placeholder="Your Report"  asp-for="@Model.Message"></textarea>
+                                <span class="text-danger" asp-validation-for="Message"></span>
 
                                 
                             </div>
@@ -74,3 +60,7 @@
                   </div>
    </div>
 </div> 
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+    }
