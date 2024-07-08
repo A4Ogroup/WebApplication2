@@ -13,6 +13,8 @@ namespace WebApplication2.Models.Repository
         public IEnumerable<Course> GetCoursesByCategory(int categoryId);
         public IEnumerable<Course> GetCourses(CourseResourceParameters? ResourceParameters);
         IEnumerable<Course> GetAllWithLanguage();
+        IEnumerable<Course> GetTopCourses();
+        IEnumerable<Course> GetLatestCourses();
         Course Add(Course course);
         Course Update(Course courseChanges);
         void Delete(int id);

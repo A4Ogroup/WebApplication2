@@ -1,11 +1,13 @@
-﻿@inject LconsultDBContext _context
+﻿@model IndexViewModel
+
+@* @inject LconsultDBContext _context
 @{
     var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
      .Take(10).ToList();
 
     var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
             .Take(10).ToList();
-}
+} *@
 @{
     Layout = "_Layout";
 }
@@ -264,7 +266,7 @@
                     <div class="carousell-container">
                     <button class="arrow prev">&#10094;</button>
                     <div class="carousell">
-                        @foreach (var course in courses)
+                        @foreach (var course in Model.Course)
                         {
                             <div class="course-card">
                                 @if (@course.Picture is null)
@@ -339,7 +341,7 @@
                 <div class="carousell-container3">
                     <button class="arrow3 prev3">&#10094;</button>
                     <div class="carousell3">
-                        @foreach (var review in reviews)
+                        @foreach (var review in Model.Review)
                         {
                             <div class="course-card3">
 

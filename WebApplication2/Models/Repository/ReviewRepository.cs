@@ -51,5 +51,10 @@ namespace WebApplication2.Models.Repository
         {
             return _context.Reviews.Include(r => r.Course);
         }
+
+        IEnumerable<Review> IReviewRepository.GetTopReviews()
+        {
+            return _context.Reviews.OrderByDescending(c => c.Rate).Where(c => c.Status == true).Take(10).ToList();
+        }
     }
 }

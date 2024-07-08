@@ -12,12 +12,14 @@ namespace WebApplication2.Controllers
     {
        private readonly LconsultDBContext _context;
        private readonly ICourseRepository _courseRepository;
+       private readonly IReviewRepository _reviewRepository;
         private readonly IWebHostEnvironment _environment;
-        public Instructor(LconsultDBContext context,ICourseRepository Course, IWebHostEnvironment environment  )
+        public Instructor(LconsultDBContext context,ICourseRepository Course, IWebHostEnvironment environment,IReviewRepository reviewRepository  )
         {
             _context = context;
             _courseRepository = Course;
             _environment = environment;
+            _reviewRepository = reviewRepository;
         }
 
         public async Task<IActionResult> GetSubcategories(int categoryId)
@@ -49,12 +51,15 @@ namespace WebApplication2.Controllers
 
         public IActionResult Index()
         {
-            var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-            .Take(10).ToList();
+            var _topCourses = _courseRepository.GetTopCourses();
+            var _topReviews = _reviewRepository.GetTopReviews();
 
-            var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
-                    .Take(10).ToList();
-            return View();
+            IndexViewModel top = new IndexViewModel
+            {
+                Course = _topCourses,
+                Review = _topReviews
+            };
+            return View(top);
         }
         public IActionResult MyCourses()
         {

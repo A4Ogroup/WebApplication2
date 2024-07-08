@@ -168,7 +168,14 @@ namespace WebApplication2.Models.Repository
             }
         }
 
+        IEnumerable<Course> ICourseRepository.GetTopCourses()
+        {
+            return _context.Courses.OrderByDescending(c => c.AverageRating).Where(c => c.Status == true).Take(10).ToList();
+        }
 
-        
+        IEnumerable<Course> ICourseRepository.GetLatestCourses()
+        {
+           return _context.Courses.OrderByDescending(c => c.AddingDate).Where(c => c.Status == true).Take(10).ToList();
+        }
     }
 }

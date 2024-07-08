@@ -1,13 +1,12 @@
-﻿@inject LconsultDBContext _context
-@{
-    var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-     .Take(10).ToList();
+﻿
+@model IndexViewModel
 
-    var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
-            .Take(10).ToList();
-    var latestCourses = _context.Courses.OrderByDescending(c => c.AddingDate)
+
+ @inject LconsultDBContext _context
+@{
+    var latestCourses = _context.Courses.OrderByDescending(c => c.AddingDate).Where(c => c.Status==true)
     .Take(10).ToList();
-}
+} 
 
 
 <partial name="_NotificationPartial"></partial>
@@ -379,7 +378,7 @@
                    <div class="carousel-container">
                     <button class="arrow prev">&#10094;</button>
                     <div class="carousel">
-                        @foreach (var course in courses)
+                        @foreach (var course in Model.Course)
                         {
                             <div class="course-card">
                                 @if (@course.Picture is null)
@@ -533,7 +532,7 @@
                 <div class="carousel-container3">
                     <button class="arrow3 prev3">&#10094;</button>
                     <div class="carousel3">
-                        @foreach (var review in reviews)
+                        @foreach (var review in Model.Review)
                         {
                             <div class="course-card3">
 

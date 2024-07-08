@@ -4,7 +4,8 @@ namespace WebApplication2.ViewModels
 {
     public class IndexViewModel
     {
-        public Course Course { get; set; }
-        public Review Review { get; set; }
+        public IEnumerable <Course> Course { get; set; }
+        public IEnumerable<Review> Review { get; set; }
+        public IEnumerable<Course> latestCourses { get; set; }
     }
 }

@@ -3,32 +3,37 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using WebApplication2.Models.Repository;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICourseRepository _courseRepository;
+        private readonly IReviewRepository _reviewRepository;
         private readonly LconsultDBContext _context;
 
-        public HomeController(ILogger<HomeController> logger,LconsultDBContext context)
+        public HomeController(ILogger<HomeController> logger,LconsultDBContext context,ICourseRepository courseRepository,IReviewRepository reviewRepository)
         {
             _context = context;
             _logger = logger;
+            _courseRepository = courseRepository;
+            _reviewRepository = reviewRepository;
         }
 
         public IActionResult Index()
         {
-            var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-                .Take(10).ToList();
-         
-            //var categoryList = _context.Categories.Select(C => new
-            //{
-            //    C.CategoryId,
-            //    C.CategoryName
-            //}).ToList();
-            //ViewBag.Categories = categoryList;
-            return View();
+            var _topCourses = _courseRepository.GetTopCourses();
+            var _topReviews = _reviewRepository.GetTopReviews();
+
+            IndexViewModel top = new IndexViewModel
+            {
+                Course = _topCourses,
+                Review = _topReviews
+            };
+            return View(top);
         }
 
         public IActionResult Privacy()
