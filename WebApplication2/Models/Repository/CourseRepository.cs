@@ -97,7 +97,33 @@ namespace WebApplication2.Models.Repository
                 || a.CourseDescription.Contains(ResourceParameters.SearchQuery)|| a.TopicsCovered.Contains(ResourceParameters.SearchQuery));
 
             }
-            return collection;
+            return collection.AsEnumerable();
+
+
+        }public  IEnumerable<Course> GetCourses(string? searchParam, int categoryId)
+        {
+            if (searchParam == null)
+            {
+                return GetAll();
+            }
+            var collection = _context.Courses as IQueryable<Course>;
+            if (categoryId !=null && categoryId!=0 )
+            {
+
+                //ResourceParameters.Category = ResourceParameters.Category.Trim();
+                collection = collection.Where(a => a.CategoryId ==categoryId);
+
+            }
+            if (!string.IsNullOrWhiteSpace(searchParam))
+            {
+
+                searchParam =  searchParam.Trim();
+                collection = collection.Where(a => a.Title.Contains(searchParam)
+                || a.InstructorFullName.Contains(searchParam)
+                || a.CourseDescription.Contains(searchParam)|| a.TopicsCovered.Contains(searchParam));
+
+            }
+            return collection.AsEnumerable();
 
 
         }

@@ -920,7 +920,8 @@ footer {
     max-height: 180px;
     border: 1px solid #eee;
     border-radius: 0px;
-    margin-bottom: 30px;
+    margin-bottom: 0 !important;
+    margin-top: 30px !important;
 }
 
     .contact-form textarea:focus {

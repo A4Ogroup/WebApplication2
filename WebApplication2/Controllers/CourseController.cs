@@ -10,6 +10,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static WebApplication2.ViewModels.PagenationViewModel;
 using WebApplication2.Helpers;
 using WebApplication2.ResourceParameters;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace WebApplication2.Controllers
 {
@@ -19,13 +21,15 @@ namespace WebApplication2.Controllers
         private readonly LconsultDBContext _context;
         private readonly IWebHostEnvironment _environment;
         private readonly ICourseRepository _courseRepository;
+        private readonly ISearchResultService _searchResultService;
         const int pageSize = 6;
         private IQueryable<Course> _courses;
 
-        public CourseController( LconsultDBContext context, IWebHostEnvironment environment,ICourseRepository Course)
+        public CourseController( LconsultDBContext context, IWebHostEnvironment environment,ICourseRepository Course, ISearchResultService searchResultService)
         {
             _context = context;
             _courseRepository = Course;
+            _searchResultService = searchResultService;
             _environment = environment;
              //_courses = _courseRepository?.GetAll() as IQueryable<Course>;
 
@@ -285,84 +289,83 @@ namespace WebApplication2.Controllers
         {
             ViewBag.languages = _context.Languages.ToList();
             //////paging
-             _courses =_courseRepository.GetCourses(parameters) as IQueryable<Course>;
+            _courses = _courseRepository.GetCourses(parameters).AsQueryable();
             if (pg < 1)
                 pg = 1;
-            int recordCount = _courses?.Count() ??0;
+            int recordCount = _courses?.Count() ?? 0;
             var pager = new Pager(recordCount, pg, pageSize);
             // int recordSkip = (pg - 1) * pageSize;
+            //var resultedCourses = _courses.Select(course=> new CourseSearchResultViewModel{
+            //CourseId = course.CourseId,
+            //    Title = course.Title,
+            //    CourseDescription = course.CourseDescription,
+            //Claimed= course.Claimed,
+            //InstructorFullName = course.InstructorFullName,
+            //InstructorId = course.InstructorId,
+            //Picture = course.Picture,
+            //TopicsCovered= course.TopicsCovered,
+            //AverageRating= course.AverageRating,
+            //CourseDuration= course.CourseDuration,
+            //LanguageId= course.LanguageId,
+            //LastUpdate= course.LastUpdate,
+            //Level = course.Level,
+            //Link = course.Link,
+            //PriceStatus= course.PriceStatus,
+            //Status= course.Status,
+            //VedioLength = course.VedioLength
+            //});
             ViewBag.courses = _courses.Skip((pg - 1) * pageSize).Take(pager.PageSize).ToList();
             ViewBag.Pager = pager;
             var model = new CourseFilterViewModel
             {
-                //Courses = _courseRepository.GetAll().ToList(),
+                //searchParameters = parameters,
+                //Courses = _courses,
                 Ratings = new List<double>(),
                 CategoryIds = new List<byte>(),
-                 LanguageIds = new List<int>(),
+                LanguageIds = new List<int>(),
                 Levels = new List<Level>(),
                 VideoLengths = new List<VideoLengthCategory>(),
                 IsFree = new List<bool>()
             };
-
+            TempData["searchParam"] = parameters.SearchQuery;
+            TempData["categoryId"] = parameters.CategoryId ;
+            //var options = new JsonSerializerOptions
+            //{
+            //    MaxDepth = 64, // Default, adjust if necessary after testing
+            //    ReferenceHandler = ReferenceHandler.Preserve,
+            //    //PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            //    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            //    WriteIndented = true // Set to false in production for better performance
+            //};
+            //var serializedCourses = JsonSerializer.Serialize(resultedCourses, options);
+            //HttpContext.Session.SetString("Courses", serializedCourses);
+           // TempData["searchParameters"] = parameters;
             return View("filter2", model);
         }
 
         [HttpPost]
-        public IActionResult ApplyFilters([FromBody] FilterRequest filterRequest)
+        public async Task<IActionResult> ApplyFilters([FromBody] FilterRequest filterRequest)
         {
             var filters = filterRequest.Filters;
             var pageNumber = filterRequest.PageNumber;
-            var filteredCourses = _courseRepository.FilterCourses(filters, _courses).AsEnumerable();
+            //var serializedCourses = HttpContext.Session.GetString("Courses");
+            //if (string.IsNullOrEmpty(serializedCourses))
+            //{
+            //    return BadRequest("Session expired or data not found."); 
+            //}
+            //var courses = JsonSerializer.Deserialize<List<CourseSearchResultViewModel>>(serializedCourses).AsQueryable();
+            var courses = _courseRepository.GetCourses(TempData["searchParam"].ToString(),(int) TempData["categoryId"]).AsQueryable();
+            TempData.Keep("searchParam");
+            TempData.Keep("categoryId");
+            var filteredCourses =  _courseRepository.FilterCourses(filters,courses).AsQueryable();
             var pager = new Pager(filteredCourses.Count(), pageNumber, pageSize);
             var paginatedCourses = filteredCourses.Skip((pageNumber - 1) * pager.PageSize).Take(pager.PageSize).ToList();
             ViewBag.Pager = pager;
-            return PartialView("_CourseListPartial", paginatedCourses);
+            return  PartialView("_CourseListPartial", paginatedCourses);
         }
 
-        //private IQueryable<Course> FilterCourses(CourseFilterViewModel filters)
-        //{
-        //    var filteredCourses = _context.Courses.ToList().AsQueryable();
-
-
-        //    if (filters.IsFree != null)
-        //    {
-        //        if (filters?.IsFree?.Count() == 1)
-        //            filteredCourses = filteredCourses.Where(c => c.PriceStatus == filters.IsFree[0]);
-
-
-        //    }
-
-        //    //if (filters.IsFree != null && filters.IsFree.Contains(false))
-        //    //{
-        //    //    filteredCourses = filteredCourses.Where(c => c.PriceStatus == false);
-        //    //}
-        //    if (filters.Ratings != null && filters.Ratings.Any())
-        //    {
-        //        filteredCourses = filteredCourses.Where(c => filters.Ratings.Any(r => r <= c.AverageRating ));
-        //    }
-
-        //    if (filters.CategoryIds != null && filters.CategoryIds.Any())
-        //    {
-        //        filteredCourses = filteredCourses.Where(c => filters.CategoryIds.Contains(c.CategoryId ?? 0));
-        //    }
-
-        //    if (filters.LanguageIds != null && filters.LanguageIds.Any())
-        //    {
-        //        filteredCourses = filteredCourses.Where(c => filters.LanguageIds.Contains(c.LanguageId ?? 0));
-        //    }
-
-        //    if (filters.Levels != null && filters.Levels.Any())
-        //    {
-        //        filteredCourses = filteredCourses.Where(c => filters.Levels.Contains(c.Level ?? 0));
-        //    }
-
-        //    if (filters.VideoLengths != null && filters.VideoLengths.Any())
-        //    {
-        //        filteredCourses = filteredCourses.Where(c => filters.VideoLengths.Contains(c.VedioLength ?? 0));
-        //    }
-
-        //    return filteredCourses;
-        //}
+       
+       
         // GET: CourseController/Delete/5
         //[HttpGet]
         public IActionResult EditableDetails(int id)

@@ -7,14 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!--<Content Remove="Views\Admin\Report.cshtml" />-->
-    <Content Remove="Views\Test\Last.cshtml" />
+    <Compile Remove="Views\Test\**" />
+    <Content Remove="Views\Test\**" />
+    <EmbeddedResource Remove="Views\Test\**" />
+    <None Remove="Views\Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\TestController.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="E:\visual studio projects\AbdullahRepositories\WebApplication2\WebApplication2\.editorconfig" />
     <None Include="efpt.config.json.user" />
-    <None Include="Views\Test\Last.cshtml" />
     <None Include="wwwroot\Admin\assets\.DS_Store" />
     <None Include="wwwroot\Admin\assets\libs\.DS_Store" />
     <None Include="wwwroot\Admin\assets\libs\bootstrap\dist\.DS_Store" />
@@ -293,195 +298,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="toastr" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <EditorConfigFiles Remove="E:\visual studio projects\AbdullahRepositories\WebApplication2\WebApplication2\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Views\Test\Admin1\css\chartist-plugin-tooltip.css" />
-    <Content Include="Views\Test\Admin1\css\chartist.min.css" />
-    <Content Include="Views\Test\Admin1\css\style.css" />
-    <Content Include="Views\Test\Admin1\css\style.min.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fa-brands.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fa-brands.min.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fa-regular.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fa-regular.min.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fa-solid.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fa-solid.min.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fontawesome-all.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fontawesome-all.min.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fontawesome.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\css\fontawesome.min.css" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\fa-brands.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\fa-regular.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\fa-solid.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\fontawesome.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_animated.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_bordered-pulled.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_core.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_fixed-width.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_icons.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_larger.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_list.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_mixins.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_rotated-flipped.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_screen-reader.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_stacked.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\less\_variables.less" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\fa-brands.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\fa-regular.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\fa-solid.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\fontawesome.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_animated.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_bordered-pulled.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_core.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_fixed-width.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_icons.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_larger.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_list.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_mixins.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_rotated-flipped.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_screen-reader.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_stacked.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\scss\_variables.scss" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-brands-400.eot" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-brands-400.svg" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-brands-400.ttf" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-brands-400.woff" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-brands-400.woff2" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-regular-400.eot" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-regular-400.svg" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-regular-400.ttf" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-regular-400.woff" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-regular-400.woff2" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-solid-900.eot" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-solid-900.svg" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-solid-900.ttf" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-solid-900.woff" />
-    <Content Include="Views\Test\Admin1\icons\font-awesome\webfonts\fa-solid-900.woff2" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\css\material-design-iconic-font.css" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\css\material-design-iconic-font.min.css" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\css\materialdesignicons.min.css" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.eot" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.svg" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.ttf" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.woff" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.woff2" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.eot" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.svg" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.ttf" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.woff" />
-    <Content Include="Views\Test\Admin1\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.woff2" />
-    <Content Include="Views\Test\Admin1\icons\themify-icons\fonts\themify.eot" />
-    <Content Include="Views\Test\Admin1\icons\themify-icons\fonts\themify.svg" />
-    <Content Include="Views\Test\Admin1\icons\themify-icons\fonts\themify.ttf" />
-    <Content Include="Views\Test\Admin1\icons\themify-icons\fonts\themify.woff" />
-    <Content Include="Views\Test\Admin1\icons\themify-icons\ie7\ie7.css" />
-    <Content Include="Views\Test\Admin1\icons\themify-icons\ie7\ie7.js" />
-    <Content Include="Views\Test\Admin1\icons\themify-icons\themify-icons.css" />
-    <Content Include="Views\Test\Admin1\icons\themify-icons\themify-icons.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\css\weather-icons-core.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\css\weather-icons-variables.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\css\weather-icons-wind.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\css\weather-icons-wind.min.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\css\weather-icons.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\css\weather-icons.min.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\fonts\weathericons-regular-webfont.eot" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\fonts\weathericons-regular-webfont.svg" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\fonts\weathericons-regular-webfont.ttf" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\css\variables-beaufort.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\css\variables-day.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\css\variables-direction.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\css\variables-misc.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\css\variables-moon.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\css\variables-neutral.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\css\variables-night.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\css\variables-time.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\css\variables-wind-names.css" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-beaufort.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-day.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-direction.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-misc.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-moon-aliases.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-moon.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-neutral.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-night.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-time.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-wind-aliases.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-wind-degrees.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-classes\classes-wind.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-variables\variables-beaufort.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-variables\variables-day.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-variables\variables-direction.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-variables\variables-misc.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-variables\variables-moon.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-variables\variables-neutral.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-variables\variables-night.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-variables\variables-time.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\icon-variables\variables-wind-names.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\mappings\wi-forecast-io.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\mappings\wi-owm.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\mappings\wi-wmo4680.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\mappings\wi-yahoo.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\weather-icons-classes.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\weather-icons-core.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\weather-icons-variables.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\weather-icons-wind.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\weather-icons-wind.min.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\weather-icons.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\less\weather-icons.min.less" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-beaufort.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-day.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-direction.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-misc.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-moon-aliases.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-moon.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-neutral.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-night.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-time.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-wind-aliases.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-wind-degrees.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-classes\classes-wind.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-variables\variables-beaufort.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-variables\variables-day.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-variables\variables-direction.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-variables\variables-misc.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-variables\variables-moon.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-variables\variables-neutral.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-variables\variables-night.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-variables\variables-time.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\icon-variables\variables-wind-names.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\mappings\wi-forecast-io.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\mappings\wi-owm.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\mappings\wi-wmo4680.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\mappings\wi-yahoo.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\weather-icons-classes.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\weather-icons-core.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\weather-icons-variables.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\weather-icons-wind.min.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\weather-icons-wind.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\weather-icons.min.scss" />
-    <Content Include="Views\Test\Admin1\icons\weather-icons\sass\weather-icons.scss" />
-    <Content Include="Views\Test\Admin1\image\1.jpg" />
-    <Content Include="Views\Test\Admin1\image\custom-select.png" />
-    <Content Include="Views\Test\Admin1\image\d1.jpg" />
-    <Content Include="Views\Test\Admin1\image\d2.jpg" />
-    <Content Include="Views\Test\Admin1\image\d3.jpg" />
-    <Content Include="Views\Test\Admin1\js\chartist-plugin-tooltip.min.js" />
-    <Content Include="Views\Test\Admin1\js\chartist.min.js" />
-    <Content Include="Views\Test\Admin1\js\jquery\core.js" />
-    <Content Include="Views\Test\Admin1\js\jquery\jquery.min.js" />
-    <Content Include="Views\Test\Admin1\js\jquery\jquery.slim.min.js" />
-    <Content Include="Views\Test\Admin1\js\js\app-style-switcher.js" />
-    <Content Include="Views\Test\Admin1\js\js\custom.js" />
-    <Content Include="Views\Test\Admin1\js\js\sidebarmenu.js" />
-    <Content Include="Views\Test\Admin1\js\js\waves.js" />
-    <Content Include="Views\Test\Admin1\js\pages\dashboard1.js" />
   </ItemGroup>
 
   <!--<ItemGroup>
