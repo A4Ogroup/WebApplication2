@@ -84,6 +84,36 @@ namespace WebApplication2.Controllers
             return RedirectToAction("course","admin"); // Assuming Index is your admin page
         }
 
+        public IActionResult ReviewToggleStatus(int id)
+        {
+            var review = _reviewRepository.GetById(id);
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            review.Status = !review.Status; // Toggle the boolean status
+            _reviewRepository.Update(review);
+            _reviewRepository.Save();
+            TempData["Success"] = "Review status changed successfully!";
+            return RedirectToAction("review", "admin"); // Assuming Index is your admin page
+        }
+
+        public IActionResult ReportToggleStatus(int id)
+        {
+            var report = _reportRepository.GetById(id);
+            if (report == null)
+            {
+                return NotFound();
+            }
+
+            report.Status = !report.Status; // Toggle the boolean status
+            _reportRepository.Update(report);
+            _reportRepository.Save();
+            TempData["Success"] = "Report status changed successfully!";
+            return RedirectToAction("report", "admin"); // Assuming Index is your admin page
+        }
+
 
     }
 
