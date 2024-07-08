@@ -65,7 +65,7 @@ namespace WebApplication2.Controllers
                 courses = courses.Where(c => filter.VideoLengths.Contains(c.VedioLength ?? VideoLengthCategory.Short));
             }
 
-            filter.Courses = courses.ToList();
+            //filter.Courses = courses.ToList();
 
             // Load data for dropdowns and checkboxes
             ViewBag.Categories = _context.Courses.Select(c => c.CategoryId).Distinct().ToList();

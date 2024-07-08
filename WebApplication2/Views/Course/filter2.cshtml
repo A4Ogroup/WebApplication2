@@ -220,7 +220,7 @@
                         {
                             <div class="form-check">
                                 <input class="form-check-input video-length-filter" type="checkbox" value="@((int)videoLength)" />
-                                <label class="form-check-label" >@Html.DisplayFor(m=>videoLength)</label>
+                                <label class="form-check-label">@Html.DisplayFor(m=>videoLength)</label>
                             </div>
                         }
                     </div>
@@ -269,7 +269,7 @@
                             <a class="page-link" href="javascript:void(0);" onclick="loadPage(@(ViewBag.Pager.CurrentPage - 1))">Previous</a>
                         </li>
                     }
-                    @for (int i = ViewBag.Pager.StartPage; i <= ViewBag.Pager.EndPage; i ++)
+                    @for (int i = ViewBag.Pager.StartPage; i <= ViewBag.Pager.EndPage; i++)
                     {
                         <li class="page-item @(i == ViewBag.Pager.CurrentPage ? "active" : "")">
                             <a class="page-link" href="javascript:void(0);" onclick="loadPage(@i)">@i</a>
@@ -289,108 +289,108 @@
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
- @section Scripts{ 
-    
+@section Scripts{
+
     <script>
-    $(document).ready(function () {
-        let originalCourseList = $("#course-list").html();
+        $(document).ready(function () {
+            let originalCourseList = $("#course-list").html();
 
-        // Sidebar toggle button for mobile view
-        $("#filter-toggle").click(function () {
-            $(".sidebar").toggleClass("d-none");
-        });
+            // Sidebar toggle button for mobile view
+            $("#filter-toggle").click(function () {
+                $(".sidebar").toggleClass("d-none");
+            });
 
-        // Toggle filter options on click
-        $(".filter-section h4").click(function () {
-            let options = $(this).next(".filter-options");
-            let svg = $(this).find("svg");
-            options.slideToggle(200);
-            if (
-                svg.css("transform") == "none" ||
-                svg.css("transform") == "matrix(1, 0, 0, 1, 0, 0)"
-            ) {
-                svg.css("transform", "rotate(180deg)");
-            } else {
-                svg.css("transform", "rotate(0deg)");
-            }
-        });
-
-        // Show 'Clear filters' button when any filter option is clicked
-        $(".form-check-input").change(function () {
-            updateClearFiltersButton();
-            applyFilters();
-        });
-
-        // Clear filters functionality
-        $("#clear-filters").click(function (e) {
-            e.preventDefault();
-            $(".form-check-input").prop("checked", false);
-            $("#clear-filters").addClass("d-none");
-            $("#filter-count").text("0");
-            resetCourseList();
-        });
-
-        function updateClearFiltersButton() {
-            let filterCount = $(".form-check-input:checked").length;
-            if (filterCount > 0) {
-                $("#clear-filters").removeClass("d-none");
-                $("#filter-count").text(`(${filterCount})`);
-            } else {
-                $("#clear-filters").addClass("d-none");
-                $("#filter-count").text("0");
-            }
-        }
-
-        function resetCourseList() {
-            // Reset the course list to the original state
-            $("#course-list").html(originalCourseList);
-            $("#results-count").text(`5,296 results`);
-        }
-
-        function applyFilters() {
-            let filters = gatherFilterData();
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("ApplyFilters", "Course")',
-                contentType: "application/json",
-                data: JSON.stringify({ Filters: filters }),
-                success: function (response) {
-                    $("#course-list").html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error("Filter application failed:", error);
+            // Toggle filter options on click
+            $(".filter-section h4").click(function () {
+                let options = $(this).next(".filter-options");
+                let svg = $(this).find("svg");
+                options.slideToggle(200);
+                if (
+                    svg.css("transform") == "none" ||
+                    svg.css("transform") == "matrix(1, 0, 0, 1, 0, 0)"
+                ) {
+                    svg.css("transform", "rotate(180deg)");
+                } else {
+                    svg.css("transform", "rotate(0deg)");
                 }
             });
-        }
 
-        function gatherFilterData() {
-            return {
-                Ratings: $('.rating-filter:checked').map(function () { return parseFloat($(this).val()); }).get(),
-                CategoryIds: $('.category-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
-                LanguageIds: $('.language-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
-                Levels: $('.level-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
-                VideoLengths: $('.video-length-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
-                IsFree: $('.price-filter:checked').map(function () { return $(this).val() === 'true'; }).get()
-            };
-        }
+            // Show 'Clear filters' button when any filter option is clicked
+            $(".form-check-input").change(function () {
+                updateClearFiltersButton();
+                applyFilters();
+            });
 
-            window.loadPage=function (page) {
+            // Clear filters functionality
+            $("#clear-filters").click(function (e) {
+                e.preventDefault();
+                $(".form-check-input").prop("checked", false);
+                $("#clear-filters").addClass("d-none");
+                $("#filter-count").text("0");
+                resetCourseList();
+            });
+
+            function updateClearFiltersButton() {
+                let filterCount = $(".form-check-input:checked").length;
+                if (filterCount > 0) {
+                    $("#clear-filters").removeClass("d-none");
+                    $("#filter-count").text(`(${filterCount})`);
+                } else {
+                    $("#clear-filters").addClass("d-none");
+                    $("#filter-count").text("0");
+                }
+            }
+
+            function resetCourseList() {
+                // Reset the course list to the original state
+                $("#course-list").html(originalCourseList);
+                $("#results-count").text(`5,296 results`);
+            }
+
+            function applyFilters() {
+                let filters = gatherFilterData();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ApplyFilters", "Course")',
+                    contentType: "application/json",
+                    data: JSON.stringify({ Filters: filters }),
+                    success: function (response) {
+                        $("#course-list").html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Filter application failed:", error);
+                    }
+                });
+            }
+
+            function gatherFilterData() {
+                return {
+                    Ratings: $('.rating-filter:checked').map(function () { return parseFloat($(this).val()); }).get(),
+                    CategoryIds: $('.category-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
+                    LanguageIds: $('.language-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
+                    Levels: $('.level-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
+                    VideoLengths: $('.video-length-filter:checked').map(function () { return parseInt($(this).val()); }).get(),
+                    IsFree: $('.price-filter:checked').map(function () { return $(this).val() === 'true'; }).get()
+                };
+            }
+
+            window.loadPage = function (page) {
                 console.log("Page number:", page);
                 var pageNumber = page;
                 console.log("Page number:", pageNumber);
 
-            let filters = gatherFilterData();
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("ApplyFilters", "Course")',
-                contentType: "application/json",
+                let filters = gatherFilterData();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ApplyFilters", "Course")',
+                    contentType: "application/json",
                     data: JSON.stringify({ Filters: filters, pageNumber: page }),
-                success: function (response) {
-                    $("#course-list").html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error("Pagination application failed:", error);
-                }
+                    success: function (response) {
+                        $("#course-list").html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Pagination application failed:", error);
+                    }
 
 
 
@@ -402,9 +402,9 @@
 
 
 
-            });
-        }
-    });
+                });
+            }
+        });
 
     </script>
 }

@@ -17,7 +17,15 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepositroy>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddSingleton<ISearchResultService, SearchResultService>();
+builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Sets the time the session can be idle before it's abandoned.
+    options.Cookie.HttpOnly = true; // Prevents the cookie from being accessed via JavaScript.
+    options.Cookie.IsEssential = true; // Marks the session cookie as essential for making the application function correctly.
+});
 var app = builder.Build();
 
 
@@ -35,7 +43,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
