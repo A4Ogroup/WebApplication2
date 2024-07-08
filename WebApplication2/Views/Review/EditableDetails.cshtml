@@ -135,7 +135,7 @@
                     <input hidden asp-for="ReviewId">
                     <div class="row">
                         <div class="col-lg-8">
-                            <div class=" align-content-center" style="margin:15px;">
+                            <div class=" align-content-center"  style="margin:15px;">
                                 <div class="rate">
                                     <input type="radio" id="star5" asp-for="@Model.Rate" value="5" disabled />
                                     <label for="star5" title="5">5 stars</label>
@@ -149,6 +149,35 @@
                                     <label for="star1" title="1">1 star</label>
 
                                 </div>
+                                <form asp-action="ToggleStatus" method="post">
+
+                                    @if (@Model.Status)
+                                    {
+                                        <a class=" dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black">
+                                            Accepted
+                                        </a>
+                                        <ul class="dropdown-menu" style="width:50px;" aria-labelledby="navbarDropdown">
+
+
+                                            <a class="dropdown-item" asp-action="ReviewToggleStatus" asp-controller="admin" asp-route-id="@Model.ReviewId">Pending</a>
+
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <a class=" dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black">
+                                            Pending
+                                        </a>
+                                        <ul class="dropdown-menu" style="width:50px;" aria-labelledby="navbarDropdown">
+
+                                            <a class="dropdown-item" asp-action="ReviewToggleStatus" asp-controller="admin" asp-route-id="@Model.ReviewId">Accepted</a>
+
+
+                                        </ul>
+
+                                    }
+
+                                </form>
                             </div>
                             <fieldset>
                                 <textarea asp-for="@Model.Descritipn" rows="6" class="form-control" placeholder="Your Review" readonly></textarea>

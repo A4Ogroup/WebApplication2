@@ -123,7 +123,7 @@ namespace WebApplication2.Controllers
         }
         public IActionResult InputPartial()
         {
-            return PartialView("_topicsInputPartialView");
+            return PartialView("_SocialMediaAccountsPartial");
         }
     }
 }

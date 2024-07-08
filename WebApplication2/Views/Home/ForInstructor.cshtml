@@ -1,78 +1,8 @@
-﻿@* <!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
-    <title>Learn consult</title>
-
-
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-
-
-
-    <link href="~/css/site.css" rel="stylesheet">
-    <link href="~/css/site1.css" rel="stylesheet">
-    <link href="~/css/site2.css" rel="stylesheet">
-    <link href="~/css/site3.css" rel="stylesheet">
-    <link href="~/css/site4.css" rel="stylesheet">
-    <link href="~/css/StyleSheet.css" rel="stylesheet">
-
-
-</head>
-
-
-<body>
-
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-
-    <header class="">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-
-                <a class="navbar-brand" href="index.html">
-                    <h2><em>L</em>earn Consult</h2>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="nav-item" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    </ul>
-
-                </div>
-            </div>
-
-        </nav>
-    </header> *@
-
-
-
-@{
+﻿@{
     Layout = "_Layout";
 } 
 
-
-
-
-
 <style>
-
-
-
 
     option {
         background: white; /* Option background */
@@ -113,15 +43,8 @@
         background-repeat: no-repeat;
         background-position: center center;
     }
-    /* Custom styling for the select element */
-    /*   .custom-select {
-                            appearance: none; /* Removes default browser styling */
 
 
-    /* Adjust padding for the select wrapper to position the arrow correctly */
-    /* .select-wrapper {
-                            position: relative;
-                        } */
 </style>
 
 
@@ -135,7 +58,7 @@
 
 <div class="send-message" style="margin-top:-75px">
     <div class="container">
-        <form enctype="multipart/form-data" asp-controller="home" asp-action="signup" method="post">
+        <form enctype="multipart/form-data" asp-controller="home" id="addSocialAccounteDynamicForm" asp-action="signup" method="post">
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
@@ -149,37 +72,49 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input asp-area="FirstName" type="text" class="form-control" placeholder="First Name" required="">
+                                    <labek >First Name</labek>
+                                    <input asp-area="FirstName" type="text" class="form-control" placeholder="First Name"  >
                                 </fieldset>
                             </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input asp-area="Email" type="email" class="form-control" placeholder="Email" required="">
+                                    <label>Email</label>
+                                    <input asp-area="Email" type="email" class="form-control" placeholder="Email"  >
                                 </fieldset>
                             </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input asp-area="Password" type="text" class="form-control" placeholder="Password" required="">
+                                    <label>Password</label>
+                                    <input asp-area="Password" type="text" class="form-control" placeholder="Password"  >
                                 </fieldset>
                             </div>
 
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-
-                                    <input asp-area="NumberOfCourses" type="number" class="form-control" placeholder="Number Of Courses" required="">
+                                    <label>Number of courses</label>
+                                    <input asp-area="NumberOfCourses" type="number" class="form-control" placeholder="Number Of Courses"  >
 
                                 </fieldset>
                             </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-
-                                    <input asp-area="Picture" type="file" class="form-control" placeholder="Picture" required="">
+                                    <label>Picture</label>
+                                    <input asp-area="Picture" type="file" class="form-control" placeholder="Picture"  >
 
                                 </fieldset>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <label>Additional Info</label>
+                                    <textarea asp-area="about" type="text" class="form-control " placeholder="Additional Info"></textarea>
+
+                                </fieldset>
+
                             </div>
 
   
@@ -198,18 +133,21 @@
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
+                                        <label>Last Name</label>
                                         <input class="form-control" id="course name" placeholder="Last Name">
                                     </fieldset>
                                 </div>
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
+                                        <label>Profession</label>
                                         <input class="form-control" id="course name" placeholder="Profession">
                                     </fieldset>
                                 </div>
                                 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
+                                        <label>Confirm Passsword</label>
                                         <input class="form-control" id="course name" placeholder="Confirm Password">
                                     </fieldset>
                                 </div>
@@ -230,17 +168,39 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input class="form-control" placeholder="Phone Number">
+                                    <label>Phone Number</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <select class="form-control" id="countryCode">
+                                                <option value="+1">+1 (USA)</option>
+                                                <option value="+44">+44 (UK)</option>
+                                                <option value="+91">+91 (India)</option>
+                                                <!-- Add more country codes as needed -->
+                                            </select>
+                                        </div>
+                                        <input class="form-control" placeholder="Phone Number" id="phoneNumber">
+                                    </div>
                                 </fieldset>
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <fieldset>
+                             <div class="col-lg-12 col-md-12 col-sm-12"> 
+                           @*      <fieldset>
+                                    <label>Social Media Accounts</label>
+                                    <input asp-area="SocialMediaAccounts" type="url" class="form-control " placeholder="Social Media Accounts"   />
 
-                                    <input asp-area="SocialMediaAccounts" type="url" class="form-control " placeholder="Social Media Accounts" required="" />
+                                </fieldset> *@
 
-                                </fieldset>
+                                <div id="inputContainer" >
+                                    <!-- Render initial input field via partial view -->
+                                    <label>Social Media Account</label>
+                                    <partial name="_SocialMediaAccountsPartial"></partial>
 
-                            </div>
+                                </div>
+                                <button type="button" onclick="addInput()" class="btn btn-default">+</button>
+                                <textarea   hidden></textarea>
+
+
+                            </div> 
+
 
                         </div>
                         <div class="col-lg-12">
@@ -251,10 +211,31 @@
                         </div>
                        </div>
                  </div>
-        </form>
+        </div>
+             </form>
 
     </div>
 
 </div>
 
+@section Scripts{
+    <script>
+
+
+        function addInput() {
+            fetch('@Url.Action("InputPartial", "instructor")')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('inputContainer').insertAdjacentHTML('beforeend', html);
+                });
+        }
+
+        document.getElementById('addSocialAccounteDynamicForm').addEventListener('submit', function (event) {
+            var inputs = document.querySelectorAll('input[name="Inputdynamically"]');
+            var arrayInputs = Array.from(inputs).map(input => input.value).addInput();
+            document.getElementById('@Html.IdFor()').value = arrayInputs;
+        });
+
+    </script>
+}
 
