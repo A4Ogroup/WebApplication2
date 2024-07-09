@@ -83,6 +83,14 @@
                 outline: none;
                 box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.5);
             }
+
+        .banner-item-1 {
+            padding: 50px 0px;
+
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
         /* Custom styling for the select element */
         /*   .custom-select {
                     appearance: none; /* Removes default browser styling */
@@ -182,13 +190,15 @@
 
 <div class="banner header-text">
     <div class="owl-banner owl-carousel">
+        <div class="banner-item-1">
+        </div>
     </div>
 </div>
 
 
 
 
-<div class="send-message">
+<div class="send-message" style="margin-top:-75px;">
     <div class="container">
        
         <form enctype="multipart/form-data" asp-controller="Course" id="addCourseDynamicForm" asp-action="Addcourse" method="post">

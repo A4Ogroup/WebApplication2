@@ -359,7 +359,7 @@ namespace WebApplication2.Controllers
             TempData.Keep("categoryId");
             var filteredCourses =  _courseRepository.FilterCourses(filters,courses).AsQueryable();
             var pager = new Pager(filteredCourses.Count(), pageNumber, pageSize);
-            var paginatedCourses = filteredCourses.Skip((pageNumber - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+            var paginatedCourses = filteredCourses.Skip((pageNumber - 1) * pager.PageSize).Take(pager.PageSize).ToList() ;
             ViewBag.Pager = pager;
             return  PartialView("_CourseListPartial", paginatedCourses);
         }

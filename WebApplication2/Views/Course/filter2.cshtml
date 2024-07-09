@@ -389,6 +389,7 @@
                         $("#course-list").html(response);
                     },
                     error: function (xhr, status, error) {
+                        console.log(response);
                         console.error("Pagination application failed:", error);
                     }
 
