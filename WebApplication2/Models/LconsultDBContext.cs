@@ -2,12 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
+using Microsoft.AspNetCore.Identity;
 namespace WebApplication2.Models
 {
-    public partial class LconsultDBContext : DbContext
+    public partial class LconsultDBContext : IdentityDbContext<User>
     {
         public LconsultDBContext()
         {
@@ -39,6 +40,7 @@ namespace WebApplication2.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
@@ -58,7 +60,6 @@ namespace WebApplication2.Models
 
                 entity.Property(e => e.CourseId).HasColumnName("courseID");
 
-                entity.Property(e => e.AddedByUserId).HasMaxLength(400);
 
                 entity.Property(e => e.AddingDate)
                     .HasColumnType("date")
@@ -82,7 +83,6 @@ namespace WebApplication2.Models
                     .HasColumnName("instructorFullName");
 
                 entity.Property(e => e.InstructorId)
-                    .HasMaxLength(400)
                     .HasColumnName("instructorID");
 
                 entity.Property(e => e.LanguageId).HasColumnName("languageID");
@@ -138,7 +138,6 @@ namespace WebApplication2.Models
                 entity.ToTable("Instructor");
 
                 entity.Property(e => e.InstructorId)
-                    .HasMaxLength(400)
                     .HasColumnName("instructorID");
 
                 entity.Property(e => e.About).HasColumnName("about");
@@ -189,7 +188,6 @@ namespace WebApplication2.Models
                 entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.StudentId)
-                    .HasMaxLength(400)
                     .HasColumnName("studentID");
 
                 entity.HasOne(d => d.Review)
@@ -220,7 +218,6 @@ namespace WebApplication2.Models
                 entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.StudentId)
-                    .HasMaxLength(400)
                     .HasColumnName("studentID");
 
                 entity.HasOne(d => d.Course)
@@ -247,7 +244,6 @@ namespace WebApplication2.Models
                     .HasColumnName("account");
 
                 entity.Property(e => e.InstructorId)
-                    .HasMaxLength(400)
                     .HasColumnName("instructorID");
 
                 entity.HasOne(d => d.Instructor)
@@ -261,7 +257,6 @@ namespace WebApplication2.Models
                 entity.ToTable("Student");
 
                 entity.Property(e => e.StudentId)
-                    .HasMaxLength(400)
                     .HasColumnName("studentID");
 
                 entity.Property(e => e.ContributionNum).HasColumnName("contributionNum");
@@ -284,9 +279,7 @@ namespace WebApplication2.Models
 
                             j.ToTable("UserInterests");
 
-                            j.IndexerProperty<string>("StudentId").HasMaxLength(400).HasColumnName("studentID");
-
-                            j.IndexerProperty<int>("SubId").HasColumnName("subID");
+                            
                         });
             });
 
@@ -315,31 +308,15 @@ namespace WebApplication2.Models
             {
                 entity.ToTable("User");
 
-                entity.Property(e => e.UserId)
-                    .HasMaxLength(400)
-                    .HasColumnName("userID");
+                entity.Property(e => e.Id)
+                    .HasColumnName("Id");
 
-                entity.Property(e => e.Email).HasColumnName("email");
 
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(50)
-                    .HasColumnName("firstName"); 
+                
 
-                entity.Property(e => e.LastName).HasColumnName("lastName");
 
-                entity.Property(e => e.Password).HasColumnName("password");
 
-                entity.Property(e => e.Pic)
-                    .HasMaxLength(50)
-                    .HasColumnName("pic");
 
-                entity.Property(e => e.RegisterDate)
-                    .HasColumnType("date")
-                    .HasColumnName("registerDate");
-
-                entity.Property(e => e.Status).HasColumnName("status");
-
-                entity.Property(e => e.UserType).HasColumnName("userType");
             });
 
             OnModelCreatingPartial(modelBuilder);
