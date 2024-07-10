@@ -18,8 +18,8 @@ namespace WebApplication2.Models
         public string LastName { get; set; }
        
         public string Pic { get; set; }
-        public DateTime? RegisterDate { get; set; }=DateTime.Now;
-        public bool? Status { get; set; }
+        public DateTime RegisterDate { get; set; }=DateTime.Now;
+        public bool Status { get; set; } 
        
 
         public virtual Instructor Instructor { get; set; }

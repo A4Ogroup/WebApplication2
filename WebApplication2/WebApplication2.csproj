@@ -292,6 +292,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="libphonenumber-csharp" Version="8.13.40" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.30" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.28" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.28">

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model InstructorRegisterViewModel
+
+@{
     Layout = "_Layout";
 } 
 
@@ -59,6 +61,7 @@
 <div class="send-message" style="margin-top:-75px">
     <div class="container">
         <form enctype="multipart/form-data" asp-controller="account" id="addSocialAccounteDynamicForm" asp-action="register" method="post">
+            <div asp-validation-summary="All"></div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
@@ -72,22 +75,29 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
+                                    <labek >User Name</labek>
+                                    <input asp-for="@Model.UserName"  type="text" class="form-control" placeholder="User Name"  >
+                                </fieldset>
+                            </div>
+                            
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
                                     <labek >First Name</labek>
-                                    <input asp-area="FirstName" type="text" class="form-control" placeholder="First Name"  >
+                                    <input asp-for="@Model.FirstName"  type="text" class="form-control" placeholder="First Name"  >
                                 </fieldset>
                             </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                     <label>Email</label>
-                                    <input asp-area="Email" type="email" class="form-control" placeholder="Email"  >
+                                    <input asp-for="@Model.Email" type="email" class="form-control" placeholder="Email"  >
                                 </fieldset>
                             </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                     <label>Password</label>
-                                    <input asp-area="Password" type="text" class="form-control" placeholder="Password"  >
+                                    <input asp-for="@Model.Password" type="text" class="form-control" placeholder="Password"  >
                                 </fieldset>
                             </div>
 
@@ -134,7 +144,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
                                         <label>Last Name</label>
-                                        <input class="form-control" id="course name" placeholder="Last Name">
+                                        <input class="form-control" asp-for="@Model.LastName" placeholder="Last Name">
                                     </fieldset>
                                 </div>
 
@@ -148,7 +158,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <fieldset>
                                         <label>Confirm Passsword</label>
-                                        <input class="form-control" id="course name" placeholder="Confirm Password">
+                                        <input class="form-control" asp-for="@Model.ConfirmPassword" placeholder="Confirm Password">
                                     </fieldset>
                                 </div>
 
@@ -221,19 +231,7 @@
 @section Scripts{
     <script>
 
-
-        function addInput() {
-            fetch('@Url.Action("InputPartial", "instructor")')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('inputContainer').insertAdjacentHTML('beforeend', html);
-                });
-        }
-
-        document.getElementById('addSocialAccounteDynamicForm').addEventListener('submit', function (event) {
-            var inputs = document.querySelectorAll('input[name="Inputdynamically"]');
-            var arrayInputs = Array.from(inputs).map(input => input.value).addInput();
-        });
+        
 
     </script>
 }

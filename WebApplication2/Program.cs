@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebApplication2.Models;
@@ -18,6 +19,10 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepositroy>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddSingleton<ISearchResultService, SearchResultService>();
+builder.Services.AddIdentity<User, IdentityRole>(
+               options => options.Password.RequireDigit = true
+               ).
+               AddEntityFrameworkStores<LconsultDBContext>();
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>

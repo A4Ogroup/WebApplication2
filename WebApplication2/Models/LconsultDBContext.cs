@@ -146,7 +146,6 @@ namespace WebApplication2.Models
                     .HasMaxLength(50)
                     .HasColumnName("countryCode");
 
-                entity.Property(e => e.PhoneNumber).HasColumnName("phoneNumber");
 
                 entity.Property(e => e.Profession)
                     .HasMaxLength(50)

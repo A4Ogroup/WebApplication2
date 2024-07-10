@@ -99,7 +99,7 @@ namespace WebApplication2.Controllers
         }
         public IActionResult ForInstructor()
         {
-            return View();
+            return RedirectToAction("Register","Account");
         }
 
 
