@@ -1,0 +1,180 @@
+﻿@model AdminRegisterViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<style>
+
+    option {
+        background: white; /* Option background */
+        color: black;
+        cursor: pointer;
+    }
+
+        option:after {
+            background-color: #f0f0f0; /* hover effect for better user experience */
+        }
+
+    .custom-select {
+        appearance: none; /* this is important to remove default select arrow */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+        font-size: 1rem;
+        border: 1px solid gray;
+        border-radius: 0.25rem;
+        line-height: 1.5;
+        background-color: #fff;
+        background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h12L6 12z" fill="%23FF0000"/></svg>'), linear-gradient(to bottom, #ffffff 0%,#e9ecef 100%);
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 12px 12px;
+    }
+
+        .custom-select:focus {
+            border-color: red;
+            outline: none;
+            box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.5);
+        }
+
+    .banner-item-1 {
+        padding: 50px 0px;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+</style>
+
+
+
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
+        <div class="banner-item-1">
+        </div>
+    </div>
+</div>
+
+<div class="send-message" style="margin-top:-75px">
+    <div class="container">
+        <form enctype="multipart/form-data" asp-controller="account"  asp-action="adminregister" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Create account</h2>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="contact-form">
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <labek>User Name</labek>
+                                    <input asp-for="@Model.UserName" class="form-control" placeholder="User Name">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <labek>First Name</labek>
+                                    <input asp-for="@Model.FirstName" type="text" class="form-control" placeholder="First Name">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <label>Last Name</label>
+                                    <input class="form-control" asp-for="@Model.LastName" placeholder="Last Name">
+                                </fieldset>
+                            </div>
+
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <label>Email</label>
+                                    <input asp-for="Email" class="form-control" placeholder="Email">
+                                </fieldset>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <label>Password</label>
+                                    <input asp-for="@Model.Password" class="form-control" placeholder="Password">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <fieldset>
+                                    <label>Confirm Passsword</label>
+                                    <input class="form-control" asp-for="@Model.ConfirmPassword" placeholder="Confirm Password">
+                                </fieldset>
+
+                            </div>
+
+                     
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                        <div class="col-lg-12">
+                            <fieldset>
+                                <button type="submit" id="contact" class="filled-button mt-4">Submit </button>
+                            </fieldset>
+
+                        </div>
+                    </div>
+                </div>
+                @* <div class="col-md-6">
+                    <div class="contact-form">
+                     
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+
+
+                               
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+                   
+                    </div>
+                </div> *@
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+}
+
