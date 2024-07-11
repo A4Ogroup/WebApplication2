@@ -90,13 +90,14 @@ namespace WebApplication2.Controllers
                     VedioLength = model.VedioLength,
                     Picture = uniqeFileName,
                     Status = model.Status,
+                    Platform = model.Platform,
                 };
                 _courseRepository.Add(newCourse);
                 _courseRepository.Save();
                 TempData["Success"] = "Course added successfully!";
                 return RedirectToAction("index", "instructor");
             }
-         
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
             return RedirectToAction("addcourse","instructor");
         }
 
@@ -151,7 +152,7 @@ namespace WebApplication2.Controllers
         {
             var course = _courseRepository.GetAllWithLanguage()
                 .FirstOrDefault(c => c.CourseId == id);
-            int pageSize = 2;
+            int pageSize = 6;
             var reviews = _context.Reviews.Where(r => r.CourseId == id);
 
             var CourseReview = new CourseDetailsViewModel
