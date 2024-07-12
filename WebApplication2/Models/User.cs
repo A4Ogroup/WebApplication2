@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using WebApplication2.Helpers.Enums;
 
 namespace WebApplication2.Models
 {
@@ -17,10 +18,10 @@ namespace WebApplication2.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
        
-        public string Pic { get; set; }
+        public string? Picture { get; set; }
         public DateTime RegisterDate { get; set; }=DateTime.Now;
         public bool Status { get; set; } 
-       
+        public Gender Gender { get; set; }
 
         public virtual Instructor Instructor { get; set; }
         public virtual Student Student { get; set; }
