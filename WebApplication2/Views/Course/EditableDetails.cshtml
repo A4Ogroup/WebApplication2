@@ -154,14 +154,14 @@
 
                     <div class="row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
 
-                            <h6>@Model.Course.InstructorFullName</h6>
-                            <h6>@Model.Course.Language.Name</h6>
-                            <h6>@Model.Course.Level</h6>
-                            <h6>@Model.Course.TopicsCovered</h6>
+                            <h6>Instructor: @Model.Course.InstructorFullName</h6>
+                            <h6>Language:@Model.Course.Language.Name</h6>
+                            <h6>Level: @Model.Course.Level</h6>
+                            <h6>Topics Covered: @Model.Course.TopicsCovered</h6>
                             <p class="meta">
-                                @Model.Course.AverageRating
+                                <h6>AverageRating:</h6> @Model.Course.AverageRating
                                 @{
                                     double fraction = @Model.Course.AverageRating.Value % 1;
                                     for (int i = 1; i <= Model.Course.AverageRating; i++)
@@ -225,8 +225,8 @@
 
                         </div>
 
-                        <div class="col-md-2">
-
+                        <div class="col-md-4">
+                            <h6>Price Status:</h6>
                             @if (Model.Course.PriceStatus is true)
                             {
                                 <h6> paid </h6>
@@ -236,10 +236,10 @@
                                 <h6>free  </h6>
                             }
 
-                            <h6>@Model.Course.LastUpdate</h6>
-                            <h6>@Model.Course.Platform</h6>
-                            <h6><a href="@Model.Course.Link">@Model.Course.Link</a></h6>
-                            <a class="btn btn-light" asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.Course.CourseId" style="margin-top:20px;"> Review </a>
+                            <h6>Last Update: @Model.Course.LastUpdate</h6>
+                            <h6>Platform: @Model.Course.Platform</h6>
+                            <h6>Link: <a href="@Model.Course.Link" >@Model.Course.Platform</a></h6>
+                          
                         </div>
 
 

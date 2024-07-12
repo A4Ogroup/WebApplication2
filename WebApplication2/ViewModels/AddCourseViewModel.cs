@@ -34,8 +34,9 @@ namespace WebApplication2.ViewModels
         public DateTime LastUpdate { get; set; }
         public DateTime AddingDate { get; set; } = DateTime.Now;
         //[Required(ErrorMessage = "Picture field is required")]
-        [RegularExpression(@".*\.(jpg|png)$", ErrorMessage = "Picture must be jpg or png")]
-        //[RegularExpression(@"\w+\.(jpg|png)",ErrorMessage ="Picture must be JPG or PNG")]
+        // [RegularExpression(@"^.*\.(jpg|jpeg|png|gif|bmp|tiff|webp)$", ErrorMessage = "Picture must be jpg or png")]
+        //  [RegularExpression(@"\w+\.(jpg|png)",ErrorMessage ="Picture must be JPG or PNG and does not contain any spaces.")]
+        [ImageFile]
         public IFormFile Picture { get; set; }
         public double? AverageRating { get; set; } = 0.0;
         public bool? Claimed { get; set; }

@@ -217,30 +217,10 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                    
-                                    <input asp-for="Title" class="form-control" id="course name" placeholder="course name">
+                                    <input asp-for="Title" class="form-control" placeholder="course name">
                                     <span asp-validation-for="Title" class="text-danger"></span>
                                 </fieldset>
                             </div>
-
-                            @*  <div class="col-lg-12 col-md-12 col-sm-12">
-                            <fieldset>
-                            <select asp-for="SubcategoryId"class="form-control selectpicker" id="subcategorySelect">
-                            <option value="">Select a Subcategory</option>
-                            <option value="">Select a Subcategory</option>
-                            <option value="">Select a Subcategory</option>
-                            @foreach (var subcategory in Model.Subcategories)
-                            {
-                            <option value="@subcategory.Id">@subcategory.Name</option>
-                            }
-                            </select>
-                            </fieldset>
-
-                            </div> *@
-
-
-
-
-
 
 
 
@@ -297,7 +277,7 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input asp-for="LastUpdate" type="date" class="form-control" id="lastupdate" placeholder="Course last update">
+                                    <input asp-for="LastUpdate" type="date" class="form-control" placeholder="Course last update">
                                     <span class="text-danger" asp-validation-for="LastUpdate"></span>
 
                                 </fieldset>
@@ -315,7 +295,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
 
                                 <fieldset>
-                                    <input asp-for="Platform" type="text" class="form-control" id="providerInput" placeholder="Platform">
+                                    <input asp-for="Platform"  class="form-control"  placeholder="Platform">
                                     <span class="text-danger" asp-validation-for="Platform"></span>
 
 
@@ -345,7 +325,7 @@
                             <!-- Coourse link    region -->
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input asp-for="Link" type="url" class="form-control" id="link " placeholder="Course link ">
+                                    <input asp-for="Link"  class="form-control"  placeholder="Course link ">
                                     <span class="text-danger" asp-validation-for="Link"></span>
 
                                 </fieldset>
@@ -357,7 +337,7 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input type="text" asp-for="InstructorFullName" class="form-control" id="instructorname" placeholder="Instructor Full Name">
+                                    <input  asp-for="InstructorFullName" class="form-control" placeholder="Instructor Full Name">
                                     <span class="text-danger" asp-validation-for="InstructorFullName"></span>
 
                                 </fieldset>
@@ -469,7 +449,7 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input asp-for="CourseDuration" type="number" class="form-control" id="courseduration " placeholder="Course Total Hours">
+                                    <input asp-for="CourseDuration" type="number" class="form-control"  placeholder="Course Total Hours">
                                     <span class="text-danger" asp-validation-for="CourseDuration"></span>
 
                                 </fieldset>
@@ -504,13 +484,13 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
-                                    <input asp-for="Picture" class="form-control" id="course picture" placeholder="Course Poster Image">
+                                    <input asp-for="Picture" type="file" class="form-control" placeholder="Course Poster Image">
                                     <span class="text-danger" asp-validation-for="Picture"></span>
                                 </fieldset>
                             </div>
                             <div class="col-lg-12">
                                 <fieldset>
-                                    <button type="submit" id="contact" class="filled-button">Submit </button>
+                                    <button type="submit" id="contact" class="filled-button mt-4">Submit </button>
                                 </fieldset>
 
                             </div>
@@ -518,73 +498,14 @@
                  
             </div>
             </div>
-        </div>
+            </div>
        
         </form>
 
     </div>
-    @* </form> *@
+   
 </div>
            
-@*     <footer class="footer_area section_gap_top">
-        <div class="container">
-            <div class="row single-footer-widget">
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <div class="copy_right_text">
-                        <p>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            All Copyrights &copy reserved
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="left-content">
-                        <ul class="social-icons">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer> *@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- bootstrap core javascript -->
-@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-  <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
-
-<!-- additional scripts -->
-<script src="~/js/site.js"></script>
-<script src="~/js/site1.js"></script>
-<script src="~/js/site2.js"></script>
-<script src="~/js/site3.js"></script>
-<script src="~/js/site4.js"></script>*@
-@* <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
- *@
 
 @section Scripts{
 
@@ -652,6 +573,35 @@
 
     </script>
 
+
+
+    <script>
+
+
+        function addInput() {
+            fetch('@Url.Action("InputPartial", "Course")')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('inputContainer').insertAdjacentHTML('beforeend', html);
+                });
+
+
+
+
+
+        }
+
+
+        document.getElementById('addCourseDynamicForm').addEventListener('submit', function (event) {
+            var inputs = document.querySelectorAll('input[name="dynamicInput"]');
+            var concatenatedInputs = Array.from(inputs).map(input => input.value).join(';');
+            document.getElementById('@Html.IdFor(m => m.TopicsCovered)').value = concatenatedInputs;
+        });
+    </script>
+
+   }
+
+
     @*  <script>
         $(document).ready(function () {
             $("#providerInput").on("input", function () {
@@ -688,32 +638,6 @@
             $("#providerList").dropdown('hide');
         }
     </script> *@
-
-    <script>
-
-
-        function addInput() {
-            fetch('@Url.Action("InputPartial", "Course")')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('inputContainer').insertAdjacentHTML('beforeend', html);
-                });
-
-
-
-
-
-        }
-
-
-        document.getElementById('addCourseDynamicForm').addEventListener('submit', function (event) {
-            var inputs = document.querySelectorAll('input[name="dynamicInput"]');
-            var concatenatedInputs = Array.from(inputs).map(input => input.value).join(';');
-            document.getElementById('@Html.IdFor(m => m.TopicsCovered)').value = concatenatedInputs;
-        });
-    </script>
-
-   }
 
 
 @*  <script>
