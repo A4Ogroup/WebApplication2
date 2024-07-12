@@ -1,0 +1,196 @@
+﻿@model InstructorProfessionViewModel
+
+@{
+    Layout = "_layout";
+}
+    <style>
+        
+
+
+        .step-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 20px;
+            padding-bottom: 0.5rem;
+            /*             border-bottom: 1px solid #df2d30;
+         */
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+        }
+
+            .step.active .step-label {
+                color: #212F38;
+                font-weight: bold;
+            }
+
+            .step .step-bar:nth(1) {
+                border-bottom-left-radius: 20px;
+                border-bottom-left-radius: 2px;
+            }
+
+            .step .step-bar {
+                height: 5px;
+                margin-bottom: 2px;
+                background-color: #dedada;
+            }
+
+            .step.active .step-bar {
+                background-color: #df2d30;
+            }
+
+            .step .step-label {
+                color: #6c757d;
+            }
+
+            .step:not(:last-child) {
+                margin-right: 5px;
+            }
+
+        @@media (max-width: 768px) {
+            .step {
+                font-size: 14px;
+            }
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 10px 30px 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 40px 0 0;
+        }
+
+        .form-title {
+            font-size: 1.50rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .btn-next {
+            background-color: #df2d30;
+            color: #fff;
+        }
+
+            .btn-next:hover {
+                background-color: #c72b2e;
+            }
+
+        .btn-back {
+            background-color: #e8e8e8;
+            color: #212F38;
+        }
+
+        .form-text-help {
+            margin-top: 20px;
+            color: #6c757d;
+        }
+
+            .form-text-help a {
+                color: #212F38;
+                text-decoration: none;
+            }
+
+                .form-text-help a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+
+
+
+    <div class="row justify-content-center " style="">
+        <div class="col-md-8">
+            <div class="form-container ">
+
+                <div class="container mt-5">
+                    <!--<div class="tab-container d-flex justify-content-between align-items-center mb-4">-->
+                    <div class="step-container">
+                        <div class="step active">
+                            <div class="step-label">Account Information</div>
+                            <div class="step-bar"></div>
+                        </div>
+                        <div class="step active">
+                            <div class="step-label">Personal Information</div>
+                            <div class="step-bar"></div>
+                        </div>
+                        <div class="step active">
+                            <div class="step-label">Profession Information</div>
+                            <div class="step-bar"></div>
+                        </div>
+                        @* <div class="step">
+                            <div class="step-label">Pages & Components</div>
+                            <div class="step-bar"></div>
+                        </div> *@
+                    </div>
+
+
+
+
+                    <div class="form-title">Profession Information</div>
+                    <form asp-action="Step3" asp-controller="Account" method="post">
+                        <div class="mb-4">
+                            <label class="form-label">Professsion Title *</label>
+                           <input asp-for="Profession" class="form-control">
+                           <span asp-validation-for="Profession" class="text-danger"></span>
+
+                       </div>
+                        <div class="mb-4">
+                            <label class="form-label">Years Of Experience *</label>
+                          <input asp-for="YearsExperince" class="form-control">
+                          <span asp-validation-for="YearsExperince" class="text-danger"></span>
+
+                      </div>
+                        <div class="mb-4">
+                            <label class="form-label"> Summary About You   <small style="color:gray;margin-left:5px;">  add a bio to your profile</small></label>
+                          <textarea asp-for="About"  class="form-control" rows="6" style="height:40px;"> </textarea>
+                          <span asp-validation-for="About" class="text-danger"></span>
+                         </div>
+
+                         <div class="mb-2 mt-0" style="">
+                            <label class="form-label"> Social Accounts </label>
+                          <input asp-for="SocialMediaAccounts[0]"  class="form-control" placeholder="Social linke">
+                          <span asp-validation-for="SocialMediaAccounts" class="text-danger"></span>
+                         </div> 
+                         <div class="mb-2 mt-0" style="">
+                        <input asp-for="SocialMediaAccounts[1]" class="form-control" placeholder="Social linke">
+                          <span asp-validation-for="SocialMediaAccounts" class="text-danger"></span>
+                         </div>
+                         <div class="mb-2 mt-0" style="">
+                        <input asp-for="SocialMediaAccounts[2]" class="form-control" placeholder="Social linke">
+                          <span asp-validation-for="SocialMediaAccounts" class="text-danger"></span>
+                         </div>
+                     
+                        @* 
+                        <div class="mb-4">
+                            <label class="form-label">Gender *</label>
+                            <select class="form-select">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div> *@
+                        <div class="d-flex justify-content-between">
+                           <a asp-action="Step2" asp-controller="account"> <button type="button" class="btn btn-back"> < Back</button></a>
+                            <button type="submit" class="btn btn-next"> Submit </button>
+                        </div>
+                        <div class="form-text-help text-center">
+                            Stuck on the form? <a href="#">Let's call you!</a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
