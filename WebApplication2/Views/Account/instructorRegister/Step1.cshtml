@@ -12,25 +12,26 @@
             justify-content: space-between;
             align-items: center;
             margin: 0 20px;
-            padding-bottom: 0.5rem;
+            padding-bottom: 2rem;
             /*             border-bottom: 1px solid #df2d30;
          */
         }
 
         .step {
             flex: 1;
-            text-align: center;
+            text-align: start;
             font-weight: 500;
-        }
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+              }
 
             .step.active .step-label {
                 color: #212F38;
                 font-weight: bold;
             }
 
-            .step .step-bar:nth(1) {
+            .step-container .step-bar:nth-child(1) {
+                border-radius: 20px;
                 border-bottom-left-radius: 20px;
-                border-bottom-left-radius: 2px;
             }
 
             .step .step-bar {
@@ -45,6 +46,7 @@
 
             .step .step-label {
                 color: #6c757d;
+                margin-bottom:10px;
             }
 
             .step:not(:last-child) {
@@ -61,14 +63,24 @@
             background-color: #fff;
             padding:  30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 10px #e2e0e0;
             margin: 100px 0 0;
         }
+        
+       .form  input {
+        border: 2px solid #e2e0e0;
+    }
+
+   .from input:focus {
+        outline: none !important;
+        border:none !important;
+    }
 
         .form-title {
             font-size: 1.50rem;
             font-weight: bold;
             margin-bottom: 20px;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
 
         .btn-next {
@@ -105,7 +117,7 @@
 
 
     <div class="row justify-content-center " style="">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="form-container ">
 
                 <div class="container mt-5">
@@ -133,7 +145,7 @@
 
 
                     <div class="form-title">Account Information</div>
-                    <form asp-action="Step1" asp-controller="Account" method="post">
+                    <form class="form"asp-action="Step1" asp-controller="Account" method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="mb-4">
                             <label class="form-label">Email Address *</label>
@@ -169,7 +181,7 @@
                         </div> *@
                         <div class="d-flex justify-content-between">
                             @* <button type="button" class="btn btn-back">Back</button> *@
-                            <button type="submit" class="btn btn-next">Next ></button>
+                            <button type="submit" class="btn btn-next" style="margin-left:auto;">Next ></button>
                         </div>
                         <div class="form-text-help text-center">
                             Stuck on the form? <a href="#">Let's call you!</a>

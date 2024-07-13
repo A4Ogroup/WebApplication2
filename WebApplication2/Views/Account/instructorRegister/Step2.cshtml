@@ -1,101 +1,116 @@
 ﻿@model InstructorInfoViewModel
-    <style>
-        
-
 @{
-    Layout="_layout";
+    Layout = "_layout";
 }
-        .step-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0 20px;
-            padding-bottom: 0.5rem;
-            /*             border-bottom: 1px solid #df2d30;
-         */
-        }
+    <style>
 
-        .step {
-            flex: 1;
-            text-align: center;
-            font-weight: 500;
-        }
 
-            .step.active .step-label {
-                color: #212F38;
-                font-weight: bold;
-            }
 
-            .step .step-bar:nth(1) {
-                border-bottom-left-radius: 20px;
-                border-bottom-left-radius: 2px;
-            }
+    .step-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 20px;
+        padding-bottom: 2rem;
+        /*             border-bottom: 1px solid #df2d30;
+             */
+    }
 
-            .step .step-bar {
-                height: 5px;
-                margin-bottom: 2px;
-                background-color: #dedada;
-            }
+    .step {
+        flex: 1;
+        text-align: start;
+        font-weight: 500;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
 
-            .step.active .step-bar {
-                background-color: #df2d30;
-            }
-
-            .step .step-label {
-                color: #6c757d;
-            }
-
-            .step:not(:last-child) {
-                margin-right: 5px;
-            }
-
-        @@media (max-width: 768px) {
-            .step {
-                font-size: 14px;
-            }
-        }
-
-        .form-container {
-            background-color: #fff;
-            padding:  30px ;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 40px 0 0;
-        }
-
-        .form-title {
-            font-size: 1.50rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .btn-next {
-            background-color: #df2d30;
-            color: #fff;
-        }
-
-            .btn-next:hover {
-                background-color: #c72b2e;
-            }
-
-        .btn-back {
-            background-color: #e8e8e8;
+        .step.active .step-label {
             color: #212F38;
+            font-weight: bold;
         }
 
-        .form-text-help {
-            margin-top: 20px;
-            color: #6c757d;
+    .step-container .step-bar:nth-child(1) {
+        border-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .step .step-bar {
+        height: 5px;
+        margin-bottom: 2px;
+        background-color: #dedada;
+    }
+
+    .step.active .step-bar {
+        background-color: #df2d30;
+    }
+
+    .step .step-label {
+        color: #6c757d;
+        margin-bottom: 10px;
+    }
+
+    .step:not(:last-child) {
+        margin-right: 5px;
+    }
+
+    @@media (max-width: 768px) {
+        .step {
+            font-size: 14px;
+        }
+    }
+
+    .form-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 5px 10px #e2e0e0;
+        margin: 100px 0 0;
+    }
+
+    .form input {
+        border: 2px solid #e2e0e0;
+    }
+
+    .from input:focus {
+        outline: none !important;
+        border: none !important;
+    }
+
+    .form-title {
+        font-size: 1.50rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .btn-next {
+        background-color: #df2d30;
+        color: #fff;
+    }
+
+        .btn-next:hover {
+            background-color: #e8e8e8;
+            border: solid #df2d30 2px;
+            color: #df2d30;
         }
 
-            .form-text-help a {
-                color: #212F38;
-                text-decoration: none;
+    .btn-back {
+        background-color: #e8e8e8;
+        color: #212F38;
+    }
+
+    .form-text-help {
+        margin-top: 20px;
+        color: #6c757d;
+    }
+
+        .form-text-help a {
+            color: #212F38;
+            text-decoration: none;
+        }
+
+            .form-text-help a:hover {
+                text-decoration: underline;
             }
-
-                .form-text-help a:hover {
-                    text-decoration: underline;
-                }
     </style>
 
 
@@ -129,7 +144,7 @@
 
 
                     <div class="form-title">Account Information</div>
-                    <form enctype="multipart/form-data" asp-action="Step2" asp-controller="Account" method="post">
+                    <form class="form" enctype="multipart/form-data" asp-action="Step2" asp-controller="Account" method="post">
                         <div class="mb-4">
                             <label class="form-label">First Name *</label>
                             <input asp-for="FirstName" class="form-control">
