@@ -183,7 +183,7 @@
                                 (3, 666)
                             </p>
 
-                            <form asp-action="ToggleStatus" method="post">
+                            <form asp-area="admin" asp-action="ToggleStatus" asp-controller="homee" method="post">
                          @*        <input type="hidden" name="id" value="@Model.Course.CourseId" />
                                 @if (@Model.Course.Status.Value)
                                 {
@@ -202,8 +202,8 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                        
-                                        <a class="dropdown-item" asp-action="ToggleStatus" asp-controller="admin" asp-route-id="@Model.Course.CourseId">Pending</a>
+
+                                        <a class="dropdown-item" asp-area="admin" asp-action="ToggleStatus" asp-controller="homee" asp-route-id="@Model.Course.CourseId">Pending</a>
 
                                     </ul>
                                 }
@@ -214,7 +214,7 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                        <a class="dropdown-item" asp-action="ToggleStatus" asp-controller="admin" asp-route-id="@Model.Course.CourseId">Accepted</a>
+                                        <a class="dropdown-item" asp-area="admin" asp-action="ToggleStatus" asp-controller="homee" asp-route-id="@Model.Course.CourseId">Accepted</a>
                                     
 
                                     </ul>

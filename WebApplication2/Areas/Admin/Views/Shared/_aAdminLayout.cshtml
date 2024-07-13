@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Learn consult</title>
+
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    @*      <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    *@
+
+
+    <link href="~/css/site.css" rel="stylesheet">
+    <link href="~/css/site1.css" rel="stylesheet">
+    <link href="~/css/site2.css" rel="stylesheet">
+    <link href="~/css/site3.css" rel="stylesheet">
+    <link href="~/css/site4.css" rel="stylesheet">
+    @* <link href="~/css/StyleSheet.css" rel="stylesheet"> *@
+
+    <style>
+
+        .main-content {
+            padding: 20px;
+        }
+
+
+        .sidebar-item {
+            margin-bottom: 10px;
+        }
+
+        .sidebar {
+            padding-right: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .filter-section,.form-check {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+            .filter-section h4 {
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .filter-section h4:hover {
+                    color: #007acc;
+                }
+
+            .filter-section svg {
+                transition: transform 0.2s;
+            }
+
+        .filter-options {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .form-check{
+            margin-top:6px;
+        }
+        .fa-star {
+            color: #ff0000;
+        }
+
+        .fa-star-o {
+            color: red; /* Changes the color of the star outline to red */
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+
+            .result-item img {
+                border-radius: 10px;
+                width: 150px;
+                max-width: 100%;
+                height: auto;
+                margin-right: 15px;
+            }
+
+            .result-item .content h3 {
+                margin: 0;
+                color: #333;
+            }
+
+            .result-item .content .meta {
+                font-size: 14px;
+                color: gray;
+                margin-bottom: 10px;
+            }
+
+            .result-item .price {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+            }
+
+
+        @@media (max-width: 992px) {
+            .result-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+                .result-item img {
+                    width: 100%;
+                    height: auto;
+                    margin-bottom: 10px;
+                }
+
+            header {
+                text-align: center;
+            }
+
+            .filter-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                border-right: none;
+            }
+        }
+
+        .text-purple {
+            color: #6f42c1;
+        }
+
+        .footer_area section_gap_top {
+            background-attachment: fixed;
+            background-color: #000 !important;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            white-space: nowrap;
+            line-height: 60px;
+        }
+
+        .banner-item-1 {
+            padding: 50px 0px;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="homee" asp-action="index">
+                    <h2><em>L</em>earn Consult</h2>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item w-99.9" style="margin-left:auto;">
+                            <div class="search-form">
+                                <form method="get" asp-controller="Course" asp-action="Index1" class="d-flex w-100">
+                                    <div class="d-flex align-items-center w-100 p-2" style="border-radius: 25px;">
+
+                                    @*     <input type="hidden" id="categoryIdInput" name="CategoryId" value="0">
+                                        <div style="border-left: 1px solid #ccc; height: 30px; margin-right: 10px;"></div> *@
+                                        <input type="search" id="searchText" name="SearchQuery" class="form-control border-0 flex-grow-1" style="box-shadow: none;" placeholder="search">
+                                                        @*   <a role="button" class="nav-link" style="border: none; padding: 0; background: none; margin: 0 5px;" onclick="clearSearch()">
+                                        <span>&#x2716;</span>
+                                        </a> *@
+                                                        @* <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button> *@
+                                        <div style="border-left: 1px solid #ccc; height: 30px; margin: 0 10px;"></div>
+                                        <button type="submit" class="nav-link" style="border: none; padding: 0; background: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.648.196a5 5 0 1 1 7.071-7.07 5 5 0 0 1-7.07 7.07z" />
+                                            </svg>
+                                        </button>
+                                     </div>
+                                </form>
+            </div>
+
+
+            </li>
+
+
+            </ul>
+            </div>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <div class=" header-text">
+        <div class="owl-banner owl-carousel">
+            <div class="banner-item-1">
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container-fluid main-content" style="margin-top:20px">
+        <div class="row">
+            <div class="col-lg-3">
+                <button class="btn btn-dark mb-3 w-100 d-lg-none" id="filter-toggle">Dashboard</button>
+                <div class="sidebar d-none d-lg-block">
+                    <div class="filter-section">
+                        <h3>Dashboard</h3>
+                    </div>
+                    <div class="filter-section">
+                        <h4>
+                            <a class="text-black"
+                               asp-action="course" asp-controller="homee" aria-expanded="false">
+                                <i class="fa fa-book"></i><span class="hide-menu" style="margin-left:5px;">Courses</span>
+                            </a>
+                           
+                        </h4>
+                       
+                    </div>
+                    <div class="filter-section">
+                        <h4>
+                            <a class="text-black"
+                               asp-action="review" asp-controller="homee" aria-expanded="false">
+                                <i class="fa fa-comment" ></i><span class="hide-menu" style="margin-left:5px;">Reviews</span>
+                            </a>
+                        </h4>
+                  
+                    </div>
+                    <div class="filter-section">
+                        <h4>
+                            <a class="text-black"
+                               asp-action="report" asp-controller="homee" aria-expanded="false">
+                                <i class="fa fa-file"></i><span class="hide-menu" style="margin-left:5px;">Reports</span>
+                            </a>
+                        </h4>
+                     
+                    </div>
+
+                    <div class="filter-section">
+                        <h4 class="d-flex justify-content-between align-items-center">
+                            Dashboard Reports
+                            <svg width="24" height="24" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </h4>
+                        <div class="filter-options">
+                            <div class="form-check">
+                             <h4>
+                                    <a class="text-black"
+                                       asp-action="coursereports" asp-controller="homee" aria-expanded="false">
+                                        <i class="fa fa-book"></i><span class="hide-menu" style="margin-left:5px;">Course</span>
+                                    </a>
+                             </h4>
+                            </div>
+                            <div class="form-check">
+                             <h4>
+                                    <a class="text-black"
+                                       asp-action="review" asp-controller="homee" aria-expanded="false">
+                                        <i class="fa fa-comment"></i><span class="hide-menu" style="margin-left:5px;">Review</span>
+                                    </a>
+                             </h4>
+                            </div>
+                            <div class="form-check">
+                             <h4>
+                                    <a class="text-black"
+                                       asp-action="report" asp-controller="homee" aria-expanded="false">
+                                        <i class="fa fa-file"></i><span class="hide-menu" style="margin-left:5px;">Report</span>
+                                    </a>
+                             </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+          
+            @RenderBody()
+        </div>
+    </div>
+
+
+
+
+
+    <footer class="footer_area section_gap_top" style=" background-attachment: fixed;
+            position:relative;
+            background-color: #000 !important;
+            margin-top:100px;
+                bottom: 0;
+                width: 100%;
+            height:270px;
+                white-space: nowrap;
+                line-height: 60px;">
+        <div class="container" style="padding-top:30px; position:absolute;">
+            <div class="row single-footer-widget">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <h2 style="font-weight: bold;color: #fff; word-break:break-word;">READY FOR YOUR <span style="color: red;">NEXT</span> LESSON?</h2>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="left-content">
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class=" copy_right_text" style="text-align:center; margin:auto;">
+                    <p style="color: #fff;">
+                        All Copyrights &copy reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+
+
+
+    <!-- Additional Scripts -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site1.js" asp-append-version="true"></script>
+    <script src="~/js/site2.js" asp-append-version="true"></script>
+    <script src="~/js/site3.js" asp-append-version="true"></script>
+    <script src="~/js/site4.js" asp-append-version="true"></script>
+
+    
+    <script>
+
+
+        function clearSearch() {
+            document.getElementById('SearchQuery').value = '';
+        }
+    </script>
+    <script language="text/Javascript">
+        cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+        function clearField(t) {                   //declaring the array outside of the
+            if (!cleared[t.id]) {                      // function makes it static and global
+                cleared[t.id] = 1;  // you could use true and false, but that's more typing
+                t.value = '';         // with more chance of typos
+                t.style.color = '#fff';
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Sidebar toggle button for mobile view
+            $("#filter-toggle").click(function () {
+                $(".sidebar").toggleClass("d-none");
+            });
+
+            // Toggle filter options on click
+            $(".filter-section h4").click(function () {
+                let options = $(this).next(".filter-options");
+                let svg = $(this).find("svg");
+                options.slideToggle(200);
+                if (svg.css("transform") == "none" || svg.css("transform") == "matrix(1, 0, 0, 1, 0, 0)") {
+                    svg.css("transform", "rotate(180deg)");
+                } else {
+                    svg.css("transform", "rotate(0deg)");
+                }
+            });
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

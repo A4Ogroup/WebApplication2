@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Learn consult</title>
+
+    <!-- Favicon icon -->
+
+@*     <!-- Custom CSS -->
+    <link href="~/Admin/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">*@
+    <!-- Custom CSS -->
+    <link href="~/Admin/dist/css/style.min.css" rel="stylesheet"> 
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+    <style>
+        .icon-container {
+            width: 500px;
+            height:64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+          
+        }
+
+        .custom-topbar {
+            background-color: black;
+        }
+
+            .custom-topbar .navbar {
+                background-color: inherit; /* Inherit the background color from the parent */
+            }
+
+                .custom-topbar .navbar .navbar-brand h2 {
+                    color: white; /* Change the color of the text inside the brand */
+                }
+
+                .custom-topbar .navbar .nav-link,
+                .custom-topbar .navbar .dropdown-menu,
+                .custom-topbar .navbar .dropdown-item {
+                    color: white; /* Change the color of nav links and dropdown items */
+                }
+
+                /* Adjust the dropdown background */
+                .custom-topbar .navbar .dropdown-menu {
+                    background-color: #333;
+                }
+
+                /* Adjust the dropdown items on hover */
+                .custom-topbar .navbar .dropdown-item:hover {
+                    background-color: #444;
+                }
+
+            .navbar .navbar-brand h2 {
+                color: #fff;
+                text-transform: uppercase;
+                font-size: 24px;
+                font-weight: 700;
+                -webkit-transition: all .3s ease 0s;
+                -moz-transition: all .3s ease 0s;
+                -o-transition: all .3s ease 0s;
+                transition: all .3s ease 0s;
+            }
+
+            .navbar .navbar-brand h2 em {
+                font-style: normal;
+                color: #f33f3f;
+            }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar custom-topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header">
+         
+                    <a class="navbar-brand" asp-action="index">
+                        <div class="icon-container">
+                            <h2><em>L</em>earn Consult</h2>
+                        </div>
+                    </a>
+
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" >
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-start me-auto">
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item search-box">
+                            <a class="nav-link waves-effect waves-dark"
+                               href="javascript:void(0)"><i class="ti-search"></i></a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="ti-close"></i></a>
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-end">
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/Admin/assets/images/users/1.png" alt="user" class="rounded-circle" width="31">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-user m-r-5 m-l-5"></i>
+                                    My Profile
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-wallet m-r-5 m-l-5"></i>
+                                    My Balance
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-email m-r-5 m-l-5"></i>
+                                    Inbox
+                                </a>
+                            </ul>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li>
+                            <!-- User Profile-->
+                            <div class="user-profile d-flex no-block dropdown m-t-20">
+                                <div class="user-pic">
+                                    <img src="~/Admin/assets/images/users/1.jpg" alt="users"
+                                         class="rounded-circle" width="40" />
+                                </div>
+                                <div class="user-content hide-menu m-l-10">
+                                    <a href="#" class="" id="Userdd" role="button"
+                                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <h5 class="m-b-0 user-name font-medium">
+                                            Steave Jobs <i class="fa fa-angle-down"></i>
+                                        </h5>
+                                        <span class="op-5 user-email">varun@gmail.com</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="Userdd">
+                                        <a class="dropdown-item" href="javascript:void(0)">
+                                            <i class="ti-user m-r-5 m-l-5"></i> My Profile
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:void(0)">
+                                            <i class="ti-wallet m-r-5 m-l-5"></i> My Balance
+                                        </a>
+                                        <a class="dropdown-item" href="javascript:void(0)">
+                                            <i class="ti-email m-r-5 m-l-5"></i> Inbox
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)">
+                                            <i class="ti-settings m-r-5 m-l-5"></i> Account Setting
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)">
+                                            <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End User Profile-->
+                        </li>
+@*                         <li class="p-15 m-t-10">
+                            <a href="javascript:void(0)"
+                               class="btn d-block w-100 create-btn text-white no-block d-flex align-items-center">
+                                <i class="fa fa-plus-square"></i> <span class="hide-menu m-l-5">Create New</span>
+                            </a>
+                        </li> *@
+                        <!-- User Profile-->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-action="course" asp-controller="home" aria-expanded="false">
+                                <i class="fas fa-book"></i><span class="hide-menu">Courses</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-action="review" asp-controller="home" aria-expanded="false">
+                                <i class="fas fa-comment-alt"></i><span class="hide-menu">Reviews</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-action="report" asp-controller="home" aria-expanded="false">
+                                <i class="fas fa-file-alt"></i><span class="hide-menu">Reports</span>
+                            </a>
+                        </li>
+
+
+
+                  
+
+
+                        <li class="sidebar-item dropdown">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-toggle" href="#" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-tachometer-alt"></i><span class="hide-menu">Dashboards</span>
+                            </a>
+                            <ul class="dropdown-menu static-dropdown-menu" aria-labelledby="dropdownMenuButton" s>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-item" href="dashboard-overview.html">
+                                        <i class="fas fa-chart-line"></i><span class="hide-menu">Overview</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-item" href="dashboard-sales.html">
+                                        <i class="fas fa-dollar-sign"></i><span class="hide-menu">Sales</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-item" href="dashboard-analytics.html">
+                                        <i class="fas fa-chart-pie"></i><span class="hide-menu">Analytics</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               href="icon-material.html" aria-expanded="false">
+                                <i class="mdi mdi-face"></i><span class="hide-menu">Icon</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               href="starter-kit.html" aria-expanded="false">
+                                <i class="mdi mdi-file"></i><span class="hide-menu">Blank</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               href="error-404.html" aria-expanded="false">
+                                <i class="mdi mdi-alert-outline"></i><span class="hide-menu">404</span>
+                            </a>
+                        </li>
+                        <li class="text-center p-40 upgrade-btn">
+                            <a href="https://www.wrappixel.com/templates/xtremeadmin/"
+                               class="btn d-block w-100 btn-danger text-white" target="_blank">Upgrade to Pro</a>
+                        </li>
+                    </ul>
+
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    @RenderBody()
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="~/Admin/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/Admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/dist/js/app-style-switcher.js"></script>
+    <!--Wave Effects -->
+    <script src="~/Admin/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/Admin/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/Admin/dist/js/custom.js"></script>
+    <!--This page JavaScript -->
+    <!--chartis chart-->
+    <script src="~/Admin/assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="~/Admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="~/Admin/dist/js/pages/dashboards/dashboard1.js"></script>
+        @RenderSection("Scripts", required: false)
+    </div>
+</body>
+
+</html>

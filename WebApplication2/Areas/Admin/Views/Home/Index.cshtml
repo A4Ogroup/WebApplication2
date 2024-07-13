@@ -1,0 +1,638 @@
+﻿
+@inject LconsultDBContext _context
+@{
+
+    var course = _context.Courses.ToList();
+    var review = _context.Reviews.ToList();
+    var report = _context.Reports.ToList();
+
+}
+<partial name="_NotificationPartial"></partial>
+@{
+    Layout = "_AdminLayout";
+}
+
+<style>
+    /* Custom styles for dashboard cards */
+    .card {
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .icon-shape {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .text-success {
+        color: #28a745 !important;
+    }
+
+    .text-danger {
+        color: #dc3545 !important;
+    }
+
+    h5 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    h2 {
+        margin: 10px 0;
+        font-weight: 700;
+    }
+
+    .small {
+        font-size: 0.875em;
+    }
+
+</style>
+
+
+
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row align-items-center">
+            <div class="col-5">
+                <h4 class="page-title">Dashboard</h4>
+
+            </div>
+            <div class="col-7">
+           @*      <div class="text-end upgrade-btn">
+                    <a href="https://www.wrappixel.com/templates/xtremeadmin/" class="btn btn-danger text-white"
+                       target="_blank">Upgrade to Pro</a>
+                </div> *@
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Sales chart -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-md-flex align-items-center">
+                            <div>
+                                <h4 class="card-title">Summary</h4>
+                                @* <h5 class="card-subtitle">Overview of Latest Month</h5> *@
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <!-- column -->
+                            @* <div class="col-lg-12">
+                            <div class="campaign"></div>
+                            </div> *@
+                            <!-- column -->
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                    <i class="fa fa-comment"></i>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <h5>Reviews</h5>
+                                                    <h2>@review.Count</h2>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="@Url.Action("review", "admin")" class="btn btn-light btn-sm mt-3">See More</a>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                    <i class="fa fa-book"></i>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <h5>Courses</h5>
+                                                    <h2>@course.Count</h2>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="@Url.Action("course", "admin")" class="btn btn-light btn-sm mt-3">See More</a>
+                                    </div>
+                                </div>
+                                @*                                   <div class="col-md-4">
+                                <div class="card">
+                                <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                <div class="icon icon-shape bg-primary text-white rounded-circle">
+                                <i class="fa fa-chart-pie"></i>
+                                </div>
+                                <div class="ml-3">
+                                <h5>Students</h5>
+                                <h2>10</h2>
+
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div> *@
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                    <i class="fa fa-user-circle"></i>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <h5>Students</h5>
+                                                    <h2>30</h2>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="@Url.Action("ClicksDetails", "Dashboard")" class="btn btn-light btn-sm mt-3">See More</a>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                    <i class="fa fa-id-card"></i>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <h5>Instructors</h5>
+                                                    <h2>100</h2>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="@Url.Action("ClicksDetails", "Dashboard")" class="btn btn-light btn-sm mt-3">See More</a>
+                                    </div>
+                                </div> 
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                    <i class="fa fa-file-alt"></i>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <h5>Reports</h5>
+                                                    <h2>@report.Count</h2>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="@Url.Action("report", "admin")" class="btn btn-light btn-sm mt-3">See More</a>
+                                    </div>
+                                </div>
+                                @*                                   <div class="col-md-4">
+                                <div class="card">
+                                <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                <div class="icon icon-shape bg-primary text-white rounded-circle">
+                                <i class="fa fa-chart-pie"></i>
+                                </div>
+                                <div class="ml-3">
+                                <h5>Students</h5>
+                                <h2>10</h2>
+
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div> *@
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* <div class="col-md-4">
+            <div class="card">
+            <div class="card-body">
+            <h4 class="card-title">Feeds</h4>
+            <div class="feed-widget">
+            <ul class="list-style-none feed-body m-0 p-b-20">
+            <li class="feed-item">
+            <div class="feed-icon bg-info"><i class="far fa-bell"></i></div> You have 4
+            pending tasks. <span class="ms-auto font-12 text-muted">Just Now</span>
+            </li>
+            <li class="feed-item">
+            <div class="feed-icon bg-success"><i class="ti-server"></i></div> Server #1
+            overloaded.<span class="ms-auto font-12 text-muted">2 Hours ago</span>
+            </li>
+            <li class="feed-item">
+            <div class="feed-icon bg-warning"><i class="ti-shopping-cart"></i></div> New
+            order received.<span class="ms-auto font-12 text-muted">31 May</span>
+            </li>
+            <li class="feed-item">
+            <div class="feed-icon bg-danger"><i class="ti-user"></i></div> New user
+            registered.<span class="ms-auto font-12 text-muted">30 May</span>
+            </li>
+            </ul>
+            </div>
+            </div>
+            </div>
+            </div> *@
+        </div>
+        <!-- ============================================================== -->
+        <!-- Sales chart -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Table -->
+        <!-- ============================================================== -->
+@*         <div class="row">
+            <!-- column -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- title -->
+                        <div class="d-md-flex">
+                            <div>
+                                <h4 class="card-title"></h4>
+                                <h5 class="card-subtitle"></h5>
+                            </div>
+
+                        </div>
+                        <!-- title -->
+                    </div>
+                    <div id="course-list">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="bg-light">
+                                    <th scope="col">UserName</th>
+                                    <th scope="col">Rating</th>
+                                    <th scope="col">CourseName</th>
+                                    <th scope="col">Addition Date</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var review in Model)
+                                {
+                                    <tr>
+                                        <td>@review.Student</td>
+                                        <td>
+                                            <ul class="stars" style="color:red">
+                                                @switch (review.Rate)
+                                                {
+                                                    case 5:
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        break;
+                                                    case 4:
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        break;
+                                                    case 3:
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        break;
+                                                    case 2:
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        break;
+                                                    default:
+                                                        <i class="fa fa-star"></i>
+                                                        break;
+                                                }
+                                            </ul>
+                                        </td>
+                                        <td>@review.Course.Title</td>
+                                        <td>@review.RatingDate</td>
+                                        <td>
+                                            <a href="@Url.Action("EditReview", "review", new { id = review.ReviewId })" class="btn btn-light btn-action">Update</a>
+                                            <a href="@Url.Action("Delete", "review", new { id = review.ReviewId })" class="btn btn-light btn-action" onclick="return confirm('Are you sure you want to delete this review?');">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link" asp-action="test" asp-route-pageNumber="@(Model.PageIndex - 1)">Previous</a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                        <a class="page-link" asp-action="test" asp-route-pageNumber="@i">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link" asp-action="test" asp-route-pageNumber="@(Model.PageIndex + 1)">Next</a>
+                </li>
+            </ul>
+        </nav> *@
+        <!-- ============================================================== -->
+        <!-- Table -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Recent comment and chats -->
+        <!-- ============================================================== -->
+        @* <div class="row">
+        <!-- column -->
+        <div class="col-lg-6">
+        <div class="card">
+        <div class="card-body">
+        <h4 class="card-title">Recent Comments</h4>
+        </div>
+        <div class="comment-widgets scrollable">
+        <!-- Comment Row -->
+        <div class="d-flex flex-row comment-row m-t-0">
+        <div class="p-2">
+        <img src="~/Admin/assets/images/users/1.jpg" alt="user" width="50"
+        class="rounded-circle">
+        </div>
+        <div class="comment-text w-100">
+        <h6 class="font-medium">James Anderson</h6>
+        <span class="m-b-15 d-block">
+        Lorem Ipsum is simply dummy text of the printing
+        and type setting industry.
+        </span>
+        <div class="comment-footer">
+        <span class="text-muted float-end">April 14, 2021</span> <span class="label label-rounded label-primary">Pending</span> <span class="action-icons">
+        <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
+        <a href="javascript:void(0)"><i class="ti-check"></i></a>
+        <a href="javascript:void(0)"><i class="ti-heart"></i></a>
+        </span>
+        </div>
+        </div>
+        </div>
+        <!-- Comment Row -->
+        <div class="d-flex flex-row comment-row">
+        <div class="p-2">
+        <img src="~/Admin/assets/images/users/4.jpg" alt="user" width="50"
+        class="rounded-circle">
+        </div>
+        <div class="comment-text active w-100">
+        <h6 class="font-medium">Michael Jorden</h6>
+        <span class="m-b-15 d-block">
+        Lorem Ipsum is simply dummy text of the printing
+        and type setting industry.
+        </span>
+        <div class="comment-footer ">
+        <span class="text-muted float-end">April 14, 2021</span>
+        <span class="label label-success label-rounded">Approved</span>
+        <span class="action-icons active">
+        <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
+        <a href="javascript:void(0)"><i class="icon-close"></i></a>
+        <a href="javascript:void(0)"><i class="ti-heart text-danger"></i></a>
+        </span>
+        </div>
+        </div>
+        </div>
+        <!-- Comment Row -->
+        <div class="d-flex flex-row comment-row">
+        <div class="p-2">
+        <img src="~/Admin/assets/images/users/5.jpg" alt="user" width="50"
+        class="rounded-circle">
+        </div>
+        <div class="comment-text w-100">
+        <h6 class="font-medium">Johnathan Doeting</h6>
+        <span class="m-b-15 d-block">
+        Lorem Ipsum is simply dummy text of the printing
+        and type setting industry.
+        </span>
+        <div class="comment-footer">
+        <span class="text-muted float-end">April 14, 2021</span>
+        <span class="label label-rounded label-danger">Rejected</span>
+        <span class="action-icons">
+        <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
+        <a href="javascript:void(0)"><i class="ti-check"></i></a>
+        <a href="javascript:void(0)"><i class="ti-heart"></i></a>
+        </span>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <!-- column -->
+        <div class="col-lg-6">
+        <div class="card">
+        <div class="card-body">
+        <h4 class="card-title">Temp Guide</h4>
+        <div class="d-flex align-items-center flex-row m-t-30">
+        <div class="display-5 text-info">
+        <i class="wi wi-day-showers"></i>
+        <span>73<sup>°</sup></span>
+        </div>
+        <div class="m-l-10">
+        <h3 class="m-b-0">Saturday</h3><small>Ahmedabad, India</small>
+        </div>
+        </div>
+        <table class="table no-border mini-table m-t-20">
+        <tbody>
+        <tr>
+        <td class="text-muted">Wind</td>
+        <td class="font-medium">ESE 17 mph</td>
+        </tr>
+        <tr>
+        <td class="text-muted">Humidity</td>
+        <td class="font-medium">83%</td>
+        </tr>
+        <tr>
+        <td class="text-muted">Pressure</td>
+        <td class="font-medium">28.56 in</td>
+        </tr>
+        <tr>
+        <td class="text-muted">Cloud Cover</td>
+        <td class="font-medium">78%</td>
+        </tr>
+        </tbody>
+        </table>
+        <ul class="row list-style-none text-center m-t-30">
+        <li class="col-3">
+        <h4 class="text-info"><i class="wi wi-day-sunny"></i></h4>
+        <span class="d-block text-muted">09:30</span>
+        <h3 class="m-t-5">70<sup>°</sup></h3>
+        </li>
+        <li class="col-3">
+        <h4 class="text-info"><i class="wi wi-day-cloudy"></i></h4>
+        <span class="d-block text-muted">11:30</span>
+        <h3 class="m-t-5">72<sup>°</sup></h3>
+        </li>
+        <li class="col-3">
+        <h4 class="text-info"><i class="wi wi-day-hail"></i></h4>
+        <span class="d-block text-muted">13:30</span>
+        <h3 class="m-t-5">75<sup>°</sup></h3>
+        </li>
+        <li class="col-3">
+        <h4 class="text-info"><i class="wi wi-day-sprinkle"></i></h4>
+        <span class="d-block text-muted">15:30</span>
+        <h3 class="m-t-5">76<sup>°</sup></h3>
+        </li>
+        </ul>
+        </div>
+        </div>
+        </div>
+        </div> *@
+        <!-- ============================================================== -->
+        <!-- Recent comment and chats -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @using static WebApplication2.ViewModels.PagenationViewModel
+@model PaginatedList<Review>
+
+@{
+    Layout = "_AdminLayout";
+}
+<div class="col-lg-9">
+    <h2 id="results-count">
+      
+    </h2>
+
+    <div id="course-list">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">CourseName</th>
+                    <th scope="col">Addition Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var review in Model)
+                {
+                    <tr>
+                        <td>@review.Student</td>
+                        <td>
+                            <ul class="stars" style="color:red">
+                                @switch (review.Rate)
+                                {
+                                    case 5:
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                    case 4:
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                    case 3:
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                    case 2:
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                    default:
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                }
+                            </ul>
+                        </td>
+                        <td>@review.Course.Title</td>
+                        <td>@review.RatingDate</td>
+                        <td>
+                            <a href="@Url.Action("EditReview", "review", new { id = review.ReviewId })" class="btn btn-light btn-action">Update</a>
+                            <a href="@Url.Action("Delete", "review", new { id = review.ReviewId })" class="btn btn-light btn-action" onclick="return confirm('Are you sure you want to delete this review?');">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div> *@
