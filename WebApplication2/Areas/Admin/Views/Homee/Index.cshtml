@@ -1,0 +1,176 @@
+﻿@inject LconsultDBContext _context
+@{
+
+    var course = _context.Courses.ToList();
+    var review = _context.Reviews.ToList();
+    var report = _context.Reports.ToList();
+
+}
+@{
+    Layout = "_aAdminLayout";
+}
+
+<partial name="_NotificationPartial"></partial>
+
+<style>
+    /* Custom styles for dashboard cards */
+    .card {
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .icon-shape {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .text-success {
+        color: #28a745 !important;
+    }
+
+    .text-danger {
+        color: #dc3545 !important;
+    }
+
+    h5 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    h2 {
+        margin: 10px 0;
+        font-weight: 700;
+    }
+
+    .small {
+        font-size: 0.875em;
+    }
+
+</style>
+
+
+
+
+
+
+<div class="col-lg-9">
+                            <div>
+                                <h4 class="card-title">Summary</h4>
+                                
+                            </div>
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                <i class="fa fa-comment"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <h5>Reviews</h5>
+                                                <h2>@review.Count</h2>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="@Url.Action("review", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                <i class="fa fa-book"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <h5>Courses</h5>
+                                                <h2>@course.Count</h2>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                      <a href="@Url.Action("course", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                <i class="fa fa-user-circle"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <h5>Students</h5>
+                                                <h2>30</h2>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                         <a href="@Url.Action("ClicksDetails", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                <i class="fa fa-id-card"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <h5>Instructors</h5>
+                                                <h2>100</h2>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                      <a href="@Url.Action("ClicksDetails", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                <i class="fa fa-file-alt"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <h5>Reports</h5>
+                                                <h2>@report.Count</h2>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                         <a href="@Url.Action("report", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+</div>
+
+
+
+      

@@ -219,22 +219,54 @@
                         <!-- User Profile-->
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               asp-action="course" asp-controller="admin" aria-expanded="false">
+                               asp-action="course" asp-controller="home" aria-expanded="false">
                                 <i class="fas fa-book"></i><span class="hide-menu">Courses</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               asp-action="review" asp-controller="admin" aria-expanded="false">
+                               asp-action="review" asp-controller="home" aria-expanded="false">
                                 <i class="fas fa-comment-alt"></i><span class="hide-menu">Reviews</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               asp-action="report" asp-controller="admin" aria-expanded="false">
+                               asp-action="report" asp-controller="home" aria-expanded="false">
                                 <i class="fas fa-file-alt"></i><span class="hide-menu">Reports</span>
                             </a>
                         </li>
+
+
+
+                  
+
+
+                        <li class="sidebar-item dropdown">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-toggle" href="#" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-tachometer-alt"></i><span class="hide-menu">Dashboards</span>
+                            </a>
+                            <ul class="dropdown-menu static-dropdown-menu" aria-labelledby="dropdownMenuButton" s>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-item" href="dashboard-overview.html">
+                                        <i class="fas fa-chart-line"></i><span class="hide-menu">Overview</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-item" href="dashboard-sales.html">
+                                        <i class="fas fa-dollar-sign"></i><span class="hide-menu">Sales</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-item" href="dashboard-analytics.html">
+                                        <i class="fas fa-chart-pie"></i><span class="hide-menu">Analytics</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                href="icon-material.html" aria-expanded="false">

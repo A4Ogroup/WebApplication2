@@ -1,0 +1,174 @@
+﻿@model WebApplication2.PaginatedListNew<Course>
+
+@{
+    Layout = "_aAdminLayout";
+}
+<style>
+/*             .page-breadcrumb {
+            padding: 20px 0;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .upgrade-btn {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .dropdown-toggle::after {
+            margin-left: 0.5em;
+        }
+        .dropdown-menu {
+            position: absolute;
+            will-change: transform;
+            top: 100%;
+            left: 0;
+            margin-top: 0.125rem;
+        }
+        .nav-item.dropdown {
+            position: relative;
+            display: inline-block;
+        } */
+</style>
+
+
+<div class="col-lg-9">
+   
+
+            <div class="row align-items-center" >
+                <div class="col-5">
+                    <h4 class="page-title">Courses (@Model.Count)</h4>
+                </div>
+                <div class="col-7">
+                    <div class="text-end upgrade-btn">
+                        <!-- Dropdown button -->
+                   
+
+            
+                      @*   <p>
+                            <li class="nav-item dropdown" style="list-style-type:none;">
+                         <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color:white;">
+                                    Filter by
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" >Title</a></li>
+                                    <li><a class="dropdown-item" href="#">Date</a></li>
+                                 
+                                </ul>
+                            </li>
+                        </p> *@
+
+                <form method="post" action="@Url.Action("FilterCourses", "homee")">
+                    <div class="dropdown mb-3">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+                            Filter by
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Title'; this.closest('form').submit();">Title</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Date'; this.closest('form').submit();">Date</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='AddedToday'; this.closest('form').submit();">Added Today</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='LastMonth'; this.closest('form').submit();">Added Last Month</a></li>
+                        </ul>
+                        <input type="hidden" name="filterType" id="filterType" value="" />
+                    </div>
+                </form>
+                    
+         
+
+                      
+
+                
+                    </div>
+                </div>
+            </div>
+     
+  
+
+    <div id="course-list">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Picture</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Price Status</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Addition Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model)
+                {
+                    <tr>
+                        <td style="width:10%; height:10%;" data-label="Picture">
+                            @if (course.Picture is null)
+                            {
+                                course.Picture = "noimage.png";
+                            }
+                            <a asp-action="details" asp-controller="course" asp-route-id="@course.CourseId">
+                                <img src="~/images/courses/@course.Picture" alt="" class="rounded-circle img-fluid" style="margin-bottom:12px;">
+                            </a>
+                        </td>
+                        <td data-label="Title">@course.Title</td>
+                        <td data-label="Price Status">
+                            @if (course.PriceStatus is true)
+                            {
+                                <span class="badge bg-secondary">Paid</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Free</span>
+                            }
+                        </td>
+                        <td data-label="Status">@(course.Status ? "Accepted" : "Pending")</td>
+                        <td data-label="Addition Date">@course.AddingDate</td>
+                        <td data-label="Actions">
+                            <a href="@Url.Action("EditableDetails", "Course", new { id = course.CourseId ,area=""})" class="btn btn-light btn-action">View</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-action="course" asp-route-pageNumber="@(Model.PageIndex - 1)"> < Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link" asp-action="course" asp-route-pageNumber="@i">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-action="course" asp-route-pageNumber="@(Model.PageIndex + 1)">Next > </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var isDescending = false;
+
+            $(".toggle-sort").click(function (e) {
+                e.preventDefault();
+                isDescending = !isDescending;
+
+                // Determine the type of list (title or date) based on data attributes
+                var sortBy = $(this).data('sort-by');
+                var url = $(this).attr("href").replace(`isDescending=false&sortBy=title`, `isDescending=${isDescending}&sortBy=${sortBy}`);
+
+                $("#courses-added-today").load(url);
+            });
+        });
+    </script>
+
+}

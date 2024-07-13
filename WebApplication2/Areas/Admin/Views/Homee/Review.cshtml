@@ -1,0 +1,95 @@
+﻿@model WebApplication2.PaginatedListNew<Review>
+
+@{
+    Layout = "_aAdminLayout";
+}
+<partial name="_NotificationPartial"></partial>
+<div class="col-lg-9">
+    <div class="page-breadcrumb">
+        <div class="row align-items-center">
+            <div class="col-5">
+                <h4 class="page-title">Reviews</h4>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="course-list" class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr class="bg-light">
+                    <th scope="col">UserName</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">CourseName</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Addition Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var review in Model)
+                {
+                    <tr>
+                        <td>@review.Student</td>
+                        <td>
+                            <ul class="stars" style="color:red">
+                                @switch (review.Rate)
+                                {
+                                    case 5:
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                    case 4:
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                    case 3:
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                    case 2:
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                    default:
+                                        <i class="fa fa-star"></i>
+                                        break;
+                                }
+                            </ul>
+                        </td>
+                        <td>@review.Course.Title</td>
+                        <td>@(review.Status ? "Accepted" : "Pending")</td>
+                        <td>@review.GetFormattedDate(review.RatingDate)</td>
+                        <td>
+                            <a href="@Url.Action("EditableDetails", "review", new { id = review.ReviewId })" class="btn btn-light btn-action">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-action="review" asp-route-pageNumber="@(Model.PageIndex - 1)"> < Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link" asp-action="review" asp-route-pageNumber="@i">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-action="review" asp-route-pageNumber="@(Model.PageIndex + 1)">Next > </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+

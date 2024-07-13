@@ -53,16 +53,17 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
+        [HttpGet]
         public IActionResult New()
         {
 
-            var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-             .Take(10).ToList();
-
-            //var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
-            // .Take(10).ToList();
-
-            var reviews = _context.Reviews.OrderByDescending(r => r.Rate).Take(10).ToList();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult New(InstructorRegisterViewModel model)
+        {
+            User usermode = new User();
+            usermode.PhoneNumber = model.PhoneNumber;
 
             return View();
         }
