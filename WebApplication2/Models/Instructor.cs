@@ -14,10 +14,10 @@ namespace WebApplication2.Models
         }
 
         public string InstructorId { get; set; }
-        public string CountryCode { get; set; }
         public string Profession { get; set; }
         public byte? YearsExperince { get; set; }
         public string About { get; set; }
+        public string Website {  get; set; }
 
         public virtual User InstructorNavigation { get; set; }
         public virtual ICollection<Course> Courses { get; set; }

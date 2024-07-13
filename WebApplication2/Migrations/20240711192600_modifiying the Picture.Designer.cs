@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication2.Models;
 
@@ -11,9 +12,10 @@ using WebApplication2.Models;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(LconsultDBContext))]
-    partial class LconsultDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240711192600_modifiying the Picture")]
+    partial class modifiyingthePicture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -329,13 +331,15 @@ namespace WebApplication2.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("about");
 
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("countryCode");
+
                     b.Property<string>("Profession")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("profession");
-
-                    b.Property<string>("Website")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte?>("YearsExperince")
                         .HasColumnType("tinyint")

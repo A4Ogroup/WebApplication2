@@ -1,0 +1,269 @@
+﻿@model InstructorInfoViewModel
+    <style>
+        
+
+@{
+    Layout="_layout";
+}
+        .step-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 20px;
+            padding-bottom: 0.5rem;
+            /*             border-bottom: 1px solid #df2d30;
+         */
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+        }
+
+            .step.active .step-label {
+                color: #212F38;
+                font-weight: bold;
+            }
+
+            .step .step-bar:nth(1) {
+                border-bottom-left-radius: 20px;
+                border-bottom-left-radius: 2px;
+            }
+
+            .step .step-bar {
+                height: 5px;
+                margin-bottom: 2px;
+                background-color: #dedada;
+            }
+
+            .step.active .step-bar {
+                background-color: #df2d30;
+            }
+
+            .step .step-label {
+                color: #6c757d;
+            }
+
+            .step:not(:last-child) {
+                margin-right: 5px;
+            }
+
+        @@media (max-width: 768px) {
+            .step {
+                font-size: 14px;
+            }
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding:  30px ;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 40px 0 0;
+        }
+
+        .form-title {
+            font-size: 1.50rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .btn-next {
+            background-color: #df2d30;
+            color: #fff;
+        }
+
+            .btn-next:hover {
+                background-color: #c72b2e;
+            }
+
+        .btn-back {
+            background-color: #e8e8e8;
+            color: #212F38;
+        }
+
+        .form-text-help {
+            margin-top: 20px;
+            color: #6c757d;
+        }
+
+            .form-text-help a {
+                color: #212F38;
+                text-decoration: none;
+            }
+
+                .form-text-help a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+
+
+
+    <div class="row justify-content-center " style="">
+        <div class="col-md-8">
+            <div class="form-container ">
+
+                <div class="container mt-5">
+                    <!--<div class="tab-container d-flex justify-content-between align-items-center mb-4">-->
+                    <div class="step-container">
+                        <div class="step active">
+                            <div class="step-label">Account Information</div>
+                            <div class="step-bar"></div>
+                        </div>
+                        <div class="step active">
+                            <div class="step-label">Personal Information</div>
+                            <div class="step-bar"></div>
+                        </div>
+                        <div class="step">
+                            <div class="step-label">Profession Information</div>
+                            <div class="step-bar"></div>
+                        </div>
+                        @* <div class="step">
+                            <div class="step-label">Pages & Components</div>
+                            <div class="step-bar"></div>
+                        </div> *@
+                    </div>
+
+
+
+
+                    <div class="form-title">Account Information</div>
+                    <form enctype="multipart/form-data" asp-action="Step2" asp-controller="Account" method="post">
+                        <div class="mb-4">
+                            <label class="form-label">First Name *</label>
+                            <input asp-for="FirstName" class="form-control">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Last Name *</label>
+                             <input asp-for="LastName" class="form-control">
+                             <span asp-validation-for="LastName" class="text-danger"></span>
+
+                      </div>
+                        <div class="mb-4">
+                            <label class="form-label">Phone Number *</label>
+                            <input asp-for="PhoneNumber" type="tel" id="phone" name="PhoneNumber" />
+                            <span id="validation-message"></span>
+                         </div>
+                         
+
+                        <div class="mb-4">
+                            <label class="form-label">Gender *</label>
+                            <select  asp-for="Gender">
+                               <option value="false"> Female</option>
+                                <option value="true"> Male</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Picture *</label>
+                            <input asp-for="Picture" type="file" class="form-control">
+                             <span asp-validation-for="Picture" class="text-danger"></span>
+
+                        </div>
+                        @* 
+                        <div class="mb-4">
+                            <label class="form-label">Gender *</label>
+                            <select class="form-select">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div> *@
+                        <div class="d-flex justify-content-between">
+                          <a  asp-action="Step1" asp-controller="account">  <button type="button" class="btn btn-back">< Back</button> </a>
+                                   <button type="submit" class="btn btn-next">Next > </button>   
+                        </div>
+                        <div class="form-text-help text-center">
+                            Stuck on the form? <a href="#">Let's call you!</a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+
+
+    <script>
+        var input = document.querySelector("#phone");
+        var validationMessage = document.getElementById("validation-message");
+        var iti = window.intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: function (callback) {
+                fetch('https://ipinfo.io?token=YOUR_TOKEN_HERE')
+                    .then(function (resp) { return resp.json(); })
+                    .then(function (resp) {
+                        var countryCode = (resp && resp.country) ? resp.country : "us";
+                        callback(countryCode);
+                    });
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        });
+
+        input.addEventListener('input', function () {
+            try {
+                iti.setNumber(input.value);
+            } catch (error) {
+                console.log('Error setting number: ', error);
+            }
+        });
+
+        input.addEventListener('blur', function () {
+            if (iti.isValidNumber()) {
+                validationMessage.textContent = 'Phone number is valid';
+                validationMessage.style.color = 'green';
+            } else {
+                validationMessage.textContent = 'Phone number is not valid';
+                validationMessage.style.color = 'red';
+            }
+        });
+    </script>
+    }
+
+
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+
+
+
+
+
+
+@* <form method="post" asp-action="new ">
+
+    <div>
+        <label asp-for="PhoneNumber">Phone Number:</label>
+        <input asp-for="PhoneNumber" type="tel" id="phone" name="PhoneNumber" />
+        <span id="validation-message"></span>
+    </div>
+@*     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" id="link">
+        <path d="M82.4 44.6 70.3 56.7c-.8.8-2 .8-2.8 0-.8-.8-.8-2 0-2.8l12.1-12.1c5.9-5.9 5.9-15.5 0-21.4C76.7 17.5 73 16 68.9 16c-4 0-7.8 1.6-10.7 4.4L46.1 32.5c-5.9 5.9-5.9 15.5 0 21.4 1.4 1.4 3.1 2.6 5 3.3 1 .4 1.5 1.6 1.1 2.6-.9 2.1-3.2.9-2.6 1.1-2.4-1-4.5-2.4-6.3-4.2-7.5-7.4-7.5-19.6 0-27l12.1-12.1C59 14 63.8 12 68.9 12s9.9 2 13.5 5.6c7.5 7.4 7.5 19.6 0 27zm-32-5.5c-1-.4-2.2.1-2.6 1.1-.4 1 .1 2.2 1.1 2.6 1.9.8 3.6 1.9 5 3.3 5.9 5.9 5.9 15.5 0 21.4L41.8 79.6c-2.9 2.9-6.6 4.4-10.7 4.4-4 0-7.8-1.6-10.7-4.4-5.9-5.9-5.9-15.5 0-21.4l12.1-12.1c.8-.8.8-2 0-2.8-.8-.8-2-.8-2.8 0L17.6 55.4c-7.4 7.4-7.4 19.6 0 27C21.2 86 26 88 31.1 88s9.9-2 13.5-5.6l12.1-12.1c7.5-7.4 7.5-19.6 0-27-1.8-1.8-3.9-3.2-6.3-4.2z"></path
+        ><path fill="#00F" d="M1504-510v1684H-280V-510h1784m8-8H-288v1700h1800V-518z"></path>
+    </svg>
+ 
+
+    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.22108L12.5 6.06212" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+        <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+
+</form>
+
+@section Scripts{
+    
+
+} *@
