@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using WebApplication2.Helpers.Enums;
 
 namespace WebApplication2.ViewModels.InstructorViewModels
@@ -7,12 +8,14 @@ namespace WebApplication2.ViewModels.InstructorViewModels
     {
 
         [Required]
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
         [Required]
-        public string LastName { get; set; }
+        [DisplayName("Last Name")]
 
-        public string? CountryCode { get; set; }
-        public string? PhoneNumber { get; set; }
+        public string LastName { get; set; }
+        [Required (ErrorMessage="Phone number is required.")]
+        public string PhoneNumber { get; set; }
 
         
         public Gender Gender { get; set; }

@@ -14,11 +14,12 @@ namespace WebApplication2.Controllers
 
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly LconsultDBContext _context;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,LconsultDBContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context= context;
         }
         [HttpGet]
         public IActionResult Login()
@@ -180,18 +181,18 @@ namespace WebApplication2.Controllers
                 InstructorRegisterViewModel instructorRegisterViewModel = new() 
                 { 
                     UserName=userCredentials.UserName,
-                    Email = userCredentials.Email,
+                    Email = userCredentials.Email, 
                     Password =userCredentials.Password,
                     ConfirmPassword=userCredentials.ConfirmPassword, 
                     FirstName=userInfo.FirstName, 
                     LastName=userInfo.LastName,
                     Gender=userInfo.Gender, 
                     PhoneNumber=userInfo.PhoneNumber,
-                    CountryCode=userInfo.CountryCode,
                     Picture=userInfo.Picture,
                     Profession=userProfession.Profession,
                     About=userProfession.About,
                     YearsExperince=userProfession.YearsExperince,
+                    Website=userProfession.Website,
                     SocialMediaAccounts=userProfession.SocialMediaAccounts,
 
                     
@@ -224,14 +225,37 @@ namespace WebApplication2.Controllers
                 userModel.LastName = _instructorModel.LastName;
                 userModel.Email = _instructorModel.Email;
                 userModel.PasswordHash = _instructorModel.Password;
-
+                userModel.PhoneNumber = _instructorModel.PhoneNumber;
+                userModel.Gender= _instructorModel.Gender;
                 IdentityResult result = await _userManager.CreateAsync(userModel, _instructorModel.Password);
 
                 if (result.Succeeded == true)
                 {
                     await _userManager.AddToRoleAsync(userModel, "Instructor");
+                   
                     await _signInManager.SignInAsync(userModel, isPersistent: false);
                     TempData["Success"] = "Account created successfully!";
+                    var instructor = new Models.Instructor()
+                    {
+                        InstructorId = userModel.Id,
+                        Profession = _instructorModel.Profession,
+                        YearsExperince = _instructorModel.YearsExperince,
+                        About = _instructorModel.About,
+                        Website = _instructorModel.Website,
+                        InstructorNavigation = userModel,
+                        SocialMediaAccounts = _instructorModel?.SocialMediaAccounts
+                    ?.Where(account => !string.IsNullOrWhiteSpace(account))
+                    .Select(account => new SocialMediaAccount
+                    {
+                        Account = account,
+                        InstructorId = userModel.Id // Set the foreign key
+                    }).ToList()
+                    };
+
+                    _context.Instructors.Add(instructor);
+                    _context.SaveChangesAsync();
+                    
+
                     return RedirectToAction("login", "account");
                 }
                 else

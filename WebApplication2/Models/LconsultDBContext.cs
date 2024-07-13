@@ -142,9 +142,7 @@ namespace WebApplication2.Models
 
                 entity.Property(e => e.About).HasColumnName("about");
 
-                entity.Property(e => e.CountryCode)
-                    .HasMaxLength(50)
-                    .HasColumnName("countryCode");
+                
 
 
                 entity.Property(e => e.Profession)
