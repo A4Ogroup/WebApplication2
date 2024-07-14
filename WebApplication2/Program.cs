@@ -19,6 +19,9 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepositroy>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddSingleton<ISearchResultService, SearchResultService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddIdentity<User, IdentityRole>(
                options => options.Password.RequireDigit = true
                ).

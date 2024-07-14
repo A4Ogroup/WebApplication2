@@ -1,0 +1,87 @@
+﻿@model WebApplication2.PaginatedListNew<User>
+
+@{
+    Layout = "_aAdminLayout";
+}
+<partial name="_NotificationPartial"></partial>
+
+<div class="col-lg-9">
+    <div class="page-breadcrumb">
+        <div class="row align-items-center">
+            <div class="col-5">
+                <h4 class="page-title">Instructors</h4>
+
+            </div>
+            <div class="col-7">
+                <div class="text-end upgrade-btn">
+                    @*  <a href="https://www.wrappixel.com/templates/xtremeadmin/" class="btn btn-primary text-white"
+                    target="_blank">Upgrade to Pro</a> *@
+                    <a href="@Url.Action("register", "account",new{area =""})" role="button" class="btn btn-primary float-right"
+                       style="color: #fff;
+                                    background-color: #007bff;
+                                    border-color: #007bff;
+                                    box-shadow: none; margin-left:100px;">
+                        <i class="fa fa-plus"></i> Add Instructor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-list">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Picture</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Addition Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var instructor in Model)
+                {
+                    <tr>
+                         <td style="width:10%; height:10%;" data-label="Picture">
+                            @if (instructor.Picture is null)
+                            {
+                                instructor.Picture = "noimage.png";
+                            }
+                            <a asp-action="details" asp-controller="course" asp-route-id="@instructor.Instructor.InstructorId">
+                                <img src="~/images/courses/@instructor.Picture" alt="" class="rounded-circle img-fluid" style="margin-bottom:12px;">
+                            </a>
+                        </td> 
+                        <td data-label="Title">@instructor.UserName</td>
+                        <td data-label="Status">@instructor.FirstName</td>
+                        <td data-label="Status">@(instructor.Status ? "Accepted" : "Pending")</td>
+                        <td data-label="Addition Date">@instructor.RegisterDate</td>
+                        <td data-label="Actions">
+                            <a href="@Url.Action("EditableInstructor", "Course", new { id = instructor.Instructor.InstructorId ,area=""})" class="btn btn-light btn-action">View</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-action="course" asp-route-pageNumber="@(Model.PageIndex - 1)"> < Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link" asp-action="course" asp-route-pageNumber="@i">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-action="course" asp-route-pageNumber="@(Model.PageIndex + 1)">Next > </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+

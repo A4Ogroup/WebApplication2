@@ -3,6 +3,7 @@ using WebApplication2.Models.Repository;
 using WebApplication2.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
+using System.Linq;
 
 namespace WebApplication2.Areas.Admin.Controllers
 {
@@ -13,14 +14,19 @@ namespace WebApplication2.Areas.Admin.Controllers
         ICourseRepository _courseRepository;
         IReviewRepository _reviewRepository;
         IReportRepository _reportRepository;
-        public HomeeController(LconsultDBContext context, ICourseRepository courseRepository, IReviewRepository reviewRepository, IReportRepository reportRepository)
+        IInstructorRepository _instructorRepository;
+        IStudentRepository _studentRepository;
+        IUserRepository _userRepository;
+        public HomeeController(LconsultDBContext context, ICourseRepository courseRepository, IReviewRepository reviewRepository, IReportRepository reportRepository, IInstructorRepository instructorRepository, IStudentRepository studentRepository, IUserRepository userRepository)
         {
 
             _context = context;
             _courseRepository = courseRepository;
             _reviewRepository = reviewRepository;
             _reportRepository = reportRepository;
-
+            _instructorRepository = instructorRepository;
+            _studentRepository = studentRepository;
+            _userRepository = userRepository;
         }
 
         public ActionResult Index()
@@ -44,7 +50,7 @@ namespace WebApplication2.Areas.Admin.Controllers
             return View(await PaginatedListNew<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
-        public async Task<IActionResult> FilterCourses(string filterType, int? pageNumber, bool isDescending = false)
+        public async Task<IActionResult> FilterCourses(string filterType, int? pageNumber)
         {
             //IQueryable<Course> courses = _courseRepository.GetAll().AsQueryable();
 
@@ -95,7 +101,12 @@ namespace WebApplication2.Areas.Admin.Controllers
         }
 
 
-
+        public async Task<IActionResult> Instructor(int? pageNumber)
+        {
+            int pageSize = 12;
+            var instructors = _userRepository.GetAllWithInstructors().AsQueryable();
+            return View(await PaginatedListNew<User>.CreateAsync(instructors.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
         public IActionResult ToggleStatus(int id)
         {
             var course = _courseRepository.GetById(id);
