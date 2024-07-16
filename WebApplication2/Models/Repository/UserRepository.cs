@@ -6,6 +6,11 @@ namespace WebApplication2.Models.Repository
     public class UserRepository : IUserRepository
     {
         LconsultDBContext _context;
+        public UserRepository(LconsultDBContext context) {
+         _context = context;
+        }
+
+        
         public User Add(User user)
         {
             _context.Add(user);
@@ -22,22 +27,6 @@ namespace WebApplication2.Models.Repository
         {
             return _context.Users;
         }
-
-        public IEnumerable<User> GetAllWithCourses()
-        {
-            throw new NotImplementedException();
-        }
-        
-        public IEnumerable<User> GetAllWithInstructors()
-        {
-            return _context.Users.Include(u => u.Instructor);
-        }
-
-        public IEnumerable<User> GetAllWithStudents()
-        {
-            return _context.Users.Include(u => u.Student);
-        }
-
 
         public User GetById(string id)
         {

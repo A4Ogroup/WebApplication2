@@ -4,7 +4,8 @@
     var course = _context.Courses.ToList();
     var review = _context.Reviews.ToList();
     var report = _context.Reports.ToList();
-
+    var instructor = _context.Instructors.ToList();
+    var Student = _context.Students.ToList();
 }
 @{
     Layout = "_aAdminLayout";
@@ -122,12 +123,12 @@
                                             </div>
                                             <div class="ml-3">
                                                 <h5>Students</h5>
-                                                <h2>30</h2>
+                                                <h2>@Student.Count</h2>
 
                                             </div>
                                         </div>
                                     </div>
-                                         <a href="@Url.Action("ClicksDetails", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
+                                      <a href="@Url.Action("Student", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
                                 </div>
 
                             </div>
@@ -140,12 +141,12 @@
                                             </div>
                                             <div class="ml-3">
                                                 <h5>Instructors</h5>
-                                                <h2>100</h2>
+                                                <h2>@instructor.Count</h2>
 
                                             </div>
                                         </div>
                                     </div>
-                                      <a href="@Url.Action("ClicksDetails", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
+                                      <a href="@Url.Action("instructor", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
                                 </div>
                             </div>
                             <div class="col-md-6">

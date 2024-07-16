@@ -34,6 +34,7 @@ namespace WebApplication2.Areas.Admin.Controllers
             var course = _courseRepository.GetAll();
             var review = _reviewRepository.GetAll();
             var report = _reportRepository.GetAll();
+     
             return View();
         }
         public async Task<IActionResult> Course(int? pageNumber)
@@ -58,15 +59,18 @@ namespace WebApplication2.Areas.Admin.Controllers
             var course = _courseRepository.GetAll().AsQueryable();
             switch (filterType)
             {
-                case "Title":
+                //case "All":
+                //    course = course;
+                //    break;
+                //case "Title":
 
-                    course = course.OrderByDescending(c => c.Title);
-                    
-                    break;
-                case "Date":
-                   // courses = isDescending ? course.OrderByDescending(c => c.AddingDate).ToList() : course.OrderBy(c => c.AddingDate).ToList();
-                    course = course.OrderByDescending(c => c.AddingDate);
-                    break;
+                //    course = course.OrderByDescending(c => c.Title);
+
+                //    break;
+                //case "Date":
+                //   // courses = isDescending ? course.OrderByDescending(c => c.AddingDate).ToList() : course.OrderBy(c => c.AddingDate).ToList();
+                //    course = course.OrderByDescending(c => c.AddingDate);
+                //    break;
                 case "AddedToday":
                     var today = DateTime.Today;
                     course = course.Where(c => c.AddingDate.Date == today);
@@ -78,8 +82,21 @@ namespace WebApplication2.Areas.Admin.Controllers
                     var lastDayOfLastMonth = new DateTime(today.Year, today.Month, 1).AddDays(-1);
                     course = course.Where(c => c.AddingDate>= firstDayOfLastMonth && c.AddingDate <=lastDayOfLastMonth);
                     break;
+             
+                case "Accepted":
+                    course = course.Where(c=>c.Status == true); 
+                    break;
+                case "Pending":
+                    course = course.Where(c => c.Status == false); ;
+                    break;
+                case "Paid":
+                    course = course.Where(c => c.PriceStatus == true); ;
+                    break;
+                case "Free":
+                    course = course.Where(c => c.PriceStatus == false); ;
+                    break;
                 default:
-                  
+                  course = course;
                     break;
             }
            // var paginatedCourses = await PaginatedListNew<Course>.CreateAsync(courses, pageIndex, PageSize);
@@ -104,8 +121,14 @@ namespace WebApplication2.Areas.Admin.Controllers
         public async Task<IActionResult> Instructor(int? pageNumber)
         {
             int pageSize = 12;
-            var instructors = _userRepository.GetAllWithInstructors().AsQueryable();
-            return View(await PaginatedListNew<User>.CreateAsync(instructors.AsNoTracking(), pageNumber ?? 1, pageSize));
+            var instructors = _instructorRepository.GetAll().AsQueryable();
+            return View(await PaginatedListNew<Instructor>.CreateAsync(instructors.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
+        public async Task<IActionResult> Student(int? pageNumber)
+        {
+            int pageSize = 12;
+            var student = _studentRepository.GetAll().AsQueryable();
+            return View(await PaginatedListNew<Student>.CreateAsync(student.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         public IActionResult ToggleStatus(int id)
         {

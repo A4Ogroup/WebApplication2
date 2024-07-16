@@ -3,9 +3,6 @@
     public interface IUserRepository
     {
         IEnumerable<User> GetAll();
-        IEnumerable<User> GetAllWithCourses();
-        IEnumerable<User> GetAllWithStudents();
-        IEnumerable<User> GetAllWithInstructors();
         User GetById(string id);
         User Add(User user);
         User Update(User user);

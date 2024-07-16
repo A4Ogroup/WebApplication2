@@ -67,10 +67,15 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Title'; this.closest('form').submit();">Title</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Date'; this.closest('form').submit();">Date</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='All'; this.closest('form').submit();">All</a></li>
+@*                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Title'; this.closest('form').submit();">Title</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Date'; this.closest('form').submit();">Date</a></li> *@
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='AddedToday'; this.closest('form').submit();">Added Today</a></li>
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='LastMonth'; this.closest('form').submit();">Added Last Month</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Accepted'; this.closest('form').submit();">Accepted</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Pending'; this.closest('form').submit();">Pending</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Paid'; this.closest('form').submit();">Paid</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Free'; this.closest('form').submit();">Free</a></li>
                         </ul>
                         <input type="hidden" name="filterType" id="filterType" value="" />
                     </div>

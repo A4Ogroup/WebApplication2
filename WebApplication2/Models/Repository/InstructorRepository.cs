@@ -6,6 +6,12 @@ namespace WebApplication2.Models.Repository
     public class InstructorRepository : IInstructorRepository
     {
         LconsultDBContext _context;
+
+        public InstructorRepository(LconsultDBContext context)
+        { 
+            _context = context;
+        }
+
         public Instructor Add(Instructor instructor)
         {
             _context.Instructors.Add(instructor);
@@ -16,7 +22,7 @@ namespace WebApplication2.Models.Repository
         public void Delete(string id)
         {
 
-            var instructor = _context.Instructors.FirstOrDefault(i => i.InstructorId == id);
+            var instructor = _context.Instructors.Include(i => i.InstructorNavigation).FirstOrDefault(i => i.InstructorId == id);
             _context.SaveChanges();
             _context.Instructors.Remove(instructor);
 
@@ -25,7 +31,7 @@ namespace WebApplication2.Models.Repository
 
         public IEnumerable<Instructor> GetAll()
         {
-            return _context.Instructors;
+            return _context.Instructors.Include(i=>i.InstructorNavigation);
         }
 
         public IEnumerable<Instructor> GetAllWithCourses()
@@ -35,7 +41,7 @@ namespace WebApplication2.Models.Repository
 
         public Instructor GetById(string id)
         {
-            return _context.Instructors.FirstOrDefault(i => i.InstructorId == id);
+            return _context.Instructors.Include(i => i.InstructorNavigation).FirstOrDefault(i => i.InstructorId == id);
         }
 
         public bool Save()

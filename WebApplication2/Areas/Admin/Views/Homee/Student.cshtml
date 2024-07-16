@@ -1,4 +1,4 @@
-﻿@model WebApplication2.PaginatedListNew<Instructor>
+﻿@model WebApplication2.PaginatedListNew<Student>
 
 @{
     Layout = "_aAdminLayout";
@@ -9,7 +9,7 @@
     <div class="page-breadcrumb">
         <div class="row align-items-center">
             <div class="col-5">
-                <h4 class="page-title">Instructors</h4>
+                <h4 class="page-title">Students</h4>
 
             </div>
             <div class="col-7">
@@ -21,7 +21,7 @@
                                     background-color: #007bff;
                                     border-color: #007bff;
                                     box-shadow: none; margin-left:100px;">
-                        <i class="fa fa-plus"></i> Add Instructor
+                        <i class="fa fa-plus"></i> Add Student
                     </a>
                 </div>
             </div>
@@ -42,26 +42,26 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var instructor in Model)
+                @foreach (var Student in Model)
                 {
                     <tr>
-                         <td style="width:10%; height:10%;" data-label="Picture">
-                            @if (instructor.InstructorNavigation.Picture is null)
+                        <td style="width:10%; height:10%;" data-label="Picture">
+                            @if (Student.StudentNavigation.Picture is null)
                             {
-                                <a >
+                                <a>
                                     <img src="~/images/courses/noimage.png" alt="" class="rounded-circle img-fluid" style="margin-bottom:12px;">
                                 </a>
                             }
-                            <a >
-                                <img src="~/images/courses/@instructor.InstructorNavigation.Picture" alt="" class="rounded-circle img-fluid" style="margin-bottom:12px;">
+                            <a>
+                                <img src="~/images/courses/@Student.StudentNavigation.Picture" alt="" class="rounded-circle img-fluid" style="margin-bottom:12px;">
                             </a>
-                        </td> 
-                        <td data-label="Title">@instructor.InstructorNavigation.UserName</td>
-                        <td data-label="Status">@instructor.InstructorNavigation.FirstName</td>
-                        <td data-label="Status">@(instructor.InstructorNavigation.Status ? "Accepted" : "Pending")</td>
-                        <td data-label="Addition Date">@instructor.InstructorNavigation.RegisterDate</td>
+                        </td>
+                        <td data-label="Title">@Student.StudentNavigation.UserName</td>
+                        <td data-label="Status">@Student.StudentNavigation.FirstName</td>
+                        <td data-label="Status">@(Student.StudentNavigation.Status ? "Accepted" : "Pending")</td>
+                        <td data-label="Addition Date">@Student.StudentNavigation.RegisterDate</td>
                         <td data-label="Actions">
-                            <a href="@Url.Action("register", "account", new { id = instructor.InstructorNavigation.Id ,area=""})" class="btn btn-light btn-action">View</a>
+                            <a href="@Url.Action("Studentregister", "account", new { id = Student.StudentNavigation.Id ,area=""})" class="btn btn-light btn-action">View</a>
 
                         </td>
                     </tr>

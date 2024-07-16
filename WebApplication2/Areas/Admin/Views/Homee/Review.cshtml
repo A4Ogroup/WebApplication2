@@ -68,7 +68,7 @@
                         <td>@(review.Status ? "Accepted" : "Pending")</td>
                         <td>@review.GetFormattedDate(review.RatingDate)</td>
                         <td>
-                            <a href="@Url.Action("EditableDetails", "review", new { id = review.ReviewId })" class="btn btn-light btn-action">View</a>
+                            <a href="@Url.Action("EditableDetails", "review", new { id = review.ReviewId ,area="" })" class="btn btn-light btn-action">View</a>
                         </td>
                     </tr>
                 }
