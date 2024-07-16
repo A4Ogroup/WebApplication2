@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication2.ViewModels
+namespace WebApplication2
 {
     public class StudentRegisterViewModel
     {

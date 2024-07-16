@@ -1,7 +1,30 @@
-﻿@model InstructorInfoViewModel
-@{
+﻿@model StudentInfoViewModel
+@inject LconsultDBContext _context
+
+
+
+@{ 
     Layout = "_layout";
 }
+@{
+    // var CategoriesList = _context.Categories.Select(C=>C.);
+    var jsonCategories = Newtonsoft.Json.JsonConvert.SerializeObject(_context.Categories.ToList());
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <style>
 
 
@@ -10,7 +33,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 0 20px;
+        margin: 0 20px; 
         padding-bottom: 2rem;
         /*             border-bottom: 1px solid #df2d30;
              */
@@ -127,13 +150,13 @@
                             <div class="step-bar"></div>
                         </div>
                         <div class="step active">
-                            <div class="step-label">Personal Information</div>
+                            <div class="step-label">Other Information</div>
                             <div class="step-bar"></div>
                         </div>
-                        <div class="step">
+                        @* <div class="step">
                             <div class="step-label">Profession Information</div>
                             <div class="step-bar"></div>
-                        </div>
+                        </div> *@
                         @* <div class="step">
                             <div class="step-label">Pages & Components</div>
                             <div class="step-bar"></div>
@@ -144,7 +167,7 @@
 
 
                     <div class="form-title">Account Information</div>
-                    <form class="form" enctype="multipart/form-data" asp-action="Step2" asp-controller="Account" method="post">
+                    <form class="form" enctype="multipart/form-data" asp-action="Step2" asp-controller="StudentAccount" method="post">
                         <div class="mb-4">
                             <label class="form-label">First Name *</label>
                             <input asp-for="FirstName" class="form-control">
@@ -156,23 +179,24 @@
                              <span asp-validation-for="LastName" class="text-danger"></span>
 
                       </div>
-                        <div class="mb-4">
-                            <label class="form-label">Phone Number *</label>
-                            <input asp-for="PhoneNumber" type="tel" id="phone" name="PhoneNumber" />
-                            <span id="validation-message"></span>
-                         </div>
-                         
+                    <div class="mb-4">
+                        <label class="form-label">Category of Interest *</label>
+                        <input type="text" data-role="tagsinput" name="Categories" id="Categories" class="form-control" @* value="@SelectList" *@ placeholder="Type and hit enter">
 
-                        <div class="mb-4">
+                    </div>
+
+
+                    <div class="mb-4">
                             <label class="form-label">Gender *</label>
-                            <select  asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()">
-                               
+                            <select  asp-for="Gender">
+                               <option value="false"> Female</option>
+                                <option value="true"> Male</option>
                             </select>
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Picture *</label>
                             <input asp-for="Picture" type="file" class="form-control">
-                             <span asp-validation-for="Picture" class="text-danger"></span>
+                            <span asp-validation-for="Picture" class="text-danger"></span>
 
                         </div>
                         @* 
@@ -185,7 +209,7 @@
                             </select>
                         </div> *@
                         <div class="d-flex justify-content-between">
-                          <a  asp-action="Step1" asp-controller="account">  <button type="button" class="btn btn-back">< Back</button> </a>
+                        <a asp-action="Step1"  asp-controller="StudentAccount">  <button type="button" class="btn btn-back">< Back</button> </a>
                                    <button type="submit" class="btn btn-next">Next > </button>   
                         </div>
                         <div class="form-text-help text-center">
@@ -203,6 +227,19 @@
 
 
     @section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#Categories').tagsinput({
+                trimValue: true
+            });
+        });
+
+
+        var initialCategories = @Html.Raw(@jsonCategories);
+        initialCategories.forEach(function (category) {
+            $('#Categories').tagsinput('add', category
+    </script>
+
         <partial name="_ValidationScriptsPartial" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>

@@ -1,7 +1,7 @@
 ﻿@inject LconsultDBContext _context
 @{
 
-    var categories = _context.Categories.Select(C => new
+     var categories = _context.Categories.Select(C => new
     {
         C.CategoryId,
         C.CategoryName
@@ -33,6 +33,8 @@
     <link href="~/css/site3.css" rel="stylesheet">
     <link href="~/css/site4.css" rel="stylesheet">
    @* <link href="~/css/StyleSheet.css" rel="stylesheet"> *@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
+
 
      <style>
 
@@ -149,7 +151,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="account" asp-action="Login" class="nav-link">Login</a>
+                            <a asp-controller="StudentAccount" asp-action="Step1" class="nav-link">Sign up</a>
                         </li>
 
                     </ul>
@@ -269,7 +271,8 @@ height:270px;
 @*     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     *@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js" asp-append-version="true"></script>
+
 
 
     <!-- Additional Scripts -->
