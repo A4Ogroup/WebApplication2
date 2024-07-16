@@ -11,7 +11,7 @@ namespace WebApplication2.Models.Repository
         }
         public IEnumerable<Category> GetAll()
         {
-return _context.Categories; 
+           return _context.Categories; 
         }
 
         public Category GetById(int categoryId) {

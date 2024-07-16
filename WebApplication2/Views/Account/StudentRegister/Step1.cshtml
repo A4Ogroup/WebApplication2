@@ -1,4 +1,4 @@
-﻿@model InstructorCredentialsViewModel
+﻿@model StudentCredentialsViewModel
 
 @{
     Layout = "_layout";
@@ -132,7 +132,7 @@
                             <div class="step-bar"></div>
                         </div>
                         <div class="step">
-                            <div class="step-label">Profession Information</div>
+                            <div class="step-label">Interest Information</div>
                             <div class="step-bar"></div>
                         </div>
                         @* <div class="step">
@@ -145,7 +145,7 @@
 
 
                     <div class="form-title">Account Information</div>
-                    <form class="form"asp-action="Step1" asp-controller="Account" method="post">
+                    <form class="form"asp-action="Step1" asp-controller="StudentAccount" method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="mb-4">
                             <label class="form-label">Email Address *</label>

@@ -1,29 +1,41 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using PhoneNumbers;
 using WebApplication2.Models;
-using WebApplication2.ViewModels;
 using WebApplication2.ViewModels.InstructorViewModels;
+using WebApplication2.ViewModels;
+using WebApplication2.ViewModels.StudentViewModels;
+using WebApplication2.Models.Repository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication2.Controllers
 {
-    public class AccountController : Controller
+    public class StudentAccountController : Controller
     {
-
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly LconsultDBContext _context;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,LconsultDBContext context )
+        private readonly ICategoryRepository _categoryRepository;
+        public StudentAccountController(UserManager<User> userManager, SignInManager<User> signInManager, LconsultDBContext context,ICategoryRepository categoryRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _context= context;
+            _context = context;
+            _categoryRepository = categoryRepository;
         }
+
+
+     
+
         [HttpGet]
         public IActionResult Login()
         {
+            ViewBag.Category = new SelectList(_categoryRepository.GetAll().Select(C => new
+            {
+                C.CategoryId,
+                C.CategoryName
+            }).ToList());
+
             return View();
         }
 
@@ -45,20 +57,19 @@ namespace WebApplication2.Controllers
                         return RedirectToAction("Index", "instructor");
                     }
                 }
-                else { ModelState.AddModelError("", "Email and Password invalid"); }
+                else { ModelState.AddModelError("", "Email or Password is invalid"); }
 
             }
             return View(login);
         }
 
 
-        
+
 
         [HttpGet]
         public IActionResult Step1()
         {
-
-            if (TempData["Errors"] != null)
+                        if (TempData["Errors"] != null)
             {
                 var errors = JsonConvert.DeserializeObject<List<KeyValuePair<string, string>>>(TempData["Errors"].ToString());
                 foreach (var error in errors)
@@ -66,12 +77,12 @@ namespace WebApplication2.Controllers
                     ModelState.AddModelError(error.Key, error.Value);
                 }
             }
-            var model = new InstructorCredentialsViewModel();
+            var model = new StudentCredentialsViewModel();
             if (TempData.ContainsKey("UserCredentials"))
             {
-                model = JsonConvert.DeserializeObject<InstructorCredentialsViewModel>(TempData["UserCredentials"].ToString());
+                model = JsonConvert.DeserializeObject<StudentCredentialsViewModel>(TempData["UserCredentials"].ToString());
             }
-            return View("~/Views/Account/instructorRegister/Step1.cshtml", model);
+            return View("~/Views/Account/StudentRegister/Step1.cshtml", model);
         }
 
         [HttpPost]
@@ -101,32 +112,33 @@ namespace WebApplication2.Controllers
 
                 if (!ModelState.IsValid)
                 {
-                    return View("~/Views/Account/instructorRegister/Step1.cshtml", model);
+                    return View("~/Views/Account/StudentRegister/Step1.cshtml", model);
                 }
                 TempData["UserCredentials"] = JsonConvert.SerializeObject(model);
                 TempData.Keep("UserCredentials");
-                return RedirectToAction("Step2"); 
+                return RedirectToAction("Step2");
             }
-            return View("~/Views/Account/instructorRegister/Step1.cshtml", model);
+            return View("~/Views/Account/StudentRegister/Step1.cshtml", model);
         }
         [HttpGet]
         public IActionResult Step2()
         {
-            var model = new InstructorInfoViewModel();
+            
+            var model = new StudentInfoViewModel();
             if (!TempData.ContainsKey("UserCredentials"))
             {
                 return RedirectToAction("Step1");
             }
             if (TempData.ContainsKey("UserInfo"))
             {
-                model = JsonConvert.DeserializeObject<InstructorInfoViewModel>(TempData["UserInfo"].ToString());
+                model = JsonConvert.DeserializeObject<StudentInfoViewModel>(TempData["UserInfo"].ToString());
             }
-            return View("~/Views/Account/instructorRegister/Step2.cshtml", model);
+            return View("~/Views/Account/StudentRegister/Step2.cshtml", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Step2(InstructorInfoViewModel model)
+        public IActionResult Step2(StudentInfoViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -134,7 +146,7 @@ namespace WebApplication2.Controllers
                 TempData.Keep("UserInfo");
                 return RedirectToAction("Step3");
             }
-            return View("~/Views/Account/instructorRegister/Step2.cshtml", model);
+            return View("~/Views/Account/StudentRegister/Step2.cshtml", model);
         }
 
         public IActionResult Step3()
@@ -153,7 +165,7 @@ namespace WebApplication2.Controllers
             {
                 model = JsonConvert.DeserializeObject<InstructorProfessionViewModel>(TempData["UserProfession"].ToString());
             }
-            return View("~/Views/Account/instructorRegister/Step3.cshtml", model);
+            return View("~/Views/Account/StudentRegister/Step3.cshtml", model);
         }
 
         [HttpPost]
@@ -168,36 +180,36 @@ namespace WebApplication2.Controllers
                 // Combine all data and save to database or perform other actions
                 var userCredentials = JsonConvert.DeserializeObject<InstructorCredentialsViewModel>(TempData["UserCredentials"].ToString());
                 var userInfo = JsonConvert.DeserializeObject<InstructorInfoViewModel>(TempData["UserInfo"].ToString());
-                var userProfession = JsonConvert.DeserializeObject<InstructorProfessionViewModel>(TempData["UserProfession"].ToString());
-                InstructorRegisterViewModel instructorRegisterViewModel = new() 
-                { 
-                    UserName=userCredentials.UserName,
-                    Email = userCredentials.Email, 
-                    Password =userCredentials.Password,
-                    ConfirmPassword=userCredentials.ConfirmPassword, 
-                    FirstName=userInfo.FirstName, 
-                    LastName=userInfo.LastName,
-                    Gender=userInfo.Gender, 
-                    PhoneNumber=userInfo.PhoneNumber,
-                    Picture=userInfo.Picture,
-                    Profession=userProfession.Profession,
-                    About=userProfession.About,
-                    YearsExperince=userProfession.YearsExperince,
-                    Website=userProfession.Website,
-                    SocialMediaAccounts=userProfession.SocialMediaAccounts,
+                var userProfession = JsonConvert.DeserializeObject<InstructorProfessionViewModel>(TempData["UserProfession"].ToString()); 
+                InstructorRegisterViewModel instructorRegisterViewModel = new()
+                {
+                    UserName = userCredentials.UserName,
+                    Email = userCredentials.Email,
+                    Password = userCredentials.Password,
+                    ConfirmPassword = userCredentials.ConfirmPassword,
+                    FirstName = userInfo.FirstName,
+                    LastName = userInfo.LastName,
+                    Gender = userInfo.Gender,
+                    PhoneNumber = userInfo.PhoneNumber,
+                    Picture = userInfo.Picture,
+                    Profession = userProfession.Profession,
+                    About = userProfession.About,
+                    YearsExperince = userProfession.YearsExperince,
+                    Website = userProfession.Website,
+                    SocialMediaAccounts = userProfession.SocialMediaAccounts,
 
-                    
-                
-                
+
+
+
                 };
                 // Save the user data to the database
                 // Example: _userService.SaveUser(userCredentials, userInfo, userProfession);
-              //  TempData.Remove("UserProfession");
+                //  TempData.Remove("UserProfession");
                 //TempData.Clear();
                 return await Register(instructorRegisterViewModel);
             }
-          //  return View(model);
-           return View("~/Views/Account/instructorRegister/Step3.cshtml", model);
+            //  return View(model);
+            return View("~/Views/Account/instructorRegister/Step3.cshtml", model);
         }
 
 
@@ -217,13 +229,13 @@ namespace WebApplication2.Controllers
                 userModel.Email = _instructorModel.Email;
                 userModel.PasswordHash = _instructorModel.Password;
                 userModel.PhoneNumber = _instructorModel.PhoneNumber;
-                userModel.Gender= _instructorModel.Gender;
+                userModel.Gender = _instructorModel.Gender;
                 IdentityResult result = await _userManager.CreateAsync(userModel, _instructorModel.Password);
 
                 if (result.Succeeded == true)
                 {
                     await _userManager.AddToRoleAsync(userModel, "Instructor");
-                   
+
                     await _signInManager.SignInAsync(userModel, isPersistent: false);
                     TempData["Success"] = "Account created successfully!";
                     var instructor = new Models.Instructor()
@@ -245,158 +257,27 @@ namespace WebApplication2.Controllers
 
                     _context.Instructors.Add(instructor);
                     _context.SaveChangesAsync();
-                    
+
 
                     return RedirectToAction("login", "account");
                 }
                 else
                 {
-                    List<KeyValuePair<string, string>> erorrs =new List<KeyValuePair<string, string>>();
+                    List<KeyValuePair<string, string>> erorrs = new List<KeyValuePair<string, string>>();
                     foreach (var item in result.Errors)
                     {
                         ModelState.AddModelError("", item.Description);
-                        erorrs.Add(new KeyValuePair<string,string>("",item.Description));
+                        erorrs.Add(new KeyValuePair<string, string>("", item.Description));
                     }
                     //List<KeyValuePair<string, string>> erorrs = ModelState
                     //             .Where(x => x.Value.Errors.Count > 0)
                     //             .Select(x => new KeyValuePair<string, string>(x.Key, x.Value.Errors.First().ErrorMessage))
                     //             .ToList();
-                    TempData["Errors"]=JsonConvert.SerializeObject(erorrs);
+                    TempData["Errors"] = JsonConvert.SerializeObject(erorrs);
                 }
 
             }
             return RedirectToAction("Step1");
         }
-
-        
-        
-        [HttpGet]
-        public IActionResult AdminRegister()
-        {
-
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminRegister(AdminRegisterViewModel _adminModel)
-        {
-            if (ModelState.IsValid)
-            {
-
-                User userModel = new User();
-                userModel.UserName = _adminModel.UserName;
-                userModel.FirstName = _adminModel.FirstName;
-                userModel.LastName = _adminModel.LastName;
-                userModel.Email = _adminModel.Email;
-                userModel.PasswordHash = _adminModel.Password;
-
-                IdentityResult result = await _userManager.CreateAsync(userModel, _adminModel.Password);
-
-                if (result.Succeeded == true)
-                {
-                    await _userManager.AddToRoleAsync(userModel, "Admin");
-                    await _signInManager.SignInAsync(userModel, isPersistent: false);
-                    TempData["Success"] = "Account created successfully!";
-                    return RedirectToAction("login", "account");
-                }
-                else
-                {
-                    foreach (var item in result.Errors)
-                    {
-                        ModelState.AddModelError("", item.Description);
-                    }
-                }
-
-            }
-            return View("AdminRegister");
-        }
-        
-        
-        [HttpGet]
-        public IActionResult StudentRegister()
-        {
-
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> StudentRegister(StudentRegisterViewModel _studentModel)
-        {
-            if (ModelState.IsValid)
-            {
-
-                User userModel = new User();
-                userModel.UserName = _studentModel.UserName;
-                userModel.FirstName = _studentModel.FirstName;
-                userModel.LastName = _studentModel.LastName;
-                userModel.Email = _studentModel.Email;
-                userModel.PasswordHash = _studentModel.Password;
-
-                IdentityResult result = await _userManager.CreateAsync(userModel, _studentModel.Password);
-
-                if (result.Succeeded == true)
-                {
-                    await _userManager.AddToRoleAsync(userModel, "Student");
-                    await _signInManager.SignInAsync(userModel, isPersistent: false);
-                    TempData["Success"] = "Account created successfully!";
-                    return RedirectToAction("login", "account");
-                }
-                else
-                {
-                    foreach (var item in result.Errors)
-                    {
-                        ModelState.AddModelError("", item.Description);
-                    }
-                }
-
-            }
-            return View("StudentRegister");
-        }
-
-
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "home");
-
-        }
-
-
-
-        
-
-        public async Task<IActionResult> IsEmailAlreadyRegistered(string Email)
-        {
-
-            User _user = await _userManager.FindByEmailAsync(Email);
-
-            if (_user == null)
-            {
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
-        }
-
-        public async Task<IActionResult> IsUserNameAlreadyExists(string userName)
-        {
-
-            User _user = await _userManager.FindByNameAsync(userName);
-
-            if (_user == null)
-            {
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
-        }
     }
 }
-

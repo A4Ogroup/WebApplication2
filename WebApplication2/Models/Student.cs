@@ -15,7 +15,7 @@ namespace WebApplication2.Models
         }
 
         public string StudentId { get; set; }
-        public byte? ContributionNum { get; set; }
+        public byte ContributionNum { get; set; }=default ;
 
         public virtual User StudentNavigation { get; set; }
         public virtual ICollection<Report> Reports { get; set; }
