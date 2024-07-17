@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using PhoneNumbers;
+using System.Security.Claims;
 using WebApplication2.Models;
+using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
 using WebApplication2.ViewModels.InstructorViewModels;
 
@@ -34,16 +37,32 @@ namespace WebApplication2.Controllers
             if (ModelState.IsValid)
             {
                 User userModel = await _userManager.FindByEmailAsync(login.Email);
+                bool found = await _userManager.CheckPasswordAsync(userModel, login.Password);
 
-                if (userModel != null)
+                if (userModel != null&&found)
                 {
 
-                    bool found = await _userManager.CheckPasswordAsync(userModel, login.Password);
-                    if (found)
+                    //bool found = await _userManager.CheckPasswordAsync(userModel, login.Password);
+                    if ( await _userManager.IsInRoleAsync(userModel,"Instructor"))
                     {
                         await _signInManager.SignInAsync(userModel, login.RememberMe);
                         return RedirectToAction("Index", "instructor");
                     }
+                    else if ( await _userManager.IsInRoleAsync(userModel,"Student"))
+                    {
+                        await _signInManager.SignInAsync(userModel, login.RememberMe);
+                        return RedirectToAction("Index", "student");
+                    }
+                    else if (await _userManager.IsInRoleAsync(userModel, "Admin"))
+                    {
+                        await _signInManager.SignInAsync(userModel, login.RememberMe);
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
                 }
                 else { ModelState.AddModelError("", "Email and Password invalid"); }
 

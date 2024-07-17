@@ -58,11 +58,11 @@
                         <td data-label="Price Status">
                             @if (course.PriceStatus is true)
                             {
-                                <span class="badge bg-secondary">Paid</span>
+                                <span class="badge bg-success">Free</span>
                             }
                             else
                             {
-                                <span class="badge bg-success">Free</span>
+                                <span class="badge bg-secondary">Paid</span>
                             }
                         </td>
                         <td data-label="Status">@(course.Status ? "Accepted" : "Pending")</td>

@@ -41,13 +41,13 @@ namespace WebApplication2.Models
         public VideoLengthCategory? VedioLength { get; set; }
         public int? CourseDuration { get; set; }
         public string? Link { get; set; }
-       
-        public double AverageMaterialQuality {  get; set; }
-        public double AverageSupportQuality {  get; set; }
-        public double AverageEngagementLevel {  get; set; }
-        public double AverageTechnicalQuality {  get; set; }
-        public double AverageContentQuality {  get; set; }
-        public double AverageOverallSatisfaction { get; set; }
+
+        public double AverageMaterialQuality { get; set; } = 0.0;
+        public double AverageSupportQuality {  get; set; }= 0.0;
+        public double AverageEngagementLevel { get; set; } = 0.0;
+        public double AverageTechnicalQuality { get; set; } = 0.0;
+        public double AverageContentQuality { get; set; } = 0.0;
+        public double AverageOverallSatisfaction { get; set; } = 0.0;
 
 
         public virtual User AddedByUser { get; set; }

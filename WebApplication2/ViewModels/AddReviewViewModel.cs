@@ -24,6 +24,7 @@ namespace WebApplication2.ViewModels
         [Required(ErrorMessage = "Over All Satisfication fieled is required")]
         public int OverAllSatisfication { get; set; }
         public int CourseId { get; set; }
+        public string StudentId { get; set; }
 
         public string GetFormattedDate(DateTime date)
         {

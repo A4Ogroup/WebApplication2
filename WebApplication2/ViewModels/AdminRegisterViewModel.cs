@@ -5,7 +5,8 @@ namespace WebApplication2.ViewModels
 {
     public class AdminRegisterViewModel
     {
-        [Required]
+         [Required]
+        [Remote("IsUserNameAlreadyExists", "Account", ErrorMessage = "User Name already exist")]
         public string UserName { get; set; }
         [Required]
         public string FirstName { get; set; }

@@ -52,11 +52,12 @@ namespace WebApplication2.Controllers
             return Json(subcategories);
         }
         [HttpGet]
-        public IActionResult AddCourse()
+        public IActionResult AddCourse(string id)
         {
             ViewBag.Categories = _context.Categories;
             ViewBag.Languages = _context.Languages;
-            return   View();
+            var model =new AddCourseViewModel { InstructorId = id };
+            return View(model);
         }
 
 
@@ -91,6 +92,7 @@ namespace WebApplication2.Controllers
                     Picture = uniqeFileName,
                     Status = model.Status,
                     Platform = model.Platform,
+                    InstructorId=model.InstructorId,
                 };
                 _courseRepository.Add(newCourse);
                 _courseRepository.Save();

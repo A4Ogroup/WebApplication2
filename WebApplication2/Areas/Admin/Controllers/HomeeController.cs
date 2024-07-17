@@ -4,6 +4,8 @@ using WebApplication2.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Areas.Admin.Controllers
 {
@@ -17,7 +19,9 @@ namespace WebApplication2.Areas.Admin.Controllers
         IInstructorRepository _instructorRepository;
         IStudentRepository _studentRepository;
         IUserRepository _userRepository;
-        public HomeeController(LconsultDBContext context, ICourseRepository courseRepository, IReviewRepository reviewRepository, IReportRepository reportRepository, IInstructorRepository instructorRepository, IStudentRepository studentRepository, IUserRepository userRepository)
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        public HomeeController(LconsultDBContext context, ICourseRepository courseRepository, IReviewRepository reviewRepository, IReportRepository reportRepository, IInstructorRepository instructorRepository, IStudentRepository studentRepository, IUserRepository userRepository,UserManager<User> userManager,SignInManager<User> signInManager)
         {
 
             _context = context;
@@ -27,6 +31,8 @@ namespace WebApplication2.Areas.Admin.Controllers
             _instructorRepository = instructorRepository;
             _studentRepository = studentRepository;
             _userRepository = userRepository;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public ActionResult Index()
@@ -37,16 +43,57 @@ namespace WebApplication2.Areas.Admin.Controllers
      
             return View();
         }
+        //[HttpGet]
+        //public IActionResult AdminRegister()
+        //{
+
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AdminRegister(AdminRegisterViewModel _adminModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        User userModel = new User();
+        //        userModel.UserName = _adminModel.UserName;
+        //        userModel.FirstName = _adminModel.FirstName;
+        //        userModel.LastName = _adminModel.LastName;
+        //        userModel.Email = _adminModel.Email;
+        //        userModel.PasswordHash = _adminModel.Password;
+
+        //        IdentityResult result = await _userManager.CreateAsync(userModel, _adminModel.Password);
+
+        //        if (result.Succeeded == true)
+        //        {
+        //            await _userManager.AddToRoleAsync(userModel, "Admin");
+        //            await _signInManager.SignInAsync(userModel, isPersistent: false);
+        //            TempData["Success"] = "Account created successfully!";
+        //            return RedirectToAction("login", "account");
+        //        }
+        //        else
+        //        {
+        //            foreach (var item in result.Errors)
+        //            {
+        //                ModelState.AddModelError("", item.Description);
+        //            }
+        //        }
+
+        //    }
+        //    return View("AdminRegister");
+        //}
         public async Task<IActionResult> Course(int? pageNumber)
         {
-            int pageSize = 12;
+            int pageSize = 15;
             var course = _courseRepository.GetAllWithLanguage().AsQueryable();
             return View(await PaginatedListNew<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         
         public async Task<IActionResult> CourseReports(int? pageNumber)
         {
-            int pageSize = 12;
+            int pageSize = 15;
             var course = _courseRepository.GetAllWithLanguage().AsQueryable();
             return View(await PaginatedListNew<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
@@ -55,7 +102,7 @@ namespace WebApplication2.Areas.Admin.Controllers
         {
             //IQueryable<Course> courses = _courseRepository.GetAll().AsQueryable();
 
-            int pageSize = 12;
+            int pageSize = 15;
             var course = _courseRepository.GetAll().AsQueryable();
             switch (filterType)
             {
@@ -105,7 +152,7 @@ namespace WebApplication2.Areas.Admin.Controllers
 
         public async Task<IActionResult> Review(int? pageNumber)
         {
-            int pageSize = 12;
+            int pageSize = 15;
             var reviews = _reviewRepository.GetAllWithCourse().AsQueryable();
             return View(await PaginatedListNew<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
@@ -120,7 +167,7 @@ namespace WebApplication2.Areas.Admin.Controllers
 
         public async Task<IActionResult> Instructor(int? pageNumber)
         {
-            int pageSize = 12;
+            int pageSize = 15;
             var instructors = _instructorRepository.GetAll().AsQueryable();
             return View(await PaginatedListNew<Instructor>.CreateAsync(instructors.AsNoTracking(), pageNumber ?? 1, pageSize));
         }

@@ -14,7 +14,7 @@
         margin: 0 20px;
         padding-bottom: 2rem;
         /*             border-bottom: 1px solid #df2d30;
-                 */
+             */
     }
 
     .step {
@@ -138,7 +138,7 @@
 
 
                 <div class="form-title">Account Information</div>
-                <form class="form" asp-action="adminregister" asp-controller="account" method="post">
+                <form class="form" asp-action="adminregister" asp-controller="homee" method="post">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="mb-4">
                         <label class="form-label">Email Address *</label>
@@ -150,13 +150,13 @@
                         <input asp-for="UserName" class="form-control">
                         <span asp-validation-for="UserName" class="text-danger"></span>
 
-                    </div>
+                    </div> 
                     <div class="mb-4">
                         <label class="form-label">First Name *</label>
                         <input asp-for="FirstName" class="form-control">
                         <span asp-validation-for="FirstName" class="text-danger"></span>
 
-                    </div>
+                    </div> 
                     <div class="mb-4">
                         <label class="form-label">Last Name *</label>
                         <input asp-for="LastName" class="form-control">

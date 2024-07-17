@@ -13,6 +13,7 @@ namespace WebApplication2.ViewModels
         [EmailAddress(ErrorMessage = "Write Email correctly")]
         [Remote("IsEmailAlreadyRegistered", "account", ErrorMessage = "Email already exist")]
         public string Email { get; set; }
+        public string NormalizedEmail { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -20,6 +21,7 @@ namespace WebApplication2.ViewModels
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Password does not match")]
         public string ConfirmPassword { get; set; }
+        [Remote("IsUserNameAlreadyExists", "Account", ErrorMessage = "User Name already exist")]
         public string UserName { get; set; }
 
         #endregion
@@ -50,7 +52,7 @@ namespace WebApplication2.ViewModels
         #region instructorProfession
 
         public string Profession { get; set; }
-        public byte YearsExperince { get; set; }
+        public byte? YearsExperince { get; set; }
         public string? About { get; set; }
         public string  Website { get; set; }
         public List<string>? SocialMediaAccounts { get; set; } = new List<string>();
