@@ -6,9 +6,13 @@
 @{ 
     Layout = "_layout";
 }
+
+
+
+
 @{
-    // var CategoriesList = _context.Categories.Select(C=>C.);
-    var jsonCategories = Newtonsoft.Json.JsonConvert.SerializeObject(_context.Categories.ToList());
+     var CategoriesList = new SelectList(_context.Categories.Select(C=>new {C.CategoryId,C.CategoryName}),"CategoryId","CategoryName");
+    //var jsonCategories = Newtonsoft.Json.JsonConvert.SerializeObject(_context.Categories.ToList());
 
 }
 
@@ -181,16 +185,16 @@
                       </div>
                     <div class="mb-4">
                         <label class="form-label">Category of Interest *</label>
-                        <input type="text" data-role="tagsinput" name="Categories" id="Categories" class="form-control" @* value="@SelectList" *@ placeholder="Type and hit enter">
-
+                                    <select asp-for="CategoryId" asp-items="@CategoriesList">
+                                        <option value="">Choose a Category</option>
+                                    </select>
                     </div>
 
 
                     <div class="mb-4">
                             <label class="form-label">Gender *</label>
-                            <select  asp-for="Gender">
-                               <option value="false"> Female</option>
-                                <option value="true"> Male</option>
+                            <select  asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()">
+                               
                             </select>
                         </div>
                         <div class="mb-4">
@@ -227,7 +231,7 @@
 
 
     @section Scripts {
-    <script>
+    @* <script>
         $(document).ready(function () {
             $('#Categories').tagsinput({
                 trimValue: true
@@ -238,7 +242,7 @@
         var initialCategories = @Html.Raw(@jsonCategories);
         initialCategories.forEach(function (category) {
             $('#Categories').tagsinput('add', category
-    </script>
+    </script> *@
 
         <partial name="_ValidationScriptsPartial" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>

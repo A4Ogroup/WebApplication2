@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Hosting;
 namespace WebApplication2.Models
 {
     public partial class LconsultDBContext : IdentityDbContext<User>
@@ -249,6 +250,10 @@ namespace WebApplication2.Models
                     .HasConstraintName("FK_SocialMediaAccount_Instructor");
             });
 
+            modelBuilder.Entity<UserInterests>().HasKey(ss => new { ss.StudentId, ss.SubId });
+            modelBuilder.Entity<UserInterests>().HasOne(ss=>ss.Student).WithMany(s=>s.UserInterests).HasForeignKey(ss=>ss.StudentId);
+            modelBuilder.Entity<UserInterests>().HasOne(ss=>ss.SubCategory).WithMany(s=>s.UserInterests).HasForeignKey(ss=>ss.SubId);
+
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.ToTable("Student");
@@ -264,21 +269,9 @@ namespace WebApplication2.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Student_User");
 
-                entity.HasMany(d => d.Subs)
-                    .WithMany(p => p.Students)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "UserInterest",
-                        l => l.HasOne<SubCategory>().WithMany().HasForeignKey("SubId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserInterests_SubCategory"),
-                        r => r.HasOne<Student>().WithMany().HasForeignKey("StudentId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserInterests_Student"),
-                        j =>
-                        {
-                            j.HasKey("StudentId", "SubId");
-
-                            j.ToTable("UserInterests");
-
-                            
-                        });
-            });
+                
+        
+                            });
 
             modelBuilder.Entity<SubCategory>(entity =>
             {

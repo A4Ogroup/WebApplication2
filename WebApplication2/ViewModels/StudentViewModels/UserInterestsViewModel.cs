@@ -2,7 +2,7 @@
 {
     public class UserInterestsViewModel
     {
-        List<int> userInterestsSubIds = new List<int>();
+       public  List<int>? SelectedTagIds { get; set; }
 
     }
 }

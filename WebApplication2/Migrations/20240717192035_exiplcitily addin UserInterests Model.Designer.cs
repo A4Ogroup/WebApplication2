@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication2.Models;
 
@@ -11,9 +12,10 @@ using WebApplication2.Models;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(LconsultDBContext))]
-    partial class LconsultDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240717192035_exiplcitily addin UserInterests Model")]
+    partial class exiplcitilyaddinUserInterestsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -601,12 +603,15 @@ namespace WebApplication2.Migrations
                     b.Property<string>("StudentId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("SubsSubId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SubId")
                         .HasColumnType("int");
 
-                    b.HasKey("StudentId", "SubId");
+                    b.HasKey("StudentId", "SubsSubId");
 
-                    b.HasIndex("SubId");
+                    b.HasIndex("SubsSubId");
 
                     b.ToTable("UserInterests");
                 });
@@ -775,21 +780,17 @@ namespace WebApplication2.Migrations
 
             modelBuilder.Entity("WebApplication2.Models.UserInterests", b =>
                 {
-                    b.HasOne("WebApplication2.Models.Student", "Student")
-                        .WithMany("UserInterests")
+                    b.HasOne("WebApplication2.Models.Student", null)
+                        .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication2.Models.SubCategory", "SubCategory")
-                        .WithMany("UserInterests")
-                        .HasForeignKey("SubId")
+                    b.HasOne("WebApplication2.Models.SubCategory", null)
+                        .WithMany()
+                        .HasForeignKey("SubsSubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Student");
-
-                    b.Navigation("SubCategory");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.Category", b =>
@@ -824,15 +825,11 @@ namespace WebApplication2.Migrations
                     b.Navigation("Reports");
 
                     b.Navigation("Reviews");
-
-                    b.Navigation("UserInterests");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.SubCategory", b =>
                 {
                     b.Navigation("Courses");
-
-                    b.Navigation("UserInterests");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.User", b =>
