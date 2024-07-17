@@ -7,6 +7,7 @@ using WebApplication2.ViewModels;
 using WebApplication2.ViewModels.StudentViewModels;
 using WebApplication2.Models.Repository;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Packaging;
 
 namespace WebApplication2.Controllers
 {
@@ -142,16 +143,19 @@ namespace WebApplication2.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 TempData["UserInfo"] = JsonConvert.SerializeObject(model);
                 TempData.Keep("UserInfo");
-                return RedirectToAction("Step3");
+                return RedirectToAction("Step3", new {CategoryId=model.CategoryId});
             }
             return View("~/Views/Account/StudentRegister/Step2.cshtml", model);
         }
 
-        public IActionResult Step3()
+        public IActionResult Step3(int CategoryId)
         {
-            var model = new InstructorProfessionViewModel();
+            var model = new UserInterestsViewModel();
+            ViewBag.selectedSubs=_categoryRepository.GetSubCategories(CategoryId)/*.Select(S=> new {S.SubId,S.SubName})*/.ToList();
+
             if (!TempData.ContainsKey("UserCredentials"))
             {
                 return RedirectToAction("Step1");
@@ -161,27 +165,27 @@ namespace WebApplication2.Controllers
                 return RedirectToAction("Step2");
             }
 
-            if (TempData.ContainsKey("UserProfession"))
+            if (TempData.ContainsKey("UserInterests"))
             {
-                model = JsonConvert.DeserializeObject<InstructorProfessionViewModel>(TempData["UserProfession"].ToString());
+                model = JsonConvert.DeserializeObject<UserInterestsViewModel>(TempData["UserInterests"].ToString());
             }
             return View("~/Views/Account/StudentRegister/Step3.cshtml", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Step3(InstructorProfessionViewModel model)
+        public async Task<IActionResult> Step3(UserInterestsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                TempData["UserProfession"] = JsonConvert.SerializeObject(model);
-                TempData.Keep("UserProfession");
+                TempData["UserInterests"] = JsonConvert.SerializeObject(model);
+                TempData.Keep("UserInterests");
 
                 // Combine all data and save to database or perform other actions
-                var userCredentials = JsonConvert.DeserializeObject<InstructorCredentialsViewModel>(TempData["UserCredentials"].ToString());
-                var userInfo = JsonConvert.DeserializeObject<InstructorInfoViewModel>(TempData["UserInfo"].ToString());
-                var userProfession = JsonConvert.DeserializeObject<InstructorProfessionViewModel>(TempData["UserProfession"].ToString()); 
-                InstructorRegisterViewModel instructorRegisterViewModel = new()
+                var userCredentials = JsonConvert.DeserializeObject<StudentCredentialsViewModel>(TempData["UserCredentials"].ToString());
+                var userInfo = JsonConvert.DeserializeObject<StudentInfoViewModel>(TempData["UserInfo"].ToString());
+                var userInterests = JsonConvert.DeserializeObject<UserInterestsViewModel>(TempData["UserInterests"].ToString()); 
+                StudentRegisterViewModel studentRegisterViewModel = new()
                 {
                     UserName = userCredentials.UserName,
                     Email = userCredentials.Email,
@@ -190,13 +194,8 @@ namespace WebApplication2.Controllers
                     FirstName = userInfo.FirstName,
                     LastName = userInfo.LastName,
                     Gender = userInfo.Gender,
-                    PhoneNumber = userInfo.PhoneNumber,
                     Picture = userInfo.Picture,
-                    Profession = userProfession.Profession,
-                    About = userProfession.About,
-                    YearsExperince = userProfession.YearsExperince,
-                    Website = userProfession.Website,
-                    SocialMediaAccounts = userProfession.SocialMediaAccounts,
+                    SelectedTagIds = userInterests.SelectedTagIds,
 
 
 
@@ -206,10 +205,11 @@ namespace WebApplication2.Controllers
                 // Example: _userService.SaveUser(userCredentials, userInfo, userProfession);
                 //  TempData.Remove("UserProfession");
                 //TempData.Clear();
-                return await Register(instructorRegisterViewModel);
+               return await Register(studentRegisterViewModel);
             }
             //  return View(model);
-            return View("~/Views/Account/instructorRegister/Step3.cshtml", model);
+            //ViewBag.selectedSubs = _categoryRepository.GetSubCategories(CategoryId)
+            return View("~/Views/Account/StudentRegister/Step3.cshtml", model);
         }
 
 
@@ -217,45 +217,36 @@ namespace WebApplication2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Register(InstructorRegisterViewModel _instructorModel)
+        public async Task<IActionResult> Register(StudentRegisterViewModel _studentModel)
         {
             if (ModelState.IsValid)
             {
 
                 User userModel = new User();
-                userModel.UserName = _instructorModel.UserName;
-                userModel.FirstName = _instructorModel.FirstName;
-                userModel.LastName = _instructorModel.LastName;
-                userModel.Email = _instructorModel.Email;
-                userModel.PasswordHash = _instructorModel.Password;
-                userModel.PhoneNumber = _instructorModel.PhoneNumber;
-                userModel.Gender = _instructorModel.Gender;
-                IdentityResult result = await _userManager.CreateAsync(userModel, _instructorModel.Password);
+                userModel.UserName = _studentModel.UserName;
+                userModel.FirstName = _studentModel.FirstName;
+                userModel.LastName = _studentModel.LastName;
+                userModel.Email = _studentModel.Email;
+                userModel.PasswordHash = _studentModel.Password;
+                userModel.Gender = _studentModel.Gender;
+                IdentityResult result = await _userManager.CreateAsync(userModel, _studentModel.Password);
 
                 if (result.Succeeded == true)
                 {
-                    await _userManager.AddToRoleAsync(userModel, "Instructor");
+                    await _userManager.AddToRoleAsync(userModel, "Student");
 
                     await _signInManager.SignInAsync(userModel, isPersistent: false);
                     TempData["Success"] = "Account created successfully!";
-                    var instructor = new Models.Instructor()
+                    var student = new Models.Student()
                     {
-                        InstructorId = userModel.Id,
-                        Profession = _instructorModel.Profession,
-                        YearsExperince = _instructorModel.YearsExperince,
-                        About = _instructorModel.About,
-                        Website = _instructorModel.Website,
-                        InstructorNavigation = userModel,
-                        SocialMediaAccounts = _instructorModel?.SocialMediaAccounts
-                    ?.Where(account => !string.IsNullOrWhiteSpace(account))
-                    .Select(account => new SocialMediaAccount
-                    {
-                        Account = account,
-                        InstructorId = userModel.Id // Set the foreign key
-                    }).ToList()
+                        StudentId = userModel.Id,
+                        StudentNavigation = userModel,
+                        UserInterests = _studentModel.SelectedTagIds.Select(SubId => new UserInterests { SubId = SubId }).ToList()
+
                     };
 
-                    _context.Instructors.Add(instructor);
+                    
+                    _context.Students.Add(student);
                     _context.SaveChangesAsync();
 
 

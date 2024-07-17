@@ -1,17 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication2.Helpers;
+using WebApplication2.Helpers.Enums;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
-using WebApplication2.ViewModels;
-using WebApplication2.Helpers.Enums;
-using System;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static WebApplication2.ViewModels.PagenationViewModel;
-using WebApplication2.Helpers;
 using WebApplication2.ResourceParameters;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
@@ -25,13 +19,13 @@ namespace WebApplication2.Controllers
         const int pageSize = 6;
         private IQueryable<Course> _courses;
 
-        public CourseController( LconsultDBContext context, IWebHostEnvironment environment,ICourseRepository Course, ISearchResultService searchResultService)
+        public CourseController(LconsultDBContext context, IWebHostEnvironment environment, ICourseRepository Course, ISearchResultService searchResultService)
         {
             _context = context;
             _courseRepository = Course;
             _searchResultService = searchResultService;
             _environment = environment;
-             //_courses = _courseRepository?.GetAll() as IQueryable<Course>;
+            //_courses = _courseRepository?.GetAll() as IQueryable<Course>;
 
 
         }
@@ -103,23 +97,7 @@ namespace WebApplication2.Controllers
             return RedirectToAction("addcourse","instructor");
         }
 
-        //private string ProcessUploadFile(AddCourseViewModel model)
-        //{
-        //    string uniqeFileName = null;
-        //    if (model.Picture is not null)
-        //    {
-        //        string uploadFolder = Path.Combine(_environment.WebRootPath, "images/users");
-        //        uniqeFileName = Guid.NewGuid().ToString() + "_" + model.Picture.FileName;
-        //        string filePath = Path.Combine(uploadFolder, uniqeFileName);
-        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
-        //        {
-        //            model.Picture.CopyTo(fileStream);
-        //        }
 
-        //    }
-
-        //    return uniqeFileName;
-        //}
 
         private string ProcessUploadFile<T>(T model, Func<T, IFormFile> pictureAccessor)
         {
@@ -142,7 +120,7 @@ namespace WebApplication2.Controllers
         {
             return PartialView("_topicsInputPartialView");
         }
-        
+
 
         public IActionResult Category()
         {
@@ -160,29 +138,15 @@ namespace WebApplication2.Controllers
             var CourseReview = new CourseDetailsViewModel
             {
                 Course = course,
-                PaginatedReviews = 
+                PaginatedReviews =
           await PaginatedListNew<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize)
 
-        };
+            };
 
 
-            //var review = _context.Reviews.Select(r => new
-            //{
-            //    r.ReviewId,
-            //    r.RatingDate,
-            //    r.Student,
-            //    r.Rate,
-            //    r.Descritipn,
-            //    r.MaterialQuality,
-            //    r.ContentQuality,
-            //    r.SupportQuality,
-            //    r.TechnicalQuality,
-            //    r.EngagementLevel,
-            //    r.OverAllSatisfication,
-            //    V = r.GetFormattedDate(r.RatingDate.Value),
-            //}).ToList();
 
-;
+
+            ;
 
             return View(CourseReview);
         }
@@ -196,7 +160,7 @@ namespace WebApplication2.Controllers
         // POST: CourseController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-         public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(IFormCollection collection)
         {
             try
             {
@@ -212,9 +176,9 @@ namespace WebApplication2.Controllers
         public IActionResult EditCourse(int id)
         {
             var course = _courseRepository.GetById(id);
-            if(course is not null)
+            if (course is not null)
             {
-                EditCourseViewModel editCourseViewModel = new ()
+                EditCourseViewModel editCourseViewModel = new()
                 {
                     CourseId = course.CourseId,
                     Title = course.Title,
@@ -247,7 +211,7 @@ namespace WebApplication2.Controllers
         public ActionResult EditCourse( EditCourseViewModel model)
         {
             //if(modelstate.isvalid)
-            
+
 
             Course course = _courseRepository.GetById(model.CourseId);
 
@@ -277,16 +241,16 @@ namespace WebApplication2.Controllers
                     string filePath = Path.Combine(_environment.WebRootPath, "images/courses", model.ExistingPhotoPath);
                     System.IO.File.Delete(filePath);
                 }
-                course.Picture = ProcessUploadFile(model,x=>x.Picture);
+                course.Picture = ProcessUploadFile(model, x => x.Picture);
 
             }
             _courseRepository.Update(course);
             _courseRepository.Save();
             TempData["Success"] = "Course edited successfully!";
-            return RedirectToAction("index","instructor");
-            
-                
-             }
+            return RedirectToAction("index", "instructor");
+
+
+        }
 
         public IActionResult Index1(CourseResourceParameters parameters, int pg = 1)
         {
@@ -331,7 +295,7 @@ namespace WebApplication2.Controllers
                 IsFree = new List<bool>()
             };
             TempData["searchParam"] = parameters.SearchQuery;
-            TempData["categoryId"] = parameters.CategoryId ;
+            TempData["categoryId"] = parameters.CategoryId;
             //var options = new JsonSerializerOptions
             //{
             //    MaxDepth = 64, // Default, adjust if necessary after testing
@@ -342,33 +306,52 @@ namespace WebApplication2.Controllers
             //};
             //var serializedCourses = JsonSerializer.Serialize(resultedCourses, options);
             //HttpContext.Session.SetString("Courses", serializedCourses);
-           // TempData["searchParameters"] = parameters;
+            // TempData["searchParameters"] = parameters;
             return View("filter2", model);
         }
 
         [HttpPost]
         public async Task<IActionResult> ApplyFilters([FromBody] FilterRequest filterRequest)
         {
-            var filters = filterRequest.Filters;
-            var pageNumber = filterRequest.PageNumber;
-            //var serializedCourses = HttpContext.Session.GetString("Courses");
-            //if (string.IsNullOrEmpty(serializedCourses))
-            //{
-            //    return BadRequest("Session expired or data not found."); 
-            //}
-            //var courses = JsonSerializer.Deserialize<List<CourseSearchResultViewModel>>(serializedCourses).AsQueryable();
-            var courses = _courseRepository.GetCourses(TempData["searchParam"].ToString(),(int) TempData["categoryId"]).AsQueryable();
-            TempData.Keep("searchParam");
-            TempData.Keep("categoryId");
-            var filteredCourses =  _courseRepository.FilterCourses(filters,courses).AsQueryable();
-            var pager = new Pager(filteredCourses.Count(), pageNumber, pageSize);
-            var paginatedCourses = filteredCourses.Skip((pageNumber - 1) * pager.PageSize).Take(pager.PageSize).ToList() ;
-            ViewBag.Pager = pager;
-            return  PartialView("_CourseListPartial", paginatedCourses);
+            try
+            {
+                var filters = filterRequest.Filters;
+                var pageNumber = filterRequest.PageNumber;
+                if (pageNumber < 1)
+                    pageNumber = 1;
+                //var serializedCourses = HttpContext.Session.GetString("Courses");
+                //if (string.IsNullOrEmpty(serializedCourses))
+                //{
+                //    return BadRequest("Session expired or data not found."); 
+                //}
+                //var courses = JsonSerializer.Deserialize<List<CourseSearchResultViewModel>>(serializedCourses).AsQueryable();
+                TempData.Keep("searchParam");
+                TempData.Keep("categoryId");
+                var courses = _courseRepository.GetCourses(TempData["searchParam"].ToString(), (int)TempData["categoryId"]);
+                TempData.Keep("searchParam");
+                TempData.Keep("categoryId");
+                var filteredCourses = _courseRepository.FilterCourses(filters, courses).ToList();
+                if (filters.Ratings != null && filters.Ratings.Any())
+                    filteredCourses = filteredCourses.AsEnumerable().Where(c => filters.Ratings.Any(r => r <= c.AverageRating)).ToList();
+                var pager = new Pager(filteredCourses.Count(), pageNumber, pageSize);
+                var paginatedCourses = filteredCourses.Skip((pageNumber - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+                Console.WriteLine(paginatedCourses.Count());
+                TempData.Keep("searchParam");
+                TempData.Keep("categoryId");
+                ViewBag.Pager = pager;
+                return PartialView("_CourseListPartial", paginatedCourses);
+            }
+            catch (Exception ex)
+            {
+                // Log the error (you could use a logging framework like Serilog, NLog, etc.)
+                Console.WriteLine($"Error applying filters: {ex.Message}");
+                Console.WriteLine(ex.StackTrace);  // Log the stack trace
+                return StatusCode(500, "Internal server error. Please try again later.");
+            }
         }
 
-       
-       
+
+
         // GET: CourseController/Delete/5
         //[HttpGet]
         public IActionResult EditableDetails(int id)

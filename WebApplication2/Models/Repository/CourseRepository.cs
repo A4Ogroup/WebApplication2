@@ -100,13 +100,14 @@ namespace WebApplication2.Models.Repository
             return collection.AsEnumerable();
 
 
-        }public  IEnumerable<Course> GetCourses(string? searchParam, int categoryId)
+        }
+        public  IQueryable<Course> GetCourses(string? searchParam, int categoryId)
         {
             if (searchParam == null)
             {
-                return GetAll();
+                return _context.Courses;
             }
-            var collection = _context.Courses as IQueryable<Course>;
+            var collection = _context.Courses.AsQueryable();
             if (categoryId !=null && categoryId!=0 )
             {
 
@@ -123,15 +124,15 @@ namespace WebApplication2.Models.Repository
                 || a.CourseDescription.Contains(searchParam)|| a.TopicsCovered.Contains(searchParam));
 
             }
-            return collection.AsEnumerable();
+            return collection;
 
 
         }
 
-        public IQueryable<Course> FilterCourses(CourseFilterViewModel filters,IEnumerable<Course> resultCourses)
+        public IQueryable<Course> FilterCourses(CourseFilterViewModel filters,IQueryable<Course> resultCourses)
         {
 
-            var filteredCourses = resultCourses as IQueryable<Course>;
+            var filteredCourses = resultCourses;
 
 
             if (filters.IsFree != null)
@@ -146,10 +147,10 @@ namespace WebApplication2.Models.Repository
             //{
             //    filteredCourses = filteredCourses.Where(c => c.PriceStatus == false);
             //}
-            if (filters.Ratings != null && filters.Ratings.Any())
-            {
-                filteredCourses = filteredCourses.Where(c => filters.Ratings.Any(r => r <= c.AverageRating));
-            }
+            //if (filters.Ratings != null && filters.Ratings.Any())
+            //{
+            //    filteredCourses = filteredCourses.Where(c => filters.Ratings.Any(r => r <= c.AverageRating));
+            //}
 
             if (filters.CategoryIds != null && filters.CategoryIds.Any())
             {

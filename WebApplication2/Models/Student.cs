@@ -11,7 +11,7 @@ namespace WebApplication2.Models
         {
             Reports = new HashSet<Report>();
             Reviews = new HashSet<Review>();
-            Subs = new HashSet<SubCategory>();
+            UserInterests = new HashSet<UserInterests>();
         }
 
         public string StudentId { get; set; }
@@ -21,6 +21,6 @@ namespace WebApplication2.Models
         public virtual ICollection<Report> Reports { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
 
-        public virtual ICollection<SubCategory> Subs { get; set; }
+        public virtual ICollection<UserInterests> UserInterests { get; set; }
     }
 }

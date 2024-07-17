@@ -10,7 +10,7 @@ namespace WebApplication2.Models
         public SubCategory()
         {
             Courses = new HashSet<Course>();
-            Students = new HashSet<Student>();
+            UserInterests = new HashSet<UserInterests>();
         }
 
         public int SubId { get; set; }
@@ -20,6 +20,6 @@ namespace WebApplication2.Models
         public virtual Category Category { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
 
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<UserInterests> UserInterests { get; set; }
     }
 }

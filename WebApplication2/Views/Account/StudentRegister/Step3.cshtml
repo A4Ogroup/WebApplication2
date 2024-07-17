@@ -1,0 +1,264 @@
+﻿@model UserInterestsViewModel 
+
+@{
+    Layout = "_layout";
+}
+
+
+
+
+<style>
+    /* body {
+        font-family: Arial, sans-serif;
+        background-color: #fcf5f1;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    } */
+
+    .container {
+        text-align: center;
+        padding:10px;
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .tag-btn {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .tag-btn.selected {
+            background-color: #d1e7ff;
+            border-color: #0d6efd;
+        }
+</style>
+<style>
+
+
+
+    .step-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 20px;
+        padding-bottom: 2rem;
+        /*             border-bottom: 1px solid #df2d30;
+                 */
+    }
+
+    .step {
+        flex: 1;
+        text-align: start;
+        font-weight: 500;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+        .step.active .step-label {
+            color: #212F38;
+            font-weight: bold;
+        }
+
+    .step-container .step-bar:nth-child(1) {
+        border-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .step .step-bar {
+        height: 5px;
+        margin-bottom: 2px;
+        background-color: #dedada;
+    }
+
+    .step.active .step-bar {
+        background-color: #df2d30;
+    }
+
+    .step .step-label {
+        color: #6c757d;
+        margin-bottom: 10px;
+    }
+
+    .step:not(:last-child) {
+        margin-right: 5px;
+    }
+
+    @@media (max-width: 768px) {
+        .step {
+            font-size: 14px;
+        }
+    }
+
+    .form-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 5px 10px #e2e0e0;
+        margin: 100px 0 0;
+    }
+
+    .form input {
+        border: 2px solid #e2e0e0;
+    }
+
+    .from input:focus {
+        outline: none !important;
+        border: none !important;
+    }
+
+    .form-title {
+        font-size: 1.50rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .btn-next {
+        background-color: #df2d30;
+        color: #fff;
+    }
+
+        .btn-next:hover {
+            background-color: #e8e8e8;
+            border: solid #df2d30 2px;
+            color: #df2d30;
+        }
+
+    .btn-back {
+        background-color: #e8e8e8;
+        color: #212F38;
+    }
+
+    .form-text-help {
+        margin-top: 20px;
+        color: #6c757d;
+    }
+
+        .form-text-help a {
+            color: #212F38;
+            text-decoration: none;
+        }
+
+            .form-text-help a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+
+
+<div class="row justify-content-center " style="box-shadow:">
+    <div class="col-md-8">
+        <div class="form-container ">
+
+            <div class="container mt-5">
+                <!--<div class="tab-container d-flex justify-content-between align-items-center mb-4">-->
+                <div class="step-container">
+                    <div class="step active">
+                        <div class="step-label">Account Information</div>
+                        <div class="step-bar"></div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-label">Personal Information</div>
+                        <div class="step-bar"></div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-label">Interest Information</div>
+                        <div class="step-bar"></div>
+                    </div>
+                    @* <div class="step">
+                    <div class="step-label">Pages & Components</div>
+                    <div class="step-bar"></div>
+                    </div> *@
+                </div>
+
+
+
+
+                <div class="form-title">Prefered Interests</div>
+                <form class="form" asp-action="Step3" asp-controller="StudentAccount" method="post">
+                    
+
+
+
+
+    
+
+
+<div class="container">
+                        @if ((List<SubCategory>)ViewBag.selectedSubs is not null){
+    <h2 class="mb-4">Choose areas you&#x2019;d like to elevate</h2>
+    
+        <div class="tags">
+
+                            @foreach (var tag in (List<SubCategory>)ViewBag.selectedSubs)
+            {
+                <div class="tag-btn" data-tag-id="@tag.SubId" data-tag-name="@tag.SubName">@tag.SubName</div>
+            }
+                        </div>
+                            @*  We create multiple hidden inputs to bind the list of selected IDs *@
+                            <div  id="selectedTagIdsContainer"></div>
+                        }
+                        else
+                        {
+                            <h2 class="text-warning mb-4 ">You need first to choose a Category of you Interest From <a asp-action="Step2" asp-controller="StudentAccount">here</a></h2>
+                           
+                        }
+                    </div>
+
+
+                                                                                 
+
+
+
+
+                    
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Step2" asp-controller="StudentAccount"> <button type="button" class="btn btn-back"> < Back</button></a>
+                        <button type="submit" class="btn btn-next"> Submit </button>
+                    </div>
+                    <div class="form-text-help text-center">
+                        Stuck on the form? <a href="#">Let's call you!</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('.tag-btn').on('click', function () {
+                $(this).toggleClass('selected');
+                updateHiddenInputs();
+            });
+
+            function updateHiddenInputs() {
+                var selectedTagIdsContainer = $('#selectedTagIdsContainer');
+                selectedTagIdsContainer.empty();
+
+                $('.tag-btn.selected').each(function () {
+                    selectedTagIdsContainer.append('<input type="hidden" name="SelectedTagIds" value="' + $(this).data('tag-id') + '" />');
+
+                });
+            }
+        });
+    </script>
+}
