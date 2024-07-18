@@ -66,7 +66,7 @@ namespace WebApplication2.Models
                     .HasColumnType("date")
                     .HasColumnName("addingDate");
 
-                entity.Property(e => e.AverageRating).HasColumnName("averageRating");
+                entity.Property(e => e.AverageRating).HasColumnName("averageRating").HasDefaultValue(0.0);
 
                 entity.Property(e => e.CategoryId).HasColumnName("categoryID");
 

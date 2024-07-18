@@ -12,8 +12,8 @@ using WebApplication2.Models;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(LconsultDBContext))]
-    [Migration("20240715151218_addingAverageRatingandStandaredQuestionAverageRating")]
-    partial class addingAverageRatingandStandaredQuestionAverageRating
+    [Migration("20240717232635_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -155,21 +155,6 @@ namespace WebApplication2.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("UserInterest", b =>
-                {
-                    b.Property<string>("StudentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("SubId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentId", "SubId");
-
-                    b.HasIndex("SubId");
-
-                    b.ToTable("UserInterests", (string)null);
                 });
 
             modelBuilder.Entity("WebApplication2.Models.Category", b =>
@@ -495,7 +480,7 @@ namespace WebApplication2.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("studentID");
 
-                    b.Property<byte?>("ContributionNum")
+                    b.Property<byte>("ContributionNum")
                         .HasColumnType("tinyint")
                         .HasColumnName("contributionNum");
 
@@ -613,6 +598,21 @@ namespace WebApplication2.Migrations
                     b.ToTable("User", (string)null);
                 });
 
+            modelBuilder.Entity("WebApplication2.Models.UserInterests", b =>
+                {
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("SubId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentId", "SubId");
+
+                    b.HasIndex("SubId");
+
+                    b.ToTable("UserInterests");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -662,21 +662,6 @@ namespace WebApplication2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("UserInterest", b =>
-                {
-                    b.HasOne("WebApplication2.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .IsRequired()
-                        .HasConstraintName("FK_UserInterests_Student");
-
-                    b.HasOne("WebApplication2.Models.SubCategory", null)
-                        .WithMany()
-                        .HasForeignKey("SubId")
-                        .IsRequired()
-                        .HasConstraintName("FK_UserInterests_SubCategory");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.Course", b =>
@@ -790,6 +775,25 @@ namespace WebApplication2.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("WebApplication2.Models.UserInterests", b =>
+                {
+                    b.HasOne("WebApplication2.Models.Student", "Student")
+                        .WithMany("UserInterests")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication2.Models.SubCategory", "SubCategory")
+                        .WithMany("UserInterests")
+                        .HasForeignKey("SubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("SubCategory");
+                });
+
             modelBuilder.Entity("WebApplication2.Models.Category", b =>
                 {
                     b.Navigation("SubCategories");
@@ -822,11 +826,15 @@ namespace WebApplication2.Migrations
                     b.Navigation("Reports");
 
                     b.Navigation("Reviews");
+
+                    b.Navigation("UserInterests");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.SubCategory", b =>
                 {
                     b.Navigation("Courses");
+
+                    b.Navigation("UserInterests");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.User", b =>

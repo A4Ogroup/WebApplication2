@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplication2.Migrations
 {
-    public partial class identity : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,9 +57,10 @@ namespace WebApplication2.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Pic = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -210,11 +211,10 @@ namespace WebApplication2.Migrations
                 columns: table => new
                 {
                     instructorID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    countryCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    phoneNumber = table.Column<int>(type: "int", nullable: true),
                     profession = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     yearsExperince = table.Column<byte>(type: "tinyint", nullable: true),
-                    about = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    about = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Website = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -231,7 +231,7 @@ namespace WebApplication2.Migrations
                 columns: table => new
                 {
                     studentID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    contributionNum = table.Column<byte>(type: "tinyint", nullable: true)
+                    contributionNum = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -332,15 +332,17 @@ namespace WebApplication2.Migrations
                 {
                     table.PrimaryKey("PK_UserInterests", x => new { x.StudentId, x.SubId });
                     table.ForeignKey(
-                        name: "FK_UserInterests_Student",
+                        name: "FK_UserInterests_Student_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Student",
-                        principalColumn: "studentID");
+                        principalColumn: "studentID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserInterests_SubCategory",
+                        name: "FK_UserInterests_SubCategory_SubId",
                         column: x => x.SubId,
                         principalTable: "SubCategory",
-                        principalColumn: "subID");
+                        principalColumn: "subID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

@@ -42,12 +42,12 @@ namespace WebApplication2.Models
         public int? CourseDuration { get; set; }
         public string? Link { get; set; }
 
-        public double AverageMaterialQuality { get; set; } = 0.0;
-        public double AverageSupportQuality {  get; set; }= 0.0;
-        public double AverageEngagementLevel { get; set; } = 0.0;
-        public double AverageTechnicalQuality { get; set; } = 0.0;
-        public double AverageContentQuality { get; set; } = 0.0;
-        public double AverageOverallSatisfaction { get; set; } = 0.0;
+        public double? AverageMaterialQuality { get; set; } = 0.0;
+        public double? AverageSupportQuality {  get; set; }= 0.0;
+        public double? AverageEngagementLevel { get; set; } = 0.0;
+        public double? AverageTechnicalQuality { get; set; } = 0.0;
+        public double? AverageContentQuality { get; set; } = 0.0;
+        public double? AverageOverallSatisfaction { get; set; } = 0.0;
 
 
         public virtual User AddedByUser { get; set; }

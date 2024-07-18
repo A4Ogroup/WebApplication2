@@ -1,62 +1,12 @@
-﻿@* <!DOCTYPE html>
-<html>
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
-    <title>Learn consult</title>
-
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-
-    <link href="~/css/site.css" rel="stylesheet">
-    <link href="~/css/site1.css" rel="stylesheet">
-    <link href="~/css/site2.css" rel="stylesheet">
-    <link href="~/css/site3.css" rel="stylesheet">
-    <link href="~/css/site4.css" rel="stylesheet">
-    <link href="~/css/StyleSheet.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-
-    <header class="">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-
-                <a class="navbar-brand" href="index.html">
-                    <h2><em>L</em>earn Consult</h2>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="nav-item" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    </ul>
-
-                </div>
-            </div>
-
-        </nav>
-    </header> *@
+﻿@using System.Security.Claims
+@model StudentDetailsViewModel
 
 
 @{
     Layout = "_StudentLayout";
 }
+
+
 
 <style>
 
@@ -65,7 +15,7 @@
         background-position: center center;
     }
 </style>
-<div class="banner header-text">
+<div class=" header-text">
     <div class="owl-banner owl-carousel">
         <div class="banner-item-1">
         </div>
@@ -74,183 +24,45 @@
 
 
 <div class="container">
-    <div class="row" style="margin-top:-75px">
+    <div class="row">
+        <form asp-action="profile">
+            <input hidden asp-for="@Model.StudentId" />
+        </form>
         <div class="col-md-3 text-center">
             <img src="~/images/product_02.jpg" class="rounded-circle img-fluid" alt="Instructor Image" style="margin-bottom:20px">
 
-
         </div>
-        <div class="col-md-9" style="padding:15px; margin-bottom:2px;">
-            <h3 class="fw-bold">Anudeep Ayyagari</h3>
-            <p>hieveryone@gmail.com</p>
-          
-            <p>
+        <div class="col-md-9 " style="padding:15px; margin-bottom:2px;">
+            <h3 class="fw-bold">@Model.FirstName  @Model.LastName</h3>
+            <p>@Model.Email</p>
 
+
+            <p>
                 <span class="text-black"><i class="fa fa-comment"></i></span> 28,707 Reviews
                 <br />
-                <span class="text-black"><i class="fa fa-pencil-square"></i></span> 8 reports
+                <span class="text-black"><i class="fa fa-book"></i></span> 8 Courses
+                <br />
+                <span class="text-black"><i class="fa fa-male icon"></i></span> @Model.Gender
+
             </p>
+            <a class="btn btn-light" asp-controller="student" asp-action="edit" asp-route-id="@User.FindFirstValue( System.Security.Claims.ClaimTypes.NameIdentifier)" style="margin:100px;"> Edit Profile</a>
 
         </div>
+
+
     </div>
 </div>
 
-@* @{
-    Layout = "_StudentLayout";
-}
-
-    <div class="banner header-text">
-        <div class="owl-banner owl-carousel">
-        </div>
-    </div>
-
-    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
-        <div class=" p-4">
-            <div class=" image d-flex flex-column justify-content-center align-items-center">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <img src="~/images/more-info.jpg" height="100" width="100" />
-                </button>
-
-                <span class="name mt-3"> osama </span>
-
-                <span class="idd">  osama </span>
-
-                <div class="d-flex flex-row justify-content-center align-items-center gap-2">
-                    <span class="idd1">Oxc4c16a645_b21a</span> <span><i class="fa fa-copy"></i></span>
-                </div>
-
-                <div class="d-flex justify-content-between align-items-center mt-4 px-4">
-
-                    <div class="stats">
-                        <h6 class="mb-0">Followers</h6>
-                        <span>8,797</span>
-                    </div>
-
-                    <div class="stats">
-                        <h6 class="mb-0">Projects</h6>
-                        <span>142</span>
-
-                    </div>
-
-                    <div class="stats">
-                        <h6 class="mb-0">Ranks</h6>
-                        <span>129</span>
-
-                    </div>
-
-                </div>
-
-                <div class=" d-flex mt-2">
-                    <button class="navbar-toggler btn btn-light" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Edit Profile</button>
-                </div>
-
-                <div class="text mt-3">
-                    <span>
-                        Eleanor Pena is a creator of minimalistic x bold graphics and digital artwork.<br>
-                        <br> Artist Creative Director by  with FND night.
-                    </span>
-                </div>
-
-                <ul class="social-icons">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-
-            </div>
-
-            <div class="latest-products">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="section-heading">
-                                <h2>Recent Reviews</h2>
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="product-item">
-                                <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                <div class="down-content">
-                                    <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                    <h4>UserName</h4>
-                                    <h6>Date</h6>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="product-item">
-                                <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                <div class="down-content">
-                                    <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                    <h4>UserName</h4>
-                                    <h6>Date</h6>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="product-item">
-                                <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                <div class="down-content">
-                                    <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                    <h4>UserName</h4>
-                                    <h6>Date</h6>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
-    </div> *@
-
-@* 
-    <!-- Bootstrap core JavaScript -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 
-    <!-- Additional Scripts -->
-    <script src="~/js/site.js"></script>
-    <script src="~/js/site1.js"></script>
-    <script src="~/js/site2.js"></script>
-    <script src="~/js/site3.js"></script>
-    <script src="~/js/site4.js"></script> *@
 
+@section Scripts{
     <script type='text/javascript'>
         var myLink = document.querySelector('a[href="#"]');
         myLink.addEventListener('click', function (e) {
             e.preventDefault();
         });</script>
+}
 
-@* </body>
-</html> *@

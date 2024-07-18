@@ -32,7 +32,7 @@ namespace  WebApplication2.Areas.Admin.Controllers
                 if (result.Succeeded)
                 {
                     TempData["Success"] = "Role added successfully!";
-                    return RedirectToAction("Index", "admin");
+                    return RedirectToAction("Index", "homee");
                 }
                 else
                 {

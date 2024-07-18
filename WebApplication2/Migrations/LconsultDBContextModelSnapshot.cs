@@ -193,26 +193,28 @@ namespace WebApplication2.Migrations
                         .HasColumnType("date")
                         .HasColumnName("addingDate");
 
-                    b.Property<double>("AverageContentQuality")
+                    b.Property<double?>("AverageContentQuality")
                         .HasColumnType("float");
 
-                    b.Property<double>("AverageEngagementLevel")
+                    b.Property<double?>("AverageEngagementLevel")
                         .HasColumnType("float");
 
-                    b.Property<double>("AverageMaterialQuality")
+                    b.Property<double?>("AverageMaterialQuality")
                         .HasColumnType("float");
 
-                    b.Property<double>("AverageOverallSatisfaction")
+                    b.Property<double?>("AverageOverallSatisfaction")
                         .HasColumnType("float");
 
                     b.Property<double?>("AverageRating")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("float")
+                        .HasDefaultValue(0.0)
                         .HasColumnName("averageRating");
 
-                    b.Property<double>("AverageSupportQuality")
+                    b.Property<double?>("AverageSupportQuality")
                         .HasColumnType("float");
 
-                    b.Property<double>("AverageTechnicalQuality")
+                    b.Property<double?>("AverageTechnicalQuality")
                         .HasColumnType("float");
 
                     b.Property<byte?>("CategoryId")

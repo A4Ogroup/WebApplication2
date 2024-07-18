@@ -1,8 +1,8 @@
 ﻿@using System.Security.Claims
-@model EditInstructorViewModel
+@model EditStudentViewModel
 
 @{
-    Layout = "_InstructorLayout";
+    Layout = "_StudentLayout";
 }
 
 <style>
@@ -59,8 +59,8 @@
 
 <div class="send-message" style="margin-top:-75px">
     <div class="container">
-        <form enctype="multipart/form-data" asp-controller="instructor"  asp-action="edit" method="post">
-            <input hidden asp-for="@Model.InstructorId" />
+        <form enctype="multipart/form-data" asp-controller="instructor" asp-action="edit" method="post">
+            <input hidden asp-for="@Model.StudentId" />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-12">
@@ -99,13 +99,6 @@
 
                             <input type="hidden" asp-for="OriginalEmail" />
 
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <fieldset>
-                                    <label>Years of Experince</label>
-                                    <input asp-for="YearsExperince" type="number" class="form-control" placeholder="Years of Experince">
-
-                                </fieldset>
-                            </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
@@ -115,25 +108,17 @@
                                 </fieldset>
                             </div>
 
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <fieldset>
-                                    <label>Additional Info</label>
-                                    <textarea asp-for="About" type="text" class="form-control" placeholder="Additional Info"></textarea>
-
-                                </fieldset>
-
-                            </div>
 
 
 
                         </div>
 
-                        @*  </form> *@
+             
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="contact-form">
-                        @*  <form id="contact" action="" method="post"> *@
+            
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
 
@@ -145,27 +130,22 @@
                                         <span asp-validation-for="FirstName" class="text-danger"></span>
                                     </fieldset>
                                 </div>
-
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
-                                        <label>Profession</label>
-                                        <input asp-for="Profession" class="form-control" id="course name" placeholder="Profession">
-                                    </fieldset>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <fieldset>
+                                   <fieldset>
                                         <label class="form-label">Gender *</label>
                                         <select asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()">
                                         </select>
-                                    </fieldset>
+                                   </fieldset>
                                 </div>
+
+
+
 
                             </div>
 
 
 
- 
+
 
 
                         </div>

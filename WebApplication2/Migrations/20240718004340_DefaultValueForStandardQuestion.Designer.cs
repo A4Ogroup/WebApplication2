@@ -12,8 +12,8 @@ using WebApplication2.Models;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(LconsultDBContext))]
-    [Migration("20240717192035_exiplcitily addin UserInterests Model")]
-    partial class exiplcitilyaddinUserInterestsModel
+    [Migration("20240718004340_DefaultValueForStandardQuestion")]
+    partial class DefaultValueForStandardQuestion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,26 +195,28 @@ namespace WebApplication2.Migrations
                         .HasColumnType("date")
                         .HasColumnName("addingDate");
 
-                    b.Property<double>("AverageContentQuality")
+                    b.Property<double?>("AverageContentQuality")
                         .HasColumnType("float");
 
-                    b.Property<double>("AverageEngagementLevel")
+                    b.Property<double?>("AverageEngagementLevel")
                         .HasColumnType("float");
 
-                    b.Property<double>("AverageMaterialQuality")
+                    b.Property<double?>("AverageMaterialQuality")
                         .HasColumnType("float");
 
-                    b.Property<double>("AverageOverallSatisfaction")
+                    b.Property<double?>("AverageOverallSatisfaction")
                         .HasColumnType("float");
 
                     b.Property<double?>("AverageRating")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("float")
+                        .HasDefaultValue(0.0)
                         .HasColumnName("averageRating");
 
-                    b.Property<double>("AverageSupportQuality")
+                    b.Property<double?>("AverageSupportQuality")
                         .HasColumnType("float");
 
-                    b.Property<double>("AverageTechnicalQuality")
+                    b.Property<double?>("AverageTechnicalQuality")
                         .HasColumnType("float");
 
                     b.Property<byte?>("CategoryId")
@@ -603,15 +605,12 @@ namespace WebApplication2.Migrations
                     b.Property<string>("StudentId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("SubsSubId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SubId")
                         .HasColumnType("int");
 
-                    b.HasKey("StudentId", "SubsSubId");
+                    b.HasKey("StudentId", "SubId");
 
-                    b.HasIndex("SubsSubId");
+                    b.HasIndex("SubId");
 
                     b.ToTable("UserInterests");
                 });
@@ -780,17 +779,21 @@ namespace WebApplication2.Migrations
 
             modelBuilder.Entity("WebApplication2.Models.UserInterests", b =>
                 {
-                    b.HasOne("WebApplication2.Models.Student", null)
-                        .WithMany()
+                    b.HasOne("WebApplication2.Models.Student", "Student")
+                        .WithMany("UserInterests")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication2.Models.SubCategory", null)
-                        .WithMany()
-                        .HasForeignKey("SubsSubId")
+                    b.HasOne("WebApplication2.Models.SubCategory", "SubCategory")
+                        .WithMany("UserInterests")
+                        .HasForeignKey("SubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("SubCategory");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.Category", b =>
@@ -825,11 +828,15 @@ namespace WebApplication2.Migrations
                     b.Navigation("Reports");
 
                     b.Navigation("Reviews");
+
+                    b.Navigation("UserInterests");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.SubCategory", b =>
                 {
                     b.Navigation("Courses");
+
+                    b.Navigation("UserInterests");
                 });
 
             modelBuilder.Entity("WebApplication2.Models.User", b =>
