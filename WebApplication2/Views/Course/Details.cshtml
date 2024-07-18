@@ -103,7 +103,7 @@
     }
 
     .container, .row, .padding {
-        overflow: hidden;
+        overflow: inherit;
     }
         .checked {
         color: red;
@@ -141,10 +141,52 @@
             padding: 50px;
 
         }
+
+        .hero-section {
+            background-color: black;
+            color: white;
+            padding: 40px 20px;
+            margin-top:-20px;
+            text-align: center;
+        }
+
+            .hero-section h1 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            /* .hero-section .rating {
+                color: #f00;
+            } */
+
+            .hero-section .btn {
+                background-color: #f00;
+                border: none;
+                color: white;
+                margin-top: 20px;
+            }
+
+        .course-attributes {
+            list-style: none;
+            padding: 0;
+        }
+
+            .course-attributes li {
+                margin-bottom: 10px;
+            }
+
+                .course-attributes li strong {
+                    display: block;
+                    color: #555;
+                }
+
+                .course-attributes li span {
+                    color: #333;
+                }
        </style>
        </head>
 
-<div class="banner header-text">
+<div class="header-text">
     <div class="owl-banner owl-carousel">
         <div class="banner-item-1">
         </div>
@@ -152,9 +194,137 @@
 </div>
 
 <div class="how-section1" >
+    <div class="hero-section">
+        <input hidden asp-for="@Model.Course.CourseId" />
+        <div class="d-flex justify-content-center align-content-center flex-row flex-wrap" style="justify-content:center !important;">
+            <div class="col-md-4 how-img">
+
+                @if (Model.Course.Picture is null)
+                {
+
+                    Model.Course.Picture = "noimage.png";
+
+                }<a href="#"><img src="~/images/courses/@Model.Course.Picture" alt="" class="img-fluid" alt="" style="margin-bottom:12px;"></a>
+                @* <img src="~/images/product_01.jpg" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;" />  *@
+                
+            </div>
+            <div class="container" style="overflow:inherit !important;">
+                <h1>
+                    @Model.Course.Title
+                </h1>
+                <p style="color:white;">
+                    @Model.Course.CourseDescription
+                </p>
+                <p style="color:white;">
+                    <span class="rating">
+                        @{
+                            double fraction = @Model.Course.AverageRating.Value % 1;
+                            for (int i = 1; i <= Model.Course.AverageRating; i++)
+                            {
+
+                                <i class="fa fa-star" style="color:red;"></i>
+                            }
+                            if (fraction > 0.0)
+                            {
+                                <i class="fa fa-star-half-empty" style="color:red;"></i>
+
+                            }
+                            for (int i = 5; i > (int)Math.Ceiling(Model.Course.AverageRating.Value) && i > 0; i--)
+                            {
+                                <i class="fa fa-star-o" style="color:red;"></i>
+                            }
+
+                        }
+                    </span>
+                    <span>@Model.Course.AverageRating (2,540 Reviews)</span> - instructor @Model.Course.InstructorFullName
+                    <span class="badge text-bg-primary" style="background-color:blue">claimed</span>
+                </p>
+                <a asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.Course.CourseId"><button class="btn btn-lg">Review Now</button></a>
+            </div>
+
+        </div>
+    </div>
     <div class="container">
-        <div class="row ">
-            <input hidden asp-for="@Model.Course.CourseId" />
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <h5>About Course</h5>
+                <p>
+                    @Model.Course.CourseDescription
+                </p>
+                <h6>Topics covered</h6>
+                <ul style="list-style:disc;"> 
+                    @{
+                        var topics = @Model.Course.TopicsCovered?.Split(";");
+                        foreach(var topic in topics)
+                        {
+                            <li>@topic</li>
+                            
+                        }
+                    }
+                    
+                </u>
+            </div>
+            <div class="col-md-4">
+                <ul class="course-attributes">
+                    <li><strong>Total Hours:</strong> <span>@Model.Course.CourseDuration +</span></li>
+                    <li><strong>Platform:</strong> <span>@Model.Course.Platform</span>  >> <a href="@Model.Course.Link">@Model.Course.Platform</a></li>
+                    <li>
+                        <strong>Cost Status:</strong> 
+                        @if (Model.Course.PriceStatus is true)
+                        {
+                            <span> Free </span>
+                        }
+                        else
+                        {
+                            <span>Paid  </span>
+                        }
+                    </li>
+                    <li><strong>Level:</strong> <span>@Model.Course.Level</span></li>
+                    <li><strong>Language:</strong> <span>@Model.Course.Language.Name</span></li>
+                    <li>
+                        <strong>Average video duration:</strong>
+                        <span>@Html.DisplayFor(m=>Model.Course.VedioLength)</span>
+                    </li>
+                    <li>
+                        <strong>Last Updated:</strong> <span>@Model.Course.LastUpdate </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+           
+        <div class="row">
+            <div class="down-content">
+                <hr  style="margin:50px 0;"/>
+                <h3>Average Ratings</h3>
+                <br />
+                <ul>
+                    <h4 class="text-muted small">Material Quality</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="@((Model.Course.AverageMaterialQuality / 10.0) * 100)%"></div>
+                    </div>
+                    <h4 class="text-muted small">Content Quality</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="@((Model.Course.AverageContentQuality / 10.0) * 100)%"></div>
+                    </div>
+                    <h4 class="text-muted small">Engagement Level</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="@((Model.Course.AverageEngagementLevel / 10.0) * 100)%"></div>
+                    </div>
+                    <h4 class="text-muted small">Technical Quality</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="@((Model.Course.AverageTechnicalQuality / 10.0) * 100)%"></div>
+                    </div>
+                    <h4 class="text-muted small">Support Quality</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="@((Model.Course.AverageSupportQuality / 10.0) * 100)%"></div>
+                    </div>
+                    <h4 class="text-muted small">Over All Satisfication</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="@((Model.Course.AverageOverallSatisfaction / 10.0) * 100)%"></div>
+                    </div>
+                </ul>
+            </div>
+            @* <input hidden asp-for="@Model.Course.CourseId" />
             <div class="col-md-4 how-img" >
 
                 @if (Model.Course.Picture is null)
@@ -164,13 +334,13 @@
 
                 }<a href="#"><img src="~/images/courses/@Model.Course.Picture" alt="" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;"></a>
                 @* <img src="~/images/product_01.jpg" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;" />  *@
-                <h4>@Model.Course.Title</h4>
+                @*<h4>@Model.Course.Title</h4>
                 <h6 class="text-muted" style="margin-bottom:12px;">
                     @Model.Course.CourseDescription
                 </h6>
-            </div>
+            </div> *@
 
-            <div class="col-md-8 " style="margin-top:20px;">
+@*             <div class="col-md-8" style="margin-top:20px;">
 
                 <div class="product-item" style="border:none">
 
@@ -185,13 +355,13 @@
                             <p class="meta">
                                 <h6>AverageRating:</h6> @Model.Course.AverageRating
                                 @{
-                                    double fraction = @Model.Course.AverageRating.Value % 1;
+                                    double fractionn = @Model.Course.AverageRating.Value % 1;
                                     for (int i = 1; i <= Model.Course.AverageRating; i++)
                                     {
 
                                         <i class="fa fa-star" style="color:red;"></i>
                                     }
-                                    if (fraction > 0.0)
+                                    if (fractionn > 0.0)
                                     {
                                         <i class="fa fa-star-half-empty" style="color:red;"></i>
 
@@ -260,7 +430,7 @@
                 </div>
 
             </div>
-
+ *@
             @*<div class="col-md-12 my-3">
             <div class="grid search"> *@
             <div class="grid-body">
