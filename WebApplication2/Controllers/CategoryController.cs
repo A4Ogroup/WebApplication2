@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
@@ -7,6 +8,7 @@ using static WebApplication2.ViewModels.PagenationViewModel;
 
 namespace WebApplication2.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ILogger<CategoryController> _logger;
@@ -28,7 +30,7 @@ namespace WebApplication2.Controllers
             return View("Category");
         }
 
-
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int categoryId, int? pageNumber) 
         {
             int pageSize = 6;
@@ -70,6 +72,8 @@ namespace WebApplication2.Controllers
            return View(await PaginatedList<Course>.CreateAsync(courses.AsNoTracking(), pageNumber ?? 1, pageSize));
             //return View(categoryViewModel);
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> FilterBySubCategory(int categoryId, int? pageNumber, int subCategoryId)
         {
             int pageSize = 6;

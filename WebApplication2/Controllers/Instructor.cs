@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,8 @@ using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
+
+    [Authorize]
     public class InstructorController : Controller
     {
        private readonly LconsultDBContext _context;
@@ -49,6 +52,7 @@ namespace WebApplication2.Controllers
 
         //    return  Json(providers);
         //}
+
         public IActionResult test()
         {
            string provider= _context.Courses.FirstOrDefault().Platform?.ToString()??"NA";
