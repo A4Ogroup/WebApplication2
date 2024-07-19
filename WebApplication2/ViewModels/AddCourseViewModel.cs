@@ -43,7 +43,7 @@ namespace WebApplication2.ViewModels
         public bool Status { get; set; } = false;
         //public string InstructorId { get; set; }
         public string InstructorFullName { get; set; }
-        public string InstructorId{ get; set; }
+        public string? InstructorId{ get; set; }
         [DisplayName("Average Video Length")]
         [Required(ErrorMessage = "Vedio Length field is required")]
         public VideoLengthCategory? VedioLength { get; set; }

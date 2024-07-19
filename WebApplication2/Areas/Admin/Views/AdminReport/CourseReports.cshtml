@@ -31,6 +31,12 @@
             position: relative;
             display: inline-block;
         } */
+
+    .unclickable {
+        pointer-events: none;
+        margin-left:5px;
+        cursor: not-allowed;
+    }
 </style>
 
 
@@ -47,20 +53,9 @@
                    
 
             
-                      @*   <p>
-                            <li class="nav-item dropdown" style="list-style-type:none;">
-                         <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color:white;">
-                                    Filter by
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" >Title</a></li>
-                                    <li><a class="dropdown-item" href="#">Date</a></li>
-                                 
-                                </ul>
-                            </li>
-                        </p> *@
 
-                <form method="post" action="@Url.Action("FilterCourses", "homee")">
+
+                <form method="post" action="@Url.Action("FilterCourses", "adminreport")">
                     <div class="dropdown mb-3">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
                             Filter by
@@ -70,12 +65,19 @@
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='All'; this.closest('form').submit();">All</a></li>
 @*                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Title'; this.closest('form').submit();">Title</a></li>
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Date'; this.closest('form').submit();">Date</a></li> *@
+
+                            <li><a class="unclickable text-black" href="#">Date</a></li>
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='AddedToday'; this.closest('form').submit();">Added Today</a></li>
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='LastMonth'; this.closest('form').submit();">Added Last Month</a></li>
+                            <li><a class="unclickable text-black" href="#">status</a></li>
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Accepted'; this.closest('form').submit();">Accepted</a></li>
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Pending'; this.closest('form').submit();">Pending</a></li>
+                            <li><a class="unclickable text-black" href="#">Price</a></li>
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Paid'; this.closest('form').submit();">Paid</a></li>
                             <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Free'; this.closest('form').submit();">Free</a></li>
+                            <li><a class="unclickable text-black" href="#">Added by user Type</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Instructor'; this.closest('form').submit();">Instructor</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Othertypes'; this.closest('form').submit();">Other types</a></li>
                         </ul>
                         <input type="hidden" name="filterType" id="filterType" value="" />
                     </div>
@@ -102,7 +104,7 @@
                     <th scope="col">Price Status</th>
                     <th scope="col">Status</th>
                     <th scope="col">Addition Date</th>
-                    <th scope="col">Actions</th>
+                  
                 </tr>
             </thead>
             <tbody>
@@ -131,10 +133,7 @@
                         </td>
                         <td data-label="Status">@(course.Status ? "Accepted" : "Pending")</td>
                         <td data-label="Addition Date">@course.AddingDate</td>
-                        <td data-label="Actions">
-                            <a href="@Url.Action("EditableDetails", "Course", new { id = course.CourseId ,area=""})" class="btn btn-light btn-action">View</a>
 
-                        </td>
                     </tr>
                 }
             </tbody>
@@ -143,16 +142,16 @@
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                <a class="page-link" asp-action="course" asp-route-pageNumber="@(Model.PageIndex - 1)"> < Previous</a>
+                <a class="page-link" asp-action="coursereprts" asp-route-pageNumber="@(Model.PageIndex - 1)"> < Previous</a>
             </li>
             @for (int i = 1; i <= Model.TotalPages; i++)
             {
                 <li class="page-item @(i == Model.PageIndex ? "active" : "")">
-                    <a class="page-link" asp-action="course" asp-route-pageNumber="@i">@i</a>
+                    <a class="page-link" asp-action="coursereprts" asp-route-pageNumber="@i">@i</a>
                 </li>
             }
             <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                <a class="page-link" asp-action="course" asp-route-pageNumber="@(Model.PageIndex + 1)">Next > </a>
+                <a class="page-link" asp-action="coursereprts" asp-route-pageNumber="@(Model.PageIndex + 1)">Next > </a>
             </li>
         </ul>
     </nav>

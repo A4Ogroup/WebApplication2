@@ -1,0 +1,103 @@
+﻿@model WebApplication2.PaginatedListNew<Instructor>
+
+@{
+    Layout = "_aAdminLayout";
+}
+<style>
+    .unclickable {
+        pointer-events: none;
+        cursor: not-allowed;
+        margin-left: 5px;
+    }
+</style>
+<partial name="_NotificationPartial"></partial>
+
+<div class="col-lg-9">
+    <div class="page-breadcrumb">
+        <div class="row align-items-center">
+            <div class="col-5">
+                <h4 class="page-title">Instructor (@Model.Count)</h4>
+
+            </div>
+            <div class="col-7">
+                <div class="text-end upgrade-btn">
+                    <form method="post" action="@Url.Action("FilterInstructors", "adminreport")">
+                        <div class="dropdown mb-3">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+                                Filter by
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='All'; this.closest('form').submit();">All</a></li>
+                                <li><a class="unclickable text-black" href="#">Date</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='AddedToday'; this.closest('form').submit();">Added Today</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='LastMonth'; this.closest('form').submit();">Added Last Month</a></li>
+                                <li><a class="unclickable text-black" href="#">Gender</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Male'; this.closest('form').submit();">Male</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Female'; this.closest('form').submit();">Female</a></li>
+
+                            </ul>
+                            <input type="hidden" name="filterType" id="filterType" value="" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="course-list">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Picture</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Addition Date</th>
+      
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var instructor in Model)
+                {
+                    <tr>
+                        <td style="width:10%; height:10%;" data-label="Picture">
+                            @if (instructor.InstructorNavigation.Picture is null)
+                            {
+                                <a>
+                                    <img src="~/images/courses/noimage.png" alt="" class="rounded-circle img-fluid" style="margin-bottom:12px;">
+                                </a>
+                            }
+                            <a>
+                                <img src="~/images/courses/@instructor.InstructorNavigation.Picture" alt="" class="rounded-circle img-fluid" style="margin-bottom:12px;">
+                            </a>
+                        </td>
+                        <td data-label="Title">@instructor.InstructorNavigation.UserName</td>
+                        <td data-label="Status">@instructor.InstructorNavigation.FirstName</td>
+                        <td data-label="Status">@(instructor.InstructorNavigation.Status ? "Accepted" : "Pending")</td>
+                        <td data-label="Addition Date">@instructor.InstructorNavigation.RegisterDate</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-action="instructorreports" asp-route-pageNumber="@(Model.PageIndex - 1)"> < Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link" asp-action="instructorreports" asp-route-pageNumber="@i">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-action="instructorreports" asp-route-pageNumber="@(Model.PageIndex + 1)">Next > </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+

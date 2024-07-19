@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Helpers;
 using WebApplication2.Helpers.Enums;
@@ -16,15 +17,17 @@ namespace WebApplication2.Controllers
         private readonly IWebHostEnvironment _environment;
         private readonly ICourseRepository _courseRepository;
         private readonly ISearchResultService _searchResultService;
+        private readonly UserManager<User> _userManager;
         const int pageSize = 6;
         private IQueryable<Course> _courses;
 
-        public CourseController(LconsultDBContext context, IWebHostEnvironment environment, ICourseRepository Course, ISearchResultService searchResultService)
+        public CourseController(LconsultDBContext context, IWebHostEnvironment environment, ICourseRepository Course, ISearchResultService searchResultService, UserManager<User> userManager)
         {
             _context = context;
             _courseRepository = Course;
             _searchResultService = searchResultService;
             _environment = environment;
+            _userManager = userManager;
             //_courses = _courseRepository?.GetAll() as IQueryable<Course>;
 
 
@@ -46,11 +49,13 @@ namespace WebApplication2.Controllers
             return Json(subcategories);
         }
         [HttpGet]
-        public IActionResult AddCourse(string id)
+        public IActionResult AddCourse()
         {
             ViewBag.Categories = _context.Categories;
             ViewBag.Languages = _context.Languages;
-            var model =new AddCourseViewModel { InstructorId = id };
+
+            var model = new AddCourseViewModel();
+
             return View(model);
         }
 
@@ -64,11 +69,23 @@ namespace WebApplication2.Controllers
             //string uniqeFileName = ProcessUploadFile(model);
             ViewBag.Categories = _context.Categories;
             ViewBag.Languages = _context.Languages;
-            if (ModelState.IsValid)
+
+            string idToSave = null;
+
+            if (User.IsInRole("Student")|| User.IsInRole("Admin"))
+            {
+                idToSave = model.AddedByUserId;
+            }
+            else if (User.IsInRole("Instructor"))
+            {
+                idToSave = model.InstructorId;
+            }
+            if (ModelState.IsValid && idToSave!=null)
             {
                 Course newCourse = new()
                 {
                     Title = model.Title,
+                    AddedByUserId =model.AddedByUserId,
                     CategoryId = model.CategoryId,
                     AddingDate = model.AddingDate,
                     AverageRating = model.AverageRating,
@@ -96,7 +113,7 @@ namespace WebApplication2.Controllers
             var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
             return RedirectToAction("addcourse","instructor");
         }
-
+        
 
 
         private string ProcessUploadFile<T>(T model, Func<T, IFormFile> pictureAccessor)

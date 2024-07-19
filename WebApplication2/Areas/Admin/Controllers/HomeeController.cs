@@ -43,6 +43,14 @@ namespace WebApplication2.Areas.Admin.Controllers
      
             return View();
         }
+
+        //public IActionResult AdminDetail(string id)
+        //{
+        //    var admin= _userRepository.GetAll().Where(i => i.Id==id);
+
+        //    var _admin = new AdminDetailsViewModel();
+        //    return PartialView("_AdminDetailsPartial", _admin);
+        //}
         //[HttpGet]
         //public IActionResult AdminRegister()
         //{
@@ -91,64 +99,7 @@ namespace WebApplication2.Areas.Admin.Controllers
             return View(await PaginatedListNew<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         
-        public async Task<IActionResult> CourseReports(int? pageNumber)
-        {
-            int pageSize = 15;
-            var course = _courseRepository.GetAllWithLanguage().AsQueryable();
-            return View(await PaginatedListNew<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
-        }
 
-        public async Task<IActionResult> FilterCourses(string filterType, int? pageNumber)
-        {
-            //IQueryable<Course> courses = _courseRepository.GetAll().AsQueryable();
-
-            int pageSize = 15;
-            var course = _courseRepository.GetAll().AsQueryable();
-            switch (filterType)
-            {
-                //case "All":
-                //    course = course;
-                //    break;
-                //case "Title":
-
-                //    course = course.OrderByDescending(c => c.Title);
-
-                //    break;
-                //case "Date":
-                //   // courses = isDescending ? course.OrderByDescending(c => c.AddingDate).ToList() : course.OrderBy(c => c.AddingDate).ToList();
-                //    course = course.OrderByDescending(c => c.AddingDate);
-                //    break;
-                case "AddedToday":
-                    var today = DateTime.Today;
-                    course = course.Where(c => c.AddingDate.Date == today);
-                    break;
-                case "LastMonth":
-                    // Calculate the date range for the last month
-                    today = DateTime.Today;
-                    var firstDayOfLastMonth = new DateTime(today.Year, today.Month - 1, 1);
-                    var lastDayOfLastMonth = new DateTime(today.Year, today.Month, 1).AddDays(-1);
-                    course = course.Where(c => c.AddingDate>= firstDayOfLastMonth && c.AddingDate <=lastDayOfLastMonth);
-                    break;
-             
-                case "Accepted":
-                    course = course.Where(c=>c.Status == true); 
-                    break;
-                case "Pending":
-                    course = course.Where(c => c.Status == false); ;
-                    break;
-                case "Paid":
-                    course = course.Where(c => c.PriceStatus == true); ;
-                    break;
-                case "Free":
-                    course = course.Where(c => c.PriceStatus == false); ;
-                    break;
-                default:
-                  course = course;
-                    break;
-            }
-           // var paginatedCourses = await PaginatedListNew<Course>.CreateAsync(courses, pageIndex, PageSize);
-            return View("CourseReports", await PaginatedListNew<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
-        }
 
         public async Task<IActionResult> Review(int? pageNumber)
         {

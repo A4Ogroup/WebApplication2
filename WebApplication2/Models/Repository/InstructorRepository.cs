@@ -36,7 +36,7 @@ namespace WebApplication2.Models.Repository
 
         public IEnumerable<Instructor> GetAllWithCourses()
         {
-            return _context.Instructors.Include(i => i.Courses);
+            return _context.Instructors.Include(i => i.Courses).Include(i => i.InstructorNavigation);
         }
 
         public Instructor GetById(string id)

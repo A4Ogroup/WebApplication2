@@ -1,5 +1,4 @@
-﻿@using System.Security.Claims
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -188,7 +187,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item w-100" style="margin-left:auto;">
+
+                        <li class="nav-item w-99" style="margin-left:auto;">
                             <div class="search-form">
                                 <form method="get" asp-controller="Course" asp-action="Index1" class="d-flex w-100">
                                     <div class="d-flex align-items-center w-100 p-2" style="border-radius: 25px;">
@@ -212,6 +212,16 @@
 
 
             </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" asp-action="adminregister" asp-controller="account" asp-area="">
+                                Add Admin
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" asp-action="addrole" asp-controller="Role">
+                                Add Role
+                            </a>
+                        </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -256,40 +266,19 @@
                 <button class="btn btn-dark mb-3 w-100 d-lg-none" id="filter-toggle">Dashboard</button>
                 <div class="sidebar d-none d-lg-block">
 
-                    <div class="user-profile d-flex no-block dropdown m-t-20">
+                     <div class="user-profile d-flex no-block dropdown m-t-20">
                         <div class="user-pic">
                             <img src="~/images/slide_03.jpg" alt="users"
                                  class="rounded-circle" width="9" style="width:70px;height:50px; margin-right:10px;" />
                         </div>
                         <div class="user-content hide-menu m-l-10">
-                        @*     <a href="#" class="" id="Userdd" role="button"
-                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> *@
+
                                 <h5 class="m-b-0 user-name font-medium text-dark">
-                                    Osama Abdullah @* <i class="fa fa-angle-down"></i> *@
+                                    Osama Abdullah 
                                 </h5>
                                 <span class="op-5 user-email text-muted">Hala@gmail.com</span>
-                        @*     </a> *@
-                            @* <div class="dropdown-menu dropdown-menu-end" aria-labelledby="Userdd">
-                                <a class="dropdown-item" href="#">
-                                    <i class="ti-user m-r-5 m-l-5"></i> My Profile
-                                </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-wallet m-r-5 m-l-5"></i> My Balance
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="ti-email m-r-5 m-l-5"></i> Inbox
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="ti-settings m-r-5 m-l-5"></i> Account Setting
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
-                                </a>
-                            </div> *@
                         </div>
-                    </div>
+                    </div>  
                     <div class="filter-section">
                         <h3></h3>
                     </div>
@@ -338,7 +327,7 @@
                             </a>
                         </h4>
                      
-                    </div>
+                    </div>  
 
                     <div class="filter-section">
                         <h4 class="d-flex justify-content-between align-items-center">
@@ -351,7 +340,7 @@
                             <div class="form-check">
                              <h4>
                                     <a class="text-black"
-                                       asp-action="coursereports" asp-controller="homee" aria-expanded="false">
+                                       asp-action="coursereports" asp-controller="adminreport" aria-expanded="false">
                                         <i class="fa fa-book"></i><span class="hide-menu" style="margin-left:5px;">Course</span>
                                     </a>
                              </h4>
@@ -359,7 +348,7 @@
                             <div class="form-check">
                              <h4>
                                     <a class="text-black"
-                                       asp-action="review" asp-controller="homee" aria-expanded="false">
+                                       asp-action="reviewreports" asp-controller="adminreport" aria-expanded="false">
                                         <i class="fa fa-comment"></i><span class="hide-menu" style="margin-left:5px;">Review</span>
                                     </a>
                              </h4>
@@ -367,8 +356,24 @@
                             <div class="form-check">
                              <h4>
                                     <a class="text-black"
-                                       asp-action="report" asp-controller="homee" aria-expanded="false">
+                                       asp-action="reportreports" asp-controller="adminreport" aria-expanded="false">
                                         <i class="fa fa-file"></i><span class="hide-menu" style="margin-left:5px;">Report</span>
+                                    </a>
+                             </h4>
+                            </div>
+                            <div class="form-check">
+                             <h4>
+                                    <a class="text-black"
+                                       asp-action="Instructorreports" asp-controller="adminreport" aria-expanded="false">
+                                        <i class="fa fa-file"></i><span class="hide-menu" style="margin-left:5px;">Instructor</span>
+                                    </a>
+                             </h4>
+                            </div>
+                            <div class="form-check">
+                             <h4>
+                                    <a class="text-black"
+                                       asp-action="studentreports" asp-controller="adminreport" aria-expanded="false">
+                                        <i class="fa fa-file"></i><span class="hide-menu" style="margin-left:5px;">student</span>
                                     </a>
                              </h4>
                             </div>
