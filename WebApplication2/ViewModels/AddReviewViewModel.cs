@@ -7,7 +7,7 @@ namespace WebApplication2.ViewModels
     {
         [Required(ErrorMessage = "Description fieled is required")]
         public string Descritipn { get; set; }
-        public bool? Status { get; set; }
+        public bool Status { get; set; }
         [Required(ErrorMessage = "Rate fieled is required")]
         public byte Rate { get; set; }
         public DateTime RatingDate { get; set; } = DateTime.Now;
@@ -24,7 +24,7 @@ namespace WebApplication2.ViewModels
         [Required(ErrorMessage = "Over All Satisfication fieled is required")]
         public int OverAllSatisfication { get; set; }
         public int CourseId { get; set; }
-        public string? StudentId { get; set; }
+        public string StudentId { get; set; }
 
         public string GetFormattedDate(DateTime date)
         {

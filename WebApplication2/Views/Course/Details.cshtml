@@ -1,5 +1,14 @@
-﻿@model CourseDetailsViewModel
+﻿@using System.Security.Claims
+@model CourseDetailsViewModel
 @inject LconsultDBContext _context
+
+@{
+    var Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+<partial name="_NotificationPartial" ></partial>
+
+
+
 @* @{
 
     var review = _context.Reviews.Select(r => new
@@ -239,7 +248,9 @@
                     <span>@Model.Course.AverageRating (2,540 Reviews)</span> - instructor @Model.Course.InstructorFullName
                     <span class="badge text-bg-primary" style="background-color:blue">claimed</span>
                 </p>
-                <a asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.Course.CourseId"><button class="btn btn-lg">Review Now</button></a>
+                @if(!User.IsInRole("Instructor")){
+                    <a asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.Course.CourseId" ><button class="btn btn-lg">Review Now</button></a>
+                } 
             </div>
 
         </div>
@@ -918,6 +929,7 @@
             $(this).css("width", progress);
         });
     </script>
+    
 }
 @* </body>
 
