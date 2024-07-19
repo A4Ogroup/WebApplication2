@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
-
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 namespace WebApplication2.Controllers
 {
     public class ReviewController : Controller
@@ -12,12 +13,14 @@ namespace WebApplication2.Controllers
         public IReviewRepository _reviewRepository;
         public ICourseRepository _courseRepository;
         public LconsultDBContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public ReviewController(IReviewRepository reviewRepository, LconsultDBContext context, ICourseRepository courseRepository)
+        public ReviewController(IReviewRepository reviewRepository, LconsultDBContext context, ICourseRepository courseRepository, UserManager<User> userManager)
         {
             _reviewRepository = reviewRepository;
             _context = context;
             _courseRepository = courseRepository;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -28,9 +31,20 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public IActionResult AddReview(int Id)
         {
+            //var studentId=User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var studentId = _userManager.GetUserId(User);
+            var existingReview =  _reviewRepository.GetAll()
+            .FirstOrDefault(r => r.CourseId == Id && r.StudentId == studentId);
+            if(existingReview != null )
+            {
+                TempData["Failed"] = "You have already added a review for this course!!";
+
+               return RedirectToAction("Details", "Course", new {id=Id});
+            }
             var model = new AddReviewViewModel
             {
-                CourseId = Id
+                CourseId = Id,
+                StudentId=studentId
             };
             return View(model);
 
@@ -60,6 +74,7 @@ namespace WebApplication2.Controllers
                     EngagementLevel = model.EngagementLevel,
                     OverAllSatisfication = model.OverAllSatisfication,
                     CourseId = model.CourseId,
+                    StudentId = model.StudentId,
 
                 };
               
