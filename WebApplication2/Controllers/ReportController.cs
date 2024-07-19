@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
@@ -10,12 +11,14 @@ namespace WebApplication2.Controllers
          LconsultDBContext _context;
          IReportRepository _reportRepository;
         IReviewRepository _reviewRepository;
+        private readonly   UserManager<User>  _userManager;
 
-        public ReportController(LconsultDBContext context, IReportRepository reportRepository, IReviewRepository reviewRepository)
+        public ReportController(LconsultDBContext context, IReportRepository reportRepository, IReviewRepository reviewRepository, UserManager<User> userManager)
         {
             _context = context;
             _reportRepository = reportRepository;
             _reviewRepository = reviewRepository;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -25,7 +28,17 @@ namespace WebApplication2.Controllers
 
         [HttpGet]
         public IActionResult AddReport(int id) {
-        
+
+            var studentId = _userManager.GetUserId(User);
+            var existingReport = _reportRepository.GetAll()
+            .FirstOrDefault(r => r.ReviewId == id && r.StudentId == studentId);
+            if (existingReport != null)
+            {
+                TempData["Failed"] = "You have already added a report for this review!!";
+
+                return RedirectToAction("Index", "Student", new { id = id });
+            }
+
             var model = new AddReportViewModel { ReviewId = id };
             return View(model);
         }

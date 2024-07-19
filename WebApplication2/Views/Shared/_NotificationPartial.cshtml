@@ -7,12 +7,12 @@
 
     <script type="text/javascript">
         toastr.options = {
-            "closeButton": false,
+            "closeButton": true,
             "debug": false,
             "newestOnTop": false,
             "progressBar": false,
             "positionClass": "toast-top-center",
-            "preventDuplicates": false,
+            "preventDuplicates": true,
             "onclick": null,
             "showDuration": "300",
             "hideDuration": "1000",
@@ -24,18 +24,19 @@
             "hideMethod": "fadeOut"
         }
         toastr.success('@TempData["Success"]')
+
     </script>
 }
 else if (TempData["Failed"] != null)
 {
 <script type="text/javascript">
         toastr.options = {
-            "closeButton": false,
+            "closeButton": true,
             "debug": false,
             "newestOnTop": false,
             "progressBar": false,
             "positionClass": "toast-top-center",
-            "preventDuplicates": false,
+            "preventDuplicates": true,
             "onclick": null,
             "showDuration": "300",
             "hideDuration": "1000",
