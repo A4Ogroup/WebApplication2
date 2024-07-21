@@ -1,4 +1,11 @@
-﻿@model AddCourseViewModel
+﻿@using System.Security.Claims
+
+@{
+    var id = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+
+}
+
+@model AddCourseViewModel
 
 @{
     Layout = "_InstructorLayout";
@@ -202,7 +209,7 @@
     <div class="container">
        
         <form enctype="multipart/form-data" asp-controller="Course" id="addCourseDynamicForm" asp-action="Addcourse" method="post">
-            <input hidden asp-for="@Model.InstructorId"/>
+          
             <div asp-validation-summary="All" class="text-danger"></div> 
             
             <div class="row">
@@ -503,6 +510,16 @@
                                     <span class="text-danger" asp-validation-for="Picture"></span>
                                 </fieldset>
                             </div>
+                            @if (User.IsInRole("Instructor"))
+                            {
+                                <input type="hidden" asp-for="InstructorId" value="@id" />
+                            }
+                            else if(User.IsInRole("Student")|| User.IsInRole("Admin"))
+                            {
+                                <input type="hidden" asp-for="AddedByUserId" value="@id" />
+                            }
+                            
+                            
                             <div class="col-lg-12">
                                 <fieldset>
                                     <button type="submit" id="contact" class="filled-button mt-4">Submit </button>

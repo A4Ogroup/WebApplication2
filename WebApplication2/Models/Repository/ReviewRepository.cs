@@ -49,7 +49,7 @@ namespace WebApplication2.Models.Repository
 
         IEnumerable<Review> IReviewRepository.GetAllWithCourse()
         {
-            return _context.Reviews.Include(r => r.Course);
+            return _context.Reviews.Include(r => r.Course).Include(c => c.Student).ThenInclude(s => s.StudentNavigation);
         }
 
         IEnumerable<Review> IReviewRepository.GetTopReviews()

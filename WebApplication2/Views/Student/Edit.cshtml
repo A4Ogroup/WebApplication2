@@ -76,10 +76,11 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                     <labek>User Name</labek>
-                                    <input asp-for="@Model.UserName" class="form-control" placeholder="User Name" value="@Model.UserName">
+                                    <input asp-for="UserName" class="form-control" placeholder="User Name" >
                                     <span asp-validation-for="UserName" class="text-danger"></span>
                                 </fieldset>
                             </div>
+                            <input hidden asp-for="OriginalUserName" />
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <fieldset>
                                     <label>Last Name</label>

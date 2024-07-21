@@ -31,7 +31,7 @@
                 @foreach (var review in Model)
                 {
                     <tr>
-                        <td>@review.Student</td>
+                        <td>@review.Student.StudentNavigation.UserName</td>
                         <td>
                             <ul class="stars" style="color:red">
                                 @switch (review.Rate)

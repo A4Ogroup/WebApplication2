@@ -14,6 +14,7 @@ namespace WebApplication2.Models.Repository
         public IEnumerable<Course> GetCourses(CourseResourceParameters? ResourceParameters);
         public IQueryable<Course> GetCourses(string? searchParam ,int categoryId);
         IEnumerable<Course> GetAllWithLanguage();
+        IEnumerable<Course> GetAllWithLanguageAddedByInstructor(string id);
         IEnumerable<Course> GetTopCourses();
         IEnumerable<Course> GetLatestCourses();
         Course Add(Course course);

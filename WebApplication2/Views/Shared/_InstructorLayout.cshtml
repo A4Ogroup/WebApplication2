@@ -105,7 +105,7 @@
                         </li>
 
                         <li class="nav-item ">
-                            <a class="nav-link" asp-controller="course" asp-action="AddCourse"asp-route-id="@User.FindFirstValue( System.Security.Claims.ClaimTypes.NameIdentifier)">
+                            <a class="nav-link" asp-controller="course" asp-action="AddCourse">
                                 Add Course
                             </a>
                         </li>
@@ -114,7 +114,7 @@
                             <a asp-controller="account" asp-action="Logout" class="nav-link">Signout</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" asp-controller="Instructor" asp-action="Profile" asp-route-id="@User.FindFirstValue( System.Security.Claims.ClaimTypes.NameIdentifier)">Profile</a>
+                           <a class="nav-link" asp-controller="Instructor" asp-action="Profile" >Profile</a>
                         </li>
 
                     </ul>

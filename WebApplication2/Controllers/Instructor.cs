@@ -72,13 +72,26 @@ namespace WebApplication2.Controllers
             };
             return View(top);
         }
-        public IActionResult MyCourses()
+
+        public async Task<IActionResult> MyCourses(int? pageNumber)
         {
-            return View();
-        }        
-        public IActionResult Profile(string id)
+            int pageSize = 15;
+            var instructortId = _userManager.GetUserId(User);
+         
+            var mycourses = _courseRepository.GetAllWithLanguageAddedByInstructor(instructortId).AsQueryable();
+            return View(await PaginatedListNew<Course>.CreateAsync(mycourses.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
+
+        //public IActionResult MyCourses()
+        //{
+        //    var instructortId = _userManager.GetUserId(User);
+        //    var mycourses = _courseRepository.GetAllWithLanguage().Where(i => i.InstructorId == instructortId);
+        //    return View(mycourses);
+        //}        
+        public IActionResult Profile()
         {
-            var instructor = _instructorRepository.GetById(id);
+            var instructortId = _userManager.GetUserId(User);
+            var instructor = _instructorRepository.GetById(instructortId);
            
             var _instructor = new InstructorDetailsViewModel
             {
@@ -97,15 +110,17 @@ namespace WebApplication2.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(string id)
+        public IActionResult Edit()
         {
-            var instructor = _instructorRepository.GetById(id);
+            var instructortId = _userManager.GetUserId(User);
+            var instructor = _instructorRepository.GetById(instructortId);
             if(instructor is not null)
             {
                 EditInstructorViewModel _instructor = new()
                 {
-                     InstructorId= instructor.InstructorId,
+                     InstructorId= instructortId,
                      UserName = instructor.InstructorNavigation.UserName,
+                     OriginalUserName=instructor.InstructorNavigation.UserName,
                      Email= instructor.InstructorNavigation.Email,
                      OriginalEmail= instructor.InstructorNavigation.Email,
                      FirstName= instructor.InstructorNavigation.FirstName,
@@ -229,5 +244,25 @@ namespace WebApplication2.Controllers
 
         return Json(true);
     }
+
+        [AcceptVerbs("Get", "Post")]
+        public async Task<IActionResult> VerifyUserName(string userName, string originalUserName)
+        {
+            // Check if the new username is the same as the original
+            if (userName == originalUserName)
+            {
+                return Json(true);
+            }
+
+            // Check if the username already exists
+            User userNameExists = await _userManager.FindByNameAsync(userName);
+            if (userNameExists != null)
+            {
+                return Json($"The UserName {userName} is already in use.");
+            }
+
+            return Json(true);
+        }
+
     }
 }

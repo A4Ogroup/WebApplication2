@@ -15,10 +15,9 @@ namespace WebApplication2.ViewModels
         public string OriginalEmail { get; set; }
 
 
-        [Remote("IsUserNameAlreadyExists", "Account", ErrorMessage = "User Name already exist")]
+        [Remote(action: "VerifyUserName", controller: "Instructor", AdditionalFields = "OriginalUserName")]
         public string UserName { get; set; }
-
-
+        public string OriginalUserName { get; set; }
 
 
 
