@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
@@ -11,14 +12,16 @@ namespace WebApplication2.Controllers
         private readonly LconsultDBContext _context;
         private readonly ICourseRepository _courseRepository;
         private readonly IReviewRepository _reviewRepository;
-        private readonly IStudentRepository _studentRepository;
+        private readonly IStudentRepository _studentRepository; 
+        private readonly UserManager<User> _userManager;
 
-        public StudentController(LconsultDBContext context , IReviewRepository reviewRepository,ICourseRepository courseRepository,IStudentRepository studentRepository)
+        public StudentController(LconsultDBContext context , IReviewRepository reviewRepository,ICourseRepository courseRepository,IStudentRepository studentRepository, UserManager<User> userManager)
         {
             _context = context;
             _reviewRepository = reviewRepository;
             _courseRepository = courseRepository;
             _studentRepository = studentRepository;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -35,9 +38,14 @@ namespace WebApplication2.Controllers
             return View(top);
         }
 
-        public IActionResult Profile(string id)
+        public async Task< IActionResult> Profile(int? pageNumber)
         {
-            var student = _studentRepository.GetById(id);
+            var studentId = _userManager.GetUserId(User);
+            var student = _studentRepository.GetById(studentId);
+
+            var reviews = _context.Reviews.Include(r => r.Course).Include(r=>r.Student).ThenInclude(s=>s.StudentNavigation).Where(r => r.StudentId== studentId);
+            var review = _reviewRepository.GetAll().FirstOrDefault(r => r.StudentId==studentId);
+            int pageSize = 6;
 
             var _student = new StudentDetailsViewModel
             {
@@ -46,14 +54,16 @@ namespace WebApplication2.Controllers
                 FirstName = student.StudentNavigation.FirstName,
                 LastName = student.StudentNavigation.LastName,
                 Gender = student.StudentNavigation.Gender,
-                
+                Reviews = await PaginatedListNew<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize),
+                review= review,
             };
             return View(_student);
         }
         [HttpGet]
-        public IActionResult Edit(string id)
+        public IActionResult Edit()
         {
-            var student = _studentRepository.GetById(id);
+            var studentId = _userManager.GetUserId(User);
+            var student = _studentRepository.GetById(studentId);
             if (student is not null)
             {
                 EditStudentViewModel _student = new()
