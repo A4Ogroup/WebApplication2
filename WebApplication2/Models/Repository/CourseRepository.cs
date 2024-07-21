@@ -26,6 +26,8 @@ namespace WebApplication2.Models.Repository
             return _context.Courses;
         }
 
+
+
         public IEnumerable<Course> GetCoursesByCategory(int categoryId)
         {
             if(categoryId==0)
@@ -203,6 +205,11 @@ namespace WebApplication2.Models.Repository
         IEnumerable<Course> ICourseRepository.GetLatestCourses()
         {
            return _context.Courses.OrderByDescending(c => c.AddingDate).Where(c => c.Status == true).Take(10).ToList();
+        }
+
+        IEnumerable<Course> ICourseRepository.GetAllWithLanguageAddedByInstructor(string id)
+        {
+            return _context.Courses.Include(c => c.Language).Where(c => c.InstructorId == id);
         }
     }
 }

@@ -6,8 +6,10 @@ using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 namespace WebApplication2.Controllers
 {
+  
     public class ReviewController : Controller
     {
         public IReviewRepository _reviewRepository;
@@ -27,10 +29,15 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
-
+       
         [HttpGet]
         public IActionResult AddReview(int Id)
         {
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    TempData["Success"] = "You shuold have an account to give your opinion";
+            //    return RedirectToAction("Login", "Account");
+            //}
             //var studentId=User.FindFirstValue(ClaimTypes.NameIdentifier);
             var studentId = _userManager.GetUserId(User);
             var existingReview =  _reviewRepository.GetAll()
@@ -75,13 +82,14 @@ namespace WebApplication2.Controllers
                     OverAllSatisfication = model.OverAllSatisfication,
                     CourseId = model.CourseId,
                     StudentId = model.StudentId,
+                    Status = model.Status,
 
                 };
               
                  _reviewRepository.Add(_review);
                 _reviewRepository.Save();
                 TempData["Success"] = "Review added successfully!";
-                return RedirectToAction("Index", "student");
+                return RedirectToAction("dtails", "course", new {id = model.CourseId});
             }
             // return RedirectToAction("Details", new { id = review.ReviewId });
             return RedirectToAction("Index","student");
@@ -113,6 +121,7 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public IActionResult EditReview( int id)
         {
+            var studentId = _userManager.GetUserId(User);
             var _review=_reviewRepository.GetById(id);
 
             if(_review != null)
@@ -129,6 +138,7 @@ namespace WebApplication2.Controllers
                     ContentQuality = _review.ContentQuality,
                     OverAllSatisfication = _review.OverAllSatisfication,
                     CourseId = _review.CourseId,
+                    StudentId = studentId
                 };
                 
                 return View(model);

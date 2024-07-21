@@ -163,5 +163,38 @@ namespace WebApplication2.Areas.Admin.Controllers
             }
             return View("instructorReports", await PaginatedListNew<Instructor>.CreateAsync(instructor.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
+        
+        public async Task<IActionResult> FilterStudents(string filterType, int? pageNumber)
+        {
+            //IQueryable<Course> courses = _courseRepository.GetAll().AsQueryable();
+
+            int pageSize = 15;
+            var student = _studentRepository.GetAll().AsQueryable();
+            switch (filterType)
+            {
+                case "AddedToday":
+                    var today = DateTime.Today;
+                    student = student.Where(c => c.StudentNavigation.RegisterDate == today);
+                    break;
+                case "LastMonth":
+                    // Calculate the date range for the last month
+                    today = DateTime.Today;
+                    var firstDayOfLastMonth = new DateTime(today.Year, today.Month - 1, 1);
+                    var lastDayOfLastMonth = new DateTime(today.Year, today.Month, 1).AddDays(-1);
+                    student = student.Where(c => c.StudentNavigation.RegisterDate >= firstDayOfLastMonth && c.StudentNavigation.RegisterDate <= lastDayOfLastMonth);
+                    break;
+
+                case "Male":
+                    student = student.Where(c => c.StudentNavigation.Gender == Helpers.Enums.Gender.Male);
+                    break;
+                case "Female":
+                    student = student.Where(c => c.StudentNavigation.Gender == Helpers.Enums.Gender.Female); ;
+                    break;
+                default:
+                    student = student;
+                    break;
+            }
+            return View("StudentReports", await PaginatedListNew<Student>.CreateAsync(student.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
     }
 }

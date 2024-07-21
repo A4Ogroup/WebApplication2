@@ -71,6 +71,8 @@ namespace WebApplication2.Controllers
             ViewBag.Languages = _context.Languages;
 
             string idToSave = null;
+            bool _status = true;
+ 
 
             if (User.IsInRole("Student")|| User.IsInRole("Admin"))
             {
@@ -79,6 +81,8 @@ namespace WebApplication2.Controllers
             else if (User.IsInRole("Instructor"))
             {
                 idToSave = model.InstructorId;
+                model.Status = _status;
+                
             }
             if (ModelState.IsValid && idToSave!=null)
             {
@@ -104,6 +108,7 @@ namespace WebApplication2.Controllers
                     Status = model.Status,
                     Platform = model.Platform,
                     InstructorId=model.InstructorId,
+                    
                 };
                 _courseRepository.Add(newCourse);
                 _courseRepository.Save();
@@ -150,7 +155,7 @@ namespace WebApplication2.Controllers
             var course = _courseRepository.GetAllWithLanguage()
                 .FirstOrDefault(c => c.CourseId == id);
             int pageSize = 6;
-            var reviews = _context.Reviews.Where(r => r.CourseId == id);
+            var reviews = _context.Reviews.Include(r => r.Student).ThenInclude(s => s.StudentNavigation).Where(r => r.CourseId == id).Where(r => r.Status==true);
 
             var CourseReview = new CourseDetailsViewModel
             {

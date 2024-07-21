@@ -1,4 +1,4 @@
-﻿@using System.Security.Claims
+﻿
 @model InstructorDetailsViewModel
 
 
@@ -60,7 +60,7 @@
                 <span class="text-black"><i class="fa fa-male icon"></i></span> @Model.Gender
 
             </p>
-            <a class="btn btn-light" asp-controller="instructor" asp-action="edit" asp-route-id="@User.FindFirstValue( System.Security.Claims.ClaimTypes.NameIdentifier)" style="margin:100px;"> Edit Profile</a>
+            <a class="btn btn-light" asp-controller="instructor" asp-action="edit"  style="margin:100px;"> Edit Profile</a>
 
         </div>
 

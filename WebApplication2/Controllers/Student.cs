@@ -60,6 +60,7 @@ namespace WebApplication2.Controllers
                 {
                     StudentId= student.StudentId,
                     UserName = student.StudentNavigation.UserName,
+                    OriginalUserName=student.StudentNavigation.UserName,
                     Email = student.StudentNavigation.Email,
                     OriginalEmail = student.StudentNavigation.Email,
                     FirstName = student.StudentNavigation.FirstName,
