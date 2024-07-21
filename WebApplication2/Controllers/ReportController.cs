@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
@@ -6,6 +7,7 @@ using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
+    [Authorize]
     public class ReportController : Controller
     {
          LconsultDBContext _context;
@@ -21,10 +23,10 @@ namespace WebApplication2.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
         [HttpGet]
         public IActionResult AddReport(int id) {
@@ -86,6 +88,8 @@ namespace WebApplication2.Controllers
 
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public IActionResult EditReport(EditReportViewModel model,int Id)
         {
             Report report = _reportRepository.GetById(model.ReportId);

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 namespace WebApplication2.Controllers
 {
-  
+    [Authorize]
     public class ReviewController : Controller
     {
         public IReviewRepository _reviewRepository;
@@ -25,11 +25,11 @@ namespace WebApplication2.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-       
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
         [HttpGet]
         public IActionResult AddReview(int Id)
         {
@@ -149,7 +149,6 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-
         public IActionResult EditReview(EditReviewViewModel model)
         {
 

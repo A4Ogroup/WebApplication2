@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
@@ -7,6 +8,7 @@ using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private readonly LconsultDBContext _context;

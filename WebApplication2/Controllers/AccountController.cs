@@ -39,7 +39,7 @@ namespace WebApplication2.Controllers
                 User userModel = await _userManager.FindByEmailAsync(login.Email);
                 bool found = await _userManager.CheckPasswordAsync(userModel, login.Password);
 
-                if (userModel != null&&found)
+                if (userModel != null&& found)
                 {
 
                     //bool found = await _userManager.CheckPasswordAsync(userModel, login.Password);
@@ -64,7 +64,7 @@ namespace WebApplication2.Controllers
                     }
 
                 }
-                else { ModelState.AddModelError("", "Email and Password invalid"); }
+                else { ModelState.AddModelError("", "Eeither Email or Password is invalid"); }
 
             }
             return View(login);

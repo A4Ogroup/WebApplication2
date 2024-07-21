@@ -278,7 +278,7 @@
             <div class="col-md-4">
                 <ul class="course-attributes">
                     <li><strong>Total Hours:</strong> <span>@Model.Course.CourseDuration +</span></li>
-                    <li><strong>Platform:</strong> <span>@Model.Course.Platform</span>  >> <a href="@Model.Course.Link">@Model.Course.Platform</a></li>
+                    <li><strong>Platform:</strong> <span>@Model.Course.Platform</span>  >> <a href="@Model.Course.Link" target="_blank">@Model.Course.Platform</a></li>
                     <li>
                         <strong>Cost Status:</strong> 
                         @if (Model.Course.PriceStatus is true)

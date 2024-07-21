@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication2.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -23,6 +25,7 @@ namespace WebApplication2.Controllers
             _reviewRepository = reviewRepository;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var _topCourses = _courseRepository.GetTopCourses();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Helpers;
@@ -10,6 +11,8 @@ using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
+
+    [Authorize]
     public class CourseController : Controller
     {
         // GET: CourseController
@@ -32,10 +35,12 @@ namespace WebApplication2.Controllers
 
 
         }
-        public ActionResult Index()
-        {
-            return View();
-        }
+
+
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
 
 
@@ -116,7 +121,7 @@ namespace WebApplication2.Controllers
                 return RedirectToAction("index", "instructor");
             }
             var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-            return RedirectToAction("addcourse","instructor");
+            return RedirectToAction("addcourse", "instructor");
         }
         
 
@@ -150,6 +155,7 @@ namespace WebApplication2.Controllers
             return View();
         }
         // GET: CourseController/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id, int? pageNumber)
         {
             var course = _courseRepository.GetAllWithLanguage()
@@ -174,25 +180,25 @@ namespace WebApplication2.Controllers
         }
 
         // GET: CourseController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: CourseController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //// POST: CourseController/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: CourseController/Edit/5
         public IActionResult EditCourse(int id)
@@ -213,7 +219,7 @@ namespace WebApplication2.Controllers
                     CourseDescription = course.CourseDescription,
                     LanguageId = course.LanguageId.Value,
                     Level = course.Level.Value,
-                    Platform=course.Platform,
+                    Platform = course.Platform,
                     PriceStatus = course.PriceStatus.Value,
                     SubcategoryId = course.SubcategoryId,
                     TopicsCovered = course.TopicsCovered,
@@ -230,7 +236,7 @@ namespace WebApplication2.Controllers
         // POST: CourseController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditCourse( EditCourseViewModel model)
+        public ActionResult EditCourse(EditCourseViewModel model)
         {
             //if(modelstate.isvalid)
 
@@ -274,6 +280,7 @@ namespace WebApplication2.Controllers
 
         }
 
+        [AllowAnonymous]
         public IActionResult Index1(CourseResourceParameters parameters, int pg = 1)
         {
             ViewBag.languages = _context.Languages.ToList();
@@ -332,7 +339,9 @@ namespace WebApplication2.Controllers
             return View("filter2", model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> ApplyFilters([FromBody] FilterRequest filterRequest)
         {
             try
