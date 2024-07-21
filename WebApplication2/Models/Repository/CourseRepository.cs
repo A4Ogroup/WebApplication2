@@ -25,6 +25,10 @@ namespace WebApplication2.Models.Repository
         {
             return _context.Courses;
         }
+        public IEnumerable<Course> GetAllExcepted()
+        {
+            return _context.Courses.Where(c=>c.Status==true);
+        }
 
         public IEnumerable<Course> GetCoursesByCategory(int categoryId)
         {
@@ -39,7 +43,7 @@ namespace WebApplication2.Models.Repository
 
         public IEnumerable<Course> GetAllWithLanguage()
         {
-            return _context.Courses.Include(c => c.Language);
+            return _context.Courses.Where(c=>c.Status==true).Include(c => c.Language);
         }
         public Course Add(Course course)
         {
@@ -78,9 +82,10 @@ namespace WebApplication2.Models.Repository
         {
             if (ResourceParameters == null)
             {
-                return GetAll();
+                return GetAllExcepted();
             }
             var collection = _context.Courses as IQueryable<Course>;
+            collection = collection.Where(c => c.Status == true);
             if (ResourceParameters.CategoryId !=null && ResourceParameters.CategoryId!=0 )
             {
 
@@ -108,6 +113,8 @@ namespace WebApplication2.Models.Repository
                 return _context.Courses;
             }
             var collection = _context.Courses.AsQueryable();
+            collection = collection.Where(c => c.Status == true);
+
             if (categoryId !=null && categoryId!=0 )
             {
 
@@ -197,12 +204,12 @@ namespace WebApplication2.Models.Repository
 
         IEnumerable<Course> ICourseRepository.GetTopCourses()
         {
-            return _context.Courses.OrderByDescending(c => c.AverageRating).Where(c => c.Status == true).Take(10).ToList();
+            return GetAllExcepted().OrderByDescending(c => c.AverageRating).Where(c => c.Status == true).Take(10).ToList();
         }
 
         IEnumerable<Course> ICourseRepository.GetLatestCourses()
         {
-           return _context.Courses.OrderByDescending(c => c.AddingDate).Where(c => c.Status == true).Take(10).ToList();
+           return GetAllExcepted().OrderByDescending(c => c.AddingDate).Where(c => c.Status == true).Take(10).ToList();
         }
     }
 }
