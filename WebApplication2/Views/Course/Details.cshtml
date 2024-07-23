@@ -245,7 +245,7 @@
 
                         }
                     </span>
-                    <span>@Model.Course.AverageRating (2,540 Reviews)</span> - instructor @Model.Course.InstructorFullName
+                    <span>@Model.Course.AverageRating (@Model.Course.Reviews.Count().ToString() Reviews)</span> - instructor @Model.Course.InstructorFullName
                     <span class="badge text-bg-primary" style="background-color:blue">claimed</span>
                 </p>
                 @if(!User.IsInRole("Instructor")){

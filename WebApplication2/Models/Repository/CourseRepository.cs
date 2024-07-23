@@ -45,7 +45,7 @@ namespace WebApplication2.Models.Repository
 
         public IEnumerable<Course> GetAllWithLanguage()
         {
-            return _context.Courses.Where(c=>c.Status==true).Include(c => c.Language);
+            return _context.Courses.Where(c=>c.Status==true).Include(c => c.Language).Include(c=>c.Reviews);
         }
         public Course Add(Course course)
         {
@@ -104,6 +104,8 @@ namespace WebApplication2.Models.Repository
                 || a.CourseDescription.Contains(ResourceParameters.SearchQuery)|| a.TopicsCovered.Contains(ResourceParameters.SearchQuery));
 
             }
+            collection = collection.Include(c => c.Reviews);
+            
             return collection.AsEnumerable();
 
 
@@ -133,6 +135,8 @@ namespace WebApplication2.Models.Repository
                 || a.CourseDescription.Contains(searchParam)|| a.TopicsCovered.Contains(searchParam));
 
             }
+            collection = collection.Include(c => c.Reviews);
+
             return collection;
 
 
