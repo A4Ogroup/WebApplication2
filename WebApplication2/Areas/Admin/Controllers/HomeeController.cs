@@ -35,8 +35,14 @@ namespace WebApplication2.Areas.Admin.Controllers
             _signInManager = signInManager;
         }
 
-        public ActionResult Index()
+        public async Task< ActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                ViewBag.UserName = user.UserName;
+                ViewBag.Email = user.Email;
+            }
             var course = _courseRepository.GetAll();
             var review = _reviewRepository.GetAll();
             var report = _reportRepository.GetAll();
