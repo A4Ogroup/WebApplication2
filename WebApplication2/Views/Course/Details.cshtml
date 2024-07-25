@@ -254,7 +254,7 @@
 
                         }
                     </span>
-                    <span>@Model.Course.AverageRating (2,540 Reviews)</span> @if (!User.IsInRole("instructor"))
+                    <span>@Model.Course.AverageRating (@Model.Course.Reviews.Count().ToString() Reviews)</span> @if (!User.IsInRole("instructor"))
                     {
                         
                                   <span class="tr-clickable" onclick="location.href='@Url.Action("viewprofile", "instructor", new { instructorId = Model.Course.InstructorId })'"> - instructor: @Model.Course.InstructorFullName</span>
