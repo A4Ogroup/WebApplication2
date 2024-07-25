@@ -257,7 +257,7 @@
                     <a href="#" class="btn btn-link text-purple d-none" id="clear-filters">Clear filters</a>
                 </div>
             </div>
-            <h2 id="results-count">5,296 results</h2>
+            <h2 id="results-count"> @ViewBag.recordCount  results</h2>
             <div id="course-list">
                 @Html.Partial("_CourseListPartial", (IEnumerable<Course>)ViewBag.courses)
             </div>
@@ -344,7 +344,12 @@
             function resetCourseList() {
                 // Reset the course list to the original state
                 $("#course-list").html(originalCourseList);
-                $("#results-count").text(`5,296 results`);
+                $("#results-count").text(`(@ViewBag.recordeCount) results found`);
+            }
+            function resetCourseCount() {
+                // Reset the course list to the original state
+                var recordCount = '@ViewBag.recordCount';
+                $("#results-count").text(`(@ViewBag.recordCount) results found`);
             }
 
             function applyFilters() {
@@ -356,6 +361,9 @@
                     data: JSON.stringify({ Filters: filters }),
                     success: function (response) {
                         $("#course-list").html(response);
+                        //resetCourseCount();
+                            
+
                     },
                     error: function (xhr, status, error) {
                         console.error("Filter application failed:", error);

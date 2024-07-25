@@ -294,9 +294,11 @@ namespace WebApplication2.Controllers
             ViewBag.languages = _context.Languages.ToList();
             //////paging
             _courses = _courseRepository.GetCourses(parameters).AsQueryable();
+
             if (pg < 1)
                 pg = 1;
             int recordCount = _courses?.Count() ?? 0;
+            
             var pager = new Pager(recordCount, pg, pageSize);
             // int recordSkip = (pg - 1) * pageSize;
             //var resultedCourses = _courses.Select(course=> new CourseSearchResultViewModel{
@@ -318,11 +320,14 @@ namespace WebApplication2.Controllers
             //Status= course.Status,
             //VedioLength = course.VedioLength
             //});
+
             ViewBag.courses = _courses.Skip((pg - 1) * pageSize).Take(pager.PageSize).ToList();
             ViewBag.Pager = pager;
+            ViewBag.recordCount = recordCount;
             var model = new CourseFilterViewModel
             {
-                //searchParameters = parameters,
+
+                //searchParameters = parameters, 
                 //Courses = _courses,
                 Ratings = new List<double>(),
                 CategoryIds = new List<byte>(),
@@ -367,11 +372,14 @@ namespace WebApplication2.Controllers
                 TempData.Keep("searchParam");
                 TempData.Keep("categoryId");
                 var courses = _courseRepository.GetCourses(TempData["searchParam"].ToString(), (int)TempData["categoryId"]);
+                
                 TempData.Keep("searchParam");
                 TempData.Keep("categoryId");
                 var filteredCourses = _courseRepository.FilterCourses(filters, courses).ToList();
                 if (filters.Ratings != null && filters.Ratings.Any())
                     filteredCourses = filteredCourses.AsEnumerable().Where(c => filters.Ratings.Any(r => r <= c.AverageRating)).ToList();
+               var recordCount = filteredCourses?.Count() ?? 0;
+                ViewBag.recordeCount =recordCount;
                 var pager = new Pager(filteredCourses.Count(), pageNumber, pageSize);
                 var paginatedCourses = filteredCourses.Skip((pageNumber - 1) * pager.PageSize).Take(pager.PageSize).ToList();
                 Console.WriteLine(paginatedCourses.Count());

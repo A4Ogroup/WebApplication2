@@ -1,18 +1,19 @@
 ﻿@model IEnumerable<Course>
-
+@* <h2 id="results-count"> @ViewBag.recordeCount  results</h2>
+ *@
 @foreach (var course in Model)
 {
     <div class="result-item">
         @if (course.Picture == null)
         {
-            <a href="#"><img src="~/images/courses/noimage.png" alt="@course.Title"></a>
+            <img src="~/images/courses/noimage.png" alt="@course.Title">
         }
         else
         {
-            <a href="#"><img src="~/images/courses/@course.Picture" alt=""></a>
+            <img src="~/images/courses/@course.Picture" alt="">
         }
         <div class="content">
-            <h3>@course.Title</h3>
+            <a asp-action="details" asp-controller="course" asp-route-id="@course.CourseId"><h3>@course.Title</h3></a>
             <p class="meta">@course.InstructorFullName</p>
             <p class="meta">@course.AverageRating 
                 @{
@@ -41,7 +42,7 @@
                     
 
                 }
-                (3, 666)
+                (@course.Reviews.Count().ToString())
                 </p>
             <p class="meta">@course.CourseDuration total hours • @course.Level</p>
             <p class="price">
