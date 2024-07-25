@@ -54,10 +54,16 @@ namespace WebApplication2.Controllers
             return Json(subcategories);
         }
         [HttpGet]
-        public IActionResult AddCourse()
+        public async Task< IActionResult> AddCourse()
         {
             ViewBag.Categories = _context.Categories;
             ViewBag.Languages = _context.Languages;
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null && await _userManager.IsInRoleAsync(user, "Instructor"))
+            {
+                var instructorName = $"{user.FirstName} {user.LastName}";
+                ViewBag.InstructorName = instructorName;
+            }
 
             var model = new AddCourseViewModel();
 
@@ -77,7 +83,7 @@ namespace WebApplication2.Controllers
 
             string idToSave = null;
             bool _status = true;
- 
+            bool _claim =true;
 
             if (User.IsInRole("Student")|| User.IsInRole("Admin"))
             {
@@ -87,6 +93,7 @@ namespace WebApplication2.Controllers
             {
                 idToSave = model.InstructorId;
                 model.Status = _status;
+                model.Claimed = _claim;
                 
             }
             if (ModelState.IsValid && idToSave!=null)
@@ -113,6 +120,7 @@ namespace WebApplication2.Controllers
                     Status = model.Status,
                     Platform = model.Platform,
                     InstructorId=model.InstructorId,
+                    Claimed= model.Claimed,
                     
                 };
                 _courseRepository.Add(newCourse);

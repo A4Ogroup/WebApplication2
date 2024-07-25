@@ -192,6 +192,15 @@
                 .course-attributes li span {
                     color: #333;
                 }
+
+        .tr-clickable {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .tr-clickable:hover {
+                background-color: #00000;
+            }
        </style>
        </head>
 
@@ -245,7 +254,12 @@
 
                         }
                     </span>
-                    <span>@Model.Course.AverageRating (2,540 Reviews)</span> - instructor @Model.Course.InstructorFullName
+                    <span>@Model.Course.AverageRating (2,540 Reviews)</span> @if (!User.IsInRole("instructor"))
+                    {
+                        
+                                  <span class="tr-clickable" onclick="location.href='@Url.Action("viewprofile", "instructor", new { instructorId = Model.Course.InstructorId })'"> - instructor: @Model.Course.InstructorFullName</span>
+                     
+                    }
                     <span class="badge text-bg-primary" style="background-color:blue">claimed</span>
                 </p>
                 @if(!User.IsInRole("Instructor")){

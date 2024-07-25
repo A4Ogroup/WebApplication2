@@ -6,9 +6,11 @@ using System.Drawing.Printing;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using WebApplication2.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication2.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class HomeeController : Controller
     {
@@ -34,8 +36,7 @@ namespace WebApplication2.Areas.Admin.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-        public async Task< ActionResult> Index()
+        public async Task<string> AdminInfo()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
@@ -43,11 +44,29 @@ namespace WebApplication2.Areas.Admin.Controllers
                 ViewBag.UserName = user.UserName;
                 ViewBag.Email = user.Email;
             }
+            return ViewBag.UserName&& ViewBag.Email;
+        }
+        public async Task<ActionResult> Index()
+        {
+           
+
             var course = _courseRepository.GetAll();
             var review = _reviewRepository.GetAll();
             var report = _reportRepository.GetAll();
+            var student =_studentRepository.GetAll();
+            var instructor = _instructorRepository.GetAll();
+            var model = new IndexViewModel
+            {
+                Course = course,
+                Review = review,
+                reports = report,
+                students = student,
+                instructors = instructor,
+            };
+
+            AdminInfo();
      
-            return View();
+            return View(model);
         }
 
         //public IActionResult AdminDetail(string id)
@@ -100,6 +119,8 @@ namespace WebApplication2.Areas.Admin.Controllers
         //}
         public async Task<IActionResult> Course(int? pageNumber)
         {
+            AdminInfo();
+
             int pageSize = 15;
             var course = _courseRepository.GetAllWithLanguage().AsQueryable();
             return View(await PaginatedListNew<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -109,6 +130,8 @@ namespace WebApplication2.Areas.Admin.Controllers
 
         public async Task<IActionResult> Review(int? pageNumber)
         {
+            AdminInfo();
+
             int pageSize = 15;
             var reviews = _reviewRepository.GetAllWithCourse().AsQueryable();
             return View(await PaginatedListNew<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -116,6 +139,8 @@ namespace WebApplication2.Areas.Admin.Controllers
 
         public async Task<IActionResult> Report(int? pageNumber)
         {
+            AdminInfo();
+
             int pageSize = 12;
             var report = _reportRepository.GetAllWithReview().AsQueryable();
             return View(await PaginatedListNew<Report>.CreateAsync(report.AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -124,12 +149,16 @@ namespace WebApplication2.Areas.Admin.Controllers
 
         public async Task<IActionResult> Instructor(int? pageNumber)
         {
+            AdminInfo();
+
             int pageSize = 15;
             var instructors = _instructorRepository.GetAll().AsQueryable();
             return View(await PaginatedListNew<Instructor>.CreateAsync(instructors.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         public async Task<IActionResult> Student(int? pageNumber)
         {
+            AdminInfo();
+
             int pageSize = 12;
             var student = _studentRepository.GetAll().AsQueryable();
             return View(await PaginatedListNew<Student>.CreateAsync(student.AsNoTracking(), pageNumber ?? 1, pageSize));

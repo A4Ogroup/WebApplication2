@@ -92,7 +92,7 @@ namespace WebApplication2.Controllers
         {
             var instructortId = _userManager.GetUserId(User);
             var instructor = _instructorRepository.GetById(instructortId);
-           
+
             var _instructor = new InstructorDetailsViewModel
             {
                 UserName=instructor.InstructorNavigation.UserName,
@@ -109,6 +109,32 @@ namespace WebApplication2.Controllers
             return View(_instructor);
         }
 
+        public async Task<IActionResult> ViewProfile(int? pageNumber, string instructorId)
+        {
+
+            var instructor = _instructorRepository.GetById(instructorId);
+            int pageSize = 15;
+            var ViewCourses = _courseRepository.GetAllWithLanguageAddedByInstructor(instructorId).AsQueryable();
+            var PagedCourse = await PaginatedListNew<Course>.CreateAsync(ViewCourses.AsNoTracking(), pageNumber ?? 1, pageSize);
+
+
+            var _instructor = new InstructorDetailsViewModel
+            {
+                InstructorId = instructorId,
+                UserName = instructor.InstructorNavigation.UserName,
+                Email = instructor.InstructorNavigation.Email,
+                PhoneNumber = instructor.InstructorNavigation.PhoneNumber,
+                FirstName = instructor.InstructorNavigation.FirstName,
+                LastName = instructor.InstructorNavigation.LastName,
+                Gender = instructor.InstructorNavigation.Gender,
+                Profession = instructor.Profession,
+                YearsExperince = instructor.YearsExperince,
+                Website = instructor.Website,
+                About = instructor.About,
+                Course = PagedCourse
+            };
+            return View(_instructor);
+        }
         [HttpGet]
         public IActionResult Edit()
         {

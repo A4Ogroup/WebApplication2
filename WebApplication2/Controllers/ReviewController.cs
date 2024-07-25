@@ -89,7 +89,7 @@ namespace WebApplication2.Controllers
                  _reviewRepository.Add(_review);
                 _reviewRepository.Save();
                 TempData["Success"] = "Review added successfully!";
-                return RedirectToAction("dtails", "course", new {id = model.CourseId});
+                return RedirectToAction("details", "course", new {id = model.CourseId});
             }
             // return RedirectToAction("Details", new { id = review.ReviewId });
             return RedirectToAction("Index","student");

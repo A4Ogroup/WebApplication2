@@ -1,4 +1,5 @@
-﻿@inject LconsultDBContext _context
+﻿@model IndexViewModel
+@* @inject LconsultDBContext _context
 @{
 
     var course = _context.Courses.ToList();
@@ -6,7 +7,7 @@
     var report = _context.Reports.ToList();
     var instructor = _context.Instructors.ToList();
     var Student = _context.Students.ToList();
-}
+} *@
 @{
     Layout = "_aAdminLayout";
 }
@@ -83,7 +84,7 @@
                                             </div>
                                             <div class="ml-3">
                                                 <h5>Reviews</h5>
-                                                <h2>@review.Count</h2>
+                                                <h2>@Model.Review.Count()</h2>
 
                                             </div>
                                         </div>
@@ -101,7 +102,7 @@
                                             </div>
                                             <div class="ml-3">
                                                 <h5>Courses</h5>
-                                                <h2>@course.Count</h2>
+                                                <h2>@Model.Course.Count()</h2>
 
                                             </div>
                                         </div>
@@ -123,7 +124,7 @@
                                             </div>
                                             <div class="ml-3">
                                                 <h5>Students</h5>
-                                                <h2>@Student.Count</h2>
+                                                <h2>@Model.students.Count()</h2>
 
                                             </div>
                                         </div>
@@ -141,7 +142,7 @@
                                             </div>
                                             <div class="ml-3">
                                                 <h5>Instructors</h5>
-                                                <h2>@instructor.Count</h2>
+                                                <h2>@Model.instructors.Count()</h2>
 
                                             </div>
                                         </div>
@@ -158,7 +159,7 @@
                                             </div>
                                             <div class="ml-3">
                                                 <h5>Reports</h5>
-                                                <h2>@report.Count</h2>
+                                                <h2>@Model.reports.Count()</h2>
 
                                             </div>
                                         </div>

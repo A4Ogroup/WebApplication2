@@ -2,7 +2,7 @@
 @model EditStudentViewModel
 
 @{
-    Layout = "_StudentLayout";
+    Layout = "_Layout";
 }
 
 <style>
@@ -59,7 +59,7 @@
 
 <div class="send-message" style="margin-top:-75px">
     <div class="container">
-        <form enctype="multipart/form-data" asp-controller="instructor" asp-action="edit" method="post">
+        <form enctype="multipart/form-data" asp-controller="student" asp-action="edit" method="post">
             <input hidden asp-for="@Model.StudentId" />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row">

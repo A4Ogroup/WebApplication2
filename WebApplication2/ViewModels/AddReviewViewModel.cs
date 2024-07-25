@@ -7,7 +7,7 @@ namespace WebApplication2.ViewModels
     {
         [Required(ErrorMessage = "Description fieled is required")]
         public string Descritipn { get; set; }
-        public bool Status { get; set; }= true;
+        public bool Status { get; set; }
         [Required(ErrorMessage = "Rate fieled is required")]
         public byte Rate { get; set; }
         public DateTime RatingDate { get; set; } = DateTime.Now;
@@ -28,7 +28,7 @@ namespace WebApplication2.ViewModels
 
         public string GetFormattedDate(DateTime date)
         {
-            var time = DateTime.UtcNow - date;
+            var time = DateTime.Now - date;
             double delta = Math.Abs(time.TotalSeconds);
 
             if (delta < 1)
