@@ -26,7 +26,6 @@ builder.Services.AddIdentity<User, IdentityRole>(
                options => options.Password.RequireDigit = true
                ).
                AddEntityFrameworkStores<LconsultDBContext>();
-builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
@@ -44,7 +43,7 @@ if (!app.Environment.IsDevelopment())
 
     app.UseHsts();
 }
-
+app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

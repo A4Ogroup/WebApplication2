@@ -2,7 +2,7 @@
 @model EditStudentViewModel
 
 @{
-    Layout = "_StudentLayout";
+    Layout = "_Layout";
     var photoPath = "~/images/courses/noimage.png";
     if (Model is not null)
         photoPath = "~/images/users/" + (Model.ExistingPhotoPath ?? "noimage.png");

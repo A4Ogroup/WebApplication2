@@ -2,8 +2,8 @@
 @model EditInstructorViewModel
 
 @{
-    Layout = "_InstructorLayout";
-    var photoPath = "~/images/courses/noimage.png";
+    Layout = "_Layout";
+    var photoPath = "~/images/users/noimage.png";
     if (Model is not null)
         photoPath = "~/images/users/" + (Model.ExistingPhotoPath ?? "noimage.png");
 }
