@@ -6,6 +6,8 @@ namespace WebApplication2.Models.Repository
     {
 
         IEnumerable<Instructor> GetAll();
+        Task<IEnumerable<Instructor>> GetAllAsync();
+
         IEnumerable<Instructor> GetAllWithCourses();
         Instructor GetById(string id);
         Instructor Add(Instructor instructor);

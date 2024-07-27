@@ -4,6 +4,8 @@
     {
         Review GetById(int id);
         IEnumerable<Review> GetAll();
+        Task<IEnumerable<Review>> GetAllAsync();
+
         IEnumerable<Review> GetAllWithCourse();
         IEnumerable<Review> GetTopReviews();
         Review Add(Review review);

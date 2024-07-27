@@ -7,6 +7,8 @@ namespace WebApplication2.Models.Repository
      
         Report GetById(int id);
         IEnumerable<Report> GetAll();
+        Task<IEnumerable<Report>> GetAllAsync();
+
         IEnumerable<Report> GetAllWithReview();
         Report Add(Report report);
         Report Update(Report report);

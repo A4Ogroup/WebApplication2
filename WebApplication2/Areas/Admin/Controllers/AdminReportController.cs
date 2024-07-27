@@ -39,11 +39,12 @@ namespace WebApplication2.Areas.Admin.Controllers
                 ViewBag.UserName = user.UserName;
                 ViewBag.Email = user.Email;
             }
-            return ViewBag.UserName && ViewBag.Email;
+            return $"{ViewBag.UserName} - {ViewBag.Email}";
         }
         public async Task<IActionResult> CourseReports(int? pageNumber)
         {
-            AdminInfo();
+           await AdminInfo();
+
             int pageSize = 15;
             var course = _courseRepository.GetAllWithLanguage().AsQueryable();
             return View(await PaginatedListNew<Course>.CreateAsync(course.AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -51,22 +52,30 @@ namespace WebApplication2.Areas.Admin.Controllers
 
         public async Task<IActionResult> ReviewReports(int? pageNumber)
         {
-            AdminInfo();
+            await AdminInfo();
             int pageSize = 15;
             var review = _reviewRepository.GetAllWithCourse().AsQueryable();
             return View(await PaginatedListNew<Review>.CreateAsync(review.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
+        public async Task<IActionResult> ReportReports(int? pageNumber)
+        {
+            await AdminInfo();
+
+            int pageSize = 12;
+            var report = _reportRepository.GetAllWithReview().AsQueryable();
+            return View(await PaginatedListNew<Report>.CreateAsync(report.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
 
         public async Task<IActionResult> InstructorReports(int? pageNumber)
         {
-            AdminInfo();
+            await AdminInfo();
             int pageSize = 15;
             var instructor = _instructorRepository.GetAll().AsQueryable();
             return View(await PaginatedListNew<Instructor>.CreateAsync(instructor.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         public async Task<IActionResult> StudentReports(int? pageNumber)
         {
-            AdminInfo();
+            await AdminInfo();
             int pageSize = 15;
             var student = _studentRepository.GetAll().AsQueryable();
             return View(await PaginatedListNew<Student>.CreateAsync(student.AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -214,6 +223,33 @@ namespace WebApplication2.Areas.Admin.Controllers
                     break;
             }
             return View("StudentReports", await PaginatedListNew<Student>.CreateAsync(student.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
+        
+        public async Task<IActionResult> FilterReports(string filterType, int? pageNumber)
+        {
+            //IQueryable<Course> courses = _courseRepository.GetAll().AsQueryable();
+
+            int pageSize = 15;
+            var report = _reportRepository.GetAllWithReview().AsQueryable();
+            switch (filterType)
+            {
+                case "AddedToday":
+                    var today = DateTime.Today;
+                    report = report.Where(c => c.ReportDate == today);
+                    break;
+                case "LastMonth":
+                    // Calculate the date range for the last month
+                    today = DateTime.Today;
+                    var firstDayOfLastMonth = new DateTime(today.Year, today.Month - 1, 1);
+                    var lastDayOfLastMonth = new DateTime(today.Year, today.Month, 1).AddDays(-1);
+                    report = report.Where(c => c.ReportDate >= firstDayOfLastMonth && c.ReportDate <= lastDayOfLastMonth);
+                    break;
+  
+                default:
+                    report = report;
+                    break;
+            }
+            return View("ReportReports", await PaginatedListNew<Report>.CreateAsync(report.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
     }
 }

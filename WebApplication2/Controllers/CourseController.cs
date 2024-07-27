@@ -164,28 +164,44 @@ namespace WebApplication2.Controllers
         }
         // GET: CourseController/Details/5
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int id, int? pageNumber)
+        public async Task<IActionResult> Details(int id, int? pageNumber, double[] ratings = null, string[] sortDates = null)
         {
             var course = _courseRepository.GetAllWithLanguage()
                 .FirstOrDefault(c => c.CourseId == id);
+
             int pageSize = 6;
-            var reviews = _context.Reviews.Include(r => r.Student).ThenInclude(s => s.StudentNavigation).Where(r => r.CourseId == id).Where(r => r.Status==true);
+            var reviews = _context.Reviews.Include(r => r.Student).ThenInclude(s => s.StudentNavigation)
+                .Where(r => r.CourseId == id && r.Status == true);
+
+            // Filter by minimum rating
+            if (ratings != null && ratings.Length > 0)
+            {
+                var minRating = ratings.Min(); // Get the minimum rating from selected filters
+                reviews = reviews.Where(r => r.Rate >= minRating);
+            }
+
+            // Sort by date
+            if (sortDates != null && sortDates.Length > 0)
+            {
+                if (sortDates.Contains("newest"))
+                {
+                    reviews = reviews.OrderByDescending(r => r.RatingDate);
+                }
+                else if (sortDates.Contains("oldest"))
+                {
+                    reviews = reviews.OrderBy(r => r.RatingDate);
+                }
+            }
 
             var CourseReview = new CourseDetailsViewModel
             {
                 Course = course,
-                PaginatedReviews =
-          await PaginatedListNew<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize)
-
+                PaginatedReviews = await PaginatedListNew<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize)
             };
-
-
-
-
-            ;
 
             return View(CourseReview);
         }
+
 
         // GET: CourseController/Create
         //public ActionResult Create()

@@ -17,118 +17,86 @@
     </style>
 
 
-<div class="col-md-9 my-3">
-    <div class="padding">
-        <div class="row">
-            <div class="latest-products">
-                <div class="reviews-container">
-                    @foreach (var items in Model)
-                    {
-                        <div class="course-reviews">
-                            <div class="review-card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex">
-                                            <div class="user-info">
-                                                <strong>@items.Student.StudentNavigation.UserName</strong>
-                                                <span class="text-muted small">@items.GetFormattedDate(items.RatingDate) </span>
-                                                <ul class="stars">
-                                                    @switch (items.Rate)
-                                                    {
-                                                        case 5:
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                        case 4:
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                        case 3:
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                        case 2:
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                        default:
-                                                            <i class="fa fa-star"></i>
-                                                            break;
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown">
-                                            <button class="btn btn-link p-0"
-                                                    type="button"
-                                                    id="dropdownMenuButton1"
-                                                    data-bs-toggle="dropdown"
-                                                    aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v"></i>
-                                            </button>
-                                            @if (!User.IsInRole("Instructor"))
-                                            {
-                                                <div class="dropdown-menu dropdown-menu-right"
-                                                     aria-labelledby="dropdownMenuButton1">
-                                                    <a class="dropdown-item" asp-controller="report" asp-action="addreport" asp-route-Id="@items.ReviewId">Report</a>
-                                               @*      @if (User.IsInRole("Student"))
-                                                    {
-                                                        <a class="dropdown-item" asp-controller="review" asp-action="editreview" asp-route-Id="@items.ReviewId">Edit</a>
-                                                        <a role="button" class="dropdown-item" onclick="showModal()">Delete </a>
-                                                    } *@
-
+                    <div class="latest-products">
+                        <div class="reviews-container">
+                            @foreach (var item in Model)
+                            {
+                                <div class="course-reviews">
+                                    <div class="review-card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex">
+                                                    <div class="user-info">
+                                                        <strong>@item.Student.StudentNavigation.UserName</strong>
+                                                        <span class="text-muted small">@item.GetFormattedDate(item.RatingDate)</span>
+                                                        <ul class="stars">
+                                                            @for (int i = 0; i < item.Rate; i++)
+                                                            {
+                                                                <i class="fa fa-star"></i>
+                                                            }
+                                                        </ul>
+                                                    </div>
                                                 </div>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-link p-0"
+                                                            type="button"
+                                                            id="dropdownMenuButton1"
+                                                            data-bs-toggle="dropdown"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-v"></i>
+                                                    </button>
+                                                    @if (!User.IsInRole("Instructor"))
+                                                    {
+                                                        <div class="dropdown-menu dropdown-menu-right"
+                                                             aria-labelledby="dropdownMenuButton1">
+                                                            <a class="dropdown-item" asp-controller="report" asp-action="addreport" asp-route-Id="@item.ReviewId">Report</a>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            @if (item.Descritipn.Length > 100)
+                                            {
+                                                <p class="description">
+                                                    @item.Descritipn.Substring(0, 100)
+                                                    <span class="more-text">@item.Descritipn.Substring(100)</span>
+                                                    <span class="see-more">...See More</span>
+                                                </p>
                                             }
-                                           
+                                            else
+                                            {
+                                                <p class="description">@item.Descritipn</p>
+                                            }
                                         </div>
                                     </div>
-
-                                    @if (items.Descritipn.Length > 100)
-                                    {
-                                        <p class="description">
-                                            @items.Descritipn.Substring(0, 100)
-                                            <span class="more-text">@items.Descritipn.Substring(100)</span>
-                                            <span class="see-more">...See More</span>
-                                        </p>
-                                    }
-                                    else
-                                    {
-                                        <p class="description">@items.Descritipn</p>
-                                    }
-
                                 </div>
-                            </div>
+                            }
                         </div>
-                    }
-                </div>
-            </div>
-        </div>
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                    <a class="page-link" asp-action="details" asp-route-pageNumber="@(Model.PageIndex - 1)">Previous</a>
-                </li>
-                @for (int i = 1; i <= Model.TotalPages; i++)
-                {
-                    <li class="page-item @(i == Model.PageIndex ? "active" : "")">
-                        <a class="page-link" asp-action="details" asp-route-pageNumber="@i">@i</a>
-                    </li>
-                }
-                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                    <a class="page-link" asp-action="details" asp-route-pageNumber="@(Model.PageIndex + 1)">Next</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
+                    </div>
+              
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)">Previous</a>
+                        </li>
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                            </li>
+                        }
+                        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+           
+   
+
+
+
+
+
 
 
 

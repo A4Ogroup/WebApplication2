@@ -60,5 +60,10 @@ namespace WebApplication2.Models.Repository
             _student.State=EntityState.Modified;
             return student;
         }
+
+        async Task<IEnumerable<Student>> IStudentRepository.GetAllAsync()
+        {
+            return await _context.Students.Include(i => i.StudentNavigation).ToListAsync();
+        }
     }
 }
