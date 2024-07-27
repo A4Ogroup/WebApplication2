@@ -1,0 +1,246 @@
+﻿@model PaginatedListNew<Course>
+
+<head>
+    <style>
+        .main-content {
+            padding: 20px;
+        }
+
+        .sidebar {
+            padding-right: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .filter-section {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+            .filter-section h4 {
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .filter-section h4:hover {
+                    color: #007acc;
+                }
+
+            .filter-section svg {
+                transition: transform 0.2s;
+            }
+
+        .filter-options {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .fa-star {
+            color: #ff0000;
+        }
+
+        .fa-star-o {
+            color: red; /* Changes the color of the star outline to red */
+        }
+
+        .result-item {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+
+            .result-item img {
+                border-radius: 10px;
+                width: 150px;
+                max-width: 100%;
+                height: auto;
+                margin-right: 15px;
+            }
+
+            .result-item .content h3 {
+                margin: 0;
+                color: #333;
+            }
+
+            .result-item .content .meta {
+                font-size: 14px;
+                color: gray;
+                margin-bottom: 10px;
+            }
+
+            .result-item .price {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+            }
+
+        .footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+            .footer img {
+                margin: 0 10px;
+                height: 30px;
+                width: 30px;
+            }
+
+        @@media (max-width: 992px) {
+            .result-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+                .result-item img {
+                    width: 100%;
+                    height: auto;
+                    margin-bottom: 10px;
+                }
+
+            header {
+                text-align: center;
+            }
+
+            .filter-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                border-right: none;
+            }
+        }
+
+        .text-purple {
+            color: #6f42c1;
+        }
+
+        .banner-item-1 {
+            padding: 50px;
+        }
+
+        .tr-clickable {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .tr-clickable:hover {
+                background-color: #f1f1f1;
+            }
+    </style>
+</head>
+
+<div class="header-text">
+    <div class="owl-banner owl-carousel">
+        <div class="banner-item-1">
+        </div>
+    </div>
+</div>
+
+<div class="container main-content">
+    <div class="row">
+
+        <div class="page-breadcrumb m-4">
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <h4 class="page-title">(@Model.Count) Courses </h4>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="course-list">
+            @foreach (var course in Model)
+            {
+                <div class="result-item tr-clickable" onclick="location.href='@Url.Action("Details", "course", new { id = course.CourseId })'">
+                    @if (!User.IsInRole("instructor"))
+
+                    {
+                        @if (course.Picture == null)
+                        {
+                            <a asp-action="Details" asp-controller="course" asp-route-id="@course.CourseId"><img src="~/images/courses/noimage.png" alt="@course.Title"></a>
+                        }
+                        else
+                        {
+                            <a asp-action="Details" asp-controller="course" asp-route-id="@course.CourseId"><img src="~/images/courses/@course.Picture" alt=""></a>
+                        }
+                    }
+                    <div class="content">
+                        <h3>@course.Title</h3>
+                        <p class="meta">@course.InstructorFullName</p>
+                        <p class="meta">
+                            @course.AverageRating
+                            @{
+                                double fraction = @course.AverageRating.Value % 1;
+                                for (int i = 1; i <= course.AverageRating; i++)
+                                {
+
+                                    <i class="fa fa-star"></i>
+                                }
+                                if (fraction > 0.0)
+                                {
+                                    <i class="fa fa-star-half-empty" style="color:red;"></i>
+
+                                }
+                                for (int i = 5; i > (int)Math.Ceiling(course.AverageRating.Value) && i > 0; i--)
+                                {
+                                    <i class="fa fa-star-o"></i>
+                                }
+
+
+
+
+
+
+
+
+
+
+                            }
+                            (3, 666)
+                        </p>
+                        <p class="meta">@course.CourseDuration total hours • @course.Level</p>
+                        <p class="price">
+                            @if (course.PriceStatus is false)
+                            {
+                                <h6>paid</h6>
+                            }
+                            else
+                            {
+                                <h6>free</h6>
+                            }
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+        <nav aria-label="Page navigation ">
+            <ul class="pagination">
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link" asp-action="details" asp-route-pageNumber="@(Model.PageIndex - 1)">Previous</a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                        <a class="page-link" asp-action="details" asp-route-pageNumber="@i">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link" asp-action="details" asp-route-pageNumber="@(Model.PageIndex + 1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>

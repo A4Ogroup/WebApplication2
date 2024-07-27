@@ -8,7 +8,7 @@
 @model AddCourseViewModel
 
 @{
-    Layout = "_InstructorLayout";
+    Layout = "_Layout";
 }
 @{
     var CategoriesList = new SelectList(ViewBag.Categories, "CategoryId", "CategoryName");
@@ -348,15 +348,29 @@
 
 
                             <!--Instructor Full Name-->
+                            @if (User.IsInRole("Instructor"))
+                            {
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label asp-for="InstructorFullName">Instructor Full Name</label>
+                                        <input asp-for="InstructorFullName" class="form-control" placeholder="Instructor Full Name" value="@ViewBag.InstructorName" readonly>
+                                        <span class="text-danger" asp-validation-for="InstructorFullName"></span>
 
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <fieldset>
-                                    <label>Instructor Full Name</label>
-                                    <input  asp-for="InstructorFullName" class="form-control" placeholder="Instructor Full Name" value="@Model.InstructorFullName">
-                                    <span class="text-danger" asp-validation-for="InstructorFullName"></span>
+                                    </fieldset>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>Instructor Full Name</label>
+                                        <input asp-for="InstructorFullName" class="form-control" placeholder="Instructor Full Name" >
+                                        <span class="text-danger" asp-validation-for="InstructorFullName"></span>
 
-                                </fieldset>
-                            </div>
+                                    </fieldset>
+                                </div>
+                            }
+
 
                         </div>
 

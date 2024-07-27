@@ -11,7 +11,7 @@
 
 <partial name="_NotificationPartial"></partial>
 @{
-    Layout = "_StudentLayout";
+    Layout = "_Layout";
 }
 
 <head>
@@ -390,25 +390,23 @@
                                 <p>@course.InstructorFullName</p>
                                 <p>
                                     @course.AverageRating
-                                    @if (course.AverageRating > 4.0 && course.AverageRating <= 4.9)
-                                    {
-                                        <span class="fa fa-star" style="color:red;"><span class="fa fa-star-half-full"></span></span>
-                                    }
-                                    @if (course.AverageRating == 4.0)
-                                    {
-                                        <span class="stars" style="color:red;">★★★★</span>
-                                    }
-                                    @if (course.AverageRating > 3.0 && course.AverageRating <= 3.9)
-                                    {
-                                        <span class="stars" style="color:red;">★★★<span class="fa fa-star-half-full"></span></span>
-                                    }
-                                    @if (course.AverageRating == 3.0)
-                                    {
-                                        <span class="stars" style="color:red;">★★★</span>
-                                    }
-                                    @if (course.AverageRating < 3.0)
-                                    {
-                                        <span class="stars" style="color:red;">★★</span>
+                                    @{
+                                        double fraction = @course.AverageRating.Value % 1;
+                                        for (int i = 1; i <= course.AverageRating; i++)
+                                        {
+
+                                            <i class="fa fa-star" style="color:red;"></i>
+                                        }
+                                        if (fraction > 0.0)
+                                        {
+                                            <i class="fa fa-star-half-empty" style="color:red;"></i>
+
+                                        }
+                                        for (int i = 5; i > (int)Math.Ceiling(course.AverageRating.Value) && i > 0; i--)
+                                        {
+                                            <i class="fa fa-star-o" style="color:red;"></i>
+                                        }
+
                                     }
                                     (@course.Reviews.Count().ToString())
                                 </p>
@@ -466,25 +464,23 @@
                                 <p>@course.InstructorFullName</p>
                                 <p>
                                     @course.AverageRating
-                                    @if (course.AverageRating > 4.0 && course.AverageRating <= 4.9)
-                                    {
-                                        <span class="fa fa-star" style="color:red;"><span class="fa fa-star-half-full"></span></span>
-                                    }
-                                    @if (course.AverageRating == 4.0)
-                                    {
-                                        <span class="stars" style="color:red;">★★★★</span>
-                                    }
-                                    @if (course.AverageRating > 3.0 && course.AverageRating <= 3.9)
-                                    {
-                                        <span class="stars" style="color:red;">★★★<span class="fa fa-star-half-full"></span></span>
-                                    }
-                                    @if (course.AverageRating == 3.0)
-                                    {
-                                        <span class="stars" style="color:red;">★★★</span>
-                                    }
-                                    @if (course.AverageRating < 3.0)
-                                    {
-                                        <span class="stars" style="color:red;">★★</span>
+                                    @{
+                                        double fraction = @course.AverageRating.Value % 1;
+                                        for (int i = 1; i <= course.AverageRating; i++)
+                                        {
+
+                                            <i class="fa fa-star" style="color:red;"></i>
+                                        }
+                                        if (fraction > 0.0)
+                                        {
+                                            <i class="fa fa-star-half-empty" style="color:red;"></i>
+
+                                        }
+                                        for (int i = 5; i > (int)Math.Ceiling(course.AverageRating.Value) && i > 0; i--)
+                                        {
+                                            <i class="fa fa-star-o" style="color:red;"></i>
+                                        }
+
                                     }
                                     (@course.Reviews.Count().ToString())
                                 </p>
@@ -536,7 +532,7 @@
                         {
                             <div class="course-card3">
 
-                                <strong>@review.Student</strong>
+                                <strong>@review.Student.StudentNavigation.UserName</strong>
                                 <span class="text-muted small">@review.GetFormattedDate(review.RatingDate)</span>
                                 <ul style="color:red;">
 

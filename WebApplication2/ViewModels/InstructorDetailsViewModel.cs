@@ -24,5 +24,8 @@ namespace WebApplication2.ViewModels
         {
             get; set;
         }
+
+        public PaginatedListNew<Course> Course { get; set; }
+        
     }
 }
