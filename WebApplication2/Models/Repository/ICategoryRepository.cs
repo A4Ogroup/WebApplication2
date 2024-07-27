@@ -2,7 +2,7 @@
 {
     public interface ICategoryRepository
     {
-        public Category GetById(int categoryId);
+        public Category GetById(byte categoryId);
         public IEnumerable<Category> GetAll();
         public IEnumerable<SubCategory> GetSubCategories(int categoryId);
         public bool CategoryExists(int categoryId);

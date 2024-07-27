@@ -41,7 +41,7 @@ namespace WebApplication2.Models.Repository
 
         public Instructor GetById(string id)
         {
-            return _context.Instructors.Include(i => i.InstructorNavigation).FirstOrDefault(i => i.InstructorId == id);
+            return _context.Instructors.Include(i => i.SocialMediaAccounts).Where(i => i.InstructorId == id).Include(u => u.InstructorNavigation).FirstOrDefault(u => u.InstructorId == id);
         }
 
         public bool Save()

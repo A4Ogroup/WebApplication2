@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
@@ -144,20 +145,22 @@ namespace WebApplication2.Controllers
             {
                 EditInstructorViewModel _instructor = new()
                 {
-                     InstructorId= instructortId,
-                     UserName = instructor.InstructorNavigation.UserName,
-                     OriginalUserName=instructor.InstructorNavigation.UserName,
-                     Email= instructor.InstructorNavigation.Email,
-                     OriginalEmail= instructor.InstructorNavigation.Email,
-                     FirstName= instructor.InstructorNavigation.FirstName,
-                     LastName=instructor.InstructorNavigation.LastName,
-                     PhoneNumber=instructor.InstructorNavigation.PhoneNumber,
-                     Gender=instructor.InstructorNavigation.Gender,
-                     Profession = instructor.Profession,
-                     YearsExperince=instructor.YearsExperince,
-                     About = instructor.About,
-                     Website = instructor.Website,
+                    InstructorId = instructortId,
+                    UserName = instructor.InstructorNavigation.UserName,
+                    OriginalUserName = instructor.InstructorNavigation.UserName,
+                    Email = instructor.InstructorNavigation.Email,
+                    OriginalEmail = instructor.InstructorNavigation.Email,
+                    FirstName = instructor.InstructorNavigation.FirstName,
+                    LastName = instructor.InstructorNavigation.LastName,
+                    PhoneNumber = instructor.InstructorNavigation.PhoneNumber,
+                    Gender = instructor.InstructorNavigation.Gender,
+                    Profession = instructor.Profession,
+                    YearsExperince = instructor.YearsExperince,
+                    About = instructor.About,
+                    Website = instructor.Website,
+                   // SocialMediaAccounts = instructor.SocialMediaAccounts.Select(s =>    {s.Account} ).ToList(),
 
+                     ExistingPhotoPath=instructor.InstructorNavigation.Picture
 
                 };
                 return View(_instructor);
@@ -168,6 +171,7 @@ namespace WebApplication2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(EditInstructorViewModel model)
         {
+
             Instructor _instructor = _instructorRepository.GetById(model.InstructorId);
 
             _instructor.InstructorNavigation.UserName= model.UserName;
@@ -181,7 +185,19 @@ namespace WebApplication2.Controllers
             _instructor.Website= model.Website;
             _instructor.YearsExperince= model.YearsExperince;
             _instructor.About= model.About;
+            _instructor.Website= model.Website;
+            
+                if (model.Picture != null)
+            {
 
+                if (model.ExistingPhotoPath != null)
+                {
+                    string filePath = Path.Combine(_environment.WebRootPath, "images/users", model.ExistingPhotoPath);
+                    System.IO.File.Delete(filePath);
+                }
+                _instructor.InstructorNavigation.Picture = ProcessUploadFile(model, x => x.Picture);
+
+            }
             _instructorRepository.Update(_instructor);
             _instructorRepository.Save();
             TempData["Success"] = "Instructor data edited successfully!";
@@ -203,7 +219,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult AddCourse(AddCourseViewModel model)
         {
-            string uniqeFileName = ProcessUploadFile(model);
+            string uniqeFileName = ProcessUploadFile(model, x => x.Picture);
             if (ModelState.IsValid)
             {
                 Course newCourse = new()
@@ -220,32 +236,16 @@ namespace WebApplication2.Controllers
                 PriceStatus = model.PriceStatus,
                 SubcategoryId = model.SubcategoryId,
                 TopicsCovered = model.TopicsCovered,
-                    Link = model.Link,
-                    VedioLength = model.VedioLength,
-                    Picture=uniqeFileName,
+                Link = model.Link,
+                VedioLength = model.VedioLength,
+                Picture=uniqeFileName,
                 };
                 _courseRepository.Add(newCourse);
             }
             return RedirectToAction("AddCourse");
         }
 
-        private string ProcessUploadFile(AddCourseViewModel model)
-        {
-            string uniqeFileName = null;
-            if (model.Picture is not null)
-            {
-                string uploadFolder = Path.Combine(_environment.WebRootPath, "images/users");
-                uniqeFileName = Guid.NewGuid().ToString() + "_" + model.Picture.FileName;
-                string filePath = Path.Combine(uploadFolder, uniqeFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.Picture.CopyTo(fileStream);
-                }
-
-            }
-
-            return uniqeFileName;
-        }
+        
         public IActionResult InputPartial()
         {
             return PartialView("_SocialMediaAccountsPartial");
@@ -288,6 +288,25 @@ namespace WebApplication2.Controllers
             }
 
             return Json(true);
+        }
+
+
+        private string ProcessUploadFile<T>(T model, Func<T, IFormFile> pictureAccessor)
+        {
+            string uniqeFileName = null;
+            var picture = pictureAccessor(model);
+            if (picture is not null)
+            {
+                string uploadFolder = Path.Combine(_environment.WebRootPath, "images/users");
+                uniqeFileName = Guid.NewGuid().ToString() + "_" + picture.FileName;
+                string filePath = Path.Combine(uploadFolder, uniqeFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    picture.CopyTo(fileStream);
+                }
+            }
+
+            return uniqeFileName;
         }
 
     }

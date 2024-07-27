@@ -34,5 +34,7 @@ namespace WebApplication2.ViewModels
 
         public Gender Gender { get; set; }
         public List<int>? SelectedTagIds { get; set; }
+        public string? ExistingPhotoPath { get; set; }
+
     }
 }

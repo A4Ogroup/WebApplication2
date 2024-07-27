@@ -40,7 +40,7 @@ namespace WebApplication2.Models.Repository
             }
 
 
-            return _context.Courses.Where(C=>C.CategoryId==categoryId);
+            return _context.Courses.Where(C=>C.CategoryId==categoryId).Include(C=>C.Reviews);
         }
 
         public IEnumerable<Course> GetAllWithLanguage()

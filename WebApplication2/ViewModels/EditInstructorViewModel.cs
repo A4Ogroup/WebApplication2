@@ -40,9 +40,11 @@ namespace WebApplication2.ViewModels
         public string? About { get; set; }
         public string Website { get; set; }
         public List<string>? SocialMediaAccounts { get; set; } = new List<string>();
+        public string? ExistingPhotoPath { get; set; }
 
 
 
-      
+
+
     }
 }

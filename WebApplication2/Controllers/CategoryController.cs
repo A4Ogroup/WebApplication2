@@ -49,15 +49,17 @@ namespace WebApplication2.Controllers
 
 
             var courses = _courseRepository.GetCoursesByCategory(categoryId).AsQueryable();
+            
 
             //var courses = _context.Courses.Where(c=>c.CategoryId==categoryId);
             if (courses == null)
             {
                 return NotFound();
             }
-
-            ViewBag.categoryName = _categoryRepository.GetById(categoryId).CategoryName;
+            
+            ViewBag.categoryName = _categoryRepository.GetById((byte)categoryId).CategoryName;
             ViewBag.subCategories = _categoryRepository.GetSubCategories(categoryId);
+            ViewBag.CategoryRecordCount = courses?.Count() ?? 0;
             //var categoryViewModel = new CategoryViewModel()
             //{
             //    categoryName = _categoryRepository.GetById(categoryId).CategoryName,
@@ -69,7 +71,7 @@ namespace WebApplication2.Controllers
 
 
 
-           return View(await PaginatedList<Course>.CreateAsync(courses.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<Course>.CreateAsync(courses.AsNoTracking(), pageNumber ?? 1, pageSize));
             //return View(categoryViewModel);
         }
 
@@ -100,8 +102,9 @@ namespace WebApplication2.Controllers
                 return NotFound();
             }
 
-            ViewBag.categoryName = _categoryRepository.GetById(categoryId).CategoryName;
+            ViewBag.categoryName = _categoryRepository.GetById((byte)categoryId).CategoryName;
             ViewBag.subCategories = _categoryRepository.GetSubCategories(categoryId);
+            ViewBag.CategoryRecordCount = courses?.Count() ?? 0;
             //var categoryViewModel = new CategoryViewModel()
             //{
             //    categoryName = _categoryRepository.GetById(categoryId).CategoryName,

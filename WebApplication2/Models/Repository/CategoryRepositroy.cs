@@ -14,9 +14,9 @@ namespace WebApplication2.Models.Repository
            return _context.Categories; 
         }
 
-        public Category GetById(int categoryId) {
+        public Category GetById(byte categoryId) {
 
-            return _context.Categories.FirstOrDefault();
+            return _context.Categories.Find(categoryId);
         }
         public IEnumerable<SubCategory> GetSubCategories (int categoryId)
         {
