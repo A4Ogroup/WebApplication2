@@ -15,7 +15,7 @@ namespace WebApplication2.Models.Repository
         public Instructor Add(Instructor instructor)
         {
             _context.Instructors.Add(instructor);
-            _context.SaveChanges();
+            //_context.SaveChanges();
             return instructor;
         }
 

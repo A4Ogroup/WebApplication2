@@ -61,7 +61,7 @@
                         <td data-label="Status">@(instructor.InstructorNavigation.Status ? "Accepted" : "Pending")</td>
                         <td data-label="Addition Date">@instructor.InstructorNavigation.RegisterDate</td>
                         <td data-label="Actions">
-                            <a href="@Url.Action("register", "account", new { id = instructor.InstructorNavigation.Id ,area=""})" class="btn btn-light btn-action">View</a>
+                            <a href="@Url.Action("viewprofile", "instructor", new { instructorId = instructor.InstructorNavigation.Id ,area=""})" class="btn btn-light btn-action">View</a>
 
                         </td>
                     </tr>

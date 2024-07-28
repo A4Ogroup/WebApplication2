@@ -18,11 +18,14 @@ namespace WebApplication2.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly LconsultDBContext _context;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,LconsultDBContext context )
+        private readonly IInstructorRepository _instructorRepository;
+
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,LconsultDBContext context,IInstructorRepository instructorRepository )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context= context;
+            _instructorRepository = instructorRepository;
         }
         [HttpGet]
         public IActionResult Login()
@@ -262,9 +265,11 @@ namespace WebApplication2.Controllers
                     }).ToList()
                     };
 
-                    _context.Instructors.Add(instructor);
-                    _context.SaveChangesAsync();
-                    
+                    _instructorRepository.Add(instructor);
+                    _instructorRepository.Save();
+                    //_context.Instructors.Add(instructor);
+                    //_context.SaveChangesAsync();
+
 
                     return RedirectToAction("login", "account");
                 }

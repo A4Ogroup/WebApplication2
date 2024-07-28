@@ -13,7 +13,7 @@ namespace WebApplication2.Models.Repository
         public Student Add(Student student)
         {
             _context.Students.Add(student);
-            _context.SaveChanges();
+            //_context.SaveChanges();
             return student;
         }
 
