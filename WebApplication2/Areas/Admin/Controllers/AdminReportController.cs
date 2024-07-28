@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication2.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class AdminReportController : Controller
     {
