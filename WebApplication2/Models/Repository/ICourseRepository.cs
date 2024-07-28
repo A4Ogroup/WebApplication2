@@ -9,6 +9,8 @@ namespace WebApplication2.Models.Repository
         Course GetById(int id);
         
         IEnumerable<Course> GetAll();
+        Task<IEnumerable<Course>> GetAllAsync();
+
         public IQueryable<Course> FilterCourses(CourseFilterViewModel filters,IQueryable<Course> resultCourses);
         public IEnumerable<Course> GetCoursesByCategory(int categoryId);
         public IEnumerable<Course> GetCourses(CourseResourceParameters? ResourceParameters);

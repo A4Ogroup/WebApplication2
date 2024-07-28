@@ -201,6 +201,55 @@
             .tr-clickable:hover {
                 background-color: #00000;
             }
+
+        .sidebar {
+            padding-right: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .filter-section {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+            .filter-section h4 {
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .filter-section h4:hover {
+                    color: #007acc;
+                }
+
+            .filter-section svg {
+                transition: transform 0.2s;
+            }
+
+        .filter-options {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .fa-star {
+            color: #ff0000;
+        }
+
+        .fa-star-o {
+            color: red; /* Changes the color of the star outline to red */
+        }
+
+        @@media (max-width: 992px) {
+            .filter-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                border-right: none;
+            }
+        }
        </style>
        </head>
 
@@ -349,566 +398,8 @@
                     </div>
                 </ul>
             </div>
-            @* <input hidden asp-for="@Model.Course.CourseId" />
-            <div class="col-md-4 how-img" >
 
-                @if (Model.Course.Picture is null)
-                {
 
-                    Model.Course.Picture = "noimage.png";
-
-                }<a href="#"><img src="~/images/courses/@Model.Course.Picture" alt="" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;"></a>
-                @* <img src="~/images/product_01.jpg" class="rounded-circle img-fluid" alt="" style="margin-bottom:12px;" />  *@
-                @*<h4>@Model.Course.Title</h4>
-                <h6 class="text-muted" style="margin-bottom:12px;">
-                    @Model.Course.CourseDescription
-                </h6>
-            </div> *@
-
-@*             <div class="col-md-8" style="margin-top:20px;">
-
-                <div class="product-item" style="border:none">
-
-                    <div class="row">
-
-                        <div class="col-md-6">
-
-                            <h6>Instructor: @Model.Course.InstructorFullName</h6>
-                            <h6>Language: @Model.Course.Language.Name</h6>
-                            <h6>Level: @Model.Course.Level</h6>
-                            <h6>TopicsCovered: @Model.Course.TopicsCovered</h6>
-                            <p class="meta">
-                                <h6>AverageRating:</h6> @Model.Course.AverageRating
-                                @{
-                                    double fractionn = @Model.Course.AverageRating.Value % 1;
-                                    for (int i = 1; i <= Model.Course.AverageRating; i++)
-                                    {
-
-                                        <i class="fa fa-star" style="color:red;"></i>
-                                    }
-                                    if (fractionn > 0.0)
-                                    {
-                                        <i class="fa fa-star-half-empty" style="color:red;"></i>
-
-                                    }
-                                    for (int i = 5; i > (int)Math.Ceiling(Model.Course.AverageRating.Value) && i > 0; i--)
-                                    {
-                                        <i class="fa fa-star-o" style="color:red;"></i>
-                                    }
-
-                                }
-                                (3, 666)
-                            </p>
-                            <div class="down-content">
-                                <h3>Average Ratings</h3>
-                                <ul>
-                                    <h4 class="text-muted small">Material Quality</h4>
-                                    <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.Course.AverageMaterialQuality / 10.0) * 100)%"></div>
-                                    </div>
-                                    <h4 class="text-muted small">Content Quality</h4>
-                                    <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.Course.AverageContentQuality / 10.0) * 100)%"></div>
-                                    </div>
-                                    <h4 class="text-muted small">Engagement Level</h4>
-                                    <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.Course.AverageEngagementLevel / 10.0) * 100)%"></div>
-                                    </div>
-                                    <h4 class="text-muted small">Technical Quality</h4>
-                                    <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.Course.AverageTechnicalQuality / 10.0) * 100)%"></div>
-                                    </div>
-                                    <h4 class="text-muted small">Support Quality</h4>
-                                    <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.Course.AverageSupportQuality / 10.0) * 100)%"></div>
-                                    </div>
-                                    <h4 class="text-muted small">Over All Satisfication</h4>
-                                    <div class="progress-container">
-                                        <div class="progress-bar" data-progress="@((Model.Course.AverageOverallSatisfaction / 10.0) * 100)%"></div>
-                                    </div>
-                                </ul>
-                            </div>
-                            
-
-                        </div>
-
-                        <div class="col-md-2">
-                            <h6>Price Status:</h6>
-                            @if (Model.Course.PriceStatus is true)
-                                {
-                                    <h6> Free </h6>
-                                }
-                                else
-                                {
-                                    <h6>Paid  </h6>
-                                } 
-                            
-                            <h6>LastUpdate: @Model.Course.LastUpdate</h6>
-                            <h6>Platform: @Model.Course.Platform</h6>
-                            <h6>link: <a href="@Model.Course.Link">@Model.Course.Platform</a></h6>
-                            <a class="btn btn-light" asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.Course.CourseId" style="margin-top:20px;"> Review </a>
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-            </div>
- *@
-            @*<div class="col-md-12 my-3">
-            <div class="grid search"> *@
-            <div class="grid-body">
-                <div class="row">
-
-                    <!-- BEGIN FILTERS -->
-
-                    <div class="col-md-3">
-                        <div class="container">
-                            <h2 class="grid-title"><i class="fa fa-filter"></i> Filter by</h2>
-                            <hr>
-
-                            <!-- BEGIN FILTER BY Rating -->
-                            @*           <p style="margin:3px">
-                            <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#rate" aria-expanded="true" aria-controls="rate">
-                            <h4>Rating</h4>
-                            </button>
-                            </p> *@
-                            <p>
-                                <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                                    <h4>Rating</h4>
-                                </button>
-                            </p>
-                            @*      <div id="rate" class="collapse" style="margin:4px"> *@
-
-
-
-                            <div style="min-height: 10px">
-                                <div class="collapse" id="collapseWidthExample">
-                                    <div class="form-check" style="margin: 10px 0px 10px 0;">
-
-
-
-                                        <div>
-
-                                            <input type="checkbox" name="star5"> @for (int i = 0; i < 4; i++)
-                                            {
-                                                <span class="fa fa-star checked"></span>
-                                            }
-
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" name="star4"> @for (int i = 0; i < 3; i++)
-                                            {
-                                                <span class="fa fa-star checked"></span>
-                                            }
-
-                                        </div>
-
-                                        <div>
-                                            <input type="checkbox" name="star3"> @for (int i = 0; i < 2; i++)
-                                            {
-                                                <span class="fa fa-star checked"></span>
-                                            }
-                                        </div> 
-
-
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-                            @* <div style="min-height: 10px">
-                                <div class="collapse" id="collapseWidthExample">
-                                    <div class="form-check" style="margin: 10px 0px 10px 0;">
-
-                                        <div class="down-content ">
-                                            <span class="stars btn">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-
-                                        <div class="down-content">
-                                            <span class="stars btn">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-
-                                        <div class="down-content">
-                                            <span class="stars btn">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-
-                                        <div class="down-content">
-                                            <span class="stars btn">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> *@
-
-                            <p style="margin:3px">
-                                <button class="btn btn-light" type="button" data-target="#rate" aria-expanded="true">
-                                    <h4>Newest</h4>
-                                </button>
-                                <button class="btn btn-light" type="button" data-target="#rate" aria-expanded="true">
-                                    <h4>Oldest</h4>
-                                </button>
-                            </p>
-
-
-                            <!--<div class="container mt-5">
-                                <div class="row d-flex justify-content-start">
-
-                                    <div class="col-md-7">
-                                        <div class="panel-group checkbox_collapse" id="accordion">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h2 class="panel-title">
-                                                        <a class="btn btn-light" data-toggle="collapse" data-parent="#accordion" href="#collapse1"> <span class="circle"></span> Rate </a>
-                                                        </h2>
-                                                </div>
-                                                <div id="collapse1" class="panel-collapse collapse in">
-                                                    <div class="panel-body">
-
-                                                        <div class="down-content ">
-                                                            <span class="stars btn">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </span>
-                                                        </div>
-
-                                                        <div class="down-content">
-                                                            <span class="stars btn">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </span>
-                                                        </div>
-
-                                                        <div class="down-content">
-                                                            <span class="stars btn">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </span>
-                                                        </div>
-
-                                                        <div class="down-content">
-                                                            <span class="stars btn">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-                            </div>-->
-                            <!--  <div class="panel-group">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="rate" href="#collapse1">
-                                                rate
-                                            </a>
-                                        </h4>
-                                    </div>
-
-                                    <div class="panel-collapse collapse" id="collapse1">
-
-                                        <div class="panel-body">
-                                            one
-
-                                        </div> <div class="panel-body">
-                                            one
-
-                                        </div> <div class="panel-body">
-                                            one
-
-                                        </div> <div class="panel-body">
-                                            one
-
-                                        </div>
-
-                                    </div>
-                                    <div class="panel-collapse collapse" id="collapse1">
-                                        <ul>
-                                            <li class="list-group-item"> one</li>
-                                            <li class="list-group-item"> one</li>
-                                            <li class="list-group-item"> one</li>
-                                        </ul>
-
-                                    </div>
-
-                                </div>
-                            </div> -->
-
-
-                        </div>
-                    </div>
-
-                    <partial name="_ReviewPartial" model="Model.PaginatedReviews"></partial>
-
-@*                     <div class="col-md-9 my-3">
-
-                        <div class="padding">
-
-                            <div class="row" style="margin-top:50px;">
-
-
-                                <!-- BEGIN TABLE RESULT -->
-
-
-                                <div class="latest-products">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="section-heading">
-                                                    <h2>Recent Reviews</h2>
-                                                    <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
-                                                </div>
-                                            </div>
-
-                                            @foreach (var items in review)
-                                            {
-
-                                                <div class="col-md-4">
-                                                    <div class="product-item">
-                                                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                                        <div class="down-content">
-                                                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                                            <h4>@items.Student</h4>
-                                                            <h6>@items.RatingDate.ToString()</h6>
-                                                            <ul class="stars">
-                                                                @switch (items.Rate)
-                                                                {
-                                                                    case 5:
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        break;
-                                                                    case 4:
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                  
-                                                                        break;
-                                                                    case 3:
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                    
-                                                                        break;
-                                                                    case 2:
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-
-                                                                        break;
-                                                                    default:
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        break;
-
-
-
-
-
-
-                                                                }
-                                                          
-                                                                <li><i class="fa fa-star"></i></li>
-                                                            </ul>
-                                                            <p>@items.Descritipn</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-
-                                        </div>
-                                    </div>
-                                </div>
-@*                                 <div class="col-md-4">
-                                    <div class="product-item">
-                                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                        <div class="down-content">
-                                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                            <h4>UserName</h4>
-                                            <h6>Date</h6>
-                                            <ul class="stars">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                        <div class="down-content">
-                                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                            <h4>UserName</h4>
-                                            <h6>Date</h6>
-                                            <ul class="stars">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                        <div class="down-content">
-                                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                            <h4>UserName</h4>
-                                            <h6>Date</h6>
-                                            <ul class="stars">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                        <div class="down-content">
-                                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                            <h4>UserName</h4>
-                                            <h6>Date</h6>
-                                            <ul class="stars">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                        <div class="down-content">
-                                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                            <h4>UserName</h4>
-                                            <h6>Date</h6>
-                                            <ul class="stars">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                        <div class="down-content">
-                                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                            <h4>UserName</h4>
-                                            <h6>Date</h6>
-                                            <ul class="stars">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="product-item">
-                                        <!--<a href="#"><img src="assets/images/product_01.jpg" alt=""></a>-->
-                                        <div class="down-content">
-                                            <!--<a href="#"><h4>Tittle goes here</h4></a>-->
-                                            <h4>UserName</h4>
-                                            <h6>Date</h6>
-                                            <ul class="stars">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                            <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                        </div>
-                                    </div>
-                                </div> *@
-
-                            </div>
-                            <!-- END TABLE RESULT -->
-                            <!-- BEGIN PAGINATION -->
-
-@*                             <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav> *@
-                            <!-- END PAGINATION -->
-                        </div>
-                        <!-- END RESULT -->
 
 
 
@@ -920,9 +411,136 @@
 
 
                 </div>
+
+    <div class="container grid-body">
+        <div class="row">
+            <div class="col-md-3 mt-4">
+                <button class="btn btn-dark mb-3 w-100 d-lg-none" id="filter-toggle">Filter</button>
+                <div class="sidebar d-none d-lg-block">
+                    <div class="filter-section">
+                        <h3>Filters</h3>
+                    </div>
+                    <div class="filter-section">
+                        <h4>
+                            Ratings
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 10L12 15L17 10" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </h4>
+                        <div class="filter-options">
+                            <div class="form-check">
+                                <input class="form-check-input rating-filter" type="checkbox" value="4.5" data-filter-type="rating" />
+                                <label class="form-check-label">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-empty" style="color:red;"></i> 4.5 & up (2,046)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input rating-filter" type="checkbox" value="4.0" data-filter-type="rating" />
+                                <label class="form-check-label">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i> 4.0 & up (3,734)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input rating-filter" type="checkbox" value="3.5" data-filter-type="rating" />
+                                <label class="form-check-label">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-empty" style="color:red;"></i><i class="fa fa-star-o"></i> 3.5 & up (4,403)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input rating-filter" type="checkbox" value="3.0" data-filter-type="rating" />
+                                <label class="form-check-label">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> 3.0 & up (4,632)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h4>
+                            Sort by date
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 10L12 15L17 10" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </h4>
+                        <div class="filter-options">
+                            <div class="form-check">
+                                <input class="form-check-input rating-filter" type="checkbox" value="newest" data-filter-type="date" />
+                                <label class="form-check-label">
+                                    Newest
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input rating-filter" type="checkbox" value="oldest" data-filter-type="date" />
+                                <label class="form-check-label">
+                                    Oldest
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
+            </div>
+            <div id="reviews-section" class="col-md-9 ">
+                <partial name="_ReviewPartial" model="Model.PaginatedReviews"></partial>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
+    <script>
+        $(document).ready(function () {
+            let originalReviewList = $("#reviews-section").html();
+
+            $("#filter-toggle").click(function () {
+                $(".sidebar").toggleClass("d-none");
+            });
+
+            $(".filter-section h4").click(function () {
+                let options = $(this).next(".filter-options");
+                let svg = $(this).find("svg");
+                options.slideToggle(200);
+                if (
+                    svg.css("transform") == "none" ||
+                    svg.css("transform") == "matrix(1, 0, 0, 1, 0, 0)"
+                ) {
+                    svg.css("transform", "rotate(180deg)");
+                } else {
+                    svg.css("transform", "rotate(0deg)");
+                }
+            });
+
+            // Submit filter form
+            $(".filter-section input[type='checkbox']").change(function () {
+                let selectedRatings = $(".filter-section input[type='checkbox'][data-filter-type='rating']:checked").map(function () {
+                    return $(this).val();
+                }).get();
+
+                let selectedSortDates = $(".filter-section input[type='checkbox'][data-filter-type='date']:checked").map(function () {
+                    return $(this).val();
+                }).get();
+
+                // Construct the URL with selected ratings and sort dates
+                let ratingsQuery = selectedRatings.length > 0 ? `ratings=${selectedRatings.join(',')}` : '';
+                let sortDatesQuery = selectedSortDates.length > 0 ? `sortDates=${selectedSortDates.join(',')}` : '';
+
+                let queryParams = [];
+                if (ratingsQuery) queryParams.push(ratingsQuery);
+                if (sortDatesQuery) queryParams.push(sortDatesQuery);
+
+                let queryString = queryParams.join('&');
+                let url = `@Url.Action("Details", "course")?id=${@Model.Course.CourseId}&${queryString}`;
+
+                window.location.href = url;
+            });
+
+        });
+
+
+
+
+    </script>
     <script>
         $('.btn').click(function () {
             $('.collapse-content').toggle();
@@ -945,6 +563,4 @@
     </script>
     
 }
-@* </body>
 
-</html> *@

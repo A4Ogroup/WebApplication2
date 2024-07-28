@@ -53,5 +53,10 @@ namespace WebApplication2.Models.Repository
             return report;
            
         }
+
+        async Task<IEnumerable<Report>> IReportRepository.GetAllAsync()
+        {
+            return await _context.Reports.ToListAsync();
+        }
     }
 }

@@ -36,38 +36,40 @@ namespace WebApplication2.Areas.Admin.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public async Task<string> AdminInfo()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user != null)
-            {
-                ViewBag.UserName = user.UserName;
-                ViewBag.Email = user.Email;
-            }
-            return ViewBag.UserName&& ViewBag.Email;
-        }
-        public async Task<ActionResult> Index()
-        {
-           
+public async Task<string> AdminInfo()
+{
+    var user = await _userManager.GetUserAsync(User);
+    if (user != null)
+    {
+        ViewBag.UserName = user.UserName;
+        ViewBag.Email = user.Email;
+    }
+    return $"{ViewBag.UserName} - {ViewBag.Email}";
+}
 
-            var course = _courseRepository.GetAll();
-            var review = _reviewRepository.GetAll();
-            var report = _reportRepository.GetAll();
-            var student =_studentRepository.GetAll();
-            var instructor = _instructorRepository.GetAll();
-            var model = new IndexViewModel
-            {
-                Course = course,
-                Review = review,
-                reports = report,
-                students = student,
-                instructors = instructor,
-            };
+public async Task<ActionResult> Index()
+{
+    var course = await _courseRepository.GetAllAsync();
+    var review = await _reviewRepository.GetAllAsync();
+    var report = await _reportRepository.GetAllAsync();
+    var student = await _studentRepository.GetAllAsync();
+    var instructor = await _instructorRepository.GetAllAsync();
+    
+    // Get admin info
+    await AdminInfo();
 
-            AdminInfo();
-     
-            return View(model);
-        }
+    var model = new IndexViewModel
+    {
+        Course = course,
+        Review = review,
+        reports = report,
+        students = student,
+        instructors = instructor,
+       
+    };
+
+    return View(model);
+}
 
         //public IActionResult AdminDetail(string id)
         //{
@@ -119,7 +121,7 @@ namespace WebApplication2.Areas.Admin.Controllers
         //}
         public async Task<IActionResult> Course(int? pageNumber)
         {
-            AdminInfo();
+           await AdminInfo();
 
             int pageSize = 15;
             var course = _courseRepository.GetAllWithLanguage().AsQueryable();
@@ -130,7 +132,7 @@ namespace WebApplication2.Areas.Admin.Controllers
 
         public async Task<IActionResult> Review(int? pageNumber)
         {
-            AdminInfo();
+           await AdminInfo();
 
             int pageSize = 15;
             var reviews = _reviewRepository.GetAllWithCourse().AsQueryable();
@@ -139,7 +141,7 @@ namespace WebApplication2.Areas.Admin.Controllers
 
         public async Task<IActionResult> Report(int? pageNumber)
         {
-            AdminInfo();
+           await AdminInfo();
 
             int pageSize = 12;
             var report = _reportRepository.GetAllWithReview().AsQueryable();
@@ -149,7 +151,7 @@ namespace WebApplication2.Areas.Admin.Controllers
 
         public async Task<IActionResult> Instructor(int? pageNumber)
         {
-            AdminInfo();
+           await AdminInfo();
 
             int pageSize = 15;
             var instructors = _instructorRepository.GetAll().AsQueryable();
@@ -157,7 +159,7 @@ namespace WebApplication2.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Student(int? pageNumber)
         {
-            AdminInfo();
+           await AdminInfo();
 
             int pageSize = 12;
             var student = _studentRepository.GetAll().AsQueryable();

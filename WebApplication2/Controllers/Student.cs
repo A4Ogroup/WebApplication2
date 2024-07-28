@@ -48,10 +48,10 @@ namespace WebApplication2.Controllers
         {
             var studentId = _userManager.GetUserId(User);
             var student = _studentRepository.GetById(studentId);
-
+            int pageSize = 6;
             var reviews = _context.Reviews.Include(r => r.Course).Include(r=>r.Student).ThenInclude(s=>s.StudentNavigation).Where(r => r.StudentId== studentId);
             var review = _reviewRepository.GetAll().FirstOrDefault(r => r.StudentId==studentId);
-            int pageSize = 6;
+            
 
             var _student = new StudentDetailsViewModel
             {
@@ -61,7 +61,7 @@ namespace WebApplication2.Controllers
                 LastName = student.StudentNavigation.LastName,
                 Gender = student.StudentNavigation.Gender,
                 Reviews = await PaginatedListNew<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize),
-                review= review,
+
             };
             return View(_student);
         }

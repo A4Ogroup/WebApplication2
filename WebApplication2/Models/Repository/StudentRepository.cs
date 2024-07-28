@@ -13,7 +13,7 @@ namespace WebApplication2.Models.Repository
         public Student Add(Student student)
         {
             _context.Students.Add(student);
-            _context.SaveChanges();
+            //_context.SaveChanges();
             return student;
         }
 
@@ -59,6 +59,11 @@ namespace WebApplication2.Models.Repository
             var _student= _context.Students.Attach(student);
             _student.State=EntityState.Modified;
             return student;
+        }
+
+        async Task<IEnumerable<Student>> IStudentRepository.GetAllAsync()
+        {
+            return await _context.Students.Include(i => i.StudentNavigation).ToListAsync();
         }
     }
 }

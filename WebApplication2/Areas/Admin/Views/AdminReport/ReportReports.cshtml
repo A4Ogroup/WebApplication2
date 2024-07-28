@@ -1,0 +1,110 @@
+﻿@model WebApplication2.PaginatedListNew<Report>
+
+@{
+    Layout = "_aAdminLayout";
+}
+<partial name="_NotificationPartial"></partial>
+<div class="col-lg-9">
+    <div class="page-breadcrumb">
+        <div class="row align-items-center">
+            <div class="col-5">
+                <h4 class="page-title">Reports @Model.Count)</h4>
+
+            </div>
+            <div class="col-7">
+                <div class="text-end upgrade-btn">
+                    <form method="post" action="@Url.Action("FilterReports", "adminreport")">
+                        <div class="dropdown mb-3">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+                                Filter by
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='All'; this.closest('form').submit();">All</a></li>
+                                <li><a class="unclickable text-black" href="#">Date</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='AddedToday'; this.closest('form').submit();">Added Today</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='LastMonth'; this.closest('form').submit();">Added Last Month</a></li>
+                                <li><a class="unclickable text-black" href="#">Gender</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Male'; this.closest('form').submit();">Male</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="document.getElementById('filterType').value='Female'; this.closest('form').submit();">Female</a></li>
+
+                            </ul>
+                            <input type="hidden" name="filterType" id="filterType" value="" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="course-list" class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr class="bg-light">
+                    <th scope="col">Student</th>
+                    <th scope="col">Review</th>
+                    <th scope="col">Report Message</th>
+                    <th scope="col"> Date</th>
+                 
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var report in Model)
+                {
+                    <tr>
+                        <td>@report.ReviewId</td>
+                        <td>@report.Review.Descritipn </td>
+                        <td>@report.Message</td>
+                        <td>@report.ReportDate</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-link p-0"
+                                        type="button"
+                                        id="dropdownMenuButton1"
+                                        data-bs-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </button>
+                 
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-action="FilterReports" asp-route-pageNumber="@(Model.PageIndex - 1)"> < Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                    <a class="page-link" asp-action="FilterReports" asp-route-pageNumber="@i">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-action="FilterReports" asp-route-pageNumber="@(Model.PageIndex + 1)">Next > </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(".see-more").click(function () {
+            const moreText = $(this).siblings(".more-text");
+            if (moreText.is(":visible")) {
+                $(this).text("...See More");
+            } else {
+                $(this).text("...See Less");
+            }
+            moreText.toggle();
+        });
+    </script>
+}
+

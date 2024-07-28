@@ -17,12 +17,14 @@ namespace WebApplication2.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly LconsultDBContext _context;
         private readonly ICategoryRepository _categoryRepository;
-        public StudentAccountController(UserManager<User> userManager, SignInManager<User> signInManager, LconsultDBContext context,ICategoryRepository categoryRepository)
+        private readonly IStudentRepository _studentRepository;
+        public StudentAccountController(UserManager<User> userManager, SignInManager<User> signInManager, LconsultDBContext context,ICategoryRepository categoryRepository,IStudentRepository studentRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _categoryRepository = categoryRepository;
+            _studentRepository = studentRepository;
         }
 
 
@@ -245,9 +247,10 @@ namespace WebApplication2.Controllers
 
                     };
 
-                    
-                    _context.Students.Add(student);
-                    _context.SaveChangesAsync();
+                    _studentRepository.Add(student);
+                    _studentRepository.Save();
+                    //_context.Students.Add(student);
+                    //_context.SaveChangesAsync();
 
 
                     return RedirectToAction("login", "account");

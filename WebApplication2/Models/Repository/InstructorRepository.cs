@@ -15,7 +15,7 @@ namespace WebApplication2.Models.Repository
         public Instructor Add(Instructor instructor)
         {
             _context.Instructors.Add(instructor);
-            _context.SaveChanges();
+            //_context.SaveChanges();
             return instructor;
         }
 
@@ -57,6 +57,11 @@ namespace WebApplication2.Models.Repository
             var _instructor = _context.Instructors.Attach(instructor);
             _instructor.State= EntityState.Modified;
             return instructor;
+        }
+
+        async Task<IEnumerable<Instructor>> IInstructorRepository.GetAllAsync()
+        {
+            return await _context.Instructors.Include(i => i.InstructorNavigation).ToListAsync();
         }
     }
 }

@@ -222,5 +222,10 @@ namespace WebApplication2.Models.Repository
         {
             return _context.Courses.Include(c => c.Language).Where(c => c.InstructorId == id);
         }
+
+        async Task<IEnumerable<Course>> ICourseRepository.GetAllAsync()
+        {
+            return await _context.Courses.ToListAsync();
+        }
     }
 }

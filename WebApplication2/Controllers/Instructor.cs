@@ -132,7 +132,8 @@ namespace WebApplication2.Controllers
                 YearsExperince = instructor.YearsExperince,
                 Website = instructor.Website,
                 About = instructor.About,
-                Course = PagedCourse
+                Course = PagedCourse,
+           
             };
             return View(_instructor);
         }
