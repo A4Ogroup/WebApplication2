@@ -159,7 +159,7 @@ namespace WebApplication2.Controllers
                     YearsExperince = instructor.YearsExperince,
                     About = instructor.About,
                     Website = instructor.Website,
-                   // SocialMediaAccounts = instructor.SocialMediaAccounts.Select(s =>    {s.Account} ).ToList(),
+                    SocialMediaAccounts = instructor.SocialMediaAccounts.Select(s => s.Account ).ToList(),
 
                      ExistingPhotoPath=instructor.InstructorNavigation.Picture
 
