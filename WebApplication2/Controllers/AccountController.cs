@@ -383,14 +383,23 @@ namespace WebApplication2.Controllers
 
         public async Task<IActionResult> Logout()
         {
+            // Sign out the user
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "home");
 
+            // Clear authentication cookies
+            Response.Cookies.Delete(".AspNetCore.Identity.Application");
+
+            // Optionally, clear session
+            HttpContext.Session.Clear();
+
+            // Redirect to home page
+            return RedirectToAction("Index", "Home");
         }
 
 
 
-        
+
+
 
         public async Task<IActionResult> IsEmailAlreadyRegistered(string Email)
         {
