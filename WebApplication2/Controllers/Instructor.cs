@@ -159,11 +159,15 @@ namespace WebApplication2.Controllers
                     YearsExperince = instructor.YearsExperince,
                     About = instructor.About,
                     Website = instructor.Website,
-                    SocialMediaAccounts = instructor.SocialMediaAccounts.Select(s => s.Account ).ToList(),
-
-                     ExistingPhotoPath=instructor.InstructorNavigation.Picture
+                    SocialMediaAccounts = instructor.SocialMediaAccounts?.Select(s => s.Account ).ToList(),
+                   
+                ExistingPhotoPath =instructor.InstructorNavigation.Picture
 
                 };
+                for (int i = (int ) _instructor.SocialMediaAccounts?.Count(); i < 3; i++)
+                {
+                    _instructor.SocialMediaAccounts.Add("");
+                }
                 return View(_instructor);
             }
             return View();
@@ -197,7 +201,13 @@ namespace WebApplication2.Controllers
                     System.IO.File.Delete(filePath);
                 }
                 _instructor.InstructorNavigation.Picture = ProcessUploadFile(model, x => x.Picture);
-
+                _instructor.SocialMediaAccounts = model?.SocialMediaAccounts
+                     ?.Where(account => !string.IsNullOrWhiteSpace(account))
+                     .Select(account => new SocialMediaAccount
+                     {
+                         Account = account,
+                         InstructorId = model.InstructorId // Set the foreign key
+                     }).ToList();
             }
             _instructorRepository.Update(_instructor);
             _instructorRepository.Save();

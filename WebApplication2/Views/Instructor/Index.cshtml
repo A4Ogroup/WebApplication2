@@ -9,7 +9,12 @@
     var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
             .Take(10).ToList();
 } *@
-<partial name="_NotificationPartial"></partial>
+@if (TempData.ContainsKey("Success"))
+{
+        <partial name="_NotificationPartial"></partial>
+    TempData.Remove("Success");
+}
+   
 @{
     Layout = "_Layout";
 }
