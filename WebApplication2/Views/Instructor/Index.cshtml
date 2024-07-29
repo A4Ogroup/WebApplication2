@@ -1,41 +1,140 @@
 ﻿@model IndexViewModel
 
 
-@* @inject LconsultDBContext _context
+ @inject LconsultDBContext _context
 @{
-    var courses = _context.Courses.OrderByDescending(c => c.AverageRating)
-     .Take(10).ToList();
-
-    var reviews = _context.Reviews.OrderByDescending(c => c.Rate)
-            .Take(10).ToList();
-} *@
+    var latestCourses = _context.Courses.OrderByDescending(c => c.AddingDate).Where(c => c.Status == true)
+    .Take(10).ToList();
+}
 @if (TempData.ContainsKey("Success"))
 {
-        <partial name="_NotificationPartial"></partial>
+    <partial name="_NotificationPartial"></partial>
     TempData.Remove("Success");
 }
 
-   
 @{
     Layout = "_Layout";
 }
 
-
 <head>
     <style>
 
-        <!-- review style-->
-        .course-carousel3 {
+        <!-- latest courses style-- >
+        .course-carousel1 {
             background-color: white;
             /*        background-color: gray;
-                 */ padding: 20px;
+                     */ padding: 20px;
             margin: 10px;
             margin-top: 0px;
             width: 95%;
             /*              max-width: 1200px;
-                 */ border-radius: 8px;
+                     */ border-radius: 8px;
             /*         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-             */ position: relative;
+                 */ position: relative;
+        }
+
+        /* .course-carousel h2 {
+                            margin-bottom: 20px;
+                        } */
+
+        .carousel-container1 {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .carousel1 {
+            min-width: 100%;
+            display: flex;
+            /*             overflow: hidden;
+                     */ flex-wrap: nowrap;
+            transition: 0.5s ease-in-out;
+        }
+
+        .course-card1 {
+            min-width: auto; /*calc(100% / 3); */
+            flex: 0 0 auto;
+            /*             max-width: calc(33.333% - 20px); /* Three cards to fit in a row */
+            margin-right: 20px;
+            /*  margin-left:20px;
+                     */ text-align: left;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+            .course-card1 img {
+                width: 100%;
+                height: auto;
+                max-height: 150px;
+                /*             border-radius: 5px;
+                 */ object-fit: cover;
+            }
+
+            .course-card1 h3 {
+                font-size: 16px;
+                margin: 10px 0;
+            }
+
+            .course-card1 p {
+                margin: 5px 0;
+                flex: 0 0 33.333%; /* Adjust based on how many cards you want to show at once */
+                box-sizing: border-box;
+            }
+
+
+
+        .arrow1 {
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            background-color: #f1f1f6;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+            .arrow1.prev1 {
+                left: 0;
+            }
+
+            .arrow1.next1 {
+                right: 0;
+            }
+
+        @@media (max-width: 768px) {
+            .course-card1 {
+                max-width: calc(50% - 20px); /* Two cards to fit in a row */
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .course-card1 {
+                max-width: 100%; /* One card to fit in a row */
+                margin-right: 0;
+            }
+        }
+        <!-- latest courses style end-- >
+        <!-- review style-- >
+        .course-carousel3 {
+            background-color: white;
+            /*        background-color: gray;
+                         */ padding: 20px;
+            margin: 10px;
+            margin-top: 0px;
+            width: 95%;
+            /*              max-width: 1200px;
+                         */ border-radius: 8px;
+            /*         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                     */ position: relative;
         }
 
         .carousel-container3 {
@@ -131,25 +230,24 @@
         }
 
 
-        <!-- review style end-->
-
-
+        <!-- review style end-- >
+        <!-- top courses style-- >
         .course-carousel {
             background-color: white;
             /*        background-color: gray;
-             */ padding: 20px;
+                     */ padding: 20px;
             margin: 10px;
             margin-top: 0px;
             width: 95%;
             /*              max-width: 1200px;
-             */ border-radius: 8px;
+                     */ border-radius: 8px;
             /*         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-         */ position: relative;
+                 */ position: relative;
         }
 
         /* .course-carousel h2 {
-                    margin-bottom: 20px;
-                } */
+                            margin-bottom: 20px;
+                        } */
 
         .carousel-container {
             position: relative;
@@ -163,7 +261,7 @@
             min-width: 100%;
             display: flex;
             /*             overflow: hidden;
-             */ flex-wrap: nowrap;
+                     */ flex-wrap: nowrap;
             transition: 0.5s ease-in-out;
         }
 
@@ -173,7 +271,7 @@
             /*             max-width: calc(33.333% - 20px); /* Three cards to fit in a row */
             margin-right: 20px;
             /*  margin-left:20px;
-             */ text-align: left;
+                     */ text-align: left;
             background: #fff;
             border: 1px solid #eee;
             border-radius: 2px;
@@ -186,7 +284,7 @@
                 height: auto;
                 max-height: 150px;
                 /*             border-radius: 5px;
-         */ object-fit: cover;
+                 */ object-fit: cover;
             }
 
             .course-card h3 {
@@ -243,45 +341,22 @@
                 margin-right: 0;
             }
         }
+        <!-- top courses style end-- >
     </style>
 </head>
-    <!-- Page Content -->
-    <!-- Banner Starts Here -->
-@if (TempData.ContainsKey("msg"))
-{
-    <div class="alert alert-danger alert-dismissible fade show " role="alert" style="padding: 1rem 1rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: .25rem;
-    position: absolute;
-    margin-top: 86px;
-    z-index: 99999;
-  width:100%;
-text-align:center;
-
-    
-    ">
-        @TempData["msg"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-        
-
-    </div>
-}
-    <div class="banner header-text">
-      <div class="owl-banner owl-carousel">
-       
+<!-- Page Content -->
+<!-- Banner Starts Here -->
+<div class="banner header-text">
+    <div class="owl-banner owl-carousel">
         <div class="banner-item-01">
-           
-          <div class="text-content">
-                
-            <h4>Best Courses</h4>
-            <h2>Don not waste your time, search and find The best courses</h2>
-          </div>
+            <div class="text-content">
+                <h4>Best Courses</h4>
+                <h2>Don not waste your time, search and find The best courses</h2>
+            </div>
         </div>
-      </div>
     </div>
-    <!-- Banner Ends Here -->
+</div>
+<!-- Banner Ends Here -->
 
 
 <div class="latest-products">
@@ -291,15 +366,14 @@ text-align:center;
             <div class="col-md-12">
                 <div class="section-heading">
                     <h2>Top Courses</h2>
-                    <a asp-controller="home" asp-action="course">view all courses <i class="fa fa-angle-right"></i></a>
+
                 </div>
             </div>
 
 
 
             <div class="course-carousel">
-                @*                     <h2>Top Rated Courses</h2>
-                *@                    <div class="carousel-container">
+                <div class="carousel-container">
                     <button class="arrow prev">&#10094;</button>
                     <div class="carousel">
                         @foreach (var course in Model.Course)
@@ -349,6 +423,84 @@ text-align:center;
                     <button class="arrow next">&#10095;</button>
                 </div>
             </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Top Courses Ends Here -->
+
+
+<div class="latest-products">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Latest Courses</h2>
+
+                </div>
+            </div>
+
+
+
+            <div class="course-carousel1">
+                <div class="carousel-container1">
+                    <button class="arrow1 prev1">&#10094;</button>
+                    <div class="carousel1">
+                        @foreach (var course in latestCourses)
+                        {
+                            <div class="course-card1">
+                                @if (@course.Picture is null)
+                                {
+                                    course.Picture = "noimage.png";
+
+                                }<a asp-action="details" asp-controller="course" asp-route-id="@course.CourseId"><img src="~/images/courses/@course.Picture" alt=""></a>
+                                <h3>@course.Title</h3>
+                                <p>@course.InstructorFullName</p>
+                                <p>
+                                    @course.AverageRating
+                                    @{
+                                        double fraction = @course.AverageRating.Value % 1;
+                                        for (int i = 1; i <= course.AverageRating; i++)
+                                        {
+
+                                            <i class="fa fa-star" style="color:red;"></i>
+                                        }
+                                        if (fraction > 0.0)
+                                        {
+                                            <i class="fa fa-star-half-empty" style="color:red;"></i>
+
+                                        }
+                                        for (int i = 5; i > (int)Math.Ceiling(course.AverageRating.Value) && i > 0; i--)
+                                        {
+                                            <i class="fa fa-star-o" style="color:red;"></i>
+                                        }
+
+                                    }
+                                    (@course.Reviews.Count().ToString())
+                                </p>
+                                <p></p>
+                                @if (course.PriceStatus is true)
+                                {
+                                    <span>Paid</span>
+                                }
+                                else
+                                {
+                                    <sapn>Free</sapn>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <button class="arrow1 next1">&#10095;</button>
+                </div>
+            </div>
+
+
+
+
         </div>
     </div>
 </div>
@@ -441,8 +593,6 @@ text-align:center;
 
 
 
-
-
 @section Scripts {
 
     <script>
@@ -489,6 +639,64 @@ text-align:center;
             });
 
             $(".arrow.prev").click(function () {
+                if (slideIndex > 0) {
+                    showSlides(slideIndex - 1);
+                }
+            });
+
+            // Initialize carousel
+            setCarouselDimensions();
+
+            // Reinitialize carousel on window resize
+            $(window).resize(setCarouselDimensions);
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            const slides = $(".carousel1 .course-card1");
+            let totalSlides = slides.length;
+            let slideIndex = 0;
+
+            function getVisibleSlides() {
+                const screenWidth = $(window).width();
+                if (screenWidth < 768) {
+                    return 1;  // Show 1 card on very small screens
+                } else if (screenWidth < 992) {
+                    return 2;  // Show 2 cards on medium screens
+                }
+                return 3;  // Default to showing 3 cards on large screens
+            }
+
+            function setCarouselDimensions() {
+                const visibleSlides = getVisibleSlides();
+                const containerWidth = $(".carousel-container1").width();
+                const marginPerSlide = 20;
+                const totalMargin = marginPerSlide * (visibleSlides - 1);
+                const slideWidth = (containerWidth - totalMargin) / visibleSlides;
+
+                slides.width(slideWidth - 32);  // Set each slide's width
+                $(".carousel1").width(slideWidth * totalSlides + totalMargin);  // Adjust total width of the carousel
+
+                showSlides(slideIndex);  // Update display to current slide index
+            }
+
+            function showSlides(newIndex) {
+                const slideWidth = slides.first().outerWidth(true);  // Get the actual width including margins
+                const shift = -(slideWidth * newIndex);
+                $(".carousel1").css("transform", `translateX(${shift}px)`);
+                slideIndex = newIndex;  // Update the global slideIndex
+            }
+
+            $(".arrow1.next1").click(function () {
+                const visibleSlides = getVisibleSlides();
+                if (slideIndex < totalSlides - visibleSlides) {
+                    showSlides(slideIndex + 1);
+                }
+            });
+
+            $(".arrow1.prev1").click(function () {
                 if (slideIndex > 0) {
                     showSlides(slideIndex - 1);
                 }
@@ -571,7 +779,6 @@ text-align:center;
 
         });
     </script>
-
 
 
 }

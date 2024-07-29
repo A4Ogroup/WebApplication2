@@ -35,6 +35,7 @@
             <div class="contact-form">
                 <form id="contact" method="post" asp-controller="report" asp-action="addreport" >
                     <input hidden  asp-for="@Model.ReviewId" />
+                    <input hidden  asp-for="@Model.StudentId" />
                     <div class="row">
                         <div class="col-lg-8">
                             <div class=" align-content-center" style="margin:15px;">

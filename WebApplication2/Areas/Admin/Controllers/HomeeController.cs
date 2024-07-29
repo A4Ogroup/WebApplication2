@@ -54,7 +54,8 @@ public async Task<ActionResult> Index()
     var report = await _reportRepository.GetAllAsync();
     var student = await _studentRepository.GetAllAsync();
     var instructor = await _instructorRepository.GetAllAsync();
-    
+    var courseClaims =  _context.CourseClaimReports.ToList().Where(cr => cr.Status == "Pending");
+
     // Get admin info
     await AdminInfo();
 
@@ -65,6 +66,7 @@ public async Task<ActionResult> Index()
         reports = report,
         students = student,
         instructors = instructor,
+        CourseClaimReports= courseClaims,
        
     };
 
@@ -223,5 +225,57 @@ public async Task<ActionResult> Index()
             TempData["Success"] = "Report status changed successfully!";
             return RedirectToAction("report", "homee"); // Assuming Index is your admin page
         }
+
+       public async Task<IActionResult> PendingClaims()
+       {
+            await AdminInfo();
+            var pendingClaims = await _context.CourseClaimReports               
+               .Include(cr => cr.Course)
+               .Include(cr => cr.Instructor)
+               .ThenInclude(i=>i.InstructorNavigation)
+               .ToListAsync();
+
+           return View(pendingClaims);
+       }
+
+       [HttpPost]
+       [ValidateAntiForgeryToken]
+       public  IActionResult ApproveClaim(int id)
+       {
+           var claim = _context.CourseClaimReports.Include(c=>c.Instructor).ThenInclude(s=>s.InstructorNavigation).FirstOrDefault(c=>c.Id==id);
+            var course =  _courseRepository.GetById(claim.CourseId);
+            if (claim != null && claim.Status == "Pending")
+           {
+
+                course.Claimed = true;
+                course.InstructorId = claim.InstructorId;
+                course.InstructorFullName= $"{claim.Instructor.InstructorNavigation.FirstName} {claim.Instructor.InstructorNavigation.LastName}";
+                claim.Status = "Approved";
+
+                _context.SaveChanges();
+                TempData["success"] = "Course claim changed successfully";
+                return RedirectToAction("PendingClaims");
+            }
+
+            return NotFound();
+
+            
+       }
+
+       //[HttpPost]
+       //[ValidateAntiForgeryToken]
+       //public async Task<IActionResult> RejectClaim(int id)
+       //{
+       //    var claim = await _context.CourseClaimReports.FindAsync(id);
+       //    if (claim == null || claim.Status != "Pending")
+       //    {
+       //        return NotFound();
+       //    }
+
+       //    claim.Status = "Pending";
+       //    await _context.SaveChangesAsync();
+
+       //    return RedirectToAction("PendingClaims");
+       //}
     }
 }

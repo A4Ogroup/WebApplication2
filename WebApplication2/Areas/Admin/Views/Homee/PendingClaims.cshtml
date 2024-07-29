@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CourseClaimReport>
+
+<div class="col-lg-9">
+    <div class="page-breadcrumb">
+        <div class="row align-items-center">
+            <div class="col-5">
+                <h4 class="page-title">Pending Course Claims</h4>
+
+            </div>
+            <div id="course-list">
+            <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Instructor</th>
+                <th>Reason</th>
+                <th>Submitted Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in Model)
+            {
+                <tr>
+                    <td>@claim.Course.Title</td>
+                    <td>@claim.Instructor.InstructorNavigation.UserName</td>
+                    <td>@claim.Reason</td>
+                    <td>@claim.SubmittedDate</td>
+                    <td>
+                   @if (claim.Status == "Approved")
+                   {
+                       <form method="post" asp-action="ApproveClaim">
+                           <input type="hidden" name="id" value="@claim.Id" />
+                           <button type="submit" class="btn btn-primary" disabled>Claimed</button>
+                        </form>
+                   }
+                  else
+                     {
+                         <form method="post" asp-action="ApproveClaim">
+                             <input type="hidden" name="id" value="@claim.Id" />
+                             <button type="submit" class="btn btn-light">Not Claimed</button>
+                         </form>
+                      }
+
+                      
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+</div>

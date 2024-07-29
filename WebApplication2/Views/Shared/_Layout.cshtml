@@ -163,14 +163,36 @@
 
                         @if (User.Identity.IsAuthenticated == true && User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Step1">
-                                    For Instructors
+                            <li >
+                                                   <a class="nav-link" asp-action="adminregister" asp-controller="account" asp-area="">
+                                Add Admin
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" asp-action="addrole" asp-controller="Role" asp-area="admin">
+                                Add Role
+                            </a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/images/product_05.jpg" alt="user" class="rounded-circle" width="3" style="width:50px;height:35px;">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-user m-r-5 m-l-5"></i>
+                                    My Profile
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-controller="Account" asp-action="login" class="nav-link">Login</a>
-                            </li>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i class="ti-wallet m-r-5 m-l-5"></i>
+                                    My Balance
+                                </a>
+                                <a class="dropdown-item" asp-action="logout" asp-controller="account" asp-area="">
+                                    <i class="ti-email m-r-5 m-l-5"></i>
+                                    Logout
+                                </a>
+                            </ul>
+                        </li>
                         }
 
                         else if(User.Identity.IsAuthenticated ==true && User.IsInRole("Instructor"))
@@ -198,11 +220,15 @@
                         else if (User.Identity.IsAuthenticated == true && User.IsInRole("Student"))
                         {
                             <li class="nav-item">
+                                <a class="nav-link" asp-controller="student" asp-action="contribute">Contribute</a>
+                            </li>
+                            <li class="nav-item">
                                 <a asp-controller="account" asp-action="Logout" class="nav-link">Signout</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="student" asp-action="Profile">Profile</a>
                             </li>
+                           
                         }
              @*            else if (User.Identity.IsAuthenticated == true && User.IsInRole("Admin"))
                         {

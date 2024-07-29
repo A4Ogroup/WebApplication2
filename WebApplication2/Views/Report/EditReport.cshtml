@@ -52,10 +52,13 @@
             <div class="contact-form">
                 <form id="contact" method="post" asp-controller="report" asp-action="editreport" asp-route-Id="@Model.ReportId">
                     <input hidden asp-for="ReportId" />
+                    <input hidden asp-for="StudentId" />
+
                     <div class="row">
                         <div class="col-lg-8">
                             <div class=" align-content-center" style="margin:15px;">
                                 <textarea class="form-control" placeholder="Your Report" asp-for="@Model.Message"></textarea>
+                                <span asp-validation-for="Message" class="text-danger"></span>
                             </div>
                         </div>
                     </div>

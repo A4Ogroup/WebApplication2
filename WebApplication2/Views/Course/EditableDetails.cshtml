@@ -253,6 +253,35 @@
                 {
                     <a asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.Course.CourseId"><button class="btn btn-lg">Review Now</button></a>
                 }
+                <form asp-action="ToggleStatus" method="post">
+
+                    @if (@Model.Course.Status)
+                    {
+                        <a class=" dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+                            Accepted
+                        </a>
+                        <ul class="dropdown-menu" style="width:50px;" aria-labelledby="navbarDropdown">
+
+
+                            <a class="dropdown-item" asp-area="admin" asp-action="ToggleStatus" asp-controller="Homee" asp-route-id="@Model.Course.CourseId">Pending</a>
+
+                        </ul>
+                    }
+                    else
+                    {
+                        <a class=" dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+                            Pending
+                        </a>
+                        <ul class="dropdown-menu" style="width:50px;" aria-labelledby="navbarDropdown">
+
+                            <a class="dropdown-item" asp-area="admin" asp-action="ToggleStatus" asp-controller="Homee" asp-route-id="@Model.Course.CourseId">Accepted</a>
+
+
+                        </ul>
+
+                    }
+
+                </form>
             </div>
 
         </div>
