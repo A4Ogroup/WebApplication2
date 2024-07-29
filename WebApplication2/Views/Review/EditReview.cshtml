@@ -118,6 +118,8 @@
             <div class="contact-form">
                 <form id="contact" method="post" asp-controller="review" asp-action="editreview" asp-route-id="@Model.ReviewId">
                     <input hidden asp-for="ReviewId">
+                    <input hidden asp-for="StudentId">
+
                     <div class="row">
                         <div class="col-lg-8">
                             <div class=" align-content-center" style="margin:15px;">
@@ -137,6 +139,7 @@
                             </div>
                             <fieldset>
                                 <textarea asp-for="@Model.Descritipn" rows="6" class="form-control" placeholder="Your Review" required></textarea>
+                                <span asp-validation-for="Descritipn" class="text-danger"></span>
                             </fieldset>
 
                         </div>

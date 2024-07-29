@@ -8,5 +8,6 @@ namespace WebApplication2.ViewModels
         public string Message { get; set; }
         public DateTime ReportDate { get; set; } = DateTime.Now;
         public int ReviewId { get; set; }
+        public string StudentId { get; set; }
     }
 }

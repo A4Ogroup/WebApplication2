@@ -31,19 +31,23 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public IActionResult AddReport(int id) {
 
-            var studentId = _userManager.GetUserId(User);
+            var _studentId = _userManager.GetUserId(User);
             var existingReport = _reportRepository.GetAll()
-            .FirstOrDefault(r => r.ReviewId == id && r.StudentId == studentId);
+            .FirstOrDefault(r => r.ReviewId == id && r.StudentId == _studentId);
             if (existingReport != null)
             {
                 TempData["Failed"] = "You have already added a report for this review!!";
 
-                return RedirectToAction("Index", "Student", new { id = id });
+                return RedirectToAction("Index", "Student");
             }
 
-            var model = new AddReportViewModel { ReviewId = id };
+            var model = new AddReportViewModel
+            { ReviewId = id ,
+                StudentId=_studentId
+            };
             return View(model);
         }
+
         [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult AddReport(AddReportViewModel report)
@@ -61,16 +65,20 @@ namespace WebApplication2.Controllers
 
                     Message = report.Message,
                     ReviewId = report.ReviewId,
+                    StudentId = report.StudentId,
                 };
                 _reportRepository.Add(_report1);
                 _reportRepository.Save();
                 TempData["Success"] = "Report added successfully!";
+                return RedirectToAction("index", "student");
             }
-            return RedirectToAction("index","student");
+            TempData["Faild"] = "Report addition Faild!";
+            return View();
         }
         [HttpGet]
         public IActionResult EditReport(int id)
         {
+            var _studentId = _userManager.GetUserId(User);
             var report = _reportRepository.GetById(id);
             if (report != null)
             {
@@ -80,6 +88,7 @@ namespace WebApplication2.Controllers
                     Message = report.Message,
                     ReportDate = report.ReportDate,
                     ReviewId = report.ReviewId,
+                    StudentId= _studentId,
                 };
                 return View(model);
             }
@@ -90,7 +99,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public IActionResult EditReport(EditReportViewModel model,int Id)
+        public IActionResult EditReport(EditReportViewModel model)
         {
             Report report = _reportRepository.GetById(model.ReportId);
 
