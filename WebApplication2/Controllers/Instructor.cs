@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using WebApplication2.Helpers;
 using WebApplication2.Models;
 using WebApplication2.Models.Repository;
 using WebApplication2.ViewModels;
@@ -60,9 +61,13 @@ namespace WebApplication2.Controllers
             return Content(provider);
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? message)
         {
-
+            if (!string.IsNullOrEmpty(message))
+            {
+                TempData["msg"] = message;
+            }
+            
             var _topCourses = _courseRepository.GetTopCourses();
             var _topReviews = _reviewRepository.GetTopReviews();
 

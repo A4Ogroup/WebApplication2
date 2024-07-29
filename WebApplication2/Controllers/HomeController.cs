@@ -112,7 +112,7 @@ namespace WebApplication2.Controllers
         {
             if (code == 404)
             {
-                return View("NotFound");
+               return View("NotFound");
             }
 
             return View("Error");

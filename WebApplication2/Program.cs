@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebApplication2.Models;
@@ -13,6 +14,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<LconsultDBContext>(
 
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("LconsultDBConnection")));
+builder.Services.AddSingleton<ITempDataDictionaryFactory, TempDataDictionaryFactory>();
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
@@ -43,7 +45,8 @@ if (!app.Environment.IsDevelopment())
 
     app.UseHsts();
 }
-app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
+
+//app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

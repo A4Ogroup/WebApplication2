@@ -179,7 +179,7 @@ public async Task<ActionResult> Index()
             TempData["Success"] = "Course status changed successfully!";
             return RedirectToAction("course", "homee"); // Assuming Index is your admin page
         }
-
+        
         public IActionResult ReviewToggleStatus(int id)
         {
             var review = _reviewRepository.GetById(id);
@@ -193,6 +193,20 @@ public async Task<ActionResult> Index()
             _reviewRepository.Save();
             TempData["Success"] = "Review status changed successfully!";
             return RedirectToAction("review", "homee"); // Assuming Index is your admin page
+        }
+        public IActionResult ToggleInstructorStatus(string id)
+        {
+            var instructor = _instructorRepository.GetById(id);
+            if (instructor == null)
+            {
+                return NotFound();
+            }
+
+            instructor.InstructorNavigation.Status = !instructor.InstructorNavigation.Status; // Toggle the boolean status
+            _instructorRepository.Update(instructor);
+            _instructorRepository.Save();
+            TempData["Success"] = "Instructor status changed successfully!";
+            return RedirectToAction("Instructor", "homee"); // Assuming Index is your admin page
         }
 
         public IActionResult ReportToggleStatus(int id)
