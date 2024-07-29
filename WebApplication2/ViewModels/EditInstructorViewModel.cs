@@ -39,7 +39,7 @@ namespace WebApplication2.ViewModels
         public byte? YearsExperince { get; set; }
         public string? About { get; set; }
         public string Website { get; set; }
-        public List<string>? SocialMediaAccounts { get; set; } = new List<string>();
+        public List<string>? SocialMediaAccounts { get; set; }
         public string? ExistingPhotoPath { get; set; }
 
 

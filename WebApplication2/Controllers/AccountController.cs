@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -396,7 +397,12 @@ namespace WebApplication2.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
+        [HttpGet]
+        [AllowAnonymous]
+        public  IActionResult AccessDenied()
+        {
+            return  View();
+        }
 
 
 
