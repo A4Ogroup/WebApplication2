@@ -346,6 +346,27 @@
 </head>
 <!-- Page Content -->
 <!-- Banner Starts Here -->
+@if (TempData.ContainsKey("msg"))
+{
+    <div class="alert alert-danger alert-dismissible fade show " role="alert" style="padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    position: absolute;
+    margin-top: 86px;
+    z-index: 99999;
+  width:100%;
+text-align:center;
+
+
+        ">
+        @TempData["msg"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+
+
+    </div>
+}
 <div class="banner header-text">
     <div class="owl-banner owl-carousel">
         <div class="banner-item-01">
