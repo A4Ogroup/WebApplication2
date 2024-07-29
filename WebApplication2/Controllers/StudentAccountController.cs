@@ -145,7 +145,6 @@ namespace WebApplication2.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 TempData["UserInfo"] = JsonConvert.SerializeObject(model);
                 TempData.Keep("UserInfo");
                 return RedirectToAction("Step3", new {CategoryId=model.CategoryId});
@@ -156,6 +155,16 @@ namespace WebApplication2.Controllers
         public IActionResult Step3(int CategoryId)
         {
             var model = new UserInterestsViewModel();
+
+            var subcategories = _categoryRepository.GetSubCategories(CategoryId).ToList();
+            if (subcategories == null || subcategories.Count == 0)
+            {
+                ModelState.AddModelError("CategoryId", "No subcategories found for the selected category.");
+                // Optionally, you can redirect back to Step2 or show a message
+                TempData["Error"] = "No subcategories found for the selected category.";
+                return RedirectToAction("Step2");
+            }
+
             ViewBag.selectedSubs=_categoryRepository.GetSubCategories(CategoryId)/*.Select(S=> new {S.SubId,S.SubName})*/.ToList();
 
             if (!TempData.ContainsKey("UserCredentials"))
@@ -218,60 +227,79 @@ namespace WebApplication2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> Register(StudentRegisterViewModel _studentModel)
+        public async Task<IActionResult> Register(StudentRegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-
-                User userModel = new User();
-                userModel.UserName = _studentModel.UserName;
-                userModel.FirstName = _studentModel.FirstName;
-                userModel.LastName = _studentModel.LastName;
-                userModel.Email = _studentModel.Email;
-                userModel.PasswordHash = _studentModel.Password;
-                userModel.Gender = _studentModel.Gender;
-                IdentityResult result = await _userManager.CreateAsync(userModel, _studentModel.Password);
-
-                if (result.Succeeded == true)
+                using (var transaction = await _context.Database.BeginTransactionAsync())
                 {
-                    await _userManager.AddToRoleAsync(userModel, "Student");
-
-                    await _signInManager.SignInAsync(userModel, isPersistent: false);
-                    TempData["Success"] = "Account created successfully!";
-                    var student = new Models.Student()
+                    try
                     {
-                        StudentId = userModel.Id,
-                        StudentNavigation = userModel,
-                        UserInterests = _studentModel.SelectedTagIds.Select(SubId => new UserInterests { SubId = SubId }).ToList()
+                        User userModel = new User
+                        {
+                            UserName = model.UserName,
+                            FirstName = model.FirstName,
+                            LastName = model.LastName,
+                            Email = model.Email,
+                            Gender = model.Gender
+                        };
 
-                    };
+                        IdentityResult result = await _userManager.CreateAsync(userModel, model.Password);
 
-                    _studentRepository.Add(student);
-                    _studentRepository.Save();
-                    //_context.Students.Add(student);
-                    //_context.SaveChangesAsync();
+                        if (result.Succeeded)
+                        {
+                            await _userManager.AddToRoleAsync(userModel, "Student");
 
+                            var student = new Student
+                            {
+                                StudentId = userModel.Id,
+                                StudentNavigation = userModel,
+                                UserInterests = model.SelectedTagIds.Select(subId => new UserInterests { SubId = subId }).ToList()
+                            };
 
-                    return RedirectToAction("login", "account");
-                }
-                else
-                {
-                    List<KeyValuePair<string, string>> erorrs = new List<KeyValuePair<string, string>>();
-                    foreach (var item in result.Errors)
-                    {
-                        ModelState.AddModelError("", item.Description);
-                        erorrs.Add(new KeyValuePair<string, string>("", item.Description));
+                            _studentRepository.Add(student);
+
+                            if (await _studentRepository.SaveAsync())
+                            {
+                                await _signInManager.SignInAsync(userModel, isPersistent: false);
+
+                                await transaction.CommitAsync();
+                                TempData["Success"] = "Account created successfully!";
+                                TempData.Remove("StudentRegisterViewModel");
+                                return RedirectToAction("Login", "Account");
+                            }
+                            else
+                            {
+                                // If student save fails, rollback and remove the user
+                                await _userManager.DeleteAsync(userModel);
+                                await transaction.RollbackAsync();
+
+                                TempData["Errors"] = JsonConvert.SerializeObject(new List<KeyValuePair<string, string>>
+                        {
+                            new KeyValuePair<string, string>("", "Failed to save student data.")
+                        });
+                            }
+                        }
+                        else
+                        {
+                            await transaction.RollbackAsync();
+
+                            List<KeyValuePair<string, string>> errors = result.Errors.Select(e => new KeyValuePair<string, string>("", e.Description)).ToList();
+                            TempData["Errors"] = JsonConvert.SerializeObject(errors);
+                        }
                     }
-                    //List<KeyValuePair<string, string>> erorrs = ModelState
-                    //             .Where(x => x.Value.Errors.Count > 0)
-                    //             .Select(x => new KeyValuePair<string, string>(x.Key, x.Value.Errors.First().ErrorMessage))
-                    //             .ToList();
-                    TempData["Errors"] = JsonConvert.SerializeObject(erorrs);
+                    catch (Exception)
+                    {
+                        await transaction.RollbackAsync();
+                        throw;
+                    }
                 }
-
             }
+
             return RedirectToAction("Step1");
         }
+
+
+
     }
 }

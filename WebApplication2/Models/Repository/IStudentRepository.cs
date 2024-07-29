@@ -15,6 +15,7 @@ namespace WebApplication2.Models.Repository
         Student Update(Student student);
         void Delete(string id);
         bool Save();
+        Task< bool> SaveAsync();
 
 
     }

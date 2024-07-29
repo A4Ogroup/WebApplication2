@@ -56,8 +56,11 @@ namespace WebApplication2.Controllers
         [HttpGet]
         public async Task< IActionResult> AddCourse()
         {
-            ViewBag.Categories = _context.Categories;
-            ViewBag.Languages = _context.Languages;
+            //ViewBag.Categories = _context.Categories;
+            //ViewBag.Languages = _context.Languages;
+
+            var category = _context.Categories;
+            var language = _context.Languages;
             var user = await _userManager.GetUserAsync(User);
             if (user != null && await _userManager.IsInRoleAsync(user, "Instructor"))
             {
@@ -65,9 +68,14 @@ namespace WebApplication2.Controllers
                 ViewBag.InstructorName = instructorName;
             }
 
+            var model = new AddCourseViewModel
+            {
+                Categories = category,
+                Languages = language,
+            };
             
 
-            return View();
+            return View(model);
         }
 
 

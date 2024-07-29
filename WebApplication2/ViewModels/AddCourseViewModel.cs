@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using WebApplication2.Helpers.Enums;
+using WebApplication2.Models;
 
 namespace WebApplication2.ViewModels
 {
@@ -53,5 +54,8 @@ namespace WebApplication2.ViewModels
         [RegularExpression(@"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$", ErrorMessage = "Please enter a valid URL.")]
         [Required(ErrorMessage = "Link field is required")]
         public string Link { get; set; }
+
+        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Language> Languages { get; set; }
     }
 }

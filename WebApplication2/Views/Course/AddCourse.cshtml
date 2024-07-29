@@ -11,8 +11,8 @@
     Layout = "_Layout";
 }
 @{
-    var CategoriesList = new SelectList(ViewBag.Categories, "CategoryId", "CategoryName");
-    var LanguageList = new SelectList(ViewBag.Languages, "LanguageId", "Name");
+    var CategoriesList = new SelectList(Model.Categories, "CategoryId", "CategoryName");
+    var LanguageList = new SelectList(Model.Languages, "LanguageId", "Name");
 }
 
 

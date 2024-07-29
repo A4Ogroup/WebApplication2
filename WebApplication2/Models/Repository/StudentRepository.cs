@@ -53,6 +53,7 @@ namespace WebApplication2.Models.Repository
         {
             return (_context.SaveChanges() >= 0);
         }
+   
 
         public Student Update(Student student)
         {
@@ -64,6 +65,11 @@ namespace WebApplication2.Models.Repository
         async Task<IEnumerable<Student>> IStudentRepository.GetAllAsync()
         {
             return await _context.Students.Include(i => i.StudentNavigation).ToListAsync();
+        }
+
+        async  Task<bool> IStudentRepository.SaveAsync()
+        {
+            return await _context.SaveChangesAsync() >= 0;
         }
     }
 }
