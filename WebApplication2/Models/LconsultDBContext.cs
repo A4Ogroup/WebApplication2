@@ -29,6 +29,7 @@ namespace WebApplication2.Models
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<CourseClaimReport> CourseClaimReports { get; set; }
 
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //        {

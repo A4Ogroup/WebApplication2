@@ -45,7 +45,7 @@ namespace WebApplication2.Models.Repository
 
         public IEnumerable<Course> GetAllWithLanguage()
         {
-            return _context.Courses.Where(c=>c.Status==true).Include(c => c.Language);
+            return _context.Courses.Include(c => c.Language);
         }
         public Course Add(Course course)
         {

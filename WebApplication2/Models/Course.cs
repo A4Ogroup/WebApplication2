@@ -54,6 +54,7 @@ namespace WebApplication2.Models
         public virtual Instructor Instructor { get; set; }
         public virtual Language Language { get; set; }
         public virtual SubCategory Subcategory { get; set; }
+        public virtual ICollection<CourseClaimReport> CourseClaimReports { get; set; }
         public virtual ICollection<Review> Reviews { get; set; } 
     }
 }

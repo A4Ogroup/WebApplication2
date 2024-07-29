@@ -167,6 +167,23 @@
                                          <a href="@Url.Action("report", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon icon-shape bg-secondary text-white rounded-circle">
+                                                <i class="fa fa-file"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                               <h5>PendingClaims</h5>
+                                                <h2>@Model.CourseClaimReports.Count()</h2>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                      <a href="@Url.Action("PendingClaims", "homee")" class="btn btn-light btn-sm mt-3">See More</a>
+                                </div>
+                            </div>
 
 
                         </div>

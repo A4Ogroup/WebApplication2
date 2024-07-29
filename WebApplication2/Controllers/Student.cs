@@ -122,6 +122,10 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
+        public IActionResult Contribute()
+        {
+            return View();
+        }
 
         private string ProcessUploadFile<T>(T model, Func<T, IFormFile> pictureAccessor)
         {

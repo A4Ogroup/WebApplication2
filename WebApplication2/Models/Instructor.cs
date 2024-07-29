@@ -21,6 +21,7 @@ namespace WebApplication2.Models
 
         public virtual User InstructorNavigation { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<CourseClaimReport> CourseClaimReports { get; set; }
         public virtual ICollection<SocialMediaAccount> SocialMediaAccounts { get; set; }
     }
 }

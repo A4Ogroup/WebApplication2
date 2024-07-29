@@ -309,7 +309,25 @@
                                   <span class="tr-clickable" onclick="location.href='@Url.Action("viewprofile", "instructor", new { instructorId = Model.Course.InstructorId })'"> - instructor: @Model.Course.InstructorFullName</span>
                      
                     }
-                    <span class="badge text-bg-primary" style="background-color:blue">claimed</span>
+                    <span class="badge text-bg-primary" style="background-color:blue">@(Model.Course.Claimed ? "Claimed" : "Not Claimed")</span>
+
+
+                    @if (User.IsInRole("Instructor") && !Model.Course.Claimed)
+                    {
+                        <a href="#" id="show-claim-form" class="btn btn-link">Claim this course</a>
+
+                        <div id="claim-form" style="display: none;">
+                            <form asp-action="SubmitClaim" method="post">
+                                <div class="form-group">
+                                    <label for="Reason">Reason for Claim</label>
+                                    <textarea id="Reason" name="Reason" class="form-control" style="max-width:50%; margin-left:300px;" required></textarea>
+                                </div>
+                                <input type="hidden" name="CourseId" value="@Model.Course.CourseId" />
+                                <button type="submit" class="btn btn-primary">Submit Claim</button>
+                            </form>
+                        </div>
+                    }
+
                 </p>
                 @if(!User.IsInRole("Instructor")){
                     <a asp-controller="Review" asp-action="AddReview" asp-route-Id="@Model.Course.CourseId" ><button class="btn btn-lg">Review Now</button></a>
@@ -489,6 +507,12 @@
 </div>
 
 @section Scripts{
+    <script>
+        document.getElementById('show-claim-form').addEventListener('click', function (event) {
+            event.preventDefault();
+            document.getElementById('claim-form').style.display = 'block';
+        });
+    </script>
     <script>
         $(document).ready(function () {
             let originalReviewList = $("#reviews-section").html();

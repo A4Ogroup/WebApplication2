@@ -65,9 +65,9 @@ namespace WebApplication2.Controllers
                 ViewBag.InstructorName = instructorName;
             }
 
-            var model = new AddCourseViewModel();
+            
 
-            return View(model);
+            return View();
         }
 
 
@@ -447,5 +447,36 @@ namespace WebApplication2.Controllers
             //    return View();
             //}
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Instructor")]
+        public async Task<IActionResult> SubmitClaim(CourseClaimReportViewModel model)
+        {
+            var course = _courseRepository.GetById(model.CourseId);
+            if (course == null || course.Claimed)
+            {
+                return NotFound();
+            }
+
+            var instructor = await _userManager.GetUserAsync(User);
+            if (instructor == null)
+            {
+                return Unauthorized();
+            }
+
+            var claimReport = new CourseClaimReport
+            {
+                CourseId = model.CourseId,
+                InstructorId = instructor.Id,
+                Reason = model.Reason,
+                SubmittedDate = DateTime.UtcNow
+            };
+
+            _context.CourseClaimReports.Add(claimReport);
+            _context.SaveChanges();
+            TempData["Success"] = "Course claim sent successfully!";
+            return RedirectToAction("Details", new { id = model.CourseId });
+        }
+
     }
 }

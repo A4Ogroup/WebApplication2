@@ -11,5 +11,6 @@ namespace WebApplication2.ViewModels
         public IEnumerable<Student> students { get; set; }
 
         public IEnumerable<Course> latestCourses { get; set; }
+        public IEnumerable<CourseClaimReport> CourseClaimReports { get; set; }
     }
 }
