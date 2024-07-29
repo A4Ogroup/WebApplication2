@@ -6,9 +6,12 @@
     var latestCourses = _context.Courses.OrderByDescending(c => c.AddingDate).Where(c => c.Status == true)
     .Take(10).ToList();
 }
+@if (TempData.ContainsKey("Success"))
+{
+    <partial name="_NotificationPartial"></partial>
+    TempData.Remove("Success");
+}
 
-
-<partial name="_NotificationPartial"></partial>
 @{
     Layout = "_Layout";
 }
