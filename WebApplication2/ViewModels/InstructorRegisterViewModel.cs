@@ -30,7 +30,7 @@ namespace WebApplication2.ViewModels
 
 
         #region InstructorInfo
-
+        public bool Status { get; set; }=false;
 
         [Required]
         public string FirstName { get; set; }

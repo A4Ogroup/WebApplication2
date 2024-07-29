@@ -54,6 +54,7 @@ namespace WebApplication2.Controllers
             return Json(subcategories);
         }
         [HttpGet]
+        [InstructorVerified]
         public async Task< IActionResult> AddCourse()
         {
             //ViewBag.Categories = _context.Categories;

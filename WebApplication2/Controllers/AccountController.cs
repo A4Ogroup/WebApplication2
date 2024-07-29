@@ -50,6 +50,12 @@ namespace WebApplication2.Controllers
                     if ( await _userManager.IsInRoleAsync(userModel,"Instructor"))
                     {
                         await _signInManager.SignInAsync(userModel, login.RememberMe);
+                       
+                        if (!_instructorRepository.IsInstructorVerified(userModel.Id)) 
+                        {
+                            TempData["msg"] = "Your informatoin is currently being verified and will take 1 to 3 business days. During this time, you cannot add or claim courses until the verification is complete. Thank you for your patience.";
+
+                        }
                         return RedirectToAction("Index", "instructor");
                     }
                     else if ( await _userManager.IsInRoleAsync(userModel,"Student"))
@@ -241,6 +247,7 @@ namespace WebApplication2.Controllers
                 userModel.PasswordHash = _instructorModel.Password;
                 userModel.PhoneNumber = _instructorModel.PhoneNumber;
                 userModel.Gender= _instructorModel.Gender;
+                userModel.Status = _instructorModel.Status;
                 IdentityResult result = await _userManager.CreateAsync(userModel, _instructorModel.Password);
 
                 if (result.Succeeded == true)
@@ -253,11 +260,13 @@ namespace WebApplication2.Controllers
                     {
                         InstructorId = userModel.Id,
                         Profession = _instructorModel.Profession,
+                       
                         YearsExperince = _instructorModel.YearsExperince,
                         About = _instructorModel.About,
                         Website = _instructorModel.Website,
                         InstructorNavigation = userModel,
                         SocialMediaAccounts = _instructorModel?.SocialMediaAccounts
+                        
                     ?.Where(account => !string.IsNullOrWhiteSpace(account))
                     .Select(account => new SocialMediaAccount
                     {

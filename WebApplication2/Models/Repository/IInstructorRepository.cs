@@ -10,6 +10,7 @@ namespace WebApplication2.Models.Repository
 
         IEnumerable<Instructor> GetAllWithCourses();
         Instructor GetById(string id);
+        public bool IsInstructorVerified(string instructorId);
         Instructor Add(Instructor instructor);
         Instructor Update(Instructor instructor);
         void Delete(string id);

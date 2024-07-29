@@ -1,5 +1,6 @@
 ﻿@model InstructorDetailsViewModel
-
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<User> signInManager;
 
 @{
     Layout = "_Layout";
@@ -57,6 +58,41 @@
                 <span class="text-black"><i class="fa fa-book"></i></span> @Model.About
                 <br />
                 <span class="text-black"><i class="fa fa-male icon"></i></span> @Model.Gender
+                @if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                {
+
+
+                    <form asp-action="ToggleInstructorStatus" method="post" asp-area="Admin" asp-controller="Homee">
+
+                        @if (@Model.Status)
+                        {
+                            <a class=" dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black">
+                                Accepted
+                            </a>
+                            <ul class="dropdown-menu" style="width:50px;" aria-labelledby="navbarDropdown">
+
+
+                                <a class="dropdown-item" asp-area="admin" asp-action="ToggleInstructorStatus" asp-controller="Homee" asp-route-id="@Model.InstructorId">Pending</a>
+
+                            </ul>
+                        }
+                        else
+                        {
+                            <a class=" dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:black">
+                                Pending
+                            </a>
+                            <ul class="dropdown-menu" style="width:50px;" aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" asp-area="admin" asp-action="ToggleInstructorStatus" asp-controller="Homee" asp-route-id="@Model.InstructorId">Accepted</a>
+
+
+                            </ul>
+
+                        }
+
+                    </form>
+                }
+
 
             </p>
 

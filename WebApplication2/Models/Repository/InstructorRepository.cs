@@ -63,5 +63,12 @@ namespace WebApplication2.Models.Repository
         {
             return await _context.Instructors.Include(i => i.InstructorNavigation).ToListAsync();
         }
+
+        public bool IsInstructorVerified(string instructorId)
+        {
+            
+
+            return _context.Instructors.Include(i => i.InstructorNavigation).FirstOrDefault(i=>i.InstructorId==instructorId).InstructorNavigation.Status;
+        }
     }
 }
