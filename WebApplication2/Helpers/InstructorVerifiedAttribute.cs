@@ -38,7 +38,7 @@ namespace WebApplication2.Helpers
                 var userIdClaim = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
                 var roleClaim = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
 
-                if (userIdClaim == null || roleClaim == null || roleClaim.Value != "Instructor" || !_instructorRepository.IsInstructorVerified(userIdClaim.Value))
+                if (userIdClaim != null && roleClaim != null && roleClaim.Value == "Instructor" && !_instructorRepository.IsInstructorVerified(userIdClaim.Value))
                 {
                     var tempData = _tempDataDictionaryFactory.GetTempData(context.HttpContext);
 

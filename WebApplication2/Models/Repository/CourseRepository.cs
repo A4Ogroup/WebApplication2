@@ -67,7 +67,7 @@ namespace WebApplication2.Models.Repository
             }
 
             var course = _context.Courses.FirstOrDefault(C => C.CourseId == id);
-            _context.SaveChanges();
+            
             _context.Courses.Remove(course);
         }
 

@@ -437,8 +437,8 @@ namespace WebApplication2.Controllers
         }
 
         // POST: CourseController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
+       //[HttpPost]
+       // [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
 
@@ -446,7 +446,11 @@ namespace WebApplication2.Controllers
             _courseRepository.Save();
             TempData["Success"] = "Course deleted successfully!";
 
+            if(User.IsInRole("Admin"))
             return RedirectToAction("index", "admin");
+
+
+            return RedirectToAction("index","Instructor");
             //try
             //{
 
