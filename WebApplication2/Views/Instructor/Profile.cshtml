@@ -47,13 +47,12 @@
 
 
             <p>
-                <span class="text-danger">&#9733; 4.5</span> Instructor Rating
+            @*     <span class="text-danger">&#9733; 4.5</span> @Model.
+                <br /> *@
+                <span class="text-black"><i class="fa fa-calendar icon"></i></span> @Model.YearsExperince Years Of Experince
                 <br />
-                <span class="text-black"><i class="fa fa-calendar icon"></i></span> @Model.YearsExperince
-                <br />
-                <span class="text-black"><i class="fa fa-comment"></i></span> 28,707 Reviews
-                <br />
-                <span class="text-black"><i class="fa fa-book"></i></span> 8 Courses
+                <span class="text-black"><i class="fa fa-book"></i></span> @Model.Courses.Count() courses
+              
                 <br />
                 <span class="text-black"><i class="fa fa-book"></i></span> @Model.About
                 <br />

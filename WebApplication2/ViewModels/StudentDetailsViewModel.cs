@@ -16,6 +16,7 @@ namespace WebApplication2.ViewModels
         public DateTime RegisterDate { get; set; } = DateTime.Now;
         public Gender Gender { get; set; }
         public List<int>? SelectedTagIds { get; set; }
+        public byte ContributionNum { get; set; }
         public PaginatedListNew<Review> Reviews { get; set; }
 
 

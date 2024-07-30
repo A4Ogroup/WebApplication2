@@ -26,6 +26,8 @@ namespace WebApplication2.ViewModels
         }
 
         public PaginatedListNew<Course> Course { get; set; }
+        public IEnumerable<Course> Courses { get; set; }
+
   
         
     }
