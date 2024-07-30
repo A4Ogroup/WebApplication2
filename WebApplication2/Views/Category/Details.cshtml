@@ -115,78 +115,80 @@
 <!-- BEGIN SEARCH RESULTf -->
 <div class="col-md-12 my-3 container-fluid" >
 
-    
+    @{
+       if (Model.Any())
+        {
             <div class="row">
                 <div class="col-md-3">
                     <div class="container">
-                <h3 class="grid-title"><i class="fa fa-filter"></i>Filter @ViewBag.categoryName by </h3>
+                        <h3 class="grid-title"><i class="fa fa-filter"></i>Filter @ViewBag.categoryName by </h3>
                         <hr>
-                @* <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group"> *@
+                        @* <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group"> *@
 
 
-                @{
-                    int n = 0;
-                }
-                @foreach (var subCategory in ViewBag.subCategories)
-                {
-                    n++;
-
-                        
-                    <a  asp-action="FilterBySubCategory" asp-route-categoryId="@(subCategory.CategoryId)" asp-route-subCategoryId="@(subCategory.SubId)">
-                        <button class="btn" id="danger-outlined-@n" style="text-align:start;word-break:keep-all;background-color:rgba(244, 239, 239, 1);margin-bottom:10px;border-left:solid black 5px;"><h5>@subCategory.SubName</h5></button>
-                        
-                               
-                    </a>
-                    
-                    @* 
-                            <div class="container-fluid"> 
-                                <div class="">
-                            <a class="newlink" asp-action="FilterBySubCategory" asp-route-categoryId="@(subCategory.CategoryId)" asp-route-subCategoryId="@(subCategory.SubId)"><input type="radio" name="subCategoryId">@subCategory.SubName</a>
-                        </div>
-                            </div> *@
+                        @{
+                            int n = 0;
                         }
-                @* </div> *@
+                        @foreach (var subCategory in ViewBag.subCategories)
+                        {
+                            n++;
+
+
+                            <a asp-action="FilterBySubCategory" asp-route-categoryId="@(subCategory.CategoryId)" asp-route-subCategoryId="@(subCategory.SubId)">
+                                <button class="btn" id="danger-outlined-@n" style="text-align:start;word-break:keep-all;background-color:rgba(244, 239, 239, 1);margin-bottom:10px;border-left:solid black 5px;"><h5>@subCategory.SubName</h5></button>
+
+
+                            </a>
+
+                            @*
+                <div class="container-fluid">
+                <div class="">
+                <a class="newlink" asp-action="FilterBySubCategory" asp-route-categoryId="@(subCategory.CategoryId)" asp-route-subCategoryId="@(subCategory.SubId)"><input type="radio" name="subCategoryId">@subCategory.SubName</a>
+                </div>
+                </div> *@
+                        }
+                        @* </div> *@
 
                     </div>
                 </div>
                 <div class="col-lg-9">
-@*                     <div class="row mb-4">
-                        <div class="col-md-6">
-                            <button class="btn btn-light">
-                                Filter <span id="filter-count">0</span>
-                            </button>
-                        </div>
-                        <div class="col-lg-12 text-right align-content-end" style="margin-right:0px">
-                            <select class="custom-select" ;">
-                                <option value="most-relevant">
-                                    Sort by Most Relevant
-                                </option>
-                            </select>
-                            <a href="#"
-                               class="btn btn-link text-purple d-none"
-                               id="clear-filters">Clear filters</a>
-                        </div>
-                    </div> *@
-            <h2 id="results-count">@ViewBag.CategoryRecordCount results</h2>
+                    @*                     <div class="row mb-4">
+            <div class="col-md-6">
+            <button class="btn btn-light">
+            Filter <span id="filter-count">0</span>
+            </button>
+            </div>
+            <div class="col-lg-12 text-right align-content-end" style="margin-right:0px">
+            <select class="custom-select" ;">
+            <option value="most-relevant">
+            Sort by Most Relevant
+            </option>
+            </select>
+            <a href="#"
+            class="btn btn-link text-purple d-none"
+            id="clear-filters">Clear filters</a>
+            </div>
+            </div> *@
+                    <h2 id="results-count">@ViewBag.CategoryRecordCount results</h2>
                     <div id="course-list">
 
 
                         @foreach (var items in Model)
                         {
-                    
-                    <div class="result-item">
-                        @if (items.Picture is null)
-                        {
-                            <img src="~/images/courses/noimage.png" alt="">
 
-                        }
-                        <img src="~/images/courses/@items.Picture" alt="">
-                        <div class="content">
-                            <a asp-action="details" asp-controller="course" asp-route-id="@items.CourseId"><h3>@items.Title</h3></a>
+                            <div class="result-item">
+                                @if (items.Picture is null)
+                                {
+                                    <img src="~/images/courses/noimage.png" alt="">
+
+                                }
+                                <img src="~/images/courses/@items.Picture" alt="">
+                                <div class="content">
+                                    <a asp-action="details" asp-controller="course" asp-route-id="@items.CourseId"><h3>@items.Title</h3></a>
                                     <p class="meta">
                                         @*  ASP.NET Core 6, 7 & 8 | ASP.NET Core Projects |
-                                    Bootcamp | Advanced | Interview Questions | Web API |
-                                    MVC *@
+                            Bootcamp | Advanced | Interview Questions | Web API |
+                            MVC *@
                                         @items.TopicsCovered
                                     </p>
                                     <p class="meta">
@@ -235,26 +237,26 @@
 
 
                     </div>
-            @{
-                var CategoryId = Model?.FirstOrDefault()?.CategoryId ?? 0;
-            }
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                        <a class="page-link" asp-action="Details" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-categoryId="@(CategoryId)">Previous</a>
-                    </li>
-                    @for (int i = 1; i <= Model.TotalPages; i++)
-                    {
-                        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
-                            <a class="page-link" asp-action="Details" asp-route-pageNumber="@i" asp-route-categoryId="@(CategoryId)">@i</a>
-                        </li>
+                    @{
+                        var CategoryId = Model?.FirstOrDefault()?.CategoryId ?? 0;
                     }
-                    <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                        <a class="page-link" asp-action="Details" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-categoryId="@(CategoryId)">Next</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                                <a class="page-link" asp-action="Details" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-categoryId="@(CategoryId)">Previous</a>
+                            </li>
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                                    <a class="page-link" asp-action="Details" asp-route-pageNumber="@i" asp-route-categoryId="@(CategoryId)">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                                <a class="page-link" asp-action="Details" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-categoryId="@(CategoryId)">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 
                 <!-- END FILTERS -->
                 <!-- BEGIN RESULT -->
@@ -262,19 +264,27 @@
                     <div class="padding">
                         <div class="row">
                             <!-- BEGIN TABLE RESULT -->
-                            
                             <!--kjuuuggygy-->
                             <!-- BEGIN PAGINATION -->
-                                          <!-- END PAGINATION -->
+                            <!-- END PAGINATION -->
                         </div>
                         <!-- END RESULT -->
 
 
 
 
+                    </div>
                 </div>
-                </div>
-                </div>
+            </div>
+
+
+
+        }
+        else
+        {
+            <h2> No Courses found for this Category Yet ....</h2>
+        }
+    }
                 </div>
              
           

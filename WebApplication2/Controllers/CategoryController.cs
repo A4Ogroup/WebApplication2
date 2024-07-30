@@ -40,13 +40,7 @@ namespace WebApplication2.Controllers
              return NotFound();
                
             }
-            //if (!_categoryRepository.SubCategoryExists(subCategoryId))
-            //{
-
-            //    return NotFound();
-
-            //}
-
+            
 
             var courses = _courseRepository.GetCoursesByCategory(categoryId).AsQueryable();
             
@@ -60,19 +54,11 @@ namespace WebApplication2.Controllers
             ViewBag.categoryName = _categoryRepository.GetById((byte)categoryId).CategoryName;
             ViewBag.subCategories = _categoryRepository.GetSubCategories(categoryId);
             ViewBag.CategoryRecordCount = courses?.Count() ?? 0;
-            //var categoryViewModel = new CategoryViewModel()
-            //{
-            //    categoryName = _categoryRepository.GetById(categoryId).CategoryName,
-            //    courses = courses,
-            //    subCategories = _categoryRepository.GetSubCategories(categoryId)
-
-
-            //};
+            
 
 
 
             return View(await PaginatedList<Course>.CreateAsync(courses.AsNoTracking(), pageNumber ?? 1, pageSize));
-            //return View(categoryViewModel);
         }
 
         [AllowAnonymous]
@@ -96,7 +82,6 @@ namespace WebApplication2.Controllers
             var courses = _courseRepository.GetCoursesByCategory(categoryId).AsQueryable();
             courses = courses.Where(c => c.SubcategoryId == subCategoryId);
 
-            //var courses = _context.Courses.Where(c=>c.CategoryId==categoryId);
             if (courses == null)
             {
                 return NotFound();
@@ -105,19 +90,7 @@ namespace WebApplication2.Controllers
             ViewBag.categoryName = _categoryRepository.GetById((byte)categoryId).CategoryName;
             ViewBag.subCategories = _categoryRepository.GetSubCategories(categoryId);
             ViewBag.CategoryRecordCount = courses?.Count() ?? 0;
-            //var categoryViewModel = new CategoryViewModel()
-            //{
-            //    categoryName = _categoryRepository.GetById(categoryId).CategoryName,
-            //    courses = courses,
-            //    subCategories = _categoryRepository.GetSubCategories(categoryId)
-
-
-            //};
-
-
-
             return View(nameof(Details),await PaginatedList<Course>.CreateAsync(courses.AsNoTracking(), pageNumber ?? 1, pageSize));
-            //return View(categoryViewModel);
         }
     }
 }
