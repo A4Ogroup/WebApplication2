@@ -55,7 +55,7 @@ namespace WebApplication2.ViewModels
         [Required(ErrorMessage = "Link field is required")]
         public string Link { get; set; }
 
-        public IEnumerable<Category> Categories { get; set; }
-        public IEnumerable<Language> Languages { get; set; }
+        public IEnumerable<Category>? Categories { get; set; }
+        public IEnumerable<Language>? Languages { get; set; }
     }
 }

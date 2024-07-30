@@ -87,8 +87,8 @@ namespace WebApplication2.Controllers
             string uniqeFileName = ProcessUploadFile(model, x => x.Picture);
 
             //string uniqeFileName = ProcessUploadFile(model);
-            ViewBag.Categories = _context.Categories;
-            ViewBag.Languages = _context.Languages;
+            //ViewBag.Categories = _context.Categories;
+            //ViewBag.Languages = _context.Languages;
 
             string idToSave = null;
             bool _status = true;
@@ -97,6 +97,7 @@ namespace WebApplication2.Controllers
             if (User.IsInRole("Student")|| User.IsInRole("Admin"))
             {
                 idToSave = model.AddedByUserId;
+
             }
             else if (User.IsInRole("Instructor"))
             {
@@ -134,6 +135,7 @@ namespace WebApplication2.Controllers
                 };
                 _courseRepository.Add(newCourse);
                 _courseRepository.Save();
+                
                 TempData["Success"] = "Course added successfully!";
                 return RedirectToAction("index", "instructor");
             }

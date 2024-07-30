@@ -98,6 +98,7 @@ namespace WebApplication2.Controllers
         {
             var instructortId = _userManager.GetUserId(User);
             var instructor = _instructorRepository.GetById(instructortId);
+            var courses = _courseRepository.GetAllWithLanguageAddedByInstructor(instructortId);
 
             var _instructor = new InstructorDetailsViewModel
             {
@@ -111,6 +112,7 @@ namespace WebApplication2.Controllers
                 YearsExperince=instructor.YearsExperince,
                 Website=instructor.Website,
                 About=instructor.About,
+                Courses=courses
             };
             return View(_instructor);
         }

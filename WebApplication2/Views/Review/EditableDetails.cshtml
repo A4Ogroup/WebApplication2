@@ -287,7 +287,9 @@
                 <div class="col-lg-12">
                     <fieldset>
                         <a type="submit" id="form-submit" class="filled-button" asp-action="review" asp-controller="admin">Back To List </a>
-                        <a type="submit" id="form-submit" class="filled-button" asp-action="editreview" asp-controller="review" asp-route-id="@Model.ReviewId">Edit </a>
+
+             @*            <a type="submit" id="form-submit" class="filled-button" asp-action="editreview" asp-controller="review" asp-route-id="@Model.ReviewId">Edit </a> *@
+
                         <a type="submit" id="form-submit" class="filled-button" asp-action="delete" asp-controller="review" asp-route-id="@Model.ReviewId">Delete </a>
                     </fieldset>
                 </div>
